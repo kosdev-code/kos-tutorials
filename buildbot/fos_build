@@ -21,4 +21,6 @@ echo "*****"
 echo "mvn -version"
 mvn -version
 
+echo ""
 mvn -B clean install || exit 1
+echo ""
