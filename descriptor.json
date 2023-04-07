@@ -1,0 +1,6 @@
+{
+  "app": {
+    "appClass": "com.tccc.kos.tutorials.a1_helloworld.MyApp",
+    "appId": "system"
+  }
+}
