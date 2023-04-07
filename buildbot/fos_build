@@ -1,0 +1,24 @@
+#!/bin/bash
+set -e
+
+echo ""
+echo "*****"
+echo "export"
+export
+
+echo ""
+echo "*****"
+echo "java -version"
+java -version
+
+echo ""
+echo "*****"
+echo "javac -version"
+javac -version
+
+echo ""
+echo "*****"
+echo "mvn -version"
+mvn -version
+
+mvn -B clean install || exit 1
