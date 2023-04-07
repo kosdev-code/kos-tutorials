@@ -14,6 +14,7 @@
         <groupId>com.tccc.kos</groupId>
         <artifactId>bom</artifactId>
         <version>1.0.0-SNAPSHOT</version>
+        <relativePath/>
     </parent>
 
     <!-- ====== Basics =============================================================== -->
