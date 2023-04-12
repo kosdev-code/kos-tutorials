@@ -48,7 +48,7 @@
                 <!-- $ mvn com.tccc.kos.maven:kos-maven-plugin:1.0.0-SNAPSHOT:kabtool -->
                 <groupId>com.tccc.kos.maven</groupId>
                 <artifactId>kos-maven-plugin</artifactId>
-                <version>${kos-maven-plugin.version}</version>
+                <version>${project.version}</version>
                 <configuration>
                     <name>MyApp</name>
                     <type>kos.app</type>
