@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ====== Basics =============================================================== -->
+
+    <artifactId>getting-started</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>kos-tutorials-getting-started</name>
+
+    <!-- ====== Parent =============================================================== -->
+
+    <parent>
+        <groupId>com.tccc.kos.tutorials</groupId>
+        <artifactId>kos-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <!-- ====== Build ================================================================ -->
+
+    <build>
+        <plugins>
+            <!-- Zip up the build contents -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Put the Zip file into a KAB -->
+            <plugin>
+                <!-- $ mvn kos:kabtool -->
+                <!-- $ mvn com.tccc.kos.maven:kos-maven-plugin:1.0.0-SNAPSHOT:kabtool -->
+                <groupId>com.tccc.kos.maven</groupId>
+                <artifactId>kos-maven-plugin</artifactId>
+                <version>${kos-maven-plugin.version}</version>
+                <configuration>
+                    <name>MyApp</name>
+                    <type>kos.app</type>
+                    <version>${project.version}</version>
+                    <keySetFileName>${project.parent.basedir}/../kos_core/files/dev.keyset</keySetFileName>
+                    <zipFileName>${project.build.directory}/${project.artifactId}-${project.version}-myapp.zip</zipFileName>
+                    <kabFileName>${project.build.directory}/${project.artifactId}-${project.version}.kab</kabFileName>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>kabtool</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

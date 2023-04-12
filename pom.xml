@@ -11,9 +11,10 @@
     <!-- ====== Basics =============================================================== -->
 
     <groupId>com.tccc.kos.tutorials</groupId>
-    <artifactId>kos-tutorials</artifactId>
-    <version>0.1.0</version>
-    <name>kos-tutorials</name>
+    <artifactId>kos-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>kos-tutorials-parent</name>
 
     <!-- ====== Parent =============================================================== -->
 
@@ -29,6 +30,12 @@
     <properties>
         <kos.version>1.0.0-SNAPSHOT</kos.version>
     </properties>
+
+    <!-- ====== Modules ============================================================== -->
+
+    <modules>
+        <module>getting-started</module>
+    </modules>
 
     <!-- region Dependencies ========================================================= -->
     <dependencies>
@@ -46,54 +53,6 @@
         </dependency>
     </dependencies>
     <!-- endregion -->
-
-    <build>
-        <plugins>
-            <!-- Zip up the build contents -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>assembly.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Put the Zip file into a KAB -->
-            <plugin>
-                <!-- $ mvn kos:kabtool -->
-                <!-- $ mvn com.tccc.kos.maven:kos-maven-plugin:1.0.0-SNAPSHOT:kabtool -->
-                <groupId>com.tccc.kos.maven</groupId>
-                <artifactId>kos-maven-plugin</artifactId>
-                <configuration>
-                    <name>MyApp</name>
-                    <type>kos.app</type>
-                    <version>${project.version}</version>
-                    <keySetFileName>${project.basedir}/../kos_core/files/dev.keyset</keySetFileName>
-                    <zipFileName>${project.build.directory}/${project.artifactId}-${project.version}-myapp.zip</zipFileName>
-                    <kabFileName>${project.build.directory}/${project.artifactId}-${project.version}.kab</kabFileName>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>kabtool</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 
     <!-- region Repositories ========================================================= -->
     <!-- (last updated 2023-02-27 by RS) -->
