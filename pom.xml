@@ -56,6 +56,7 @@
 
     <!-- region Repositories ========================================================= -->
     <!-- (last updated 2023-04-12 by RS) -->
+    <!-- (need this so that the parent POM can be located -->
     <repositories>
         <repository>
             <id>fos.releases</id>
@@ -85,22 +86,6 @@
             </releases>
             <snapshots>
                 <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>dcache</id>
-            <name>dcache repository for nfs</name>
-            <url>https://download.dcache.org/nexus/repository/releases</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
                 <updatePolicy>always</updatePolicy>
                 <checksumPolicy>fail</checksumPolicy>
             </snapshots>

@@ -1,9 +1,0 @@
-#!/bin/bash
-set -e
-
-THIS_SCRIPT=$(realpath "$0")
-THIS_SCRIPT_DIR=$(dirname "$THIS_SCRIPT")
-
-echo ""
-mvn -B deploy
-echo ""
