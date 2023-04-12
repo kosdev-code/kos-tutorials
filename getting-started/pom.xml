@@ -45,7 +45,6 @@
             <!-- Put the Zip file into a KAB -->
             <!-- $ mvn kos:kabtool -->
             <!-- $ mvn com.tccc.kos.maven:kos-maven-plugin:1.0.0-SNAPSHOT:kabtool -->
-            <!--
             <plugin>
                 <groupId>com.tccc.kos.maven</groupId>
                 <artifactId>kos-maven-plugin</artifactId>
@@ -58,16 +57,17 @@
                     <zipFileName>${project.build.directory}/${project.artifactId}-${project.version}-myapp.zip</zipFileName>
                     <kabFileName>${project.build.directory}/${project.artifactId}-${project.version}.kab</kabFileName>
                 </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>kabtool</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <!--
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>kabtool</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                -->
             </plugin>
-            -->
         </plugins>
     </build>
 
