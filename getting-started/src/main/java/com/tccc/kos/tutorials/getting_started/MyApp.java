@@ -1,7 +1,7 @@
 /**
  * (C) Copyright 2023 TCCC. All rights reserved.
  */
-package com.tccc.kos.tutorials.a1_helloworld;
+package com.tccc.kos.tutorials.getting_started;
 
 import com.tccc.kos.commons.core.service.config.ConfigBean;
 import com.tccc.kos.core.service.app.SystemApplication;
