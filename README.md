@@ -1,1 +1,1 @@
-# kos_tutorials
+# kos-tutorials
