@@ -53,7 +53,6 @@
                     <name>MyApp</name>
                     <type>kos.app</type>
                     <version>${project.version}</version>
-                    <keySetFileName>${project.parent.basedir}/../kos_core/files/dev.keyset</keySetFileName>
                     <zipFileName>${project.build.directory}/${project.artifactId}-${project.version}-myapp.zip</zipFileName>
                     <kabFileName>${project.build.directory}/${project.artifactId}-${project.version}.kab</kabFileName>
                 </configuration>
