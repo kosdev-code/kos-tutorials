@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   - kOS tutorials
-  - @version 2023-04-07
+  - @version 2023-05-03
  -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <!-- ====== Basics =============================================================== -->
-
-    <groupId>com.tccc.kos.tutorials</groupId>
-    <artifactId>kos-parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <name>kos-tutorials-parent</name>
 
     <!-- ====== Parent =============================================================== -->
 
@@ -24,6 +16,14 @@
         <version>1.0.0-SNAPSHOT</version>
         <relativePath/>
     </parent>
+
+    <!-- ====== Basics =============================================================== -->
+
+    <groupId>com.tccc.kos.tutorials</groupId>
+    <artifactId>kos-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>kos-tutorials-parent</name>
 
     <!-- ====== Properties =========================================================== -->
 
@@ -37,7 +37,8 @@
         <module>getting-started</module>
     </modules>
 
-    <!-- region Dependencies ========================================================= -->
+    <!-- ====== Dependencies ========================================================= -->
+
     <dependencies>
         <dependency>
             <groupId>com.tccc.kos.sdk</groupId>
@@ -52,16 +53,15 @@
             <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
-    <!-- endregion -->
 
-    <!-- region Repositories ========================================================= -->
-    <!-- (last updated 2023-04-12 by RS) -->
-    <!-- (need this so that the parent POM can be located -->
+    <!-- ====== Repositories ========================================================= -->
+    <!-- (need this so that the parent POM can be located) -->
+
     <repositories>
         <repository>
-            <id>fos.releases</id>
-            <name>FOS Release Repository</name>
-            <url>${tccc.repo.url}/fos-releases</url>
+            <id>kosdevcode.releases</id>
+            <name>kOS Release Repository</name>
+            <url>https://maven.pkg.github.com/kosdev-code/kos-maven</url>
             <layout>default</layout>
             <releases>
                 <enabled>true</enabled>
@@ -70,19 +70,15 @@
             </releases>
             <snapshots>
                 <enabled>false</enabled>
-                <updatePolicy>always</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
             </snapshots>
         </repository>
         <repository>
-            <id>fos.snapshots</id>
-            <name>FOS Snapshot Repository</name>
-            <url>${tccc.repo.url}/fos-snapshots</url>
+            <id>kosdevcode.snapshots</id>
+            <name>kOS Snapshot Repository</name>
+            <url>https://maven.pkg.github.com/kosdev-code/kos-maven</url>
             <layout>default</layout>
             <releases>
                 <enabled>false</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
@@ -91,6 +87,5 @@
             </snapshots>
         </repository>
     </repositories>
-    <!-- endregion -->
 
 </project>
