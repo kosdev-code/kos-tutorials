@@ -9,7 +9,7 @@
     </formats>
     <files>
         <file>
-            <source>descriptor.json</source>
+            <source>src/main/resources/descriptor.json</source>
             <outputDirectory>/</outputDirectory>
         </file>
         <file>

@@ -14,6 +14,13 @@
     <version>1.0.0-SNAPSHOT</version>
     <name>kos-tutorials-getting-started</name>
 
+    <!-- ====== Properties =========================================================== -->
+
+    <properties>
+        <kos.version>1.0.0-SNAPSHOT</kos.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <!-- ====== Dependency Management ================================================ -->
 
     <dependencyManagement>
@@ -21,7 +28,7 @@
             <dependency>
                 <groupId>com.tccc.kos</groupId>
                 <artifactId>bom</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>${kos.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -67,53 +74,61 @@
         </repository>
     </repositories>
 
-    <!-- ====== Build ================================================================ -->
+    <!-- ====== Profiles ============================================================= -->
 
-    <build>
-        <plugins>
-            <!-- Zip up the build contents -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
+    <profiles>
+        <profile>
+            <id>developer</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- Convert the contents of the build into a ZIP file -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>3.5.0</version>
+                        <executions>
+                            <execution>
+                                <id>make-assembly</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>src/main/resources/assembly.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Convert the ZIP file to a KAB file -->
+                    <plugin>
+                        <groupId>com.tccc.kos.maven</groupId>
+                        <artifactId>kos-maven-plugin</artifactId>
+                        <version>${kos.version}</version>
                         <configuration>
-                            <descriptors>
-                                <descriptor>assembly.xml</descriptor>
-                            </descriptors>
+                            <name>MyApp</name>
+                            <type>kos.app</type>
+                            <version>${project.version}</version>
+                            <zipFileName>${project.build.directory}/${project.artifactId}-${project.version}-myapp.zip</zipFileName>
+                            <kabFileName>${project.build.directory}/${project.artifactId}-${project.version}.kab</kabFileName>
                         </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Put the Zip file into a KAB -->
-            <plugin>
-                <groupId>com.tccc.kos.maven</groupId>
-                <artifactId>kos-maven-plugin</artifactId>
-                <version>${project.version}</version>
-                <configuration>
-                    <name>MyApp</name>
-                    <type>kos.app</type>
-                    <version>${project.version}</version>
-                    <zipFileName>${project.build.directory}/${project.artifactId}-${project.version}-myapp.zip
-                    </zipFileName>
-                    <kabFileName>${project.build.directory}/${project.artifactId}-${project.version}.kab</kabFileName>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>kabtool</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>kabtool</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
