@@ -1,22 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - kOS Tutorials: getting-started
+ -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!-- ====== Basics =============================================================== -->
 
+    <groupId>com.tccc.kos.tutorials</groupId>
     <artifactId>getting-started</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>kos-tutorials-getting-started</name>
 
-    <!-- ====== Parent =============================================================== -->
+    <!-- ====== Dependency Management ================================================ -->
 
-    <parent>
-        <groupId>com.tccc.kos.tutorials</groupId>
-        <artifactId>kos-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-    </parent>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.tccc.kos</groupId>
+                <artifactId>bom</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- ====== Dependencies ========================================================= -->
+
+    <dependencies>
+        <dependency>
+            <groupId>com.tccc.kos.sdk</groupId>
+            <artifactId>api-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+
+    <!-- ====== Repositories ========================================================= -->
+    <!-- (need this so that the kOS BOM can be located) -->
+
+    <repositories>
+        <repository>
+            <id>kosdevcode.releases</id>
+            <name>kOS Release Repository</name>
+            <url>https://maven.pkg.github.com/kosdev-code/kos-maven</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <!-- ====== Build ================================================================ -->
 
@@ -43,8 +92,6 @@
             </plugin>
 
             <!-- Put the Zip file into a KAB -->
-            <!-- $ mvn kos:kabtool -->
-            <!-- $ mvn com.tccc.kos.maven:kos-maven-plugin:1.0.0-SNAPSHOT:kabtool -->
             <plugin>
                 <groupId>com.tccc.kos.maven</groupId>
                 <artifactId>kos-maven-plugin</artifactId>
@@ -53,7 +100,8 @@
                     <name>MyApp</name>
                     <type>kos.app</type>
                     <version>${project.version}</version>
-                    <zipFileName>${project.build.directory}/${project.artifactId}-${project.version}-myapp.zip</zipFileName>
+                    <zipFileName>${project.build.directory}/${project.artifactId}-${project.version}-myapp.zip
+                    </zipFileName>
                     <kabFileName>${project.build.directory}/${project.artifactId}-${project.version}.kab</kabFileName>
                 </configuration>
                 <executions>

@@ -30,6 +30,7 @@
 
     <!-- ====== Dependency Management ================================================ -->
 
+    <!--
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -41,9 +42,11 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    -->
 
     <!-- ====== Dependencies ========================================================= -->
 
+    <!--
     <dependencies>
         <dependency>
             <groupId>com.tccc.kos.sdk</groupId>
@@ -58,10 +61,12 @@
             <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
+    -->
 
     <!-- ====== Repositories ========================================================= -->
     <!-- (need this so that the kOS BOM can be located) -->
 
+    <!--
     <repositories>
         <repository>
             <id>kosdevcode.releases</id>
@@ -80,5 +85,6 @@
             </snapshots>
         </repository>
     </repositories>
+    -->
 
 </project>
