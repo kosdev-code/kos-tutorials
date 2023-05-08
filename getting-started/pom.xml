@@ -11,7 +11,7 @@
 
     <groupId>com.tccc.kos.tutorials</groupId>
     <artifactId>getting-started</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.2.3</version>
     <name>kos-tutorials-getting-started</name>
 
     <!-- ====== Properties =========================================================== -->
@@ -109,14 +109,6 @@
                     <plugin>
                         <groupId>com.tccc.kos.maven</groupId>
                         <artifactId>kos-maven-plugin</artifactId>
-                        <version>${kos.version}</version>
-                        <configuration>
-                            <name>MyApp</name>
-                            <type>kos.app</type>
-                            <version>${project.version}</version>
-                            <zipFileName>${project.build.directory}/${project.artifactId}-${project.version}-myapp.zip</zipFileName>
-                            <kabFileName>${project.build.directory}/${project.artifactId}-${project.version}.kab</kabFileName>
-                        </configuration>
                         <executions>
                             <execution>
                                 <phase>package</phase>
