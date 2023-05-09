@@ -18,6 +18,8 @@
 
     <properties>
         <kos.version>1.0.0-SNAPSHOT</kos.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -53,7 +55,6 @@
     </dependencies>
 
     <!-- ====== Repositories ========================================================= -->
-    <!-- (need this so that the kOS BOM can be located) -->
 
     <repositories>
         <repository>
