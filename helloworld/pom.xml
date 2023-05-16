@@ -9,10 +9,9 @@
 
     <!-- ====== Basics =============================================================== -->
 
-    <groupId>com.tccc.kos.tutorials</groupId>
-    <artifactId>helloworld</artifactId>
+    <groupId>com.example</groupId>
+    <artifactId>hello-world</artifactId>
     <version>1.2.3</version>
-    <name>kos-tutorials-getting-started</name>
 
     <!-- ====== Properties =========================================================== -->
 
