@@ -10,7 +10,7 @@
     <!-- ====== Basics =============================================================== -->
 
     <groupId>com.tccc.kos.tutorials</groupId>
-    <artifactId>getting-started</artifactId>
+    <artifactId>helloworld</artifactId>
     <version>1.2.3</version>
     <name>kos-tutorials-getting-started</name>
 
@@ -58,7 +58,7 @@
 
     <repositories>
         <repository>
-            <id>kosdevcode.releases</id>
+            <id>kosdevcode</id>
             <name>kOS Release Repository</name>
             <url>https://maven.pkg.github.com/kosdev-code/kos-maven</url>
             <layout>default</layout>
@@ -75,53 +75,64 @@
         </repository>
     </repositories>
 
-    <!-- ====== Profiles ============================================================= -->
+    <!-- ====== Plugin Repositories ================================================== -->
 
-    <profiles>
-        <profile>
-            <id>developer</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <!-- Convert the contents of the build into a ZIP file -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <version>3.5.0</version>
-                        <executions>
-                            <execution>
-                                <id>make-assembly</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                                <configuration>
-                                    <descriptors>
-                                        <descriptor>assembly.xml</descriptor>
-                                    </descriptors>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>kosdevcode</id>
+            <name>kOS Plugin Repository</name>
+            <url>https://maven.pkg.github.com/kosdev-code/kos-maven</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
-                    <!-- Convert the ZIP file to a KAB file -->
-                    <plugin>
-                        <groupId>com.tccc.kos.maven</groupId>
-                        <artifactId>kos-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>kabtool</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+    <!-- ====== Build ================================================================ -->
+
+    <build>
+        <plugins>
+            <!-- Convert the contents of the build into a ZIP file -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Convert the ZIP file to a KAB file -->
+            <plugin>
+                <groupId>com.tccc.kos.maven</groupId>
+                <artifactId>kos-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>kabtool</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

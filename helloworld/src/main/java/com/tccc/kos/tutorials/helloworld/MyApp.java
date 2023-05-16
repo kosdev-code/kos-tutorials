@@ -1,7 +1,7 @@
 /**
  * (C) Copyright 2023 TCCC. All rights reserved.
  */
-package com.tccc.kos.tutorials.getting_started;
+package com.tccc.kos.tutorials.helloworld;
 
 import com.tccc.kos.core.service.app.SystemApplication;
 import lombok.extern.slf4j.Slf4j;
