@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   - kOS tutorials
-  - @version 2023-05-16
+  - @version 2023-05-17
  -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -12,14 +12,14 @@
 
     <groupId>com.tccc.kos.tutorials</groupId>
     <artifactId>kos-parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>kos-tutorials-parent</name>
 
     <!-- ====== Properties =========================================================== -->
 
     <properties>
-        <kos.version>1.0.0-SNAPSHOT</kos.version>
+        <kos.version>0.1.0-SNAPSHOT</kos.version>
     </properties>
 
     <!-- ====== Modules ============================================================== -->
