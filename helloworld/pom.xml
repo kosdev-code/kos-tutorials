@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  - kOS Tutorials: getting-started
+  - kOS Tutorials: hello-world
  -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -17,6 +17,7 @@
 
     <properties>
         <kos.version>0.1.0-SNAPSHOT</kos.version>
+        <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -53,7 +54,7 @@
         </dependency>
     </dependencies>
 
-    <!-- ====== Repositories ========================================================= -->
+    <!-- ====== Code Repositories ==================================================== -->
 
     <repositories>
         <repository>
@@ -102,7 +103,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.5.0</version>
+                <version>${maven-assembly-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>make-assembly</id>
