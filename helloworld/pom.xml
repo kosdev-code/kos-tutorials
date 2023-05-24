@@ -47,9 +47,8 @@
     <repositories>
         <repository>
             <id>kosdevcode</id>
-            <name>kOS Release Repository</name>
+            <name>kOS Code Repository</name>
             <url>https://maven.pkg.github.com/kosdev-code/kos-maven</url>
-            <layout>default</layout>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
