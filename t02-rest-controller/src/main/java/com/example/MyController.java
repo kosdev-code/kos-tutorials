@@ -4,8 +4,12 @@ import com.tccc.kos.commons.core.dispatcher.annotations.ApiController;
 import com.tccc.kos.commons.core.dispatcher.annotations.ApiEndpoint;
 import com.tccc.kos.commons.core.dispatcher.annotations.ApiVersion;
 import com.tccc.kos.commons.core.dispatcher.annotations.PathVariable;
+import com.tccc.kos.commons.core.dispatcher.annotations.RequestParam;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ApiController(base = "/mycontroller", title = "My first kOS REST controller")
 public class MyController {
@@ -36,6 +40,20 @@ public class MyController {
     public MyBean getBean(@PathVariable("id") Integer id) {
         MyBean myBean = new MyBean(id, "Fred", "Flintstone");
         return myBean;
+    }
+
+    /**
+     * GET http://localhost:{port}/api/system/mycontroller/user/list?order=firstName&limit=10
+     * passes in: the parameter "order" contains "firstName" and the parameter "limit" is "10"
+     */
+    @ApiEndpoint(GET = "/user/list", desc = "")
+    public List<MyBean> listUsers(
+            @RequestParam(value = "order", required = true) String order,
+            @RequestParam(value = "limit", defaultValue = "20") Integer limit) {
+        List<MyBean> list = new ArrayList<>(limit);
+        list.add(new MyBean(1, "Fred", "Foo"));
+        list.add(new MyBean(2, "Barney", "Bar"));
+        return list;
     }
 
     @Data
