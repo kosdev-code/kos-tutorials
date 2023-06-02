@@ -23,6 +23,7 @@
     <modules>
         <module>t01-hello-world</module>
         <module>t02-rest-controller</module>
+        <module>t03-demo-dispenser</module>
     </modules>
 
 </project>
