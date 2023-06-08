@@ -1,6 +1,3 @@
-/**
- * (C) Copyright 2023 TCCC. All rights reserved.
- */
 package com.example;
 
 import com.tccc.kos.core.service.app.AppConfig;

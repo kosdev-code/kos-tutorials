@@ -5,11 +5,10 @@ import com.tccc.kos.commons.core.dispatcher.annotations.ApiEndpoint;
 import com.tccc.kos.commons.core.dispatcher.annotations.ApiVersion;
 import com.tccc.kos.commons.core.dispatcher.annotations.PathVariable;
 import com.tccc.kos.commons.core.dispatcher.annotations.RequestParam;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 @ApiController(base = "/mycontroller", title = "My first kOS REST controller")
 public class MyController {
