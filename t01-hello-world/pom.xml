@@ -7,8 +7,8 @@
     <!-- ====== Basics =============================================================== -->
 
     <groupId>com.example</groupId>
-    <artifactId>my-kos-app</artifactId>
-    <version>1.0.1</version>
+    <artifactId>t01-hello-world</artifactId>
+    <version>1.2.3</version>
 
     <!-- ====== Properties =========================================================== -->
 
