@@ -20,27 +20,27 @@ public class OurBoard extends Board {
 
     /**
      * Creates our pumps at the given positions:
-     * - 1) plain water
-     * - 2) carbonated water
-     * - 3) syrup #1 (don't care what the ingredients are at this time)
-     * - 4) syrup #2
-     * - 5) syrup #3
-     * - 6) syrup #4
+     * - 1) pw: plain water
+     * - 2) cw: carbonated water
+     * - 3) s1: syrup #1 (don't care what the ingredients are at this time)
+     * - 4) s2: syrup #2
+     * - 5) s3: syrup #3
+     * - 6) s4: syrup #4
      */
     public OurBoard(Assembly assembly, String name, String instanceId) {
         super(assembly, name);
         this.instanceId = instanceId;
 
         // Create the plain water pump (#1):
-        plainWaterPump = new OurPump(this, 1, "pw", "water");
+        plainWaterPump = new OurPump(this, 1, "P1", "water");
 
         // Create the carbonated water pump (#2):
-        carbonatedWaterPump = new OurPump(this, 2, "cw", "water");
+        carbonatedWaterPump = new OurPump(this, 2, "P2", "water");
 
         // Create the syrup pumps (#3 - #6):
         syrupPumps = new ArrayList<>();
         for (int i = 1; i <= 4; i++) {
-            syrupPumps.add(new OurPump(this, i + 2, "s" + i, null));
+            syrupPumps.add(new OurPump(this, i + 2, "P" + i, null));
         }
 
         // Create list of all pumps:
@@ -52,7 +52,7 @@ public class OurBoard extends Board {
 
     @Override
     public String getType() {
-        return "our.board";
+        return "our.boardType";
     }
 
     @Override

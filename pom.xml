@@ -23,7 +23,9 @@
     <modules>
         <module>t01-hello-world</module>
         <module>t02-rest-controller</module>
-        <module>t03-demo-dispenser</module>
+        <module>t03-how-to-debug-code</module>
+        <module>t04-demo-dispenser</module>
+        <module>t05-rest-api-endpoints</module>
     </modules>
 
 </project>

@@ -22,7 +22,7 @@ public class OurPump extends Pump<PumpConfig> {
 
     @Override
     public String getType() {
-        return "our.pump";
+        return "our.pumpType";
     }
 
     @Override

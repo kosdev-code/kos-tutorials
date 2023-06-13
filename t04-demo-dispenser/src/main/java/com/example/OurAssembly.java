@@ -43,11 +43,11 @@ public class OurAssembly extends CoreAssembly {
 
     @Override
     public void install() {
-        log.info("Installing MyAssembly..");
+        log.info("Installing OurAssembly..");
     }
 
     @Override
     public void uninstall() {
-        log.info("Uninstalling MyAssembly..");
+        log.info("Uninstalling OurAssembly..");
     }
 }

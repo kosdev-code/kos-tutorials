@@ -7,7 +7,7 @@
     <!-- ====== Basics =============================================================== -->
 
     <groupId>com.example</groupId>
-    <artifactId>t03-demo-dispenser</artifactId>
+    <artifactId>t04-demo-dispenser</artifactId>
     <version>1.2.3</version>
 
     <!-- ====== Properties =========================================================== -->
