@@ -32,15 +32,18 @@ public class OurBoard extends Board {
         this.instanceId = instanceId;
 
         // Create the plain water pump (#1):
-        plainWaterPump = new OurPump(this, 1, "P1", "water");
+        int position = 1;
+        plainWaterPump = new OurPump(this, position, "P" + position, "water");
 
         // Create the carbonated water pump (#2):
-        carbonatedWaterPump = new OurPump(this, 2, "P2", "water");
+        position++;
+        carbonatedWaterPump = new OurPump(this, position, "P" + position, "water");
 
         // Create the syrup pumps (#3 - #6):
         syrupPumps = new ArrayList<>();
         for (int i = 1; i <= 4; i++) {
-            syrupPumps.add(new OurPump(this, i + 2, "P" + i, null));
+            position++;
+            syrupPumps.add(new OurPump(this, position, "P" + position, null));
         }
 
         // Create list of all pumps:
