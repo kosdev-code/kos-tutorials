@@ -26,6 +26,7 @@
         <module>t03-how-to-debug-code</module>
         <module>t04-demo-dispenser</module>
         <module>t05-rest-api-endpoints</module>
+        <module>t06-insert-ingredients</module>
     </modules>
 
 </project>
