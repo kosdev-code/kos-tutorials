@@ -1,1 +1,1 @@
-# Tutorial #4: Demo Dispenser (t04-demo-dispenser)
+# Tutorial #6: Insert Ingredients (t06-insert-ingredients)
