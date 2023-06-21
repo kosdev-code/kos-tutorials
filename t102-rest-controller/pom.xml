@@ -7,7 +7,7 @@
     <!-- ====== Basics =============================================================== -->
 
     <groupId>com.example</groupId>
-    <artifactId>t07-pour-engine-and-beverage-graph</artifactId>
+    <artifactId>t102-rest-controller</artifactId>
     <version>1.2.3</version>
 
     <!-- ====== Properties =========================================================== -->
@@ -27,7 +27,7 @@
     <dependencies>
         <dependency>
             <groupId>com.tccc.kos.sdk</groupId>
-            <artifactId>api-dispense</artifactId>
+            <artifactId>api-core</artifactId>
             <version>${kos.version}</version>
             <scope>provided</scope>
         </dependency>

@@ -7,7 +7,7 @@
     <!-- ====== Basics =============================================================== -->
 
     <groupId>com.example</groupId>
-    <artifactId>t04-demo-dispenser</artifactId>
+    <artifactId>t107-pour-engine-and-beverage-graph</artifactId>
     <version>1.2.3</version>
 
     <!-- ====== Properties =========================================================== -->

@@ -7,7 +7,7 @@
     <!-- ====== Basics =============================================================== -->
 
     <groupId>com.example</groupId>
-    <artifactId>t02-rest-controller</artifactId>
+    <artifactId>t104-demo-dispenser</artifactId>
     <version>1.2.3</version>
 
     <!-- ====== Properties =========================================================== -->
@@ -27,7 +27,7 @@
     <dependencies>
         <dependency>
             <groupId>com.tccc.kos.sdk</groupId>
-            <artifactId>api-core</artifactId>
+            <artifactId>api-dispense</artifactId>
             <version>${kos.version}</version>
             <scope>provided</scope>
         </dependency>

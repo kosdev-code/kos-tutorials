@@ -7,7 +7,7 @@
     <!-- ====== Basics =============================================================== -->
 
     <groupId>com.example</groupId>
-    <artifactId>t06-insert-ingredients</artifactId>
+    <artifactId>t101-hello-world</artifactId>
     <version>1.2.3</version>
 
     <!-- ====== Properties =========================================================== -->
@@ -27,7 +27,7 @@
     <dependencies>
         <dependency>
             <groupId>com.tccc.kos.sdk</groupId>
-            <artifactId>api-dispense</artifactId>
+            <artifactId>api-core</artifactId>
             <version>${kos.version}</version>
             <scope>provided</scope>
         </dependency>

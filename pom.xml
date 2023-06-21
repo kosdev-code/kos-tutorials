@@ -21,13 +21,13 @@
     <!-- ====== Modules ============================================================== -->
 
     <modules>
-        <module>t01-hello-world</module>
-        <module>t02-rest-controller</module>
-        <module>t03-how-to-debug-code</module>
-        <module>t04-demo-dispenser</module>
-        <module>t05-rest-api-endpoints</module>
-        <module>t06-insert-ingredients</module>
-        <module>t07-pour-engine-and-beverage-graph</module>
+        <module>t101-hello-world</module>
+        <module>t102-rest-controller</module>
+        <module>t103-how-to-debug-code</module>
+        <module>t104-demo-dispenser</module>
+        <module>t105-rest-api-endpoints</module>
+        <module>t106-insert-ingredients</module>
+        <module>t107-pour-engine-and-beverage-graph</module>
     </modules>
 
 </project>

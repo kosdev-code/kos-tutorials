@@ -7,7 +7,7 @@
     <!-- ====== Basics =============================================================== -->
 
     <groupId>com.example</groupId>
-    <artifactId>t03-how-to-debug-code</artifactId>
+    <artifactId>t103-how-to-debug-code</artifactId>
     <version>1.2.3</version>
 
 </project>

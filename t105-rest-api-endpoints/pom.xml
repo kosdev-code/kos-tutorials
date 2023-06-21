@@ -7,7 +7,7 @@
     <!-- ====== Basics =============================================================== -->
 
     <groupId>com.example</groupId>
-    <artifactId>t05-rest-api-endpoints</artifactId>
+    <artifactId>t105-rest-api-endpoints</artifactId>
     <version>1.2.3</version>
 
 </project>
