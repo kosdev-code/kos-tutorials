@@ -7,7 +7,7 @@
     <!-- ====== Basics =============================================================== -->
 
     <groupId>com.tccc.kos.tutorials</groupId>
-    <artifactId>kos-parent</artifactId>
+    <artifactId>kos-tutorials</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>kos-tutorials-parent</name>
@@ -28,6 +28,7 @@
         <module>t105-rest-api-endpoints</module>
         <module>t106-insert-ingredients</module>
         <module>t107-pour-engine-and-beverage-graph</module>
+        <module>t113-use-ui-kab-file</module>
     </modules>
 
 </project>
