@@ -29,6 +29,7 @@
         <module>t106-insert-ingredients</module>
         <module>t107-pour-engine-and-beverage-graph</module>
         <module>t113-use-ui-kab-file</module>
+        <module>t114-ui-on-simulator</module>
     </modules>
 
 </project>
