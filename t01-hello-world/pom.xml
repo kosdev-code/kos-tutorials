@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ====== Basics =============================================================== -->
+
+    <groupId>com.example</groupId>
+    <artifactId>t01-hello-world</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+
+    <!-- ====== Properties =========================================================== -->
+
+    <properties>
+        <kos.version>0.1.0-SNAPSHOT</kos.version>
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <lombok.version>1.18.26</lombok.version>
+        <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
+    </properties>
+
+    <!-- ====== Dependencies ========================================================= -->
+
+    <dependencies>
+        <dependency>
+            <groupId>com.tccc.kos.sdk</groupId>
+            <artifactId>api-core</artifactId>
+            <version>${kos.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- ====== Code Repositories ==================================================== -->
+
+    <repositories>
+        <repository>
+            <id>kosdevcode</id>
+            <name>kOS Code Repository</name>
+            <url>https://maven.pkg.github.com/kosdev-code/kos-maven</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <!-- ====== Plugin Repositories ================================================== -->
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>kosdevcode</id>
+            <name>kOS Plugin Repository</name>
+            <url>https://maven.pkg.github.com/kosdev-code/kos-maven</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <!-- ====== Build ================================================================ -->
+
+    <build>
+        <plugins>
+            <!-- Package the build output into a ZIP file -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${maven-assembly-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Convert the ZIP file to a KAB file -->
+            <plugin>
+                <groupId>com.tccc.kos.maven</groupId>
+                <artifactId>kos-maven-plugin</artifactId>
+                <version>${kos.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>kabtool</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
