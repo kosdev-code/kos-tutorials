@@ -1,0 +1,74 @@
+{
+  "ingredients": [
+    {
+      "id": "coca-cola",
+      "name": "Coca-Cola",
+      "type": "syrup",
+      "carbonated": true,
+      "icon": "icons/Coca-Cola-320.png"
+    },
+    {
+      "id": "diet-coke",
+      "name": "Diet Coke",
+      "type": "syrup",
+      "carbonated": true,
+      "icon": "icons/Diet-Coke-320.png"
+    },
+    {
+      "id": "diet-coke-cfree",
+      "name": "Diet Coke Caffeine Free",
+      "type": "syrup",
+      "carbonated": true,
+      "icon": "icons/Diet-Coke-CFree-320.png"
+    },
+    {
+      "id": "dr-pepper",
+      "name": "Dr Pepper",
+      "type": "syrup",
+      "carbonated": true,
+      "icon": "icons/Dr-Pepper-320.png"
+    },
+    {
+      "id": "dr-pepper-diet",
+      "name": "Dr Pepper Diet",
+      "type": "syrup",
+      "carbonated": true,
+      "icon": "icons/Dr-Pepper-Diet-320.png"
+    },
+    {
+      "id": "fanta-grape",
+      "name": "Fanta Grape",
+      "type": "syrup",
+      "carbonated": false,
+      "icon": "icons/Fanta-Grape-320.png"
+    },
+    {
+      "id": "fanta-orange",
+      "name": "Fanta Orange",
+      "type": "syrup",
+      "carbonated": false,
+      "icon": "icons/Fanta-Orange-320.png"
+    },
+    {
+      "id": "sprite",
+      "name": "Sprite",
+      "type": "syrup",
+      "carbonated": true,
+      "icon": "icons/Sprite-320.png"
+    },
+    {
+      "id": "water-carbonated",
+      "name": "Carbonated Water",
+      "type": "carb",
+      "carbonated": true,
+      "icon": "icons/Water-Carbonated-320.png"
+    },
+    {
+      "id": "water-plain",
+      "name": "Water",
+      "type": "water",
+      "carbonated": false,
+      "icon": "icons/Water-Plain-320.png"
+    }
+  ]
+}

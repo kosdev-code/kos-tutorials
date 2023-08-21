@@ -7,57 +7,18 @@
     <!-- ====== Basics =============================================================== -->
 
     <groupId>com.example</groupId>
-    <artifactId>t02-legacy-dispenser</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <artifactId>brandset</artifactId>
+    <version>1.2.3</version>
+    <packaging>pom</packaging>
+    <name>brandset</name>
 
     <!-- ====== Properties =========================================================== -->
 
     <properties>
         <kos.version>0.1.0-SNAPSHOT</kos.version>
-        <java.version>17</java.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <lombok.version>1.18.26</lombok.version>
         <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
+        <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
     </properties>
-
-    <!-- ====== Dependencies ========================================================= -->
-
-    <dependencies>
-        <dependency>
-            <groupId>com.tccc.kos.sdk</groupId>
-            <artifactId>api-dispense</artifactId>
-            <version>${kos.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
-
-    <!-- ====== Code Repositories ==================================================== -->
-
-    <repositories>
-        <repository>
-            <id>kosdevcode</id>
-            <name>kOS Code Repository</name>
-            <url>https://maven.pkg.github.com/kosdev-code/kos-maven</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </snapshots>
-        </repository>
-    </repositories>
 
     <!-- ====== Plugin Repositories ================================================== -->
 
@@ -108,6 +69,9 @@
                 <groupId>com.tccc.kos.maven</groupId>
                 <artifactId>kos-maven-plugin</artifactId>
                 <version>${kos.version}</version>
+                <configuration>
+                    <type>our-brandset</type>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
