@@ -36,19 +36,19 @@ public class OurPourEngine extends PourEngine<PourEngineConfig> {
     public void rebuildGraph(BevGraphBuilder builder) {
 
         // Add ingredient nodes for every pump:
-        builder.addIngredientNodes(); //<1>
+        builder.addIngredientNodes();
 
         // Process each ingredient available in the builder:
-        for (String ingredientId : builder.getIngredientIds()) { //<2>
+        for (String ingredientId : builder.getIngredientIds()) {
 
             // Look up the ingredient:
-            OurIngredient ingredient = (OurIngredient)getIngredient(ingredientId); //<3>
+            OurIngredient ingredient = (OurIngredient)getIngredient(ingredientId);
             if (ingredient == null) {
                 continue;
             }
 
             // We don't have a beverage that consists only of carbonated water:
-            if (ingredient.getId().equals(OurIngredient.ID.CARB_WATER)) { //<4>
+            if (ingredient.getId().equals(OurIngredient.ID.CARB_WATER)) {
                 continue;
             }
 
@@ -56,14 +56,14 @@ public class OurPourEngine extends PourEngine<PourEngineConfig> {
             // is just a combination of an ingredient with plain or carbonated water.
             // This allows us to create a synthetic beverage ID for each ingredient,
             // which represents the combination of the syrup and a water to form a beverage.
-            String beverageId = "bev:" + ingredientId; //<5>
+            String beverageId = "bev:" + ingredientId;
 
             // Build a beverage for the ingredient using the synthetic beverage ID, but
             // store the ingredient ID in the alt ID field so that we can access it later.
-            builder.addBeverage(new BeverageNode(beverageId, ingredientId)); //<6>
+            builder.addBeverage(new BeverageNode(beverageId, ingredientId));
 
             // The new beverage node depends on the associated BiB ingredient, so link them:
-            builder.addDependency(beverageId, ingredientId); //<7>
+            builder.addDependency(beverageId, ingredientId);
 
             // If the ingredient is a syrup then it needs to be poured with water or carb,
             // so add a dependency for the associated water ingredient:
