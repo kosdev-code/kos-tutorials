@@ -18,7 +18,7 @@ import lombok.Data;
 public class OurIngredientSource implements IngredientSource<OurIngredient> {
 
     // KAB type for brandset files:
-    public static final String KAB_TYPE = "our.brandset";
+    public static final String KAB_TYPE = "our-brandset";
 
     // Mount point for brandset in VFS:
     public static final String MOUNT_POINT = "/brandset";
