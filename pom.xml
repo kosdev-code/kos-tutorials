@@ -22,7 +22,7 @@
 
     <modules>
         <module>t01-hello-world</module>
-        <module>t02-legacy-dispenser</module>
+        <module>t02-demo-dispenser</module>
     </modules>
 
 </project>
