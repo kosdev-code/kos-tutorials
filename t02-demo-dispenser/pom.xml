@@ -13,7 +13,8 @@
     <!-- ====== Properties =========================================================== -->
 
     <properties>
-        <kos.version>0.1.0-SNAPSHOT</kos.version>
+        <kos.version>0.1.1-SNAPSHOT</kos.version>
+        <kos-maven-plugin.version>0.1.0-SNAPSHOT</kos-maven-plugin.version>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -22,14 +23,30 @@
         <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
     </properties>
 
+    <!-- ====== Dependency Management ================================================ -->
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.tccc.kos.bom</groupId>
+                <artifactId>kos-bom</artifactId>
+                <version>${kos.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <!-- ====== Dependencies ========================================================= -->
 
     <dependencies>
         <dependency>
             <groupId>com.tccc.kos.sdk</groupId>
+            <artifactId>api-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.tccc.kos.sdk</groupId>
             <artifactId>api-dispense</artifactId>
-            <version>${kos.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -107,7 +124,7 @@
             <plugin>
                 <groupId>com.tccc.kos.maven</groupId>
                 <artifactId>kos-maven-plugin</artifactId>
-                <version>${kos.version}</version>
+                <version>${kos-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
