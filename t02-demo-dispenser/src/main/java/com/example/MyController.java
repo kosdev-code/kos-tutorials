@@ -2,7 +2,6 @@ package com.example;
 
 import com.tccc.kos.commons.core.dispatcher.annotations.ApiController;
 import com.tccc.kos.commons.core.dispatcher.annotations.ApiEndpoint;
-import com.tccc.kos.commons.core.dispatcher.annotations.ApiVersion;
 import com.tccc.kos.commons.core.dispatcher.annotations.PathVariable;
 import com.tccc.kos.commons.core.dispatcher.annotations.RequestParam;
 import java.util.ArrayList;
@@ -26,8 +25,7 @@ public class MyController {
      * GET http://localhost:{port}/api/system/mycontroller/dosomething
      * returns: {"status":200,"version":{"major":4,"minor":56}}
      */
-    @ApiVersion("4.56")
-    @ApiEndpoint(GET = "/dosomething", desc = "returns void")
+    @ApiEndpoint(GET = "/dosomething", desc = "returns void", version = "4.56")
     public void doSomething() {
     }
 
