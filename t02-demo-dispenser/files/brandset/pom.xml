@@ -15,7 +15,7 @@
     <!-- ====== Properties =========================================================== -->
 
     <properties>
-        <kos.version>0.1.0-SNAPSHOT</kos.version>
+        <kos.version>0.0.0-SNAPSHOT</kos.version>
         <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
         <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
     </properties>

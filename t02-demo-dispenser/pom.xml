@@ -13,7 +13,7 @@
     <!-- ====== Properties =========================================================== -->
 
     <properties>
-        <kos.version>0.1.1-SNAPSHOT</kos.version>
+        <kos.version>0.0.0-SNAPSHOT</kos.version>
         <kos-maven-plugin.version>1.0.0</kos-maven-plugin.version>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>

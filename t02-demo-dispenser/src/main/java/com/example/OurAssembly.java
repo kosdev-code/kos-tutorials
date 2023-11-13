@@ -1,9 +1,8 @@
 package com.example;
 
 import com.tccc.kos.commons.core.context.annotations.Autowired;
-import com.tccc.kos.core.service.assembly.CoreAssembly;
-import com.tccc.kos.ext.dispense.Holder;
-import com.tccc.kos.ext.dispense.pipeline.pour.PourNozzlePipeline;
+import com.tccc.kos.core.service.assembly.Assembly;
+import com.tccc.kos.ext.dispense.pipeline.beverage.BeverageNozzlePipeline;
 import com.tccc.kos.ext.dispense.service.insertion.InsertionService;
 import com.tccc.kos.ext.dispense.service.nozzle.Nozzle;
 import java.util.List;
@@ -11,59 +10,48 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class OurAssembly extends CoreAssembly {
+public class OurAssembly extends Assembly {
 
     @Getter
-    private OurBoard ourBoard;
+    private final OurBoard ourBoard;
+    @Getter
+    private final Nozzle ourNozzle;
     @Autowired
     private InsertionService insertionService;
+    @Autowired
+    private WaterRateProvider waterRateProvider;
 
     public OurAssembly() {
-        buildAssembly();
-    }
 
-    private void buildAssembly() {
+        super("name");
 
         // Create the circuit board and add it to the assembly:
-        ourBoard = new OurBoard(this, "board1", "1");
-        add(ourBoard);
+        ourBoard = new OurBoard(this, "board1", "1", waterRateProvider);
+        ///add(ourBoard);
 
         // Create the nozzle and add it to the assembly:
-        Nozzle nozzle1 = new Nozzle(this, "nozzle1");
-        add(nozzle1);
+        ourNozzle = new Nozzle("nozzle1");
+        ///add(ourNozzle);
 
         // Add the pour pipeline to the nozzle:
         OurPourEngine pourEngine = new OurPourEngine();
-        PourNozzlePipeline pourPipeline = new PourNozzlePipeline(pourEngine);
-        nozzle1.add(pourPipeline);
+        BeverageNozzlePipeline pourPipeline = new BeverageNozzlePipeline(pourEngine);
+        ourNozzle.add(pourPipeline);
 
         // Add all of the pumps from the board to the nozzle:
-        nozzle1.add(ourBoard.getAllPumps());
+        ourNozzle.add(ourBoard.getAllPumps());
 
         // Create the water holders PW and CW:
-        add(new Holder(this, "PW", ourBoard.getPlainWaterPump()));
-        add(new Holder(this, "CW", ourBoard.getCarbonatedWaterPump()));
+        ///add(new Holder(this, "PW", ourBoard.getPlainWaterPump()));
+        ///add(new Holder(this, "CW", ourBoard.getCarbonatedWaterPump()));
 
         // Create the syrup holders S1 - S4:
-        int i = 0;
-        for (OurPump pump : ourBoard.getSyrupPumps()) {
-            i++;
-            String holderName = "S" + i;
-            add(new Holder(this, holderName, pump));
-        }
+        ///for (int i = 0; i < ourBoard.getSyrupPumps().size(); i++) {
+        ///add(new Holder(this, "S" + (i + 1), ourBoard.getSyrupPumps().get(i)));
+        ///}
     }
 
-    @Override
-    public void install() {
-        log.info("Installing OurAssembly..");
-    }
-
-    @Override
-    public void uninstall() {
-        log.info("Uninstalling OurAssembly..");
-    }
-
-    @Override
+    ///@Override
     public void postInstall() {
         // Insert plain and carbonated water as intrinsic ingredients:
         insertionService.insertIntrinsic(OurIngredient.ID.PLAIN_WATER, ourBoard.getPlainWaterPump().getHolder());
@@ -82,5 +70,17 @@ public class OurAssembly extends CoreAssembly {
             String holderPath = syrupPumps.get(i).getHolder().getPath();
             insertionService.insert(false, ourContainer, holderPath);
         }
+    }
+
+    @Override
+    public void load() throws Exception {
+    }
+
+    @Override
+    public void start() throws Exception {
+    }
+
+    @Override
+    public void stop() throws Exception {
     }
 }

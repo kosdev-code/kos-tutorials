@@ -15,7 +15,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.Data;
 
-public class OurIngredientSource implements IngredientSource<OurIngredient> {
+public class OurIngredientSource implements IngredientSource {
 
     // KAB type for brandset files:
     public static final String KAB_TYPE = "our-brandset";
@@ -51,14 +51,6 @@ public class OurIngredientSource implements IngredientSource<OurIngredient> {
         // Convert ingredients list to sorted Tree map for use as IngredientSource:
         ingredientMap = schema.getIngredients().stream().collect(Collectors.
                 toMap(BaseIngredient::getId, Function.identity(), (o1, o2) -> o1, TreeMap::new));
-    }
-
-    /**
-     * Returns the ingredient associated with the given ID.
-     */
-    @Override
-    public OurIngredient getIngredient(String id) {
-        return ingredientMap.get(id);
     }
 
     /**

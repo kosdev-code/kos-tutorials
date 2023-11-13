@@ -9,16 +9,15 @@ import lombok.Setter;
 @Getter @Setter
 public class OurIngredient extends BaseIngredient {
 
+    //@formatter:off
+    public static final String TYPE_WATER  = "water";
+    public static final String TYPE_CARB   = "carb";
+    public static final String TYPE_SYRUP  = "syrup";
+    public static final String TYPE_FLAVOR = "flavor";
+    //@formatter:on
+
     public boolean carbonated;  // true if the ingredient requires carbonated water to make a beverage (otherwise plain water)
     public String icon;         // URL to the ingredient's icon
-    public Type type;           // type of ingredient
-
-    public enum Type {
-        water,
-        carb,
-        syrup,
-        flavor,
-    }
 
     /**
      * IDs for the ingredients in our demo dispenser.
