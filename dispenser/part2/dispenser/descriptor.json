@@ -1,0 +1,9 @@
+{
+  "kos": {
+    "app": {
+      "appClass": "com.kosdev.samples.dispenser.part1.DispenserApp",
+      "appId": "system",
+      "altClassesDir": "/home/david/src/samples/dispenser/part1/dispenser/target/classes"
+    }
+  }
+}

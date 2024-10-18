@@ -14,47 +14,78 @@
 
     <properties>
         <kos.version>0.0.0-SNAPSHOT</kos.version>
-        <kos-maven-plugin.version>1.0.0</kos-maven-plugin.version>
-        <java.version>17</java.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <ddk.version>0.0.0-SNAPSHOT</ddk.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <lombok.version>1.18.26</lombok.version>
+        <kos-maven-plugin.version>1.0.7</kos-maven-plugin.version>
         <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
+        <lombok.version>1.18.28</lombok.version>
     </properties>
 
     <!-- ====== Dependency Management ================================================ -->
 
     <dependencyManagement>
         <dependencies>
+            <!-- kOS SDK -->
             <dependency>
-                <groupId>com.tccc.kos.bom</groupId>
+                <groupId>com.kosdev.kos.sdk.bom</groupId>
                 <artifactId>kos-bom</artifactId>
                 <version>${kos.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- ddk -->
+            <dependency>
+                <groupId>com.kosdev.kos.app.ddk</groupId>
+                <artifactId>ddk.sdk</artifactId>
+                <version>${ddk.version}</version>
+            </dependency>
+
+            <!-- Lombok annotations -->
+            <!-- https://www.projectlombok.org/ -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
-    <!-- ====== Dependencies ========================================================= -->
 
-    <dependencies>
-        <dependency>
-            <groupId>com.tccc.kos.sdk</groupId>
-            <artifactId>api-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.tccc.kos.sdk</groupId>
-            <artifactId>api-dispense</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
+    <!-- ====== Plugin Management ==================================================== -->
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Assembly -->
+                <!-- https://maven.apache.org/plugins/maven-assembly-plugin/ -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>${maven-assembly-plugin.version}</version>
+                </plugin>
+
+                <!-- Shade -->
+                <!-- https://maven.apache.org/plugins/maven-shade-plugin/ -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>${maven-shade-plugin.version}</version>
+                </plugin>
+
+                <!-- kOS Maven Plugin -->
+                <plugin>
+                    <groupId>com.kosdev.kos.maven</groupId>
+                    <artifactId>kos-maven-plugin</artifactId>
+                    <version>${kos-maven-plugin.version}</version>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+    </build>
 
     <!-- ====== Code Repositories ==================================================== -->
 
@@ -96,45 +127,75 @@
         </pluginRepository>
     </pluginRepositories>
 
-    <!-- ====== Build ================================================================ -->
+    <!-- ====== Dependencies ========================================================= -->
 
-    <build>
-        <plugins>
-            <!-- Package the build output into a ZIP file -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>${maven-assembly-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>assembly.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <!-- Convert the ZIP file to a KAB file -->
-            <plugin>
-                <groupId>com.tccc.kos.maven</groupId>
-                <artifactId>kos-maven-plugin</artifactId>
-                <version>${kos-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>kabtool</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    <dependencies>
+        <dependency>
+            <groupId>com.kosdev.kos.sdk.api</groupId>
+            <artifactId>api-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kosdev.kos.sdk.api</groupId>
+            <artifactId>api-dispense</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kosdev.kos.app.ddk</groupId>
+            <artifactId>ddk.sdk</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
 
+    <!-- ====== Profiles ============================================================= -->
+
+    <profiles>
+        <profile>
+            <id>developer</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- Convert the contents of the build into a ZIP file -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>3.5.0</version>
+                        <executions>
+                            <execution>
+                                <id>make-assembly</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>assembly.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Convert the ZIP file to a KAB file -->
+                    <plugin>
+                        <groupId>com.kosdev.kos.maven</groupId>
+                        <artifactId>kos-kab-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>kabtool</goal>
+                                </goals>
+                                <configuration>
+                                    <type>kos.system</type>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
