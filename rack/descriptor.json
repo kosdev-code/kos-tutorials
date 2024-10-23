@@ -1,0 +1,9 @@
+{
+  "kos": {
+    "app": {
+      "appClass": "com.bookstore.rack.RackApp",
+      "appId": "system",
+      "altClassesDir": "/home/david/src/samples/rack/target/classes"
+    }
+  }
+}
