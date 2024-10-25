@@ -1,4 +1,3 @@
-// @kdoc-sysapp@
 /**
  * (C) Copyright 2024, TCCC, All rights reserved.
  */
@@ -17,13 +16,6 @@ import com.tccc.kos.core.service.app.SystemApplication;
  * @version 2024-09-17
  */
 public class RackApp extends SystemApplication<BaseAppConfig> {
-    @Override
-    public void load() throws Exception {
-    }
-
-    @Override
-    public void start() throws Exception {
-    }
 
     @Override
     public void started() throws Exception {
@@ -34,11 +26,4 @@ public class RackApp extends SystemApplication<BaseAppConfig> {
             }
         });
     }
-    /**
-     * Intellij requires a main() for the debugger to work.
-     */
-    public static void main(String[] args) {
-    }
 }
-
-// @kdoc-sysapp@
