@@ -1,3 +1,4 @@
+// @kdoc-ui@
 package com.bookstore.rack;
 
 import java.awt.BorderLayout;
@@ -50,3 +51,4 @@ public class RackUI extends JFrame {
         imageLabel.setIcon(icon);
     }
 }
+// @kdoc-ui@

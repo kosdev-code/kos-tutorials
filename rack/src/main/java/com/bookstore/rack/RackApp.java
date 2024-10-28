@@ -1,3 +1,4 @@
+// @kdoc-sysapp@
 /**
  * (C) Copyright 2024, TCCC, All rights reserved.
  */
@@ -27,3 +28,4 @@ public class RackApp extends SystemApplication<BaseAppConfig> {
         });
     }
 }
+// @kdoc-sysapp@
