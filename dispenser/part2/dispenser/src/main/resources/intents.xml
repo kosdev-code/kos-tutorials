@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pumpIntents>
+    <intents>
+        <intent name="water_calibrate">
+            <op type="vpour" volume="200"/>
+        </intent>
+        <intent name="syrup_calibrate">
+            <op type="vpour" volume="60"/>
+        </intent>
+        <intent name="hold_to_pour">
+            <op type="tpour" duration="30000"/>
+        </intent>
+    </intents>
+    <rules>
+        <rule type="pumpType" key="valve">
+            <intent type="CALIBRATE" ref="syrup_calibrate"/>
+            <intent type="HOLD_TO_POUR" ref="hold_to_pour"/>
+        </rule>
+        <rule type="pumpCategory" key="water">
+            <intent type="CALIBRATE" ref="water_calibrate"/>
+        </rule>
+    </rules>
+</pumpIntents>

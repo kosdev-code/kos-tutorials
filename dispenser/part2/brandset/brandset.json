@@ -1,0 +1,46 @@
+{
+  "ingredients": [
+    {
+      "id": "water",
+      "name": "water"
+    },
+    {
+      "id": "lemon",
+      "name": "lemon"
+    },
+    {
+      "id": "cherry",
+      "name": "cherry"
+    },
+    {
+      "id": "lime",
+      "name": "lime"
+    },
+    {
+      "id": "grape",
+      "name": "grape"
+    }
+  ],
+  "beverages": [
+    {
+      "id": "bev:lemon",
+      "name": "Lemon Zip",
+      "ingredientIds": ["water", "lemon"]
+    },
+    {
+      "id": "bev:cherry",
+      "name": "Cherry Smash",
+      "ingredientIds": ["water", "cherry"]
+    },
+    {
+      "id": "bev:lime",
+      "name": "Lime Zap",
+      "ingredientIds": ["water", "lime"]
+    },
+    {
+      "id": "bev:grape",
+      "name": "Grape Ape",
+      "ingredientIds": ["water", "grape"]
+    }
+  ]
+}

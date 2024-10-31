@@ -1,0 +1,50 @@
+{
+  "ingredients": [
+    {
+      "id": "water",
+      "name": "water"
+    },
+    {
+      "id": "carb",
+      "name": "carb"
+    },
+    {
+      "id": "lemon",
+      "name": "lemon"
+    },
+    {
+      "id": "cherry",
+      "name": "cherry"
+    },
+    {
+      "id": "lime",
+      "name": "lime"
+    },
+    {
+      "id": "grape",
+      "name": "grape"
+    }
+  ],
+  "beverages": [
+    {
+      "id": "bev:lemon",
+      "name": "Lemon Zip",
+      "ingredientIds": ["carb", "lemon"]
+    },
+    {
+      "id": "bev:cherry",
+      "name": "Cherry Cooler",
+      "ingredientIds": ["water", "cherry"]
+    },
+    {
+      "id": "bev:lime",
+      "name": "Lime Zip",
+      "ingredientIds": ["carb", "lime"]
+    },
+    {
+      "id": "bev:grape",
+      "name": "Grape Cooler",
+      "ingredientIds": ["water", "grape"]
+    }
+  ]
+}
