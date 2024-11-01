@@ -1,3 +1,4 @@
+// @kdoc-brandset@
 package com.kosdev.samples.dispenser.part1.brandset;
 
 import com.tccc.kos.ext.dispense.service.ingredient.BaseIngredient;
@@ -40,3 +41,4 @@ public class Brandset implements IngredientSource {
                 .orElse(null);
     }
 }
+// @kdoc-brandset@

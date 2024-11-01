@@ -49,6 +49,7 @@ public class ControlBoard extends PumpBoard {
      * the list of valve positions that should be on or off. This sample
      * code simply logs the pump state using a timer.
      */
+    // @kdoc-board-tpour@
     public FutureWork tpour(Valve pump, int duration, double rate) {
         // Create a future to turn the pump on for the requested duration
         FutureWork future = new FutureWork("tpour" + "-" + pump.getName(), f -> {
@@ -68,6 +69,7 @@ public class ControlBoard extends PumpBoard {
 
         return future;
     }
+    // @kdoc-board-tpour@
 
     @Override
     public String getType() {

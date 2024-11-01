@@ -1,3 +1,4 @@
+// @kdoc-volume-delegate@
 package com.kosdev.samples.dispenser.part1.pour;
 
 import com.tccc.kos.ext.dispense.pipeline.beverage.BeveragePipelineDelegate;
@@ -20,3 +21,4 @@ public class VolumeDelegate implements BeveragePipelineDelegate {
         return 946;  // 32 oz... kOS uses SI units
     }
 }
+// @kdoc-volume-delegate@

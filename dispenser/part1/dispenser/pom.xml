@@ -34,6 +34,7 @@
     </dependencies>
   </dependencyManagement>
 
+  <!-- @kdoc-dispense-dependencies-pom@ -->
   <!-- project dependencies -->
   <dependencies>
     <dependency>
@@ -51,6 +52,7 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
+  <!-- @kdoc-dispense-dependencies-pom@ -->
 
   <!-- plugins to build zip and kab files -->
   <build>

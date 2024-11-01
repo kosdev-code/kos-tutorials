@@ -25,11 +25,13 @@ public class DispenserApp extends SystemApplication<BaseAppConfig> {
     @Getter
     private Brandset brandset;
 
+    // @kdoc-sysapp-load@
     @Override
     public void load() throws Exception {
         // Add a delegate to provide information about pour volumes
         addToCtx(new VolumeDelegate());
     }
+    // @kdoc-sysapp-load@
 
     @Override
     public void start() throws Exception {

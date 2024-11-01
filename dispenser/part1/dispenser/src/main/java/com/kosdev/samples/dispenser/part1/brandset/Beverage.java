@@ -1,3 +1,4 @@
+// @kdoc-beverage@
 package com.kosdev.samples.dispenser.part1.brandset;
 
 import lombok.Getter;
@@ -19,3 +20,4 @@ public class Beverage {
     private String name;
     private List<String> ingredientIds;
 }
+// @kdoc-beverage@

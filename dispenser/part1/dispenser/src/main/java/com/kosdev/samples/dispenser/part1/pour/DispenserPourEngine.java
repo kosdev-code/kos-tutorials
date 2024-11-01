@@ -36,6 +36,7 @@ public class DispenserPourEngine extends BeveragePourEngine<BeveragePourEngineCo
         // Nothing to do when the engine stops
     }
 
+    // @kdoc-graph@
     /**
      * Builds graph of beverage ingredients that can be used to determine if a beverage is available or not
      */
@@ -58,18 +59,24 @@ public class DispenserPourEngine extends BeveragePourEngine<BeveragePourEngineCo
             }
         }
     }
+    // @kdoc-graph@
 
+    // @kdoc-getpourable@
     @Override
     public Pourable getPourable(String bevId) throws Exception {
         return new BevPourable(bevId);
     }
+    // @kdoc-getpourable@
 
+    // @kdoc-ispourable@
     @Override
     public boolean isPourable(Pourable pourable) throws Exception {
         // Can be poured if the beverage is available
         return isAvailable(((BevPourable) pourable).getBevId());
     }
+    // @kdoc-ispourable@
 
+    // @kdoc-build-future@
     @Override
     protected FutureWork buildFuture(Pourable pourable, Object lock) {
 
@@ -99,4 +106,5 @@ public class DispenserPourEngine extends BeveragePourEngine<BeveragePourEngineCo
 
         return future;
     }
+    // @kdoc-build-future@
 }

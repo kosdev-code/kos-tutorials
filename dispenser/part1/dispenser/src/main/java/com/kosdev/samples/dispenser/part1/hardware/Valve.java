@@ -25,10 +25,12 @@ public class Valve extends Pump<ValveConfig> {
     /**
      * Starts a time-based pour operation for this valve.
      */
+    // @kdoc-valve-tpour@
     @Override
     public FutureWork tpour(int duration, double rate) {
         return ((ControlBoard) getBoard()).tpour(this, duration, rate);
     }
+    // @kdoc-valve-tpour@
 
     /**
      * Starts a volume-based pour operation for this valve.

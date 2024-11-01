@@ -1,3 +1,4 @@
+// @kdoc-ingredient@
 package com.kosdev.samples.dispenser.part1.brandset;
 
 import com.tccc.kos.ext.dispense.service.ingredient.BaseIngredient;
@@ -17,3 +18,4 @@ public class Ingredient extends BaseIngredient {
     public static final String WATER = "water";
     public static final String CARB = "carb";
 }
+// @kdoc-ingredient@

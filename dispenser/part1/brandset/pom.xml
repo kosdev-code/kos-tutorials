@@ -19,6 +19,7 @@
     <kos-maven-plugin.version>1.0.7</kos-maven-plugin.version>
   </properties>
 
+  <!-- @kdoc-brandset-build-pom@ -->
   <build>
     <plugins>
       <!-- Package the build output into a ZIP file -->
@@ -41,6 +42,7 @@
           </execution>
         </executions>
       </plugin>
+      <!-- @kdoc-brandset-plugin-pom@ -->
       <!-- Convert the ZIP file to a KAB file -->
       <plugin>
         <groupId>com.kosdev.kos.maven</groupId>
@@ -59,5 +61,6 @@
       </plugin>
     </plugins>
   </build>
+  <!-- @kdoc-brandset-build-pom@ -->
 
 </project>

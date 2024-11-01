@@ -1,6 +1,4 @@
-/**
- * (C) Copyright 2024, TCCC, All rights reserved.
- */
+// @kdoc-pourable@
 package com.kosdev.samples.dispenser.part1.pour;
 
 import com.tccc.kos.ext.dispense.pipeline.beverage.Pourable;
@@ -31,3 +29,4 @@ public class BevPourable extends Pourable {
         return bevId;
     }
 }
+// @kdoc-pourable@
