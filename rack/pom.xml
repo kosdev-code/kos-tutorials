@@ -14,11 +14,11 @@
     <!-- @kdoc-props@ -->
     <!-- properties -->
     <properties>
-        <kos.version>0.0.0-SNAPSHOT</kos.version>
+        <kos.version>1.9.x-SNAPSHOT</kos.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <kos-kab-maven-plugin.version>1.3.4</kos-kab-maven-plugin.version>
-        <lombok.version>1.18.28</lombok.version>
+        <lombok.version>1.18.38</lombok.version>
     </properties>
     <!-- @kdoc-props@ -->
 
@@ -37,6 +37,24 @@
         </dependencies>
     </dependencyManagement>
     <!-- @kdoc-depman@ -->
+
+    <!-- ====== Plugin Repositories ================================================== -->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>kos.public</id>
+            <url>https://kondra.mycloudrepo.io/public/repositories/kos-public</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
     <!-- @kdoc-dep@ -->
     <!-- project dependencies -->
@@ -114,9 +132,8 @@
     <!-- @kdoc-profiles@ -->
     <repositories>
         <repository>
-            <id>kosdevcode</id>
-            <name>kOS Code Repository</name>
-            <url>https://maven.pkg.github.com/kosdev-code/kos-maven</url>
+            <id>kos.public</id>
+            <url>https://kondra.mycloudrepo.io/public/repositories/kos-public</url>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
