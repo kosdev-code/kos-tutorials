@@ -73,7 +73,7 @@
     </dependencies>
 
     <!-- @kdoc-plugins@ -->
-    <!-- plugins to build zip and kab files -->
+    <!-- plugins to build kab files -->
     <build>
         <pluginManagement>
             <plugins>
@@ -90,7 +90,6 @@
 
     <!--@kdoc-profiles@ -->
     <!-- ====== Profiles ============================================================= -->
-
     <profiles>
         <profile>
             <id>developer</id>
