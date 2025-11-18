@@ -25,6 +25,7 @@ ui.zip
 # Maven
 target/
 */target/
+*target/
 #dist/
 
 # JetBrains IDE
@@ -68,3 +69,5 @@ output/
 
 #Kabs should be published if shared
 *.kab
+arduino/target/classes/com/kondra/testing/app
+rack/.factorypath
