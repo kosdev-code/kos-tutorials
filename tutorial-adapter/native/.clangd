@@ -1,0 +1,4 @@
+CompileFlags:
+  Add:
+    - "-I/Users/samuelburac/Desktop/work/kos_repos/kos_core_native/lib"
+    - "-std=c17"
