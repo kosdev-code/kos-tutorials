@@ -10,23 +10,117 @@ import java.io.IOException;
 @Slf4j
 public class ArduinoIface extends BinaryMsgIface {
 
-    public final static String NAME = "kondra.arduino";
+    // IFACE NAME
+    public final static String NAME = "arduino";
 
-    private final static int API_TRIGGER_LOG = 0;
+    // API NUMBERS :
+    private final static int API_HANDLER_0 = 0;     // demonstrates reading numbers
+    private final static int API_HANDLER_1 = 1;     // demonstrates reading numbers
+    private final static int API_HANDLER_2 = 2;     // demonstrates reading strings
+    private final static int API_HANDLER_3 = 3;     // demonstrates writing numbers
+    private final static int API_HANDLER_4 = 4;     // demonstrates writing strings
+    private final static int API_HANDLER_5 = 5;     // demonstrates creating events
+
+    // API EVENTS:
+    private final static int API_EVENT = 5;
 
     public ArduinoIface(BinaryMsgSession session) {
         super(NAME, session, null);
         log.info("arduino iface created");
     }
 
-    public void triggerLog() {
-        try {
-            log.info("triggering log");
+    /**
+     * demonstrate sending a single type of information
+     */
+    public void hitHandler0() {
+        String sampleMessage = "Hello World!";
 
-            BinaryMsg msg = msg(API_TRIGGER_LOG);
+        try {
+            // create the binary message and write the relevant information to it
+            BinaryMsg msg = msg(API_HANDLER_0);
+            msg.writeCString(sampleMessage);
+
+            // calling send() will work because we are not expecting information to it
             send(msg);
         }catch(Exception e){
-            log.info("failed to trigger log");
+            log.info("failed to call handler 2", e);
+        }
+    }
+
+    /**
+     * demonstrate sending multiple types of information at the
+     * same time
+     */
+    public void hitHandler1() {
+        String sampleString = "Hello World!";
+        int sampleNumber = 256;
+
+        try {
+            BinaryMsg msg = msg(API_HANDLER_1);
+
+            msg.writeCString(sampleString, sampleString.length());
+            msg.writeInt(sampleNumber);
+            msg.writeCString(sampleString);
+
+            // calling send() will work because we are not expecting information to it
+            send(msg);
+        }catch(Exception e){
+            log.info("failed to call handler 2", e);
+        }
+    }
+
+    /**
+     * demonstrate sending and receiving a single type of information
+     */
+    public void hitHandler2() {
+        try {
+            BinaryMsg msg = msg(API_HANDLER_2);
+            sendAndRecv(msg);
+
+            //log what we received to demonstrate that we received it
+            log.info("successfully received: {}", msg.readCString());
+        }catch(Exception e){
+            log.info("failed to call handler 3", e);
+        }
+    }
+
+    /**
+     * demonstrate sending and receiving multiple types of information
+     */
+    public void hitHandler3() {
+        try {
+            BinaryMsg msg = msg(API_HANDLER_3);
+            sendAndRecv(msg);
+
+            //log what we received to demonstrate that we received it
+            log.info("successfully received: {}", msg.readCString());
+            log.info("successfully received: {}", msg.readInt());
+        }catch(Exception e){
+            log.info("failed to call handler 3", e);
+        }
+    }
+
+    /**
+     * demonstrate the creation and handling of events
+     */
+    public void hitHandler4() {
+        try {
+            BinaryMsg msg = msg(API_HANDLER_4);
+            send(msg);
+        }catch(Exception e){
+            log.info("failed to call handler 4", e);
+        }
+    }
+
+    /**
+     * demonstrate the creation of logs
+     */
+    public void hitHandler5() {
+        try {
+            BinaryMsg msg = msg(API_HANDLER_5);
+            send(msg);
+        }catch(Exception e){
+            log.info("failed to call handler 5", e);
         }
     }
 }
