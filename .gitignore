@@ -69,5 +69,6 @@ output/
 
 #Kabs should be published if shared
 *.kab
-arduino/target/classes/com/kondra/testing/app
+arduino/target/
 rack/.factorypath
+arduino/target/maven-status/maven-compiler-plugin/compile/default-compile
