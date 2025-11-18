@@ -1,0 +1,8 @@
+{
+  "kos": {
+    "app": {
+      "appClass": "com.kondra.testing.app.TestApp",
+      "appId": "system"
+    }
+  }
+}
