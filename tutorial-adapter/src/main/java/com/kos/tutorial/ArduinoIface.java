@@ -1,5 +1,7 @@
 package com.kos.tutorial;
 
+import java.io.IOException;
+
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsg;
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIface;
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
@@ -19,13 +21,16 @@ public class ArduinoIface extends BinaryMsgIface {
         super(IFACE_NAME, session, null);
 
         this.addRequestHandler(API_BUTTON_PRESSED, res -> {
-            BinaryMsg msg = msg(API_ILLUMINATE_LED);
-            // If the led is on turn it off otherwise turn it on
-            msg.writeBoolean(isOn = !isOn);
-            send(msg);
-            log.info("Button pressed turning led {}", isOn ? "On" : "Off");
-
+            handleButtonPressed();
         });
+    }
+
+    private void handleButtonPressed() throws IOException {
+        BinaryMsg msg = msg(API_ILLUMINATE_LED);
+        // If the led is on turn it off otherwise turn it on
+        msg.writeBoolean(isOn = !isOn);
+        send(msg);
+        log.info("Button pressed turning led {}", isOn ? "On" : "Off");
     }
 
 }
