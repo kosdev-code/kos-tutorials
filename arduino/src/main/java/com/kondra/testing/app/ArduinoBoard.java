@@ -3,9 +3,7 @@ package com.kondra.testing.app;
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
 import com.tccc.kos.core.service.assembly.Assembly;
 import com.tccc.kos.core.service.hardware.Board;
-import com.tccc.kos.core.service.hardware.IfaceAware;
 import com.tccc.kos.core.service.hardware.IfaceAwareBoard;
-import com.tccc.kos.core.service.log.BlinkLoggerIface;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -19,6 +17,7 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface>
      * PART 1.1
      */
     public void hitHandler0(){
+        log.info("hitHandler0");
         withIfaceCatch(ArduinoIface::hitHandler0);
     }
 
@@ -60,8 +59,9 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface>
 
     @Override
     public ArduinoIface createIface(BinaryMsgSession session) {
-        setIface(new ArduinoIface(session));
-        return (ArduinoIface) this.iface;
+        log.info("creating arduino iface");
+
+        return new ArduinoIface(session);
     }
 
     @Override
@@ -90,12 +90,21 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface>
         board class. Because the field is of type BinaryMsgIface
         we must cast are iface to the correct type.
          */
-        return (ArduinoIface) this.iface;
+        log.info("iface: {}", iface);
+
+        return (ArduinoIface) iface;
     }
 
     @Override
     public void setIface(ArduinoIface iface) {
+        log.info("setting arduino iface");
+
         this.iface = iface;
+
+        // add a request handler for an event as part of part 3.1
+        this.iface.addRequestHandler(ArduinoIface.EVENT_SAMPLE, m -> {
+            log.info("Sample event received: {}", m.readCString());
+        });
     }
 
     @Override

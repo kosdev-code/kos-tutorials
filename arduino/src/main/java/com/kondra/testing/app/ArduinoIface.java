@@ -11,7 +11,7 @@ import java.io.IOException;
 public class ArduinoIface extends BinaryMsgIface {
 
     // IFACE NAME
-    public final static String NAME = "arduino";
+    public final static String NAME = "kondra.arduino";
 
     // API NUMBERS :
     private final static int API_HANDLER_0 = 0;     // demonstrates reading numbers
@@ -22,7 +22,7 @@ public class ArduinoIface extends BinaryMsgIface {
     private final static int API_HANDLER_5 = 5;     // demonstrates creating events
 
     // API EVENTS:
-    private final static int API_EVENT = 5;
+    public final static int EVENT_SAMPLE = 5;
 
     public ArduinoIface(BinaryMsgSession session) {
         super(NAME, session, null);
@@ -33,6 +33,8 @@ public class ArduinoIface extends BinaryMsgIface {
      * demonstrate sending a single type of information
      */
     public void hitHandler0() {
+       log.info("hitHandler0 in iface");
+
         String sampleMessage = "Hello World!";
 
         try {
@@ -52,15 +54,17 @@ public class ArduinoIface extends BinaryMsgIface {
      * same time
      */
     public void hitHandler1() {
-        String sampleString = "Hello World!";
+        String sampleString1 = "Hello";
+        String sampleString2 = "World!";
         int sampleNumber = 256;
 
         try {
             BinaryMsg msg = msg(API_HANDLER_1);
 
-            msg.writeCString(sampleString, sampleString.length());
+            msg.writeInt(sampleString1.length() + 1);
+            msg.writeCString(sampleString1);
             msg.writeInt(sampleNumber);
-            msg.writeCString(sampleString);
+            msg.writeCString(sampleString2);
 
             // calling send() will work because we are not expecting information to it
             send(msg);
@@ -75,10 +79,10 @@ public class ArduinoIface extends BinaryMsgIface {
     public void hitHandler2() {
         try {
             BinaryMsg msg = msg(API_HANDLER_2);
-            sendAndRecv(msg);
+            BinaryMsg response = sendAndRecv(msg);
 
             //log what we received to demonstrate that we received it
-            log.info("successfully received: {}", msg.readCString());
+            log.info("successfully received: {}", response.readCString());
         }catch(Exception e){
             log.info("failed to call handler 3", e);
         }
@@ -90,11 +94,12 @@ public class ArduinoIface extends BinaryMsgIface {
     public void hitHandler3() {
         try {
             BinaryMsg msg = msg(API_HANDLER_3);
-            sendAndRecv(msg);
+            BinaryMsg response = sendAndRecv(msg);
 
             //log what we received to demonstrate that we received it
-            log.info("successfully received: {}", msg.readCString());
-            log.info("successfully received: {}", msg.readInt());
+            log.info("successfully received: {}", response.readCString());
+            log.info("successfully received: {}", response.readCString());
+            log.info("successfully received: {}", response.readInt());
         }catch(Exception e){
             log.info("failed to call handler 3", e);
         }
@@ -106,7 +111,7 @@ public class ArduinoIface extends BinaryMsgIface {
     public void hitHandler4() {
         try {
             BinaryMsg msg = msg(API_HANDLER_4);
-            send(msg);
+            sendAndRecv(msg);
         }catch(Exception e){
             log.info("failed to call handler 4", e);
         }

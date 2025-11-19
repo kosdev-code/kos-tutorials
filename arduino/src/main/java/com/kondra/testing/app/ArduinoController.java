@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ApiController(base = "/arduino", title = "arduino controller", desc = "Endpoints for interacting with arduino")
 public class ArduinoController {
-    @ApiEndpoint(POST = "/{path}/part-1.2", desc = "part 1.1")
+    @ApiEndpoint(POST = "/{path}/part-1.1", desc = "part 1.1")
     public void part1step1(@HandleVariable("path") ArduinoBoard arduino) {
         arduino.hitHandler0();
     }
