@@ -5,7 +5,7 @@ import com.tccc.kos.core.service.assembly.Assembly;
 import com.tccc.kos.core.service.hardware.Board;
 import com.tccc.kos.core.service.hardware.IfaceAwareBoard;
 
-public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface>{
+public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface> {
 
     public ArduinoBoard(Assembly assembly) {
         super(assembly, "arduino.board");

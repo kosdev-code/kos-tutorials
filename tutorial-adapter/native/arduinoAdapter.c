@@ -189,8 +189,8 @@ int main(int argc, char *argv[]) {
   tio.c_oflag &= ~OPOST;  // Disables all output processing data is sent raw without translation
   tio.c_iflag = IGNBRK;   // Ignores break conditions on the line 
   tio.c_lflag = ICANON;   // input is only available when a complete line is recieved terminated by new line, EOF, or EOL
-  cfsetispeed(&tio, B115200);
-  cfsetospeed(&tio, B115200);
+  cfsetispeed(&tio, B115200); // Set the input baud rate to 115200
+  cfsetospeed(&tio, B115200); // Set the output baud rate to 115200
   tcsetattr(serialFd, TCSANOW, &tio); // apply configuration now
   tcflush(serialFd, TCIFLUSH); // Flush the input buffer
 
