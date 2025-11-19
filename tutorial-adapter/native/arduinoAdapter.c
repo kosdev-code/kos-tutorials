@@ -177,7 +177,7 @@ int main(int argc, char *argv[]) {
     return -1;
   }
 
-  // open the serial port
+  // open the serial port with read write permissions
   if ((serialFd = open(dev, O_RDWR | O_NOCTTY)) < 0) {
     kosLog("Failed to open serial device : %s", dev);
     return -1;
@@ -185,15 +185,13 @@ int main(int argc, char *argv[]) {
 
   // configure the port
   tcgetattr(serialFd, &tio);
-  tio.c_cflag = CS8 | CLOCAL | CREAD;
-  tio.c_oflag &= ~OPOST;
-  tio.c_iflag = IGNBRK;
-  tio.c_lflag = ICANON; // reads only when a full line is available
-  tio.c_cc[VMIN] = 0;
-  tio.c_cc[VTIME] = 0;
-  cfsetispeed(&tio, B115200);
-  cfsetospeed(&tio, B115200);
-  tcsetattr(serialFd, TCSANOW, &tio);
+  tio.c_cflag = CS8 | CLOCAL | CREAD; //  Sets 8 bits per character | ignores modem control lines | enables reading from the port
+  tio.c_oflag &= ~OPOST;  // Disables all output processing data is sent raw without translation
+  tio.c_iflag = IGNBRK;   // Ignores break conditions on the line 
+  tio.c_lflag = ICANON;   // input is only available when a complete line is recieved terminated by new line, EOF, or EOL
+  cfsetispeed(&tio, B115200); // Set the input baud rate to 115200
+  cfsetospeed(&tio, B115200); // Set the output baud rate to 115200
+  tcsetattr(serialFd, TCSANOW, &tio); // apply configuration now
   tcflush(serialFd, TCIFLUSH); // Flush the input buffer
 
   // create a client to connect to a SockEndpoint running
