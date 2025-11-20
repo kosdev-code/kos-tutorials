@@ -4,6 +4,7 @@ import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
 import com.tccc.kos.core.service.assembly.Assembly;
 import com.tccc.kos.core.service.hardware.Board;
 import com.tccc.kos.core.service.hardware.IfaceAwareBoard;
+import com.tccc.kos.core.service.log.LogIface;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -100,11 +101,6 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface>
         log.info("setting arduino iface");
 
         this.iface = iface;
-
-        // add a request handler for an event as part of part 3.1
-        this.iface.addRequestHandler(ArduinoIface.EVENT_SAMPLE, m -> {
-            log.info("Sample event received: {}", m.readCString());
-        });
     }
 
     @Override
@@ -115,5 +111,13 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface>
     @Override
     public void onIfaceDisconnect() throws Exception {
         log.info("arduino iface disconnected");
+    }
+
+    @Override
+    public void onConnect(ArduinoIface iface) throws Exception {
+        // add the request handler for the sample event
+        iface.addRequestHandler(ArduinoIface.EVENT_SAMPLE, m -> {
+            log.info("Sample event received: {}", m.readCString());
+        });
     }
 }
