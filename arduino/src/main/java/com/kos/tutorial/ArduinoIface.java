@@ -18,9 +18,10 @@ public class ArduinoIface extends BinaryMsgIface {
     private final static int API_HANDLER_3 = 3;
     private final static int API_HANDLER_4 = 4;
     private final static int API_HANDLER_5 = 5;
+    private final static int API_HANDLER_6 = 6;
 
     // API EVENTS:
-    public final static int EVENT_SAMPLE = 6;
+    public final static int EVENT_SAMPLE = 7;
 
     public ArduinoIface(BinaryMsgSession session) {
         super(NAME, session, null);
@@ -129,6 +130,18 @@ public class ArduinoIface extends BinaryMsgIface {
             send(msg);
         }catch(Exception e){
             log.info("failed to call handler 5", e);
+        }
+    }
+
+    /**
+     * demonstrate the returning of an error
+     */
+    public void hitHandler6() {
+        try {
+            BinaryMsg msg = msg(API_HANDLER_6);
+            BinaryMsg response = sendAndRecv(msg);
+        }catch(Exception e){
+            log.info("failed to call handler 6", e);
         }
     }
 }

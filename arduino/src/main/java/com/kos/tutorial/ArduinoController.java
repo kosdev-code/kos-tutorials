@@ -35,4 +35,9 @@ public class ArduinoController {
     public void part4step1(@HandleVariable("path") ArduinoBoard arduino) {
         arduino.hitHandler5();
     }
+
+    @ApiEndpoint(POST = "/{path}/part-5.1", desc = "part 5.1")
+    public void part5step1(@HandleVariable("path") ArduinoBoard arduino) {
+        arduino.hitHandler6();
+    }
 }

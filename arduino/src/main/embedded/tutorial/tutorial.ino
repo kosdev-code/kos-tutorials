@@ -4,7 +4,7 @@
 #define BLINK_BAUD 115200
 
 // event api numbers 
-#define API_EVENT_EXAMPLE 6
+#define API_EVENT_EXAMPLE 7
 
 // the maximum number which can be stored 
 #define MAX_OVERRIDES 4
@@ -37,6 +37,8 @@ static void handler2(BlinkService *s);  // part 2.1
 static void handler3(BlinkService *s);  // part 2.2
 static void handler4(BlinkService *s);  // part 3.1
 static void handler5(BlinkService *s);  // part 4.1
+static void handler6(BlinkService *s);  // part 5.1
+
 
 // override callback declaration 
 static void sampleOverrideCallback(char* name, uint8_t level, bool add);
@@ -49,6 +51,7 @@ const blinkHandler handlers[] = {
     handler3, // api - 3
     handler4, // api - 4
     handler5, // api - 5
+    handler6, // api - 6
     NULL
 };
 
@@ -145,8 +148,8 @@ static void handler4(BlinkService *s){
   //write the information to the stream 
 	s->write(receivedString1, msgSize);
 
-  sprintf(buf, "event status: %d", eventStatus);
-  blink.log(4, buf);
+  // sprintf(buf, "event status: %d", eventStatus);
+  // blink.log(4, buf);
 }
 
 static void handler5(BlinkService *s){
@@ -158,6 +161,12 @@ static void handler5(BlinkService *s){
   log("group2", 4, "sample log 4");
   log("group3", 5, "sample log 5");
   log("group3", 6, "sample log 6");
+}
+
+static void handler6(BlinkService *s){
+  uint8_t errCode = 128;
+
+  s->replyError(errCode);
 }
 
 /* This is a wrapper class for the log function of blink service.

@@ -50,10 +50,17 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface>
     }
 
     /**
-     * PART 3.1
+     * PART 4.1
      */
     public void hitHandler5() {
         withIfaceCatch(ArduinoIface::hitHandler5);
+    }
+
+    /**
+     * PART 5.1
+     */
+    public void hitHandler6() {
+        withIfaceCatch(ArduinoIface::hitHandler6);
     }
 
 
