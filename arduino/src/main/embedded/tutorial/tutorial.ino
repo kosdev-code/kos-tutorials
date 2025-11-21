@@ -1,28 +1,17 @@
 #include <blink.h>
 
-#include <BlinkComm.h>
-#include <BlinkService.h>
-
-// baud rates for blink and debug
+// baud rates for blink 
 #define BLINK_BAUD 115200
 
-// handler api numbers 
-#define API_HANDLER_0 0
-#define API_HANDLER_1 1
-#define API_HANDLER_2 2
-#define API_HANDLER_3 3
-#define API_HANDLER_4 4
-#define API_HANDLER_5 5
-
 // event api numbers 
-#define API_EVENT_EXAMPLE 0
+#define API_EVENT_EXAMPLE 6
 
 // the maximum number which can be stored 
 #define MAX_OVERRIDES 4
 
 struct override{
-  char name[16]; // name of group/override (max size: 32 bytes) 
-  uint8_t level; // log level of the override 
+  char name[16]; 
+  uint8_t level;
 };
 
 // and track the current number of overrides and overrides themselves
@@ -77,8 +66,6 @@ void setup() {
   
   // configure baud rates
   Serial.begin(BLINK_BAUD);
-
-  Serial1.println("Setting up arduino");
 }
 
 /**
@@ -141,14 +128,25 @@ static void handler3(BlinkService *s){
 }
 
 static void handler4(BlinkService *s){
-  int msgSize = strlen(receivedString1) + 1;
+  blink.log(4, "intitating handler 4"); 
+
+  int msgSize = strlen(receivedString1) + 1;\
+
+  // char buf[32];
+  // sprintf(buf, "msg: %s, msgSize: %d", receivedString1, msgSize);
+  // blink.log(4, buf);
+
+  // sprintf(buf, "arduino iface num: %d", arduinoIfaceNum);
+  // blink.log(4, buf);
 
   // generate the log event and write the log
-	int logEventStatus = s->event(arduinoIfaceNum, 0, msgSize);
+	int eventStatus = s->event(arduinoIfaceNum, API_EVENT_EXAMPLE, msgSize);
 
   //write the information to the stream 
 	s->write(receivedString1, msgSize);
-  s->reply(0);
+
+  sprintf(buf, "event status: %d", eventStatus);
+  blink.log(4, buf);
 }
 
 static void handler5(BlinkService *s){
@@ -189,10 +187,10 @@ static void sampleOverrideCallback(char* name, uint8_t level, bool add){
   for(int i = 0; i < numOverrides; i++){
     if(!strcmp(overrides[i].name, name)){
       if(add){  
-        blink.log(4, "altering existing override...");
+        log("overrides", 4, "altering existing override...");
         overrides[i].level = level;
       }else{
-        blink.log(4, "removing existing override...");
+        log("overrides", 4, "removing existing override...");
         overrides[i].name[0] = '\0';
         overrides[i].level = 0;
         numOverrides--;
@@ -206,7 +204,7 @@ static void sampleOverrideCallback(char* name, uint8_t level, bool add){
   of overrides. */
   if(add){
     if(numOverrides != MAX_OVERRIDES){
-      blink.log(4, "creating new override...");
+      log("overrides", 4, "creating new override...");
 
       for(int i = 0; i < MAX_OVERRIDES; i++){
         if(overrides[i].name[0] == '\0'){
@@ -217,7 +215,7 @@ static void sampleOverrideCallback(char* name, uint8_t level, bool add){
         }
       }
     }else{
-      blink.log(4, "failed to create new override, max number of overrides reached");
+      log("overrides", 4, "failed to create new override, max number of overrides reached");
     }
   }
 }

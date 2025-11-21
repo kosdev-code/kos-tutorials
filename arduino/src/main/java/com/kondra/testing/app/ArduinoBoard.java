@@ -17,7 +17,7 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface>
     /**
      * PART 1.1
      */
-    public void hitHandler0(){
+    public void hitHandler0() {
         log.info("hitHandler0");
         withIfaceCatch(ArduinoIface::hitHandler0);
     }
@@ -25,35 +25,35 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface>
     /**
      * PART 1.2
      */
-    public void hitHandler1(){
+    public void hitHandler1() {
         withIfaceCatch(ArduinoIface::hitHandler1);
     }
 
     /**
      * PART 2.1
      */
-    public void hitHandler2(){
+    public void hitHandler2() {
         withIfaceCatch(ArduinoIface::hitHandler2);
     }
 
     /**
      * PART 2.2
      */
-    public void hitHandler3(){
+    public void hitHandler3() {
         withIfaceCatch(ArduinoIface::hitHandler3);
     }
 
     /**
      * PART 3.1
      */
-    public void hitHandler4(){
+    public void hitHandler4() {
         withIfaceCatch(ArduinoIface::hitHandler4);
     }
 
     /**
      * PART 3.1
      */
-    public void hitHandler5(){
+    public void hitHandler5() {
         withIfaceCatch(ArduinoIface::hitHandler5);
     }
 
@@ -91,7 +91,6 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface>
         board class. Because the field is of type BinaryMsgIface
         we must cast are iface to the correct type.
          */
-        log.info("iface: {}", iface);
 
         return (ArduinoIface) iface;
     }
@@ -111,13 +110,5 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface>
     @Override
     public void onIfaceDisconnect() throws Exception {
         log.info("arduino iface disconnected");
-    }
-
-    @Override
-    public void onConnect(ArduinoIface iface) throws Exception {
-        // add the request handler for the sample event
-        iface.addRequestHandler(ArduinoIface.EVENT_SAMPLE, m -> {
-            log.info("Sample event received: {}", m.readCString());
-        });
     }
 }

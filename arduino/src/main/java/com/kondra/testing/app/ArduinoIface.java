@@ -14,19 +14,24 @@ public class ArduinoIface extends BinaryMsgIface {
     public final static String NAME = "kondra.arduino";
 
     // API NUMBERS :
-    private final static int API_HANDLER_0 = 0;     // demonstrates reading numbers
-    private final static int API_HANDLER_1 = 1;     // demonstrates reading numbers
-    private final static int API_HANDLER_2 = 2;     // demonstrates reading strings
-    private final static int API_HANDLER_3 = 3;     // demonstrates writing numbers
-    private final static int API_HANDLER_4 = 4;     // demonstrates writing strings
-    private final static int API_HANDLER_5 = 5;     // demonstrates creating events
+    private final static int API_HANDLER_0 = 0;
+    private final static int API_HANDLER_1 = 1;
+    private final static int API_HANDLER_2 = 2;
+    private final static int API_HANDLER_3 = 3;
+    private final static int API_HANDLER_4 = 4;
+    private final static int API_HANDLER_5 = 5;
 
     // API EVENTS:
-    public final static int EVENT_SAMPLE = 5;
+    public final static int EVENT_SAMPLE = 6;
 
     public ArduinoIface(BinaryMsgSession session) {
         super(NAME, session, null);
         log.info("arduino iface created");
+
+        // add the request handler for the sample event
+        this.addRequestHandler(ArduinoIface.EVENT_SAMPLE, m -> {
+            log.info("Sample event received: {}", m.readCString());
+        });
     }
 
     /**
@@ -111,7 +116,7 @@ public class ArduinoIface extends BinaryMsgIface {
     public void hitHandler4() {
         try {
             BinaryMsg msg = msg(API_HANDLER_4);
-            sendAndRecv(msg);
+            send(msg);
         }catch(Exception e){
             log.info("failed to call handler 4", e);
         }
