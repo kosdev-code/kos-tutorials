@@ -29,9 +29,6 @@
 // Revision number
 #define REVISION 1
 
-// Iface version
-#define IFACE_VERSION 1
-
 // Api numbers
 #define API_ILLUMINATE_LED 0
 #define API_BUTTON_PRESSED 1
@@ -207,9 +204,8 @@ int main(int argc, char *argv[]) {
   // register the board iface
   blinkAddBoardIface(client, &boardData);
 
-  // register handlers
+  // get iface
   arduinoIface = client->coreIface;
-  arduinoIface->version = IFACE_VERSION;
 
   // register the handler to API number and pass the user data
   blinkRegisterApi(arduinoIface, API_ILLUMINATE_LED, sendLedCommand, NULL);
