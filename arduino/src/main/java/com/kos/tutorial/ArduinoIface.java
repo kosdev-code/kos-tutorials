@@ -1,11 +1,9 @@
-package com.kondra.testing.app;
+package com.kos.arduino.tutorial;
 
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsg;
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIface;
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
 import lombok.extern.slf4j.Slf4j;
-
-import java.io.IOException;
 
 @Slf4j
 public class ArduinoIface extends BinaryMsgIface {

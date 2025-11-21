@@ -1,4 +1,4 @@
-package com.kondra.testing.app;
+package com.kos.arduino.tutorial;
 
 import com.tccc.kos.core.service.assembly.Assembly;
 import com.tccc.kos.core.service.assembly.CoreAssembly;

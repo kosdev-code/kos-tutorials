@@ -1,8 +1,7 @@
-package com.kondra.testing.app;
+package com.kos.arduino.tutorial;
 
 import com.tccc.kos.core.service.app.BaseAppConfig;
 import com.tccc.kos.core.service.app.SystemApplication;
-import com.tccc.kos.core.service.log.BlinkLoggerIface;
 
 
 public class TutorialApp extends SystemApplication<BaseAppConfig> {

@@ -1,10 +1,9 @@
-package com.kondra.testing.app;
+package com.kos.arduino.tutorial;
 
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
 import com.tccc.kos.core.service.assembly.Assembly;
 import com.tccc.kos.core.service.hardware.Board;
 import com.tccc.kos.core.service.hardware.IfaceAwareBoard;
-import com.tccc.kos.core.service.log.LogIface;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

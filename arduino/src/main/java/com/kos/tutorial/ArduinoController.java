@@ -1,8 +1,6 @@
-package com.kondra.testing.app;
+package com.kos.arduino.tutorial;
 
-import com.tccc.kos.commons.core.context.annotations.Autowired;
 import com.tccc.kos.commons.core.dispatcher.annotations.*;
-import com.tccc.kos.core.service.assembly.Assembly;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
