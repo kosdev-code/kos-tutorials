@@ -1,4 +1,4 @@
-package com.kos.arduino.tutorial;
+package com.kos.tutorial;
 
 import com.tccc.kos.commons.core.dispatcher.annotations.*;
 import lombok.extern.slf4j.Slf4j;

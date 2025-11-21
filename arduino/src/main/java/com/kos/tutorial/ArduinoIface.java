@@ -1,4 +1,4 @@
-package com.kos.arduino.tutorial;
+package com.kos.tutorial;
 
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsg;
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIface;

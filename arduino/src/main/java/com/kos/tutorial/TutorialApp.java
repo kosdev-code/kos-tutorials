@@ -1,4 +1,4 @@
-package com.kos.arduino.tutorial;
+package com.kos.tutorial;
 
 import com.tccc.kos.core.service.app.BaseAppConfig;
 import com.tccc.kos.core.service.app.SystemApplication;

@@ -1,4 +1,4 @@
-package com.kos.arduino.tutorial;
+package com.kos.tutorial;
 
 import com.tccc.kos.core.service.assembly.Assembly;
 import com.tccc.kos.core.service.assembly.CoreAssembly;

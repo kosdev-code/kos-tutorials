@@ -1,7 +1,7 @@
 {
   "kos": {
     "app": {
-      "appClass": "com.kos.arduino.tutorial.TutorialApp",
+      "appClass": "com.kos.tutorial.TutorialApp",
       "appId": "system"
     }
   }
