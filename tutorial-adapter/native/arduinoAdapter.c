@@ -213,6 +213,6 @@ int main(int argc, char *argv[]) {
   // listen for events from the arduino
   pthread_create(&buttonListeningThread, NULL, listenToArduino, NULL);
 
-  // process connections indefinitely
+  // process connections from java indefinitely
   blinkDispatch(client);
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsg;
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIface;
+import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIfaceListener;
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
 
 import lombok.extern.slf4j.Slf4j;
@@ -17,8 +18,8 @@ public class ArduinoIface extends BinaryMsgIface {
 
     private boolean isOn = false;
 
-    public ArduinoIface(BinaryMsgSession session) {
-        super(IFACE_NAME, session, null);
+    public ArduinoIface(BinaryMsgSession session, BinaryMsgIfaceListener<ArduinoIface> listener) {
+        super(IFACE_NAME, session, listener);
 
         this.addRequestHandler(API_BUTTON_PRESSED, res -> {
             handleButtonPressed();

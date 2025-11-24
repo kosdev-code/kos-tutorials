@@ -28,7 +28,7 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface>
     @Override
     public ArduinoIface createIface(BinaryMsgSession session) {
         log.info("createIface()");
-        return new ArduinoIface(session);
+        return new ArduinoIface(session, this);
     }
 
     @Override
