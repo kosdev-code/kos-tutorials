@@ -131,25 +131,13 @@ static void handler3(BlinkService *s){
 }
 
 static void handler4(BlinkService *s){
-  blink.log(4, "intitating handler 4"); 
-
   int msgSize = strlen(receivedString1) + 1;\
-
-  // char buf[32];
-  // sprintf(buf, "msg: %s, msgSize: %d", receivedString1, msgSize);
-  // blink.log(4, buf);
-
-  // sprintf(buf, "arduino iface num: %d", arduinoIfaceNum);
-  // blink.log(4, buf);
 
   // generate the log event and write the log
 	int eventStatus = s->event(arduinoIfaceNum, API_EVENT_EXAMPLE, msgSize);
 
   //write the information to the stream 
 	s->write(receivedString1, msgSize);
-
-  // sprintf(buf, "event status: %d", eventStatus);
-  // blink.log(4, buf);
 }
 
 static void handler5(BlinkService *s){

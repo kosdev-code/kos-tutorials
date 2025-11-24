@@ -17,7 +17,6 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface>
      * PART 1.1
      */
     public void hitHandler0() {
-        log.info("hitHandler0");
         withIfaceCatch(ArduinoIface::hitHandler0);
     }
 
@@ -68,7 +67,7 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface>
     public ArduinoIface createIface(BinaryMsgSession session) {
         log.info("creating arduino iface");
 
-        return new ArduinoIface(session);
+        return new ArduinoIface(session, this);
     }
 
     @Override
@@ -103,7 +102,7 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface>
 
     @Override
     public void setIface(ArduinoIface iface) {
-        log.info("setting arduino iface");
+        log.info("setting arduino iface...");
 
         this.iface = iface;
     }
@@ -111,6 +110,11 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface>
     @Override
     public void onIfaceConnect() throws Exception {
         log.info("arduino iface connected");
+
+        // add the request handler for the sample event
+        iface.addRequestHandler(ArduinoIface.EVENT_SAMPLE, m -> {
+            log.info("Sample event received: {}", m.readCString());
+        });
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.kos.tutorial;
 
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsg;
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIface;
+import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIfaceListener;
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,22 +24,16 @@ public class ArduinoIface extends BinaryMsgIface {
     // API EVENTS:
     public final static int EVENT_SAMPLE = 7;
 
-    public ArduinoIface(BinaryMsgSession session) {
-        super(NAME, session, null);
-        log.info("arduino iface created");
+    public ArduinoIface(BinaryMsgSession session, BinaryMsgIfaceListener lstnr) {
 
-        // add the request handler for the sample event
-        this.addRequestHandler(ArduinoIface.EVENT_SAMPLE, m -> {
-            log.info("Sample event received: {}", m.readCString());
-        });
+        super(NAME, session, lstnr);
+        log.info("arduino iface created");
     }
 
     /**
      * demonstrate sending a single type of information
      */
     public void hitHandler0() {
-       log.info("hitHandler0 in iface");
-
         String sampleMessage = "Hello World!";
 
         try {
