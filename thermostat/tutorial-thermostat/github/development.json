@@ -1,0 +1,12 @@
+{
+  "default_keyset": "test.org",
+  "build_cmd": "./quickbuild.sh",
+
+  "artifacts": [
+    {
+      "id": "tutorial-thermostat",
+      "filename": "target/tutorial-thermostat-${KOS_STD_VERSION_REGEX}.kab",
+      "artifactstore": "default_artifact_store",
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "kos": {
+    "app": {
+      "appClass": "", //TODO add fully qualified package name to app.
+      "appId": "org-tutorial-simulator"
+    }
+  }
+}

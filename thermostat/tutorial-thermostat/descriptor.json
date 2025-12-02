@@ -1,0 +1,8 @@
+{
+  "kos": {
+    "app": {
+      "appClass": "com.kos.tutorial.ThermostatApp",
+      "appId": "system"
+    }
+  }
+}
