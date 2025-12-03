@@ -4,6 +4,7 @@
 package com.kos.tutorial;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 /**
@@ -38,31 +39,66 @@ public class ThermostatUI extends JFrame {
         panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
         // create the label for the mode
-        JPanel modeIndicator = new JPanel();
-        modeIndicator.setBackground(Color.decode(MODE.getColor()));
-        modeIndicator.setMaximumSize(new Dimension(WIDTH, 12));
-        modeIndicator.setPreferredSize(new Dimension(0, 12));
+        JPanel modeIndicator = createModeIndicator();
 
         // create the label for the environment temp
-        JLabel currentTempLabel = new JLabel(CURRENT_TEMP + " °F");
-        currentTempLabel.setFont(new Font("Arial", Font.BOLD, 36));
-        currentTempLabel.setAlignmentX(CENTER_ALIGNMENT);
+        JLabel currentTempLabel = createCurrentTempLabel();
 
         // create the label for the range of set temps
-        JLabel rangeLabel = new JLabel("Min: " + MIN_TEMP + "   Max: " + MAX_TEMP);
-        rangeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        rangeLabel.setAlignmentX(CENTER_ALIGNMENT);
+        JPanel tempRangePanel = createTempRangePanel();
+
 
         // Add all labels to the panel, and add the panel to the frame
         panel.add(modeIndicator);
         panel.add(Box.createVerticalStrut(15));
         panel.add(currentTempLabel);
         panel.add(Box.createVerticalStrut(10));
-        panel.add(rangeLabel);
+        panel.add(tempRangePanel);
 
         add(panel);
 
         // Popup the window
         setVisible(true);
+    }
+
+    private JPanel createModeIndicator() {
+        JPanel modeIndicator = new JPanel();
+        modeIndicator.setBackground(Color.decode(MODE.getColor()));
+        modeIndicator.setMaximumSize(new Dimension(WIDTH, 12));
+        modeIndicator.setPreferredSize(new Dimension(0, 12));
+        return modeIndicator;
+    }
+
+    private JLabel createCurrentTempLabel() {
+        JLabel currentTempLabel = new JLabel(CURRENT_TEMP + " °F");
+        currentTempLabel.setFont(new Font("Arial", Font.BOLD, 36));
+        currentTempLabel.setAlignmentX(CENTER_ALIGNMENT);
+        return currentTempLabel;
+    }
+
+    private JPanel createTempRangePanel() {
+        JPanel tempRangePanel = new JPanel();
+        tempRangePanel.setLayout(new GridLayout(2, 2, 10, 10));
+
+        // Min temperature
+        tempRangePanel.add(new JLabel("Min:"));
+        JSpinner minSpinner = new JSpinner(new SpinnerNumberModel(MIN_TEMP, 0, 100, 1));
+        tempRangePanel.add(minSpinner);
+
+        // Max temperature
+        tempRangePanel.add(new JLabel("Max:"));
+        JSpinner maxSpinner = new JSpinner(new SpinnerNumberModel(MAX_TEMP, 0, 100, 1));
+        tempRangePanel.add(maxSpinner);
+
+        // Listeners for changes from the UI
+        ChangeListener listener = e -> {
+            // TODO: set configs
+             minSpinner.getValue();
+             maxSpinner.getValue();
+        };
+        minSpinner.addChangeListener(listener);
+        maxSpinner.addChangeListener(listener);
+
+        return tempRangePanel;
     }
 }

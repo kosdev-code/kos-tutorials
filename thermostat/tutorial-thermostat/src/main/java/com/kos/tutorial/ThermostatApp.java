@@ -20,10 +20,14 @@ public class ThermostatApp extends SystemApplication<BaseAppConfig> {
 
     @Override
     public void load() {
+        addToCtx(new ThermostatService());
     }
 
     @Override
     public void start() {
+        // install the core assembly
+        // This assembly loads boards
+        installAssembly(new ThermostatAssembly("core"));
     }
 
     @Override
