@@ -1,6 +1,10 @@
+/**
+ * (C) Copyright 2025 Kondra. All rights reserved.
+ */
 package com.kos.tutorial;
 
-import javax.swing.SwingUtilities;
+import javax.swing.*;
+
 import com.tccc.kos.core.service.app.BaseAppConfig;
 import com.tccc.kos.core.service.app.SystemApplication;
 
@@ -24,10 +28,11 @@ public class ThermostatApp extends SystemApplication<BaseAppConfig> {
 
     @Override
     public void started() {
+        // Create the java swing UI window
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new ThermostatUI().setVisible(true);
+                new ThermostatUI();
             }
         });
     }

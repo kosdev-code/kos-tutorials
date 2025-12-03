@@ -1,3 +1,6 @@
+/**
+ * (C) Copyright 2025 Kondra. All rights reserved.
+ */
 package com.kos.tutorial;
 
 import lombok.Getter;
