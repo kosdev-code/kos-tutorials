@@ -36,7 +36,8 @@ public class ThermostatApp extends SystemApplication<BaseAppConfig> {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new ThermostatUI();
+                JFrame ui = new ThermostatUI();
+                ui.setVisible(true);
             }
         });
     }

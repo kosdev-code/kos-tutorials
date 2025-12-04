@@ -4,8 +4,9 @@
 package com.kos.tutorial;
 
 import javax.swing.*;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.net.URL;
+import java.util.Objects;
 
 /**
  * Simple Java Swing UI for the thermostat
@@ -18,87 +19,90 @@ import java.awt.*;
 public class ThermostatUI extends JFrame {
     // Dummy values to display
     private static final long CURRENT_TEMP = 70;
-    private static final long MAX_TEMP = 74;
-    private static final long MIN_TEMP = 68;
-    private static final Mode MODE = Mode.HEAT;
+    private static final int MAX_TEMP = 74;
+    private static final int MIN_TEMP = 68;
 
-    private static final int WIDTH = 150;
-    private static final int HEIGHT = 150;
+    private int min_temp = MIN_TEMP;
+    private int max_temp = MAX_TEMP;
+
+    private final JLabel minValueLabel = new JLabel();
+    private final JLabel maxValueLabel = new JLabel();
+    private final JLabel currentValueLabel = new JLabel();
 
     public ThermostatUI() {
         super("Thermostat");
 
-        // Window settings
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(WIDTH, HEIGHT);
-        setLocationRelativeTo(null);
 
         // create a panel inside the frame for all the labels
+        JPanel root = new JPanel(new BorderLayout());
+        root.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+        JSplitPane splitPane = new JSplitPane(
+                JSplitPane.HORIZONTAL_SPLIT,
+                setPointPanel(),        // set point panel on the left
+                currentStatusPanel()    // current status (temp and mode) on the right
+        );
+
+        splitPane.setResizeWeight(0.66); // 70% left, 30% right
+        splitPane.setDividerSize(0);    // hide divider
+        splitPane.setEnabled(false);    // prevent dragging
+
+        root.add(splitPane, BorderLayout.CENTER);
+
+        setContentPane(root);
+        pack();
+        setLocationRelativeTo(null);
+    }
+
+    private JPanel currentStatusPanel() {
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-
-        // create the label for the mode
-        JPanel modeIndicator = createModeIndicator();
-
-        // create the label for the environment temp
-        JLabel currentTempLabel = createCurrentTempLabel();
-
-        // create the label for the range of set temps
-        JPanel tempRangePanel = createTempRangePanel();
-
-
-        // Add all labels to the panel, and add the panel to the frame
-        panel.add(modeIndicator);
-        panel.add(Box.createVerticalStrut(15));
-        panel.add(currentTempLabel);
-        panel.add(Box.createVerticalStrut(10));
-        panel.add(tempRangePanel);
-
-        add(panel);
-
-        // Popup the window
-        setVisible(true);
+        panel.setBackground(Color.decode("#808080"));
+        return panel;
     }
 
-    private JPanel createModeIndicator() {
-        JPanel modeIndicator = new JPanel();
-        modeIndicator.setBackground(Color.decode(MODE.getColor()));
-        modeIndicator.setMaximumSize(new Dimension(WIDTH, 12));
-        modeIndicator.setPreferredSize(new Dimension(0, 12));
-        return modeIndicator;
+    private JPanel setPointPanel() {
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.decode("#000088"));
+        panel.setLayout(new GridLayout(1, 2, 20, 0));
+
+        panel.add(createTempAdjustPanel(minValueLabel, Color.decode(Mode.COOL.getColor()), () -> min_temp++, () -> min_temp--));
+        panel.add(createTempAdjustPanel(maxValueLabel, Color.decode(Mode.HEAT.getColor()), () -> max_temp++, () -> max_temp--));
+
+//        updateLabels();
+
+        return panel;
     }
 
-    private JLabel createCurrentTempLabel() {
-        JLabel currentTempLabel = new JLabel(CURRENT_TEMP + " °F");
-        currentTempLabel.setFont(new Font("Arial", Font.BOLD, 36));
-        currentTempLabel.setAlignmentX(CENTER_ALIGNMENT);
-        return currentTempLabel;
+    private void updateLabels() {
+        minValueLabel.setText(String.valueOf(min_temp));
+        maxValueLabel.setText(String.valueOf(max_temp));
+        currentValueLabel.setText(String.valueOf(CURRENT_TEMP + " F"));
     }
 
-    private JPanel createTempRangePanel() {
-        JPanel tempRangePanel = new JPanel();
-        tempRangePanel.setLayout(new GridLayout(2, 2, 10, 10));
+    private JPanel createTempAdjustPanel(JLabel label, Color background, Runnable onUp, Runnable onDown) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
 
-        // Min temperature
-        tempRangePanel.add(new JLabel("Min:"));
-        JSpinner minSpinner = new JSpinner(new SpinnerNumberModel(MIN_TEMP, 0, 100, 1));
-        tempRangePanel.add(minSpinner);
+        JButton upButton = createButton("up.png", onUp);
+        JButton downButton = createButton("down.png", onDown);
 
-        // Max temperature
-        tempRangePanel.add(new JLabel("Max:"));
-        JSpinner maxSpinner = new JSpinner(new SpinnerNumberModel(MAX_TEMP, 0, 100, 1));
-        tempRangePanel.add(maxSpinner);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setOpaque(true);
+        label.setBackground(background);
 
-        // Listeners for changes from the UI
-        ChangeListener listener = e -> {
-            // TODO: set configs
-             minSpinner.getValue();
-             maxSpinner.getValue();
-        };
-        minSpinner.addChangeListener(listener);
-        maxSpinner.addChangeListener(listener);
+        panel.add(upButton, BorderLayout.NORTH);
+        panel.add(label, BorderLayout.CENTER);
+        panel.add(downButton, BorderLayout.SOUTH);
 
-        return tempRangePanel;
+        return panel;
+    }
+
+    private JButton createButton(String fileName, Runnable runnable) {
+        URL resource = getClass().getResource("down.png");
+        ImageIcon icon = new ImageIcon();
+        JButton button = new JButton(icon);
+        button.addActionListener(e -> runnable.run());
+        return button;
     }
 }
