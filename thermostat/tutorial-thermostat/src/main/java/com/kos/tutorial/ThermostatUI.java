@@ -5,8 +5,6 @@ package com.kos.tutorial;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
-import java.util.Objects;
 
 /**
  * Simple Java Swing UI for the thermostat
@@ -24,10 +22,12 @@ public class ThermostatUI extends JFrame {
 
     private int min_temp = MIN_TEMP;
     private int max_temp = MAX_TEMP;
+    private Mode mode = Mode.HEAT;
 
     private final JLabel minValueLabel = new JLabel();
     private final JLabel maxValueLabel = new JLabel();
     private final JLabel currentValueLabel = new JLabel();
+    private final JLabel modeLabel = new JLabel();
 
     public ThermostatUI() {
         super("Thermostat");
@@ -53,36 +53,72 @@ public class ThermostatUI extends JFrame {
         setContentPane(root);
         pack();
         setLocationRelativeTo(null);
+
+        SwingUtilities.invokeLater(() -> splitPane.setDividerLocation(0.66));
     }
 
     private JPanel currentStatusPanel() {
         JPanel panel = new JPanel();
-        panel.setBackground(Color.decode("#808080"));
+        panel.setLayout(new GridLayout(2, 1, 20, 0));
+
+        configureModeLabel();
+        configureCurrentTempLabel();
+
+        panel.add(modeLabel);
+        panel.add(currentValueLabel);
         return panel;
     }
 
     private JPanel setPointPanel() {
         JPanel panel = new JPanel();
-        panel.setBackground(Color.decode("#000088"));
         panel.setLayout(new GridLayout(1, 2, 20, 0));
 
-        panel.add(createTempAdjustPanel(minValueLabel, Color.decode(Mode.COOL.getColor()), () -> min_temp++, () -> min_temp--));
-        panel.add(createTempAdjustPanel(maxValueLabel, Color.decode(Mode.HEAT.getColor()), () -> max_temp++, () -> max_temp--));
+        updateLabels();
 
-//        updateLabels();
+        panel.add(createTempAdjustPanel(minValueLabel, Color.decode(Mode.COOL.getColor()),
+                () -> {
+                    min_temp++;
+                    updateLabels();
+                },
+                () -> {
+                    min_temp--;
+                    updateLabels();
+                }));
+        panel.add(createTempAdjustPanel(maxValueLabel, Color.decode(Mode.HEAT.getColor()),
+                () -> {
+                    max_temp++;
+                    updateLabels();
+                },
+                () -> {
+                    max_temp--;
+                    updateLabels();
+                }));
 
         return panel;
+    }
+
+    private void configureModeLabel() {
+        modeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        modeLabel.setOpaque(true);
+        modeLabel.setFont(new Font("Arial", Font.BOLD, 20));
+    }
+
+    private void configureCurrentTempLabel() {
+        currentValueLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        currentValueLabel.setFont(new Font("Arial", Font.BOLD, 36));
+
     }
 
     private void updateLabels() {
         minValueLabel.setText(String.valueOf(min_temp));
         maxValueLabel.setText(String.valueOf(max_temp));
-        currentValueLabel.setText(String.valueOf(CURRENT_TEMP + " F"));
+        currentValueLabel.setText(CURRENT_TEMP + " F");
+        modeLabel.setText(mode.name());
+        modeLabel.setBackground(Color.decode(mode.getColor()));
     }
 
     private JPanel createTempAdjustPanel(JLabel label, Color background, Runnable onUp, Runnable onDown) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
+        JPanel panel = new JPanel(new GridLayout(3, 1, 0, 5)); // 5px vertical gap
 
         JButton upButton = createButton("up.png", onUp);
         JButton downButton = createButton("down.png", onDown);
@@ -91,18 +127,19 @@ public class ThermostatUI extends JFrame {
         label.setOpaque(true);
         label.setBackground(background);
 
-        panel.add(upButton, BorderLayout.NORTH);
-        panel.add(label, BorderLayout.CENTER);
-        panel.add(downButton, BorderLayout.SOUTH);
+        // Add components top-to-bottom: up button, temp label, down button
+        panel.add(upButton);
+        panel.add(label);
+        panel.add(downButton);
 
         return panel;
     }
 
     private JButton createButton(String fileName, Runnable runnable) {
-        URL resource = getClass().getResource("down.png");
-        ImageIcon icon = new ImageIcon();
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource(fileName));
         JButton button = new JButton(icon);
         button.addActionListener(e -> runnable.run());
+        button.setOpaque(false);
         return button;
     }
 }
