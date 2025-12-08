@@ -3,6 +3,8 @@
  */
 package com.kos.tutorial;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -29,6 +31,9 @@ public class ThermostatUI extends JFrame {
     private final JLabel currentValueLabel = new JLabel();
     private final JLabel modeLabel = new JLabel();
 
+    @Getter
+    private JSplitPane splitPane;
+
     public ThermostatUI() {
         super("Thermostat");
 
@@ -36,9 +41,9 @@ public class ThermostatUI extends JFrame {
 
         // create a panel inside the frame for all the labels
         JPanel root = new JPanel(new BorderLayout());
-        root.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        root.setBorder(BorderFactory.createEmptyBorder(24, 24, 24, 24));
 
-        JSplitPane splitPane = new JSplitPane(
+        splitPane = new JSplitPane(
                 JSplitPane.HORIZONTAL_SPLIT,
                 setPointPanel(),        // set point panel on the left
                 currentStatusPanel()    // current status (temp and mode) on the right
@@ -53,8 +58,6 @@ public class ThermostatUI extends JFrame {
         setContentPane(root);
         pack();
         setLocationRelativeTo(null);
-
-        SwingUtilities.invokeLater(() -> splitPane.setDividerLocation(0.66));
     }
 
     private JPanel currentStatusPanel() {
@@ -136,10 +139,12 @@ public class ThermostatUI extends JFrame {
     }
 
     private JButton createButton(String fileName, Runnable runnable) {
-        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource(fileName));
-        JButton button = new JButton(icon);
+        JButton button = new JButton(new ImageIcon(getClass().getClassLoader().getResource(fileName)));
         button.addActionListener(e -> runnable.run());
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
         button.setOpaque(false);
+        button.setContentAreaFilled(false);
         return button;
     }
 }

@@ -36,8 +36,11 @@ public class ThermostatApp extends SystemApplication<BaseAppConfig> {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                JFrame ui = new ThermostatUI();
+                ThermostatUI ui = new ThermostatUI();
                 ui.setVisible(true);
+
+                JSplitPane splitPane = ui.getSplitPane(); // you need a getter
+                splitPane.setDividerLocation(0.66);
             }
         });
     }
