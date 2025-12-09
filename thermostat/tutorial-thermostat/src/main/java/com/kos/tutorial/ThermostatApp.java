@@ -14,7 +14,7 @@ import com.tccc.kos.core.service.app.SystemApplication;
  * It also has a display
  *
  * @author Sneh Gupta (sneh@kondra.com)
- * @version 2025-10
+ * @version 2025-12
  */
 public class ThermostatApp extends SystemApplication<BaseAppConfig> {
 

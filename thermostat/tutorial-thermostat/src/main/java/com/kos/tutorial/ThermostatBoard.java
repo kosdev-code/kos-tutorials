@@ -3,8 +3,12 @@
  */
 package com.kos.tutorial;
 
+import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
 import com.tccc.kos.core.service.assembly.Assembly;
 import com.tccc.kos.core.service.hardware.Board;
+import com.tccc.kos.core.service.hardware.IfaceAwareBoard;
+
+import java.io.IOException;
 
 /**
  * This is the logical abstraction of the physical thermostat board
@@ -13,9 +17,9 @@ import com.tccc.kos.core.service.hardware.Board;
  * @author Sneh Gupta (sneh@kondra.com)
  * @version 2025-10
  */
-public class ThermostatBoard extends Board {
+public class ThermostatBoard extends Board implements IfaceAwareBoard<ThermostatIface> {
     // board type
-    private static final String TYPE = "tutorial.thermostat";
+    private static final String TYPE = "kos.tutorial.thermostat";
     // instance ID
     private static final String INSTANCE_ID = "1";
 
@@ -28,13 +32,20 @@ public class ThermostatBoard extends Board {
      * Retrieves the current ambient temperature from the physical
      * temperature sensor in the environment.
      */
-    public long getTemp() { return 0; }
+    public long getTemp() throws IOException {
+        if (getIface() == null) {
+            throw new IOException();
+        }
+        return getIface().getTemp();
+    }
 
     /**
      * Sets the operating mode of the physical thermostat, such as
      * heating, cooling, or idle (no active temperature control).
      */
-    public void setMode(Mode mode) {}
+    public void setMode(Mode mode) {
+        withIface(iface -> iface.setMode(mode) );
+    }
 
     @Override
     public String getType() {
@@ -48,5 +59,20 @@ public class ThermostatBoard extends Board {
         // By convention, instance ids are numbered. Since we are only using a single physical
         // arduino in this tutorial, our instance id will be "1"
         return INSTANCE_ID;
+    }
+
+    @Override
+    public ThermostatIface createIface(BinaryMsgSession session) {
+        return new ThermostatIface(session, this);
+    }
+
+    @Override
+    public void onIfaceConnect() throws Exception {
+
+    }
+
+    @Override
+    public void onIfaceDisconnect() throws Exception {
+
     }
 }
