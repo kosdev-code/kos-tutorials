@@ -5,6 +5,7 @@ package com.kos.tutorial;
 
 import javax.swing.*;
 
+import com.kos.tutorial.ui.ThermostatUI;
 import com.tccc.kos.core.service.app.BaseAppConfig;
 import com.tccc.kos.core.service.app.SystemApplication;
 
@@ -37,10 +38,9 @@ public class ThermostatApp extends SystemApplication<BaseAppConfig> {
             @Override
             public void run() {
                 ThermostatUI ui = new ThermostatUI();
+                addToCtx(ui);
+                getCtx().update();
                 ui.setVisible(true);
-
-                JSplitPane splitPane = ui.getSplitPane(); // you need a getter
-                splitPane.setDividerLocation(0.66);
             }
         });
     }

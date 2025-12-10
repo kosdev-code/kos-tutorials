@@ -15,9 +15,9 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum Mode {
-    OFF("#808080"),
-    HEAT("#FF0000"),
-    COOL("#0000FF");
+    OFF("#AFB2B4"),
+    HEATING("#FFA69E"),
+    COOLING("#83C9F4");
 
     private final String color;
 }

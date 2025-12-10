@@ -8,9 +8,6 @@ import com.tccc.kos.commons.core.service.config.BeanChanges;
 import com.tccc.kos.commons.util.concurrent.AdjustableCallback;
 import com.tccc.kos.core.service.assembly.Assembly;
 import com.tccc.kos.core.service.assembly.AssemblyListener;
-import lombok.SneakyThrows;
-
-import java.io.IOException;
 
 /**
  * ThermostatService is the central coordinator for thermostat behavior.
@@ -28,9 +25,8 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
     private ThermostatBoard thermostat;
 
     // One of the many timers in KOS
-    private AdjustableCallback timer;
+    private final AdjustableCallback timer;
 
-    @SneakyThrows
     public ThermostatService() {
         // Create a recurring timer that fires every 1000ms (1 second)
         // Each time it fires, re-evaluate the thermostat state
@@ -40,7 +36,7 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
     /**
      * Called after an Assembly is installed.
      *
-     * The service listens for the ThermostatAssembly, so it can safely
+     * The service listens for the ThermostatAssembly so it can safely
      * retrieve the ThermostatBoard at the correct point in the lifecycle.
      * This avoids race conditions and manual wiring.
      */
@@ -58,6 +54,14 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
     public void onConfigChanged(BeanChanges changes){
         // When the set temperature range changes, re-evaluate the operating mode
         react();
+    }
+
+    public int getMinTemp() {
+        return getConfig().getMinTemp();
+    }
+
+    public int getMaxTemp() {
+        return getConfig().getMaxTemp();
     }
 
     /**
@@ -79,7 +83,15 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
     /**
      * Read the current environment temperature from the board.
      */
-    public long getTemp() throws IOException { return thermostat.getTemp(); }
+    public long getTemp() {
+        long temp = getConfig().getMinTemp();
+        try {
+            temp = thermostat.getTemp();
+        } catch (Exception e) {
+            // do nothing
+        }
+        return temp;
+    }
 
     /**
      * Send the desired operating mode to the thermostat hardware.
@@ -94,13 +106,14 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
      * Check the environment temperature against the configured min/max
      * and update the board mode accordingly
      */
-    private void react() throws IOException {
-        if (getTemp() < getConfig().getMinTemp()) {
-            setMode(Mode.HEAT);
-        } else if (getTemp() > getConfig().getMaxTemp()) {
-            setMode(Mode.COOL);
-        } else {
-            setMode(Mode.OFF);
-        }
+    private void react() {
+        return;
+//        if (getTemp() < getConfig().getMinTemp()) {
+//            setMode(Mode.HEAT);
+//        } else if (getTemp() > getConfig().getMaxTemp()) {
+//            setMode(Mode.COOL);
+//        } else {
+//            setMode(Mode.OFF);
+//        }
     }
 }
