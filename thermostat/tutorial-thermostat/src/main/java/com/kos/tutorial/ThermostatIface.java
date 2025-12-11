@@ -38,7 +38,7 @@ public class ThermostatIface extends BinaryMsgIface {
     /**
      * Return the temperature reading in Fahrenheit.
      */
-    public long getTemp() throws IOException {
+    public double getTemp() throws IOException {
         BinaryMsg msg = msg(API_GET_TEMP);
         return sendAndRecvInt(msg);
     }

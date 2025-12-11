@@ -3,8 +3,9 @@
  */
 package com.kos.tutorial;
 
+import com.tccc.kos.commons.core.context.annotations.Autowired;
 import com.tccc.kos.commons.core.service.AbstractConfigurableService;
-import com.tccc.kos.commons.core.service.config.BeanChanges;
+import com.tccc.kos.commons.util.ListenerList;
 import com.tccc.kos.commons.util.concurrent.AdjustableCallback;
 import com.tccc.kos.core.service.assembly.Assembly;
 import com.tccc.kos.core.service.assembly.AssemblyListener;
@@ -24,18 +25,12 @@ import com.tccc.kos.core.service.assembly.AssemblyListener;
 public class ThermostatService extends AbstractConfigurableService<ThermostatServiceConfigs> implements AssemblyListener {
     private ThermostatBoard thermostat;
 
-    // One of the many timers in KOS
-    private final AdjustableCallback timer;
-
-    public ThermostatService() {
-        // Create a recurring timer that fires every 1000ms (1 second)
-        // Each time it fires, re-evaluate the thermostat state
-        timer = new AdjustableCallback(true, 1000, this::react);
-    }
+    @Autowired
+    private final ListenerList<ThermostatListener> listeners = new ListenerList<>();
 
     /**
      * Called after an Assembly is installed.
-     *
+     * <p>
      * The service listens for the ThermostatAssembly so it can safely
      * retrieve the ThermostatBoard at the correct point in the lifecycle.
      * This avoids race conditions and manual wiring.
@@ -45,15 +40,10 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
         if (assembly instanceof ThermostatAssembly trayAssembly) {
             thermostat = trayAssembly.getThermostat();
         }
-    }
 
-    /**
-     * Called whenever the thermostat configuration changes.
-     */
-    @Override
-    public void onConfigChanged(BeanChanges changes){
-        // When the set temperature range changes, re-evaluate the operating mode
-        react();
+        // Create a recurring timer that fires every 1000ms (1 second)
+        // Each time it fires, re-evaluate the thermostat state
+        AdjustableCallback timer = new AdjustableCallback(true, 1000, this::react);
     }
 
     public int getMinTemp() {
@@ -82,9 +72,10 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
 
     /**
      * Read the current environment temperature from the board.
+     * If the environemnt temperature cannot be read, return the set minimum temp
      */
-    public long getTemp() {
-        long temp = getConfig().getMinTemp();
+    public double getTemp() {
+        double temp = getConfig().getMinTemp();
         try {
             temp = thermostat.getTemp();
         } catch (Exception e) {
@@ -107,13 +98,20 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
      * and update the board mode accordingly
      */
     private void react() {
-        return;
-//        if (getTemp() < getConfig().getMinTemp()) {
-//            setMode(Mode.HEAT);
-//        } else if (getTemp() > getConfig().getMaxTemp()) {
-//            setMode(Mode.COOL);
-//        } else {
-//            setMode(Mode.OFF);
-//        }
+        double temp = getTemp();
+
+        // Notify listeners of the environment temperature
+        listeners.forEach(l -> l.onTemperatureChange(temp));
+
+        // Determine the mode
+        Mode mode = (temp < getConfig().getMinTemp()) ? Mode.HEATING :
+                    (temp > getConfig().getMaxTemp()) ? Mode.COOLING :
+                    Mode.OFF;
+
+        // Update physical board state
+        setMode(mode);
+
+        // Notify listeners of the mode change
+        listeners.forEach(l -> l.onModeChange(mode));
     }
 }

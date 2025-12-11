@@ -4,11 +4,13 @@
 package com.kos.tutorial.ui;
 
 import com.kos.tutorial.Mode;
+import com.kos.tutorial.ThermostatListener;
 import com.kos.tutorial.ThermostatService;
 import com.tccc.kos.commons.core.context.annotations.Autowired;
 import com.tccc.kos.commons.util.ready.ReadyAndReadyListener;
 import com.tccc.kos.commons.util.ready.ReadyIndicator;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,17 +23,18 @@ import java.awt.*;
  * @author Sneh Gupta (sneh@kondra.com)
  * @version 2025-10
  */
-public class ThermostatUI extends JFrame implements ReadyAndReadyListener {
+@Slf4j
+public class ThermostatUI extends JFrame implements ReadyAndReadyListener, ThermostatListener {
     @Autowired
     private ThermostatService thermostatService;
     private final ReadyIndicator readyIndicator = new ReadyIndicator();
 
-    // Dummy values to display
-    private static final long CURRENT_TEMP = 70;
+    // Starting Temp to display
+    private static final double INITIAL_TEMP = 70;
+    // Starting mode to display
+    private Mode INITIAL_MODE = Mode.OFF;
 
-    private Mode mode = Mode.HEATING;
-
-    private JPanel root;
+    private final JPanel root;
     private ImageLabel currentTempLabel;
     private ImageLabel modeLabel;
 
@@ -47,6 +50,9 @@ public class ThermostatUI extends JFrame implements ReadyAndReadyListener {
         root = new JPanel(new BorderLayout());
     }
 
+    /**
+     * This is called when all the dependencies are ready
+     */
     @Override
     public boolean onBeanReady() {
         splitPane = new JSplitPane(
@@ -57,6 +63,7 @@ public class ThermostatUI extends JFrame implements ReadyAndReadyListener {
 
         splitPane.setDividerSize(0);    // hide divider
         splitPane.setEnabled(false);    // prevent dragging
+        splitPane.setResizeWeight(0.7);
 
         root.add(splitPane, BorderLayout.CENTER);
 
@@ -68,22 +75,26 @@ public class ThermostatUI extends JFrame implements ReadyAndReadyListener {
 
     private JPanel currentStatusPanel() {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(2, 1, 20, 0));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         modeLabel = new ImageLabel(
                 new ImageIcon(getClass().getClassLoader().getResource("mode.png")),
-                mode.name(),
+                INITIAL_MODE.name(),
                 24
         );
-        modeLabel.updateColor(Color.decode(mode.getColor()));
+        modeLabel.updateColor(Color.decode(INITIAL_MODE.getColor()));
 
         currentTempLabel = new ImageLabel(
                 new ImageIcon(getClass().getClassLoader().getResource("temperature.png")),
-                CURRENT_TEMP + " F"
+                INITIAL_TEMP + " F"
         );
 
+        panel.add(Box.createVerticalStrut(32)); // Add space at top
         panel.add(modeLabel);
+        panel.add(Box.createVerticalStrut(40)); // Space between components
         panel.add(currentTempLabel);
+        panel.add(Box.createVerticalGlue()); // Pushes everything up, expands at bottom
+
         return panel;
     }
 
@@ -139,24 +150,25 @@ public class ThermostatUI extends JFrame implements ReadyAndReadyListener {
         return panel;
     }
 
-    /**
-     * Updates the mode label with new mode and its associated color
-     */
-    public void updateMode(Mode newMode) {
-        this.mode = newMode;
-        modeLabel.updateText(mode.name());
-        modeLabel.updateColor(Color.decode(mode.getColor()));
-    }
-
-    /**
-     * Updates the current temperature display
-     */
-    public void updateCurrentTemp(long newTemp) {
-        currentTempLabel.updateText(newTemp + " F");
-    }
-
     @Override
     public ReadyIndicator getReady() {
         return readyIndicator;
+    }
+
+    /**
+     * Callback when temperature is updated because ThermostatListener is implemented
+     */
+    @Override
+    public void onTemperatureChange(double temperature) {
+        currentTempLabel.updateText((int) temperature + " F");
+    }
+
+    /**
+     * Callback when mode is updated because ThermostatListener is implemented
+     */
+    @Override
+    public void onModeChange(Mode mode) {
+        modeLabel.updateText(mode.name());
+        modeLabel.updateColor(Color.decode(mode.getColor()));
     }
 }

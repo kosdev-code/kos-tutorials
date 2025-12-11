@@ -32,7 +32,7 @@ public class ThermostatBoard extends Board implements IfaceAwareBoard<Thermostat
      * Retrieves the current ambient temperature from the physical
      * temperature sensor in the environment.
      */
-    public long getTemp() throws IOException {
+    public double getTemp() throws IOException {
         if (getIface() == null) {
             throw new IOException();
         }
@@ -67,12 +67,8 @@ public class ThermostatBoard extends Board implements IfaceAwareBoard<Thermostat
     }
 
     @Override
-    public void onIfaceConnect() throws Exception {
-
-    }
+    public void onIfaceConnect() throws Exception {}
 
     @Override
-    public void onIfaceDisconnect() throws Exception {
-
-    }
+    public void onIfaceDisconnect() throws Exception {}
 }
