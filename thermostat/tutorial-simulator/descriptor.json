@@ -1,8 +1,8 @@
 {
   "kos": {
     "app": {
-      "appClass": "", //TODO add fully qualified package name to app.
-      "appId": "org-tutorial-simulator"
+      "appClass": "com.kos.tutorial.SimulatorApp",
+      "appId": "kondra-tutorial-thermostat-simulator"
     }
   }
 }

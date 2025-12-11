@@ -12,7 +12,7 @@ import lombok.Setter;
  * These are the configs linked to Thermostat Service
  *
  * @author Sneh Gupta (sneh@kondra.com)
- * @version 2025-10
+ * @version 2025-12
  */
 @Getter @Setter
 public class ThermostatServiceConfigs extends ConfigBean {

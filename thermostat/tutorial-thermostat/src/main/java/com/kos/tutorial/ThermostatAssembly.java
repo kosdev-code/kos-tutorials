@@ -13,7 +13,7 @@ import lombok.Getter;
  * <code>ThermostatBoard</code>
  *
  * @author Sneh Gupta (sneh@kondra.com)
- * @version 2025-10
+ * @version 2025-12
  */
 public class ThermostatAssembly extends Assembly implements CoreAssembly {
     @Getter

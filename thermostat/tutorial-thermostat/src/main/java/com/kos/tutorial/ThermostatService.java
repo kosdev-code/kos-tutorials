@@ -23,7 +23,7 @@ import java.io.IOException;
  *  - Sends that mode back to the board
  *
  * @author Sneh Gupta (sneh@kondra.com)
- * @version 2025-10
+ * @version 2025-12
  */
 public class ThermostatService extends AbstractConfigurableService<ThermostatServiceConfigs> implements AssemblyListener {
     private ThermostatBoard thermostat;

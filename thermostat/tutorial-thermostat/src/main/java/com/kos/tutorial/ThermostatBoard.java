@@ -15,7 +15,7 @@ import java.io.IOException;
  * The thermostat board is an arduino with sensors
  *
  * @author Sneh Gupta (sneh@kondra.com)
- * @version 2025-10
+ * @version 2025-12
  */
 public class ThermostatBoard extends Board implements IfaceAwareBoard<ThermostatIface> {
     // board type
