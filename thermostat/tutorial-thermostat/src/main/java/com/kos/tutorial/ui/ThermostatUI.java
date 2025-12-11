@@ -29,11 +29,6 @@ public class ThermostatUI extends JFrame implements ReadyAndReadyListener, Therm
     private ThermostatService thermostatService;
     private final ReadyIndicator readyIndicator = new ReadyIndicator();
 
-    // Starting Temp to display
-    private static final double INITIAL_TEMP = 70;
-    // Starting mode to display
-    private Mode INITIAL_MODE = Mode.OFF;
-
     private final JPanel root;
     private ImageLabel currentTempLabel;
     private ImageLabel modeLabel;
@@ -79,14 +74,14 @@ public class ThermostatUI extends JFrame implements ReadyAndReadyListener, Therm
 
         modeLabel = new ImageLabel(
                 new ImageIcon(getClass().getClassLoader().getResource("mode.png")),
-                INITIAL_MODE.name(),
+                thermostatService.getMode().name(),
                 24
         );
-        modeLabel.updateColor(Color.decode(INITIAL_MODE.getColor()));
+        modeLabel.updateColor(Color.decode(thermostatService.getMode().getColor()));
 
         currentTempLabel = new ImageLabel(
                 new ImageIcon(getClass().getClassLoader().getResource("temperature.png")),
-                INITIAL_TEMP + " F"
+                (int) thermostatService.getTemp() + " F"
         );
 
         panel.add(Box.createVerticalStrut(32)); // Add space at top

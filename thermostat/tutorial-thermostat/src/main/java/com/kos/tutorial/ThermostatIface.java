@@ -43,6 +43,12 @@ public class ThermostatIface extends BinaryMsgIface {
         return sendAndRecvInt(msg);
     }
 
+    public Mode getMode() throws IOException {
+        BinaryMsg msg = msg(API_GET_TEMP);
+        int value = sendAndRecvInt(msg);
+        return Mode.values()[value];
+    }
+
     /**
      * Set the operating mode of the thermostat.
      */

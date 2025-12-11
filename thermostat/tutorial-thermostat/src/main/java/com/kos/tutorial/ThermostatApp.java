@@ -21,6 +21,7 @@ public class ThermostatApp extends SystemApplication<BaseAppConfig> {
 
     @Override
     public void load() {
+        // Beans added to the context in load() are automatically autowired
         addToCtx(new ThermostatService());
     }
 
@@ -34,14 +35,14 @@ public class ThermostatApp extends SystemApplication<BaseAppConfig> {
     @Override
     public void started() {
         // Create the java swing UI window
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                ThermostatUI ui = new ThermostatUI();
-                addToCtx(ui);
-                getCtx().update();
-                ui.setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            ThermostatUI ui = new ThermostatUI();
+            addToCtx(ui);
+
+            // Beans added after load() must be explicitly autowired
+            getCtx().update();
+
+            ui.setVisible(true);
         });
     }
 }

@@ -5,10 +5,13 @@ package com.kos.tutorial;
 
 import com.tccc.kos.commons.core.context.annotations.Autowired;
 import com.tccc.kos.commons.core.service.AbstractConfigurableService;
+import com.tccc.kos.commons.core.service.config.BeanChanges;
 import com.tccc.kos.commons.util.ListenerList;
 import com.tccc.kos.commons.util.concurrent.AdjustableCallback;
 import com.tccc.kos.core.service.assembly.Assembly;
 import com.tccc.kos.core.service.assembly.AssemblyListener;
+
+import java.io.IOException;
 
 /**
  * ThermostatService is the central coordinator for thermostat behavior.
@@ -44,6 +47,13 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
         // Create a recurring timer that fires every 1000ms (1 second)
         // Each time it fires, re-evaluate the thermostat state
         AdjustableCallback timer = new AdjustableCallback(true, 1000, this::react);
+    }
+
+    @Override
+    public void onConfigChanged(BeanChanges changes) {
+        if (thermostat != null) {
+            react();
+        }
     }
 
     public int getMinTemp() {
@@ -91,6 +101,14 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
      */
     public void setMode(Mode mode) {
         thermostat.setMode(mode);
+    }
+
+    public Mode getMode() {
+        try {
+            return thermostat.getMode();
+        } catch (IOException e) {
+            return Mode.OFF;
+        }
     }
 
     /**

@@ -47,6 +47,13 @@ public class ThermostatBoard extends Board implements IfaceAwareBoard<Thermostat
         withIface(iface -> iface.setMode(mode) );
     }
 
+    public Mode getMode() throws IOException {
+        if (getIface() == null) {
+            throw new IOException();
+        }
+        return getIface().getMode();
+    }
+
     @Override
     public String getType() {
         // Board type must match the arduino side
