@@ -15,8 +15,16 @@ import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIdentity;
  */
 public class ThermostatClient extends BinaryMsgClient {
     private static final String NAME = "kos.tutorial.simulator";
+    private static final String INSTANCE_ID = "1";
+    private static final String BOARD_NAME = "kos.board";
 
-    // API numbers for the protocol
+    // api numbers for the Board Iface
+    private static final int API_GET_TYPE           = 1;
+    private static final int API_GET_INSTANCE_ID    = 2;
+    private static final int API_GET_IDENTITY       = 3;
+    private static final int API_GET_MFG_SERIAL_NUM = 4;
+
+    // API numbers for the Core Iface
     // API number for requesting current temperature
     private static final int API_GET_TEMP = 0;
     // API number for requesting current mode
@@ -33,7 +41,11 @@ public class ThermostatClient extends BinaryMsgClient {
         iface.addHandler(API_SET_MODE, (api, msg) ->thermostat.setMode(msg.readInt()));
 
         // Board Iface
-//        BinaryMsgClientIface boardIface = new BinaryMsgClientIface();
-//        this.addIface(boardIface);
+        BinaryMsgClientIface boardIface = new BinaryMsgClientIface(BOARD_NAME, 0);
+        boardIface.addHandler(API_GET_TYPE, (api, msg) -> msg.writeCString(NAME));
+        boardIface.addHandler(API_GET_INSTANCE_ID, (api, msg) -> msg.writeCString(INSTANCE_ID));
+        boardIface.addHandler(API_GET_IDENTITY, (api, msg) -> msg.writeCString("1"));
+        boardIface.addHandler(API_GET_MFG_SERIAL_NUM, (api, msg) -> msg.writeCString("1"));
+        this.addIface(boardIface);
     }
 }

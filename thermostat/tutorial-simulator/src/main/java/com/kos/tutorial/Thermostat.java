@@ -16,4 +16,9 @@ import lombok.Setter;
 public class Thermostat {
     private double temp;
     private int mode;
+
+    public Thermostat(double temp, int mode) {
+        this.temp = temp;
+        this.mode = mode;
+    }
 }

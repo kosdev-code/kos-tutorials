@@ -26,7 +26,7 @@ public class SimulatorService extends AbstractConfigurableService<SimulatorServi
     private ThermostatClient client;
 
     public SimulatorService() {
-        thermostat  = new Thermostat();
+        thermostat  = new Thermostat(70, Mode.OFF.ordinal());
         random = new Random();
     }
 
