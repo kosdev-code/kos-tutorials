@@ -90,14 +90,8 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
      * Read the current environment temperature from the board.
      * If the environment temperature cannot be read, return the set minimum temp
      */
-    public double getTemp() {
-        double temp = getConfig().getMinTemp();
-        try {
-            temp = thermostat.getTemp();
-        } catch (Exception e) {
-            // do nothing
-        }
-        return temp;
+    public Double getTemp() {
+        return thermostat.getTemp();
     }
 
     /**
@@ -110,11 +104,7 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
     }
 
     public Mode getMode() {
-        try {
-            return thermostat.getMode();
-        } catch (IOException e) {
-            return Mode.OFF;
-        }
+        return thermostat.getMode();
     }
 
     /**
@@ -122,7 +112,9 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
      * and update the board mode accordingly
      */
     private void react() {
-        double temp = getTemp();
+        Double temp = getTemp();
+
+        if (temp == null) return;
 
         // Notify listeners of the environment temperature
         listeners.forEach(l -> l.onTemperatureChange(temp));

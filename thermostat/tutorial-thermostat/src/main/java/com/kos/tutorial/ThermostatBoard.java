@@ -36,8 +36,8 @@ public class ThermostatBoard extends Board {
      * Retrieves the current ambient temperature from the physical
      * temperature sensor in the environment.
      */
-    public double getTemp() {
-        return client.from(iface -> iface.getTemp());
+    public Double getTemp() {
+        return client.fromCatch(iface -> iface.getTemp(), null);
     }
 
     /**
@@ -45,11 +45,11 @@ public class ThermostatBoard extends Board {
      * heating, cooling, or idle (no active temperature control).
      */
     public void setMode(Mode mode) {
-        client.with(iface -> iface.setMode(mode));
+        client.withCatch(iface -> iface.setMode(mode));
     }
 
-    public Mode getMode() throws IOException {
-        return client.from(iface -> iface.getMode());
+    public Mode getMode() {
+        return client.fromCatch(iface -> iface.getMode(), null);
     }
 
     @Override
