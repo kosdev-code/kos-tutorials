@@ -25,12 +25,12 @@ public class ThermostatAssembly extends Assembly implements CoreAssembly {
     }
 
     @Override
-    public void load() throws Exception {
+    public void load() {
         // Load all boards in the assembly here.
         // In this tutorial we only have the thermostat board
         thermostat = new ThermostatBoard(this, "thermostat");
     }
 
     @Override
-    public void start() throws Exception {}
+    public void start() {}
 }

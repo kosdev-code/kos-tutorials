@@ -3,10 +3,7 @@
  */
 package com.kos.tutorial;
 
-import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsg;
-import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIface;
-import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIfaceListener;
-import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
+import com.tccc.kos.commons.core.service.blink.binarymsg.*;
 
 import java.io.IOException;
 
@@ -28,11 +25,13 @@ public class ThermostatIface extends BinaryMsgIface {
     // API numbers
     // API number for requesting current temperature
     private static final int API_GET_TEMP = 0;
+    // API number for requesting current mode
+    private static final int API_GET_MODE = 1;
     // API number for setting the thermostat operating mode
-    private static final int API_SET_MODE = 1;
+    private static final int API_SET_MODE = 2;
 
-    public ThermostatIface(BinaryMsgSession session, BinaryMsgIfaceListener<?> listener) {
-        super(NAME, session, listener);
+    public ThermostatIface(BinaryMsgSession session, IfaceClient client, BinaryMsgIfaceListener<?> listener) {
+        super(NAME, session, client, listener);
     }
 
     /**
@@ -44,7 +43,7 @@ public class ThermostatIface extends BinaryMsgIface {
     }
 
     public Mode getMode() throws IOException {
-        BinaryMsg msg = msg(API_GET_TEMP);
+        BinaryMsg msg = msg(API_GET_MODE);
         int value = sendAndRecvInt(msg);
         return Mode.values()[value];
     }

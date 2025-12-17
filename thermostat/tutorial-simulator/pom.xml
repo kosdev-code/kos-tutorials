@@ -52,6 +52,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.kos.tutorial</groupId>
+            <artifactId>tutorial-thermostat</artifactId>
+            <version>0.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

@@ -11,18 +11,17 @@ import lombok.Setter;
 /**
  * This is the configs associated with the thermostat simulator service
  *
- *
  * @author Sneh Gupta (sneh@kondra.com)
  * @version 2025-12
  */
 @Getter @Setter
 public class SimulatorServiceConfigs extends ConfigBean {
-    @ConfigDesc(value = "Rate at which ambient temperature changes to set temperature when thermostat is on")
+    @ConfigDesc(value = "Rate at which environment temperature changes to set temperature when thermostat is on")
     private double temperatureChangeRate = 0.2;
 
-    @ConfigDesc(value = "Rate at which ambient temperature changes to adjust the thermostat mode")
-    private double ambientTemperatureRateChange = 0.05;
+    @ConfigDesc(value = "Ambient temperature change standard deviation")
+    private double ambientTempStd = 0.05;
 
-    @ConfigDesc(value = "Current operation mode of the thermostat")
-    private int mode = 0;
+    @ConfigDesc(value = "Delay between ambient temperature change")
+    private int ambientTemperatureChangeDelay = 1000;
 }

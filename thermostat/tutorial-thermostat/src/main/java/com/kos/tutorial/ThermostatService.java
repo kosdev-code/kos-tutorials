@@ -30,11 +30,18 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
 
     @Autowired
     private final ListenerList<ThermostatListener> listeners = new ListenerList<>();
+    private final AdjustableCallback timer;
+
+    public ThermostatService() {
+        // Create a recurring timer that fires every 1000 ms (1 second)
+        // Each time it fires, re-evaluate the thermostat state
+        timer = new AdjustableCallback(true, 1000, this::react);
+    }
 
     /**
      * Called after an Assembly is installed.
      * <p>
-     * The service listens for the ThermostatAssembly so it can safely
+     * The service listens for the ThermostatAssembly, so it can safely
      * retrieve the ThermostatBoard at the correct point in the lifecycle.
      * This avoids race conditions and manual wiring.
      */
@@ -44,9 +51,8 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
             thermostat = trayAssembly.getThermostat();
         }
 
-        // Create a recurring timer that fires every 1000ms (1 second)
-        // Each time it fires, re-evaluate the thermostat state
-        AdjustableCallback timer = new AdjustableCallback(true, 1000, this::react);
+        // Start timer after thermostat board methods can be safely called
+        timer.start();
     }
 
     @Override
@@ -82,7 +88,7 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
 
     /**
      * Read the current environment temperature from the board.
-     * If the environemnt temperature cannot be read, return the set minimum temp
+     * If the environment temperature cannot be read, return the set minimum temp
      */
     public double getTemp() {
         double temp = getConfig().getMinTemp();

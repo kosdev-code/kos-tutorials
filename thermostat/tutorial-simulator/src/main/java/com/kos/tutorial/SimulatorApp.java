@@ -14,4 +14,7 @@ import com.tccc.kos.core.service.app.BaseAppConfig;
  */
 public class SimulatorApp extends Application<BaseAppConfig> {
 
+    public void load() {
+        addToCtx(new SimulatorService());
+    }
 }
