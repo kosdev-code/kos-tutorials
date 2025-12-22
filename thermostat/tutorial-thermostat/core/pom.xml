@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ====== Parent =============================================================== -->
+
+    <parent>
+        <groupId>com.kos.tutorial</groupId>
+        <artifactId>tutorial-thermostat</artifactId>
+        <version>0.0.0-SNAPSHOT</version>
+    </parent>
+
+    <!-- ====== Basics =============================================================== -->
+
+    <artifactId>tutorial-thermostat.core</artifactId>
+    <name>tutorial-thermostat.core</name>
+    <description>Example Core</description>
+
+    <!-- We must generate a -javadoc JAR file to publish on Maven Central, also we must 
+         generate a sources JAR file -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>empty-javadoc-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>javadoc</classifier>
+                            <classesDirectory>${basedir}/javadoc</classesDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <forceCreation>true</forceCreation>
+                            <includes>
+                                <include>readme.md</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <!-- ====== Dependencies  ======================================================== -->
+
+    <dependencies>
+        <dependency>
+            <groupId>com.kosdev.kos.sdk.tools</groupId>
+            <artifactId>annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kosdev.kos.sdk.api</groupId>
+            <artifactId>api-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kosdev.kos.sdk.api</groupId>
+            <artifactId>api-dispense</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <!-- 
+                When we included this plugin in the automation profile, the pom-to-deploy.xml file would
+                be generated, but the src/main/resources files would not be packaged in the JAR. 
+                After struggling with it, I split it out from the automation profile.  Automation will
+                run this profile first, and then run the automation profile where everything will
+                be packaged and signed properly.
+            -->
+            <id>generatePomFromTemplate</id>
+            <build>
+                <plugins>
+                    <!-- Builds the pom-to-deploy.xml file from its template -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <configuration>
+                            <outputDirectory>templates/output</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>templates</directory>
+                                    <includes>
+                                        <include>pom-to-deploy.xml</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- automation creates a complete output suitable for publishing to Maven Central.profile>
+            We must run the generatePomFromTemplate profile first.
+        </profile> -->
+        <profile>
+            <id>automation</id>
+            <build>
+                <plugins>
+                    <!-- this adds the pom-to-deploy artifact to the projects such that it will be signed -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>3.5.0</version>
+                        <executions>
+                            <execution>
+                                <id>attach-artifacts</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>attach-artifact</goal>
+                                </goals>
+                            <configuration>
+                                <artifacts>
+                                <artifact>
+                                    <file>templates/output/pom-to-deploy.xml</file>
+                                    <type>xml</type>
+                                    <classifier>pom</classifier>
+                                </artifact>
+                                </artifacts>
+                            </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.2.4</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

@@ -1,0 +1,12 @@
+{
+  "kos": {
+    "app": {
+      "appClass": "com.kos.tutorial.ThermostatApp",
+      "appId": "system",
+      "sdkClassPrefixes": ["com.kos.tutorial"]
+    },
+    "softwareInfo": {
+      "name": "Thermostat App"
+    }
+  }
+}
