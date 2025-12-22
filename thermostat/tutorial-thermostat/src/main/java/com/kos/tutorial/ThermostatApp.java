@@ -21,7 +21,7 @@ public class ThermostatApp extends SystemApplication<BaseAppConfig> {
 
     @Override
     public void load() {
-        // Beans added to the context in load() are automatically autowired
+        // Beans added to the context in load() are automatically autowired before the start() callback
         addToCtx(new ThermostatService());
     }
 

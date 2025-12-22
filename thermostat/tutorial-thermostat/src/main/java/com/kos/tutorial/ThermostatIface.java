@@ -30,14 +30,14 @@ public class ThermostatIface extends BinaryMsgIface {
     // API number for setting the thermostat operating mode
     private static final int API_SET_MODE = 2;
 
-    public ThermostatIface(BinaryMsgSession session, IfaceClient client, BinaryMsgIfaceListener<?> listener) {
-        super(NAME, session, client, listener);
+    public ThermostatIface(BinaryMsgSession session, IfaceClient client) {
+        super(NAME, session, client, null);
     }
 
     /**
      * Return the temperature reading in Fahrenheit.
      */
-    public double getTemp() throws IOException {
+    public int getTemp() throws IOException {
         BinaryMsg msg = msg(API_GET_TEMP);
         return sendAndRecvInt(msg);
     }
@@ -53,7 +53,7 @@ public class ThermostatIface extends BinaryMsgIface {
      */
     public void setMode(Mode mode) throws IOException {
         BinaryMsg msg = msg(API_SET_MODE);
-        msg.writeByte(mode.ordinal());
+        msg.writeInt(mode.ordinal());
         send(msg);
     }
 }

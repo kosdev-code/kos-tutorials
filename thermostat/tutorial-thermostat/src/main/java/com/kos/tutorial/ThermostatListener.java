@@ -11,6 +11,6 @@ package com.kos.tutorial;
  */
 public interface ThermostatListener {
 
-    void onTemperatureChange(double temperature);
+    void onTemperatureChange(int temperature);
     void onModeChange(Mode mode);
 }

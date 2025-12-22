@@ -1,8 +1,17 @@
+/**
+ * (C) Copyright 2025 Kondra. All rights reserved.
+ */
 package com.kos.tutorial.ui;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * A java swing button with an image as the backgroun
+ *
+ * @author Sneh Gupta (sneh@kondra.com)
+ * @version 2025-12
+ */
 public class ImageButton extends JButton {
 
     public ImageButton(ImageIcon icon) {

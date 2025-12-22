@@ -1,8 +1,17 @@
+/**
+ * (C) Copyright 2025 Kondra. All rights reserved.
+ */
 package com.kos.tutorial.ui;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * A java swing label with an image as the background, and specific font
+ *
+ * @author Sneh Gupta (sneh@kondra.com)
+ * @version 2025-12
+ */
 public class ImageLabel extends JLabel {
     private final JLabel textLabel = new JLabel();
 

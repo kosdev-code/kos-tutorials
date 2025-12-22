@@ -14,7 +14,7 @@ import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIdentity;
  * @version 2025-12
  */
 public class ThermostatClient extends BinaryMsgClient {
-    private static final String NAME = "kos.tutorial.simulator";
+    private static final String NAME = "kos.tutorial.thermostat";
     private static final String INSTANCE_ID = "1";
     private static final String BOARD_NAME = "kos.board";
 
@@ -34,13 +34,13 @@ public class ThermostatClient extends BinaryMsgClient {
 
     public ThermostatClient(Thermostat thermostat, BinaryMsgIdentity identity) {
         super(NAME, identity, "localhost", 10001);
-        // add handlers to the core iface
+        // Add handlers to the core iface: Thermostat Iface
         BinaryMsgClientIface iface = getCoreIface();
-        iface.addHandler(API_GET_TEMP, (api, msg) -> msg.writeDouble((thermostat.getTemp())));
-        iface.addHandler(API_GET_MODE, (api, msg) -> msg.writeDouble((thermostat.getMode())));
-        iface.addHandler(API_SET_MODE, (api, msg) ->thermostat.setMode(msg.readInt()));
+        iface.addHandler(API_GET_TEMP, (api, msg) -> msg.writeInt((int) (thermostat.getTemp())));
+        iface.addHandler(API_GET_MODE, (api, msg) -> msg.writeInt((thermostat.getMode())));
+        iface.addHandler(API_SET_MODE, (api, msg) -> thermostat.setMode(msg.readInt()));
 
-        // Board Iface
+        // Add handlers to the Board Iface
         BinaryMsgClientIface boardIface = new BinaryMsgClientIface(BOARD_NAME, 0);
         boardIface.addHandler(API_GET_TYPE, (api, msg) -> msg.writeCString(NAME));
         boardIface.addHandler(API_GET_INSTANCE_ID, (api, msg) -> msg.writeCString(INSTANCE_ID));

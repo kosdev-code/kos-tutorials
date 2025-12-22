@@ -18,6 +18,8 @@ import java.util.Random;
  * @version 2025-12
  */
 public class SimulatorService extends AbstractConfigurableService<SimulatorServiceConfigs> {
+    private static final double INITIAL_TEMP = 70;
+    private static final Mode INITIAL_MODE = Mode.OFF;
     private static final String NAME = "kos.tutorial.simulator";
     private static final String IDENTITY = "test";
 
@@ -26,14 +28,18 @@ public class SimulatorService extends AbstractConfigurableService<SimulatorServi
     private ThermostatClient client;
 
     public SimulatorService() {
-        thermostat  = new Thermostat(70, Mode.OFF.ordinal());
+        thermostat  = new Thermostat(INITIAL_TEMP, INITIAL_MODE.ordinal());
         random = new Random();
     }
 
+    /**
+     * Callback when dependencies are ready
+     */
     @Override
     public boolean onBeanReady() {
         // Timer to change simulate slight shifts in the environment temperature
-        AdjustableCallback timer = new AdjustableCallback(true, getConfig().getAmbientTemperatureChangeDelay(), this::changeTemp);
+        AdjustableCallback timer = new AdjustableCallback(true,
+                getConfig().getAmbientTemperatureChangeDelay(), this::changeTemp);
         connectToNetwork();
         return true;
     }
@@ -51,6 +57,9 @@ public class SimulatorService extends AbstractConfigurableService<SimulatorServi
         }
     }
 
+    /**
+     * Setup the thermostat client which communicates with the java backend via Binary link
+     */
     public void connectToNetwork() {
         BinaryMsgIdentity identity = new BinaryMsgIdentity();
         identity.setName(NAME);

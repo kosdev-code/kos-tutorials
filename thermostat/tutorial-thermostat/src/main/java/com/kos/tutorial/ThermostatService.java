@@ -11,7 +11,6 @@ import com.tccc.kos.commons.util.concurrent.AdjustableCallback;
 import com.tccc.kos.core.service.assembly.Assembly;
 import com.tccc.kos.core.service.assembly.AssemblyListener;
 
-import java.io.IOException;
 
 /**
  * ThermostatService is the central coordinator for thermostat behavior.
@@ -55,8 +54,13 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
         timer.start();
     }
 
+    /**
+     * Any time a config is changed (example: temperature setpoints) it will trigger
+     * the react() method so that any changes like operation mode can be made
+     */
     @Override
     public void onConfigChanged(BeanChanges changes) {
+        // This callback may happen before the onPostInstall() callback, so do a null check
         if (thermostat != null) {
             react();
         }
@@ -88,9 +92,8 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
 
     /**
      * Read the current environment temperature from the board.
-     * If the environment temperature cannot be read, return the set minimum temp
      */
-    public Double getTemp() {
+    public Integer getTemp() {
         return thermostat.getTemp();
     }
 
@@ -103,17 +106,14 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
         thermostat.setMode(mode);
     }
 
-    public Mode getMode() {
-        return thermostat.getMode();
-    }
-
     /**
      * Check the environment temperature against the configured min/max
      * and update the board mode accordingly
      */
     private void react() {
-        Double temp = getTemp();
+        Integer temp = getTemp();
 
+        // This is a null check in case the ifaceClient returns null
         if (temp == null) return;
 
         // Notify listeners of the environment temperature

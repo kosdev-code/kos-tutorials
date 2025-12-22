@@ -28,8 +28,10 @@ public class ThermostatUI extends JFrame implements ReadyAndReadyListener, Therm
     private static final Mode INITIAL_MODE = Mode.OFF;
     private static final int INITIAL_TEMP = 70;
 
+    // Use dependency injection to access the thermostatService
     @Autowired
     private ThermostatService thermostatService;
+    // ReadyIndicator so that the UI can indicate when it is ready
     private final ReadyIndicator readyIndicator = new ReadyIndicator();
 
     private final JPanel root;
@@ -53,6 +55,7 @@ public class ThermostatUI extends JFrame implements ReadyAndReadyListener, Therm
      */
     @Override
     public boolean onBeanReady() {
+        // Since all dependencies are ready, thermostatService can be safely used here
         splitPane = new JSplitPane(
                 JSplitPane.HORIZONTAL_SPLIT,
                 setPointPanel(),        // set point panel on the left
@@ -147,6 +150,13 @@ public class ThermostatUI extends JFrame implements ReadyAndReadyListener, Therm
         return panel;
     }
 
+    /**
+     * Since the ThermostatUI implements Ready, it must override getReady(), returning a
+     * ReadyIndicator once it is ready. Otherwise, any services that depend on ThermostatUI will never
+     * get the onBeanReady() callback
+     *
+     * @return ReadyIndicator
+     */
     @Override
     public ReadyIndicator getReady() {
         return readyIndicator;
@@ -156,7 +166,7 @@ public class ThermostatUI extends JFrame implements ReadyAndReadyListener, Therm
      * Callback when temperature is updated because ThermostatListener is implemented
      */
     @Override
-    public void onTemperatureChange(double temperature) {
+    public void onTemperatureChange(int temperature) {
         currentTempLabel.updateText((int) temperature + " F");
     }
 
