@@ -3,6 +3,7 @@
  */
 package com.kos.tutorial;
 
+import com.tccc.kos.commons.core.broker.MessageBroker;
 import com.tccc.kos.commons.core.context.annotations.Autowired;
 import com.tccc.kos.commons.core.service.AbstractConfigurableService;
 import com.tccc.kos.commons.core.service.config.BeanChanges;
@@ -25,7 +26,11 @@ import com.tccc.kos.core.service.assembly.AssemblyListener;
  * @version 2025-12
  */
 public class ThermostatService extends AbstractConfigurableService<ThermostatServiceConfigs> implements AssemblyListener {
+    private static final String THERMOSTAT_STATE_TOPIC = "thermostat/state";
+
     private ThermostatBoard thermostat;
+    @Autowired
+    private MessageBroker broker;
 
     @Autowired
     private final ListenerList<ThermostatListener> listeners = new ListenerList<>();
@@ -126,6 +131,10 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
 
         // Update physical board state
         setMode(mode);
+
+        // Send temp and mode values to UI team
+        // broker.send(THERMOSTAT_STATE_TOPIC, new TheremostatState(temp, mode.name(), mode.getColor()));
+        broker.send(THERMOSTAT_STATE_TOPIC, 500);
 
         // Notify listeners of the mode change
         listeners.forEach(l -> l.onModeChange(mode));
