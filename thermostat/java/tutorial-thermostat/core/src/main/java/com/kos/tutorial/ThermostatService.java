@@ -26,7 +26,7 @@ import com.tccc.kos.core.service.assembly.AssemblyListener;
  * @version 2025-12
  */
 public class ThermostatService extends AbstractConfigurableService<ThermostatServiceConfigs> implements AssemblyListener {
-    private static final String THERMOSTAT_STATE_TOPIC = "thermostat/state";
+    private static final String THERMOSTAT_STATE_TOPIC = "/thermostat/state";
 
     private ThermostatBoard thermostat;
     @Autowired
@@ -133,10 +133,14 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
         setMode(mode);
 
         // Send temp and mode values to UI team
-        // broker.send(THERMOSTAT_STATE_TOPIC, new TheremostatState(temp, mode.name(), mode.getColor()));
-        broker.send(THERMOSTAT_STATE_TOPIC, 500);
+        broker.send(THERMOSTAT_STATE_TOPIC, new ThermostatState(temp, mode.name(), mode.getColor()));
 
         // Notify listeners of the mode change
         listeners.forEach(l -> l.onModeChange(mode));
+    }
+
+    public ThermostatState getState() {
+        Mode mode = thermostat.getMode();
+        return new ThermostatState(getTemp(), mode.name(), mode.getColor());
     }
 }
