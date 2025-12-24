@@ -1,5 +1,5 @@
 /*------------------------------------------------------------*/
-/* File : adater.c                                            */
+/* File : adapter.c                                          */
 /*------------------------------------------------------------*/
 /* Author      : Sneh Gupta                                   */
 /* Date        : 2025-12                                      */
@@ -8,3 +8,108 @@
 /* (C) Copyright 2025, TCCC                                   */
 /* All rights reserved.                                       */
 /*------------------------------------------------------------*/
+#include <blink.h>
+
+// baud rates for blink
+#define BLINK_BAUD           115200
+#define BOARD_NAME           "kos.tutorial.thermostat"
+#define BOARD_TYPE           "kos.tutorial.thermostat"
+#define INSTANCE             1
+
+// API numbers
+#define API_GET_TEMP         0
+#define API_GET_MODE         1
+#define API_SET_MODE         2
+
+// the pins for each piece of hardware on the device
+#define OFF                  20
+#define HEATING              21
+#define COOLING              22
+#define TEMP_SENSOR_PIN      23
+
+#define NUM_MODES            3
+#define ACTIVE_HIGH          true
+
+// setup blink using Serial as the transport
+SerialBlinkComm comm(&Serial);
+BlinkService blink(&comm);
+
+static const int modePins[] = { OFF, HEATING, COOLING };
+
+// Store state: Current thermostat mode (0=OFF, 1=HEATING, 2=COOLING)
+static int8_t currentMode = 0;
+
+// Function declarations
+static void getTemp(BlinkService *s);
+static void getMode(BlinkService *s);
+static void setMode(BlinkService *s);
+
+// handlers table for java side iface methods
+const blinkHandler handlers[] = {
+    (blinkHandler) getTemp, // api 0
+    (blinkHandler) getMode, // api 1
+    (blinkHandler) setMode, // api 2
+    NULL
+};
+
+// Setup function
+void setup() {
+    Serial.begin(BLINK_BAUD);
+
+    blink.setBoardType(BOARD_TYPE);
+    blink.setBoardInstanceId(INSTANCE);
+    blink.addIface(BOARD_NAME, INSTANCE, handlers);
+
+    // Initialize mode LEDs
+    for (int i = 0; i < NUM_MODES; i++) {
+        pinMode(modePins[i], OUTPUT);
+        digitalWrite(modePins[i], ACTIVE_HIGH ? LOW : HIGH);
+    }
+
+    // Temperature sensor input
+    pinMode(TEMP_SENSOR_PIN, INPUT);
+
+    // Default mode = OFF
+    digitalWrite(OFF, ACTIVE_HIGH ? HIGH : LOW);
+}
+
+// Main loop
+void loop() {
+    blink.poll();
+}
+
+// API 0: get temperature (returns °F)
+static void getTemp(BlinkService *s) {
+    int raw = analogRead(TEMP_SENSOR_PIN);
+
+    float voltage = raw * (5.0 / 1023.0);
+    float celsius = (voltage - 0.5) * 100.0;
+    float fahrenheit = (celsius * 9.0 / 5.0) + 32.0;
+
+    s->write(&fahrenheit, sizeof(fahrenheit));
+}
+
+// API 1: get current mode
+static void getMode(BlinkService *s) {
+    s->write(&currentMode, sizeof(currentMode));
+}
+
+// API 2: set mode
+static void setMode(BlinkService *s) {
+    int8_t newMode;
+    s->read(&newMode, 1);
+
+    if (newMode < 0 || newMode >= NUM_MODES) {
+        return;
+    }
+
+    // Turn all modes off
+    for (int i = 0; i < NUM_MODES; i++) {
+        digitalWrite(modePins[i], ACTIVE_HIGH ? LOW : HIGH);
+    }
+
+    // Activate selected mode
+    digitalWrite(modePins[newMode], ACTIVE_HIGH ? HIGH : LOW);
+
+    currentMode = newMode;
+}
