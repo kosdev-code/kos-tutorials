@@ -10,6 +10,10 @@
 /*------------------------------------------------------------*/
 #include <blink.h>
 
+// setup blink using Serial as the transport
+SerialBlinkComm comm(&Serial);
+BlinkService blink(&comm);
+
 // baud rates for blink
 #define BLINK_BAUD           115200
 #define BOARD_NAME           "kos.tutorial.thermostat"
@@ -28,11 +32,6 @@
 #define TEMP_SENSOR_PIN      23
 
 #define NUM_MODES            3
-#define ACTIVE_HIGH          true
-
-// setup blink using Serial as the transport
-SerialBlinkComm comm(&Serial);
-BlinkService blink(&comm);
 
 static const int modePins[] = { OFF, HEATING, COOLING };
 
@@ -58,19 +57,19 @@ void setup() {
 
     blink.setBoardType(BOARD_TYPE);
     blink.setBoardInstanceId(INSTANCE);
-    blink.addIface(BOARD_NAME, INSTANCE, handlers);
+    blink.addIface(BOARD_NAME, "1", handlers);
 
     // Initialize mode LEDs
     for (int i = 0; i < NUM_MODES; i++) {
         pinMode(modePins[i], OUTPUT);
-        digitalWrite(modePins[i], ACTIVE_HIGH ? LOW : HIGH);
+        digitalWrite(modePins[i], LOW);
     }
 
     // Temperature sensor input
     pinMode(TEMP_SENSOR_PIN, INPUT);
 
     // Default mode = OFF
-    digitalWrite(OFF, ACTIVE_HIGH ? HIGH : LOW);
+    digitalWrite(OFF, HIGH);
 }
 
 // Main loop
@@ -96,20 +95,22 @@ static void getMode(BlinkService *s) {
 
 // API 2: set mode
 static void setMode(BlinkService *s) {
+    // Read an integer, mode
     int8_t newMode;
     s->read(&newMode, 1);
 
+    // Ignore invalid inputs
     if (newMode < 0 || newMode >= NUM_MODES) {
         return;
     }
 
     // Turn all modes off
     for (int i = 0; i < NUM_MODES; i++) {
-        digitalWrite(modePins[i], ACTIVE_HIGH ? LOW : HIGH);
+        digitalWrite(modePins[i], LOW);
     }
 
     // Activate selected mode
-    digitalWrite(modePins[newMode], ACTIVE_HIGH ? HIGH : LOW);
+    digitalWrite(modePins[newMode], HIGH);
 
     currentMode = newMode;
 }

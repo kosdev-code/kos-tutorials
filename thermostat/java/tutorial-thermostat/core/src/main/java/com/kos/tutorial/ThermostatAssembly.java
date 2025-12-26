@@ -55,7 +55,6 @@ public class ThermostatAssembly extends Assembly implements CoreAssembly, Serial
             // When a serial connection is opened, the Arduino Mega automatically resets.
             // These delays allow the board to reboot for probing
             serialBlinkMatch.setPostOpenDelayMs(1500);
-            serialBlinkMatch.setPostWriteDelayMs(1500);
 
             return serialBlinkMatch;
         }
