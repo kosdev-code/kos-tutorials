@@ -1,0 +1,37 @@
+package com.kos.tutorial;
+
+import java.io.IOException;
+
+import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsg;
+import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIface;
+import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIfaceListener;
+import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class ArduinoIface extends BinaryMsgIface {
+    private static final String IFACE_NAME = "arduino.iface";
+
+    private static final int API_ILLUMINATE_LED = 0;
+    private static final int API_BUTTON_PRESSED = 1;
+
+    private boolean isOn = false;
+
+    public ArduinoIface(BinaryMsgSession session, BinaryMsgIfaceListener<ArduinoIface> listener) {
+        super(IFACE_NAME, session, listener);
+
+        this.addRequestHandler(API_BUTTON_PRESSED, res -> {
+            handleButtonPressed();
+        });
+    }
+
+    private void handleButtonPressed() throws IOException {
+        BinaryMsg msg = msg(API_ILLUMINATE_LED);
+        // If the led is on turn it off otherwise turn it on
+        msg.writeBoolean(isOn = !isOn);
+        send(msg);
+        log.info("Button pressed turning led {}", isOn ? "On" : "Off");
+    }
+
+}
