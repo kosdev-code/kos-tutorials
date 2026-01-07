@@ -1,0 +1,26 @@
+{
+  "name": "thermostat-models",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/thermostat-models/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/thermostat-models"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "api": {
+      "command": "kosui api:generate --project=thermostat-models",
+      "options": {
+        "host": "http://127.0.0.1:8081",
+        "defaultVersion": "snapshot"
+      }
+    }
+  },
+  "tags": []
+}

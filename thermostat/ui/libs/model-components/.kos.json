@@ -1,0 +1,8 @@
+{
+  "name": "model-components",
+  "type": "kos.model-component",
+  "version": "0.0.0-SNAPSHOT",
+  "generator": {
+    "projectType": "model-component"
+  }
+}

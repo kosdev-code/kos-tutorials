@@ -1,0 +1,29 @@
+{
+  "type": "root",
+  "generator": {
+    "defaults": {
+      "model": "thermostat-models",
+      "model-component": "model-components",
+      "ui": "thermostat-ui"
+    }
+  },
+  "development": {
+    "hosts": [
+      {
+        "name": "thermostat-ui",
+        "project": "thermostat-ui",
+        "port": 4200,
+        "type": "cui",
+        "pluginContext": "thermostat",
+        "plugins": []
+      }
+    ],
+    "portRanges": {
+      "thermostat-ui": {
+        "start": 4200,
+        "next": 4201
+      }
+    },
+    "logDir": "/tmp/thermostat-logs"
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "name": "thermostat-ui",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/thermostat-ui/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/thermostat-ui",
+        "index": "apps/thermostat-ui/src/index.html",
+        "baseHref": "/",
+        "main": "apps/thermostat-ui/src/main.ts",
+        "tsConfig": "apps/thermostat-ui/tsconfig.app.json",
+        "assets": [
+          "apps/thermostat-ui/src/favicon.ico",
+          "apps/thermostat-ui/src/assets"
+        ],
+        "styles": [],
+        "scripts": [],
+        "webpackConfig": "apps/thermostat-ui/webpack.config.ts"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/thermostat-ui/src/environments/environment.ts",
+              "with": "apps/thermostat-ui/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "baseHref": "./"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/react:module-federation-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "thermostat-ui:build",
+        "hmr": false,
+        "port": 4200
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "thermostat-ui:build:development"
+        },
+        "production": {
+          "buildTarget": "thermostat-ui:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "defaultConfiguration": "production",
+      "options": {
+        "buildTarget": "thermostat-ui:build",
+        "watch": false,
+        "port": 4200
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "thermostat-ui:build:development"
+        },
+        "production": {
+          "buildTarget": "thermostat-ui:build:production"
+        }
+      }
+    },
+    "kab": {
+      "command": "node tools/scripts/kabtool.mjs build thermostat-ui && node tools/scripts/kabtool.mjs list thermostat-ui ",
+      "options": {
+        "outputPath": "dist/archives/packages/thermostat-ui/",
+        "zipName": "ui.zip",
+        "kabName": "thermostat-ui.kab"
+      },
+      "dependsOn": ["zip"]
+    },
+    "zip": {
+      "command": "node tools/scripts/archiver.js thermostat-ui",
+      "options": {
+        "outputPath": "dist/archives/packages/thermostat-ui/",
+        "zipName": "ui.zip"
+      },
+      "dependsOn": ["build", "descriptor"]
+    },
+    "descriptor": {
+      "command": "node tools/scripts/descriptor.mjs thermostat-ui",
+      "options": {
+        "outputPath": "dist/apps/thermostat-ui",
+        "fileName": "descriptor.json"
+      },
+      "dependsOn": ["build"]
+    }
+  },
+  "tags": []
+}
