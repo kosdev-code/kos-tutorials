@@ -26,6 +26,8 @@
 // Blink protocol name
 #define BLINK_NAME "nasa.navigationModuleIface"
 
+#define BOARD_TYPE "navigationModule"
+
 // Revision number
 #define REVISION 1
 
@@ -219,7 +221,7 @@ int main(int argc, char *argv[]) {
   memset(&boardData, 0, sizeof(boardData));
 
   // initialize the board data
-  boardData.type = "navigationModule";
+  boardData.type = BOARD_TYPE;
 
   // register the board iface
   blinkAddBoardIface(client, &boardData);

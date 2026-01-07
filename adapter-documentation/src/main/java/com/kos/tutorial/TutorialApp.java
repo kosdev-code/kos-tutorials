@@ -11,16 +11,24 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class TutorialApp extends SystemApplication<BaseAppConfig> {
+    private static final String ADAPTER_NAME = "exampleAdapter";
 
+    @Autowired 
+    private SpawnService spawnService;
     @Autowired
     private FuseService fuseService;
+    private String adapterBaseDir;
 
     @Override
     public void load() throws Exception {
+        // Get the adapter from the image and mount it so 
+        // that it can be run on the device
         KabFile adapter = getKabByType("kos.adapter");
         if (adapter != null) {
             FuseMount mount = fuseService.mount(adapter);
-            addToCtx(new ArduinoAdapterFactory(mount.getRootDir()));
+            if (mount != null) {
+                baseDir = mount.getRootDir();
+            }
         } else {
             log.error("No adapter found");
         }
@@ -29,7 +37,20 @@ public class TutorialApp extends SystemApplication<BaseAppConfig> {
 
     @Override
     public void start() throws Exception {
+        // install assembly after everything is setup in load
         installAssembly(new TutorialAssembly());
+
+        //Spawn adapter to start running
+        // build the adapter
+        Adapter adapter = new Adapter(ADAPTER_NAME);
+        adapter.setBasePath(baseDir);
+
+        adapter.addArg("-v");
+
+        spawnService.spawn(adapter);
+
+
+
     }
 
 }

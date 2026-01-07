@@ -46,7 +46,6 @@ target/
 
 #Neovim files
 *.factorypath
-*.clangd
 
 # object dirs for native builds
 **/objs
