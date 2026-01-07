@@ -10,7 +10,7 @@ import com.tccc.kos.commons.core.service.config.BeanChanges;
 import com.tccc.kos.commons.util.ListenerList;
 import com.tccc.kos.commons.util.concurrent.AdjustableCallback;
 import com.tccc.kos.core.service.assembly.Assembly;
-import com.tccc.kos.core.service.assembly.AssemblyListener;
+import com.tccc.kos.core.service.assembly.AssemblyPrePostInstallListener;
 
 
 /**
@@ -25,7 +25,7 @@ import com.tccc.kos.core.service.assembly.AssemblyListener;
  * @author Sneh Gupta (sneh@kondra.com)
  * @version 2025-12
  */
-public class ThermostatService extends AbstractConfigurableService<ThermostatServiceConfigs> implements AssemblyListener {
+public class ThermostatService extends AbstractConfigurableService<ThermostatServiceConfigs> implements AssemblyPrePostInstallListener {
     private static final String THERMOSTAT_STATE_TOPIC = "/thermostat/state";
 
     private ThermostatBoard thermostat;
