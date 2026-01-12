@@ -24,25 +24,57 @@ public class NavigationIface extends BinaryMsgIface {
     private static final int API_NATIVE_SEND            = 0; // native sends an event to java
     //@formatter:on
 
-    private boolean isOn = false;
-
     public NavigationIface(BinaryMsgSession session, BinaryMsgIfaceListener<NavigationIface> listener) {
         super(IFACE_NAME, session, listener);
 
         // Register listeners for events from adapter
         this.addRequestHandler(API_NATIVE_SEND, res -> {
             int severity = res.readInt();
-
             log.info("Recieved event from adapter with severity {}", severity);
         });
     }
 
-    private void handleButtonPressed() throws IOException {
-        BinaryMsg msg = msg(API_ILLUMINATE_LED);
+    public void resetModule(boolean isHardReset) throws IOException {
+        BinaryMsg msg = msg(API_JAVA_SEND);
+
         // If the led is on turn it off otherwise turn it on
-        msg.writeBoolean(isOn = !isOn);
+        msg.writeBoolean(isHardReset);
         send(msg);
-        log.info("Button pressed turning led {}", isOn ? "On" : "Off");
+    }
+
+    /**
+     *
+     * @return an array representing the current coordinates in the form of [x,y,z]
+     */
+    public double[] getCurrentCoordinates() throws IOException {
+        double[] coords = new double[3];
+
+        BinaryMsg request = msg(API_JAVA_SEND_AND_RECEIVE);
+
+        BinaryMsg response = sendAndRecv(request);
+        coords[0] = response.readDouble();
+        coords[1] = response.readDouble();
+        coords[2] = response.readDouble();
+
+        return coords;
+    }
+
+    /**
+     * Send structured data to the adapter
+     * @returns true if the call was successful false otherwise
+     */
+    public boolean setDestination(double x, double y, double z, String name) throws IOException {
+        BinaryMsg req = msg(API_JAVA_SEND_STRUCT);
+        req.writeDouble(x);
+        req.writeDouble(y);
+        req.writeDouble(z);
+        req.writeCString(name);
+        BinaryMsg res = sendAndRecv(req);
+
+        boolean success = res.readBoolean();
+        log.info("Setting destination {}", success ? "succeeded" : "failed");
+
+        return success;
     }
 
 }

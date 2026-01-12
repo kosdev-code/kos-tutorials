@@ -44,7 +44,6 @@
 /*------------------------------------------------------------*/
 
 static blinkClient *client;          // blink client
-static int verbose = 0;              // verbose flag
 static pthread_t programEventThread; // A thread so that this program will use
                                      // to send events to java
 blinkIface *navigationIface;
@@ -67,11 +66,10 @@ typedef struct NavigationModuleDestination {
  * usage() : Print the usage of the tool.
  */
 static int usage() {
-  printf("Usage: adapter [-h][-v][-c]"
+  printf("Usage: adapter [-h][-c]"
          "(rev=%d)\n",
          REVISION);
   printf("   -h : Display this usage information.\n");
-  printf("   -v : Enable verbose output for debugging.\n");
   printf("   -c : Use console for output.\n");
   return -1;
 }
@@ -107,16 +105,19 @@ static int processJavaSendAPI(blinkApiArg *arg) {
 static int processJavaSendAndRecvAPI(blinkApiArg *arg) {
 
   // encode data and return it
-  // encode x coordinate
+
+  // generate random coordinate
   double xCoord = drand48() * 1000;
+  // encode x coordinate
   encodeDouble(&arg->enc, xCoord);
 
-  // encode y coordinate
+
   double yCoord = drand48() * 1000;
+  // encode y coordinate
   encodeDouble(&arg->enc, yCoord);
 
-  // encode z coordinate
   double zCoord = drand48() * 1000;
+  // encode z coordinate
   encodeDouble(&arg->enc, zCoord);
 
   kosLog("Were currently at (x,y,z) (%f,%f,%f)", xCoord, yCoord, zCoord);
@@ -189,13 +190,10 @@ int main(int argc, char *argv[]) {
 
   // process options
   signed char c;
-  while ((c = getopt(argc, argv, "hvc:")) != -1) {
+  while ((c = getopt(argc, argv, "hc:")) != -1) {
     switch (c) {
     case 'h': //
       return usage();
-    case 'v':
-      verbose = 1;
-      break;
     case 'c':
       console = 1;
       break;
