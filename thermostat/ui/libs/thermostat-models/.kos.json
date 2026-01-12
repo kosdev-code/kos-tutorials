@@ -1,0 +1,20 @@
+{
+  "name": "thermostat-models",
+  "type": "kos.model",
+  "version": "0.0.0-SNAPSHOT",
+  "models": {
+    "thermostat": {
+      "name": "thermostat",
+      "type": "thermostat-model",
+      "singleton": true
+    }
+  },
+  "generator": {
+    "projectType": "model",
+    "defaults": {
+      "model": {
+        "folder": "models"
+      }
+    }
+  }
+}

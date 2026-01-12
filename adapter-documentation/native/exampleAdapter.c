@@ -26,19 +26,18 @@
 // Blink protocol name
 #define BLINK_NAME "nasa.navigationModuleIface"
 
+#define BOARD_TYPE "navigationModule"
+
 // Revision number
 #define REVISION 1
 
 // Java Api numbers
-#define API_JAVA_SEND 0 // java sends a command / event decode input
-#define API_JAVA_SEND_AND_RECEIVE                                              \
-  1 // java sends a command / event and recieves a response encode input
-#define API_JAVA_SEND_STRUCT 2 // cast recieved data to a struct
+#define API_JAVA_SEND                  0 // java sends a command / event decode input
+#define API_JAVA_SEND_AND_RECEIVE      1 // java sends a command / event and recieves a response encode input
+#define API_JAVA_SEND_STRUCT           2 // cast recieved data to a struct
 
 // Native Api numbers
-#define API_NATIVE_SEND 0 // native sends a command / event to java
-#define API_NATIVE_SEND_AND_RECIEVE                                            \
-  1 // native sends a command / event to java and recieves a response
+#define API_NATIVE_SEND                0 // native sends a command / event to java
 
 /*------------------------------------------------------------*/
 /* Global state...                                            */
@@ -158,8 +157,6 @@ static int processJavaSendStructAPI(blinkApiArg *arg) {
  */
 void *simulateEvents() {
 
-  // TODO: Simulate events
-
   // every random amount of time from 1-20 seconds send an event to java
 
   for (;;) {
@@ -224,7 +221,7 @@ int main(int argc, char *argv[]) {
   memset(&boardData, 0, sizeof(boardData));
 
   // initialize the board data
-  boardData.type = "navigationModule";
+  boardData.type = BOARD_TYPE;
 
   // register the board iface
   blinkAddBoardIface(client, &boardData);

@@ -11,7 +11,7 @@ public class TutorialAssembly extends Assembly implements CoreAssembly {
 
     @Override
     public void load() throws Exception {
-        new ArduinoBoard(this);
+        new NavigationBoard(this);
     }
 
     @Override

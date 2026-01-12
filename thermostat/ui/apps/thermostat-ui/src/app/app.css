@@ -1,0 +1,130 @@
+:root {
+  /* radius */
+  --kos-generic-border-radius-small: 4px;
+  --kos-generic-border-radius-medium: 8px;
+  --kos-generic-border-radius-large: 16px;
+  --kos-generic-border-radius-x-large: 24px;
+
+  /* border-width */
+  --kos-generic-border-width-small: 1px;
+  --kos-generic-border-width-large: 4px;
+
+  /* border-style */
+  --kos-generic-solid-border-style: solid;
+
+  /* box-shadow */
+  --kos-generic-box-shadow-small: 0 1px 2px rgba(0, 0, 0, 0.1);
+  --kos-generic-box-shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --kos-generic-box-shadow-large: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+  /* box-sizing */
+  --kos-generic-box-sizing: border-box;
+
+  /* color */
+  --kos-generic-color-blue-5: #d7f2f6;
+  --kos-generic-color-blue-10: #93dae8;
+  --kos-generic-color-blue-80: #416af6;
+  --kos-generic-color-blue-100: #2126f8;
+  --kos-generic-color-green-10: #d7f6da;
+  --kos-generic-color-green-100: #00bb26;
+  --kos-generic-color-grey-5: #f9f9f9;
+  --kos-generic-color-grey-7: #f3f4f8;
+  --kos-generic-color-grey-10: #f0f0f0;
+  --kos-generic-color-grey-15: #e3e4e9;
+  --kos-generic-color-grey-20: #dfdede;
+  --kos-generic-color-grey-23: #dedede;
+  --kos-generic-color-grey-25: #d2d4da;
+  --kos-generic-color-grey-30: #c5c5c5;
+  --kos-generic-color-grey-40: #aaaaaa;
+  --kos-generic-color-grey-45: #9496a1;
+  --kos-generic-color-grey-47: #898a8d;
+  --kos-generic-color-grey-50: #888888;
+  --kos-generic-color-grey-60: #797979;
+  --kos-generic-color-grey-63: #777986;
+  --kos-generic-color-grey-65: #5b5d6b;
+  --kos-generic-color-grey-70: #414141;
+  --kos-generic-color-grey-80: #292929;
+  --kos-generic-color-grey-85: #282a3a;
+  --kos-generic-color-grey-85-60: #282a3a99;
+  --kos-generic-color-grey-90: #101223;
+  --kos-generic-color-grey-90-05: #1012230d;
+  --kos-generic-color-grey-100: #171717;
+  --kos-generic-color-grey-100-50: #17171780;
+  --kos-generic-color-orange-100: #ff9e32;
+  --kos-generic-color-orange-200: #c87321;
+  --kos-generic-color-red-5: #ffe1e2;
+  --kos-generic-color-red-10: #f6d7d7;
+  --kos-generic-color-red-100: #ff091b;
+  --kos-generic-color-red-200: #a70412;
+  --kos-generic-color-red-coca-cola: #f40009;
+  --kos-generic-color-white: #ffffff;
+
+  /* font-size */
+  --kos-generic-font-size-xx-small: 12px;
+  --kos-generic-font-size-x-small: 14px;
+  --kos-generic-font-size-small: 16px;
+  --kos-generic-font-size-medium: 20px;
+  --kos-generic-font-size-large: 24px;
+  --kos-generic-font-size-x-large: 28px;
+  --kos-generic-font-size-xx-large: 32px;
+
+  /* font-weight */
+  --kos-generic-font-weight-regular: normal;
+  --kos-generic-font-weight-medium: 600;
+  --kos-generic-font-weight-bold: 700;
+
+  /* letter-spacing */
+  --kos-generic-letter-spacing-small: 0.48px;
+
+  /* padding */
+  --kos-generic-padding-xx-large: 40px;
+  --kos-generic-padding-x-large: 32px;
+  --kos-generic-padding-large: 24px;
+  --kos-generic-padding-medium: 16px;
+  --kos-generic-padding-small: 8px;
+  --kos-generic-padding-x-small: 4px;
+
+  /* transition */
+  --kos-generic-transition-duration-short: 150ms;
+  --kos-generic-transition-duration-medium: 250ms;
+  --kos-generic-transition-duration-long: 350ms;
+
+  /* text-align */
+  --kos-generic-left-text-align: left;
+  --kos-generic-center-text-align: center;
+}
+
+:root {
+  --kos-semantic-control-container-font-size: var(
+    --kos-generic-font-size-medium
+  );
+  --kos-semantic-control-container-color: var(--kos-generic-color-white);
+}
+
+:root {
+  /* shell */
+  --kos-component-shell-width: 100vw;
+  --kos-component-shell-height: 100vh;
+  --kos-component-shell-height: 100vh;
+  --kos-component-shell-background-color: black;
+}
+body {
+  height: var(--kos-component-shell-height);
+  width: var(--kos-component-shell-width);
+  overflow: hidden;
+  background-color: var(--kos-component-shell-background-color);
+  user-select: none;
+  font-family: Montserrat, sans-serif;
+  font-size: var(--kos-semantic-control-container-font-size);
+}
+
+.kos-theme-light {
+  --kos-component-shell-background-color: var(--kos-generic-color-white);
+  --kos-semantic-control-container-color: var(--kos-generic-color-grey-100);
+}
+
+.App {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}

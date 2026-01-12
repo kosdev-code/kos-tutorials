@@ -8,16 +8,17 @@ import com.tccc.kos.core.service.hardware.IfaceAwareBoard;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface> {
+public class NavigationBoard extends Board implements IfaceAwareBoard<NavigationIface> {
+    private static final String BOARD_TYPE = "navigationModule";
 
-    public ArduinoBoard(Assembly assembly) {
-        super(assembly, "arduino");
+    public NavigationBoard(Assembly assembly) {
+        super(assembly, BOARD_TYPE);
 
     }
 
     @Override
     public String getType() {
-        return "arduino";
+        return BOARD_TYPE;
     }
 
     @Override
@@ -26,9 +27,9 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface>
     }
 
     @Override
-    public ArduinoIface createIface(BinaryMsgSession session) {
+    public NavigationIface createIface(BinaryMsgSession session) {
         log.info("createIface()");
-        return new ArduinoIface(session, this);
+        return new NavigationIface(session, this);
     }
 
     @Override
