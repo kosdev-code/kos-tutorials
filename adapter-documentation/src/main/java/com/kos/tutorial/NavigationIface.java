@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsg;
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIface;
-import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIfaceListener;
 import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
+import com.tccc.kos.commons.core.service.blink.binarymsg.IfaceClient;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,15 +17,15 @@ public class NavigationIface extends BinaryMsgIface {
 
     // Java Api numbers
     private static final int API_JAVA_SEND              = 0; // java sends a command / event 
-    private static final int API_JAVA_SEND_AND_RECEIVE  = 1; // java sends a command / event and recieves a response
+    private static final int API_JAVA_SEND_AND_RECEIVE  = 1; // java sends a command / event and receives a response
     private static final int API_JAVA_SEND_STRUCT       = 2; // java sends structured data
 
     // Native Api numbers
     private static final int API_NATIVE_SEND            = 0; // native sends an event to java
     //@formatter:on
 
-    public NavigationIface(BinaryMsgSession session, BinaryMsgIfaceListener<NavigationIface> listener) {
-        super(IFACE_NAME, session, listener);
+    public NavigationIface(BinaryMsgSession session, IfaceClient<NavigationIface> ifaceClient ) {
+        super(IFACE_NAME, session, ifaceClient, null);
 
         // Register listeners for events from adapter
         this.addRequestHandler(API_NATIVE_SEND, res -> {
@@ -61,6 +61,7 @@ public class NavigationIface extends BinaryMsgIface {
 
     /**
      * Send structured data to the adapter
+     * 
      * @returns true if the call was successful false otherwise
      */
     public boolean setDestination(double x, double y, double z, String name) throws IOException {

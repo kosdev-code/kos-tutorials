@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TutorialApp extends SystemApplication<BaseAppConfig> {
 
-    @Autowired 
+    @Autowired
     private SpawnService spawnService;
     @Autowired
     private FuseService fuseService;
@@ -21,7 +21,7 @@ public class TutorialApp extends SystemApplication<BaseAppConfig> {
 
     @Override
     public void load() throws Exception {
-        // Get the adapter from the image and mount it so 
+        // Get the adapter from the image and mount it so
         // that it can be run on the device
         KabFile adapterKab = getKabByType("kos.adapter");
         if (adapterKab != null) {
@@ -41,7 +41,9 @@ public class TutorialApp extends SystemApplication<BaseAppConfig> {
         installAssembly(new TutorialAssembly());
 
         // Spawn the adapter
-        spawnService.addProcess(adapter);
+        if (adapter != null) {
+            spawnService.addProcess(adapter);
+        }
     }
 
 }

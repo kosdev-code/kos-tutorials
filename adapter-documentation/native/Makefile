@@ -22,6 +22,5 @@ debug: CFLAGS += -g
 debug: $(TARGET)
 
 package: $(TARGET)
-	kabtool -b -t kos.adapter -dir adapter -v "${KAB_VERSION}" exampleAdapter-arm64.kab
-
+	kabtool --build --type kos.adapter -dir adapter --version "${KAB_VERSION}" --name exampleAdapter exampleAdapter-arm64.kab
 .PHONY: package clean debug
