@@ -18,6 +18,7 @@ public class TutorialApp extends SystemApplication<BaseAppConfig> {
     @Autowired
     private FuseService fuseService;
     private ExampleAdapter adapter;
+    private TutorialAssembly assembly;
 
     @Override
     public void load() throws Exception {
@@ -33,12 +34,17 @@ public class TutorialApp extends SystemApplication<BaseAppConfig> {
             log.error("No adapter found");
         }
 
+        assembly = new TutorialAssembly();
+
+        // make the endpoints for testing available
+        addToCtx(new TutorialController(assembly));
+
     }
 
     @Override
     public void start() throws Exception {
         // install assembly after everything is setup in load
-        installAssembly(new TutorialAssembly());
+        installAssembly(assembly);
 
         // Spawn the adapter
         if (adapter != null) {
