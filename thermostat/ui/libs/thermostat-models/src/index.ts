@@ -1,1 +1,1 @@
-export * from './lib/thermostat-models';
+export * from './models/thermostat';
