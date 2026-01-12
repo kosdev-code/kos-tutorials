@@ -9,4 +9,4 @@ package com.kos.tutorial;
  * @param temperature The current temperature reading from the thermostat.
  * @param mode        The current operational mode of the thermostat,
  */
-public record ThermostatState(int temperature, String mode, String color) { }
+public record ThermostatState(int temperature, String mode) { }

@@ -10,11 +10,14 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
         </processorPath>
-        <module name="tutorial-simulator" />
         <module name="tutorial-thermostat.sdk" />
         <module name="tutorial-thermostat.app" />
+        <module name="tutorial-thermostat-simulator" />
         <module name="tutorial-thermostat.core" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="tutorial-simulator" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -133,7 +133,7 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
         setMode(mode);
 
         // Send temp and mode values to UI team
-        broker.send(THERMOSTAT_STATE_TOPIC, new ThermostatState(temp, mode.name(), mode.getColor()));
+        broker.send(THERMOSTAT_STATE_TOPIC, new ThermostatState(temp, mode.name()));
 
         // Notify listeners of the mode change
         listeners.forEach(l -> l.onModeChange(mode));
@@ -141,6 +141,6 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
 
     public ThermostatState getState() {
         Mode mode = thermostat.getMode();
-        return new ThermostatState(getTemp(), mode.name(), mode.getColor());
+        return new ThermostatState(getTemp(), mode.name());
     }
 }

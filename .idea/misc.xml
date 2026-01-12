@@ -6,6 +6,8 @@
       <list>
         <option value="$PROJECT_DIR$/thermostat/tutorial-thermostat/pom.xml" />
         <option value="$PROJECT_DIR$/thermostat/tutorial-simulator/pom.xml" />
+        <option value="$PROJECT_DIR$/thermostat/java/tutorial-thermostat/pom.xml" />
+        <option value="$PROJECT_DIR$/thermostat/java/tutorial-simulator/pom.xml" />
       </list>
     </option>
   </component>
