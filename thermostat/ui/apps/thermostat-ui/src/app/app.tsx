@@ -3,7 +3,6 @@ import {
   KosTranslationProvider,
   LoadingMessage,
   getLogLevel,
-  initKosProvider,
 } from '@kosdev-code/kos-ui-sdk';
 import {
   FloatingPluginExplorer,
