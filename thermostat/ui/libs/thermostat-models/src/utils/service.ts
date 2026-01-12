@@ -7,7 +7,7 @@ import {
   type HttpMethod,
   type KosExecutionContext,
 } from '@kosdev-code/kos-ui-sdk';
-import { paths } from './openapi';
+import { paths } from './services/system/daily/openapi';
 
 const api = createClient<paths>();
 

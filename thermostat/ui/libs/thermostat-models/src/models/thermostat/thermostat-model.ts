@@ -10,8 +10,9 @@ import {
   kosModel,
   kosLoggerAware,
   KosLoggerAware,
+  DependencyLifecycle,
 } from '@kosdev-code/kos-ui-sdk';
-
+import { SYSTEM_DAILY as KOS_APP } from '../../utils/services-index';
 import type { ThermostatOptions } from './types';
 
 export const MODEL_TYPE = 'thermostat-model';
@@ -22,29 +23,35 @@ export type ThermostatModel = PublicModelInterface<ThermostatModelImpl>;
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ThermostatModelImpl extends KosLoggerAware {}
 
+const { kosServiceRequest: appServiceRequest } = KOS_APP;
+
 @kosModel({ modelTypeId: MODEL_TYPE, singleton: true })
 @kosLoggerAware()
 export class ThermostatModelImpl implements IKosDataModel, IKosIdentifiable {
-  // Registration property for type safety - actual value injected by @kosModel decorator
   static Registration: KosModelRegistrationType<
     ThermostatModel,
     ThermostatOptions
   >;
 
   id: string;
-  // logger property is automatically provided by @kosLoggerAware decorator
+  mode: 'cooling' | 'heating' | 'off';
+  temperature: number;
 
-  constructor(modelId: string, options: ThermostatOptions) {
+  constructor(modelId: string) {
     this.id = modelId;
-    // logger is automatically injected by @kosLoggerAware decorator
-
-    if (options) {
-      // Assign options properties here.
-    }
+    this.mode = 'off';
+    this.temperature = 70;
   }
 
-  updateModel(options: ThermostatOptions): void {
-    // Update model properties here.
+  @appServiceRequest({
+    path: '/api/system/thermostat/service/state',
+    lifecycle: DependencyLifecycle.LOAD,
+  })
+  getState(data: any) {
+    this.mode = data.mode.toLowerCase();
+    this.temperature = data.temperature;
+
+    console.log('getState - data:', data);
   }
 
   // -------------------LIFECYCLE----------------------------
