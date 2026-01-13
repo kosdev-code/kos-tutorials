@@ -28,7 +28,7 @@ export type ThermostatModel = PublicModelInterface<ThermostatModelImpl>;
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ThermostatModelImpl extends KosLoggerAware {}
 
-const { kosServiceRequest: appServiceRequest } = KOS_APP;
+const { kosServiceRequest } = KOS_APP;
 
 @kosModel({ modelTypeId: MODEL_TYPE, singleton: true })
 @kosLoggerAware()
@@ -75,7 +75,7 @@ export class ThermostatModelImpl implements IKosDataModel, IKosIdentifiable {
     this.temperature = options.temperature;
   }
 
-  @appServiceRequest({
+  @kosServiceRequest({
     path: '/api/system/thermostat/service/state',
     lifecycle: DependencyLifecycle.LOAD,
   })
