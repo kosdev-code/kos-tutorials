@@ -6,6 +6,7 @@ export const BaseContainer = styled.div`
   box-sizing: border-box;
   display: flex;
   justify-content: center;
+  user-select: none;
 `;
 
 export const BorderBaseContainer = styled(BaseContainer)`

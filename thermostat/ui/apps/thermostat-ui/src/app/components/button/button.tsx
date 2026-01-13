@@ -10,8 +10,9 @@ const Container = styled(BorderBaseContainer)`
 
 export interface ButtonProps {
   children: ReactNode;
+  onPointerDown?: () => void;
 }
 
-export const Button = ({ children }: ButtonProps) => {
-  return <Container>{children}</Container>;
+export const Button = ({ children, onPointerDown }: ButtonProps) => {
+  return <Container onPointerDown={onPointerDown}>{children}</Container>;
 };

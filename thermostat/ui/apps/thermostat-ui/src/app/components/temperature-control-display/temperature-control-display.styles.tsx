@@ -3,7 +3,7 @@ import { BaseContainer } from '../../styles';
 
 export const TemperatureContainer = styled(BaseContainer)`
   color: #191919;
-  /* font-family: Montserrat; */
+  font-family: Montserrat;
   font-size: 40px;
   font-style: normal;
   font-weight: 600;

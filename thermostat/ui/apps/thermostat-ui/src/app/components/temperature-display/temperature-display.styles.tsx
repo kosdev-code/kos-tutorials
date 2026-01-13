@@ -7,7 +7,15 @@ export const Container = styled.div`
   gap: 4px;
   height: 290px;
   justify-content: center;
+  user-select: none;
   width: 381px;
+`;
+
+export const IconContainer = styled.div`
+  align-items: center;
+  display: flex;
+  height: 48px;
+  justify-content: center;
 `;
 
 export const Icon = styled.img`
@@ -16,7 +24,7 @@ export const Icon = styled.img`
 
 export const Temperature = styled.div`
   color: #191919;
-  /* font-family: Montserrat; */
+  font-family: Montserrat;
   font-size: 56px;
   font-style: normal;
   font-weight: 600;
@@ -26,7 +34,7 @@ export const Temperature = styled.div`
 
 export const Mode = styled.div`
   color: #afb2b4;
-  /* font-family: Montserrat; */
+  font-family: Montserrat;
   font-size: 24px;
   font-style: normal;
   font-weight: 700;

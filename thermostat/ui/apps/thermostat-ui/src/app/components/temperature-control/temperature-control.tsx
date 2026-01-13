@@ -5,18 +5,22 @@ import { Container } from './temperature-control.styles';
 
 interface TemperatureControlProps {
   mode: 'cooling' | 'heating';
-  temperature: number;
+  onDecrease?: () => void;
+  onIncrease?: () => void;
+  temperature?: number;
 }
 
 export const TemperatureControl = ({
   mode,
+  onDecrease,
+  onIncrease,
   temperature = 70,
 }: TemperatureControlProps) => {
   return (
     <Container>
-      <IncreaseButton />
+      <IncreaseButton onPointerDown={onIncrease} />
       <TemperatureControlDisplay mode={mode} temperature={temperature} />
-      <DecreaseButton />
+      <DecreaseButton onPointerDown={onDecrease} />
     </Container>
   );
 };

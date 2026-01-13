@@ -1,26 +1,28 @@
+import { ThermostatMode } from '@thermostat/thermostat-models';
 import {
   Container,
   CoolingMode,
   HeatingMode,
   Icon,
+  IconContainer,
   Mode,
   Temperature,
 } from './temperature-display.styles';
 
 const modes = {
-  cooling: {
+  COOLING: {
     label: 'Cooling',
     icon: '/assets/icons/cooling-icon.svg',
     alt: 'Cooling Icon',
     Component: CoolingMode,
   },
-  heating: {
+  HEATING: {
     label: 'Heating',
     icon: '/assets/icons/heating-icon.svg',
     alt: 'Heating Icon',
     Component: HeatingMode,
   },
-  off: {
+  OFF: {
     label: 'Off',
     icon: undefined,
     Component: Mode,
@@ -28,7 +30,7 @@ const modes = {
 } as const;
 
 interface TemperatureDisplayProps {
-  mode?: 'cooling' | 'heating' | 'off';
+  mode?: ThermostatMode;
   temperature?: number;
 }
 
@@ -40,7 +42,9 @@ export const TemperatureDisplay = ({
 
   return (
     <Container>
-      {config?.icon && <Icon alt={config.alt} src={config.icon} />}
+      <IconContainer>
+        {config?.icon && <Icon alt={config.alt} src={config.icon} />}
+      </IconContainer>
 
       {temperature !== undefined && <Temperature>{temperature}°F</Temperature>}
 

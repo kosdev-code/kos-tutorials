@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { kosComponent, KosLog } from '@kosdev-code/kos-ui-sdk';
 import { useThermostat } from '@thermostat/model-components';
+import { useCallback } from 'react';
 import { TemperatureControl } from '../temperature-control';
 import { TemperatureDisplay } from '../temperature-display';
 
@@ -19,10 +20,40 @@ const Container = styled.div`
 export const MainView: React.FunctionComponent = kosComponent(() => {
   const { model: thermostat } = useThermostat();
 
+  const increaseMaxTemp = useCallback(
+    () => thermostat?.increaseMaxTemp(),
+    [thermostat]
+  );
+
+  const decreaseMaxTemp = useCallback(
+    () => thermostat?.decreaseMaxTemp(),
+    [thermostat]
+  );
+
+  const increaseMinTemp = useCallback(
+    () => thermostat?.increaseMinTemp(),
+    [thermostat]
+  );
+
+  const decreaseMinTemp = useCallback(
+    () => thermostat?.decreaseMinTemp(),
+    [thermostat]
+  );
+
   return (
     <Container>
-      <TemperatureControl mode="heating" temperature={68} />
-      <TemperatureControl mode="cooling" temperature={74} />
+      <TemperatureControl
+        mode="heating"
+        onDecrease={decreaseMinTemp}
+        onIncrease={increaseMinTemp}
+        temperature={thermostat?.minTempValue}
+      />
+      <TemperatureControl
+        mode="cooling"
+        onDecrease={decreaseMaxTemp}
+        onIncrease={increaseMaxTemp}
+        temperature={thermostat?.maxTempValue}
+      />
       <TemperatureDisplay
         mode={thermostat?.mode}
         temperature={thermostat?.temperature}

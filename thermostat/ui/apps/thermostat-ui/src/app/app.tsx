@@ -11,9 +11,9 @@ import {
 import log from 'loglevel';
 import { Suspense } from 'react';
 import { KosCoreContextProvider } from './registration';
-import './app.css';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { MainView } from './components/main-view';
+import './app.css';
 
 const level = getLogLevel();
 
