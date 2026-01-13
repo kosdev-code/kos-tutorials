@@ -16,3 +16,9 @@ popd
 printf "\n\n\n\nBuilding rack tutorial\n\n\n\n\n"
 pushd ./rack/
 mvn install -T8
+
+popd
+
+printf "\n\n\n\nBuilding adapter-documentation\n\n\n\n\n"
+pushd ./adapter-documentation/
+mvn install -T8
