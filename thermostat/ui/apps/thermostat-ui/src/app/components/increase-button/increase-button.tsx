@@ -7,6 +7,6 @@ const Icon = styled.img`
 
 export const IncreaseButton = (props: Omit<ButtonProps, 'children'>) => (
   <Button {...props}>
-    <Icon alt="Increase Icon" src="/assets/icons/increase-icon.svg" />
+    <Icon alt="Increase Icon" src="./assets/icons/increase-icon.svg" />
   </Button>
 );

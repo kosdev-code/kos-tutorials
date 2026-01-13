@@ -12,13 +12,13 @@ import {
 const modes = {
   COOLING: {
     label: 'Cooling',
-    icon: '/assets/icons/cooling-icon.svg',
+    icon: './assets/icons/cooling-icon.svg',
     alt: 'Cooling Icon',
     Component: CoolingMode,
   },
   HEATING: {
     label: 'Heating',
-    icon: '/assets/icons/heating-icon.svg',
+    icon: './assets/icons/heating-icon.svg',
     alt: 'Heating Icon',
     Component: HeatingMode,
   },
