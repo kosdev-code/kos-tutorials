@@ -4,5 +4,13 @@
   "version": "0.0.0-SNAPSHOT",
   "generator": {
     "projectType": "ui"
+  },
+  "kos": {
+    "localization": {
+      "defaultLocale": "en",
+      "namespaces": {
+        "thermostat": {}
+      }
+    }
   }
 }
