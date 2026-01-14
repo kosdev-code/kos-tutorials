@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { BaseContainer } from '../../styles';
 
 export const TemperatureContainer = styled(BaseContainer)`
+  border-radius: 32px;
   color: #191919;
   font-family: Montserrat;
   font-size: 40px;

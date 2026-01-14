@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
+import { BorderBaseContainer } from '../../styles';
 
-export const Container = styled.div`
+export const Container = styled(BorderBaseContainer)`
+  border-radius: 32px;
   align-items: center;
   display: flex;
   flex-direction: column;
