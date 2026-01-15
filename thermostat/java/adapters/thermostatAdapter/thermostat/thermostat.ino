@@ -14,7 +14,6 @@
 SerialBlinkComm comm(&Serial);
 BlinkService blink(&comm);
 
-// Debug
 #define DEBUG                Serial1
 #define DEBUG_BAUD           9600
 
@@ -89,15 +88,36 @@ static void getTemp(BlinkService *s) {
     float voltage = raw * (5.0 / 1023.0);
     float celsius = (voltage - 0.5) * 100.0;
     float fahrenheit = (celsius * 9.0 / 5.0) + 32.0;
+    int32_t temp = (int32_t)round(fahrenheit);
 
-    DEBUG.println("get TEMP");
+    DEBUG.print("Fahrenheit: ");
+    DEBUG.print(temp);
+    DEBUG.println("--------------------");
 
-    s->write(&fahrenheit, sizeof(fahrenheit));
+    //s->write(&fahrenheit, sizeof(fahrenheit));
+
+    /* Determine how many bytes you are going to
+    be sending back, in this case it is the number
+    of characters in the float */
+    int msgSize = sizeof(temp);
+
+    /* Call reply with how many bytes you are going to
+    be sending total. This method is used to generate
+    the binary message header and write it to the
+    stream, so it must be called before writing
+    any information to the stream. Once it has been
+    called you can make a call to write and pass
+    what you want to send along with the size in bytes
+    of what you are writing to the stream. */
+    s->reply(msgSize);
+    s->write(&temp, msgSize);
 }
 
 // API 1: get current mode
 static void getMode(BlinkService *s) {
-    s->write(&currentMode, sizeof(currentMode));
+    int msgSize = sizeof(currentMode);
+    s->reply(msgSize);
+    s->write(&currentMode, msgSize);
 }
 
 // API 2: set mode
