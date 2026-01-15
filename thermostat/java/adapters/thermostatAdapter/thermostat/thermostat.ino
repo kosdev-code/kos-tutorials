@@ -14,6 +14,10 @@
 SerialBlinkComm comm(&Serial);
 BlinkService blink(&comm);
 
+// Debug
+#define DEBUG                Serial1
+#define DEBUG_BAUD           9600
+
 // baud rates for blink
 #define BLINK_BAUD           115200
 #define BOARD_NAME           "kos.tutorial.thermostat"
@@ -29,7 +33,7 @@ BlinkService blink(&comm);
 #define OFF                  20
 #define HEATING              21
 #define COOLING              22
-#define TEMP_SENSOR_PIN      23
+#define TEMP_SENSOR_PIN      5
 
 #define NUM_MODES            3
 
@@ -54,10 +58,11 @@ const blinkHandler handlers[] = {
 // Setup function
 void setup() {
     Serial.begin(BLINK_BAUD);
+    DEBUG.begin(DEBUG_BAUD);
 
     blink.setBoardType(BOARD_TYPE);
     blink.setBoardInstanceId(INSTANCE);
-    blink.addIface(BOARD_NAME, "1", handlers);
+    blink.addIface(BOARD_NAME, 1, handlers);
 
     // Initialize mode LEDs
     for (int i = 0; i < NUM_MODES; i++) {
@@ -84,6 +89,8 @@ static void getTemp(BlinkService *s) {
     float voltage = raw * (5.0 / 1023.0);
     float celsius = (voltage - 0.5) * 100.0;
     float fahrenheit = (celsius * 9.0 / 5.0) + 32.0;
+
+    DEBUG.println("get TEMP");
 
     s->write(&fahrenheit, sizeof(fahrenheit));
 }

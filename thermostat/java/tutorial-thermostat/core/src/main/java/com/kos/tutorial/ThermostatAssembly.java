@@ -26,7 +26,7 @@ public class ThermostatAssembly extends Assembly implements CoreAssembly, Serial
 
     // USB vendor/product ID for the Arduino Mega running the thermostat adapter.
     // This is used to identify the correct serial device during Blink probing.
-    private static final UsbId ARDUINO_ID = new UsbId(0x2341, 0x0042);
+    private static final UsbId ARDUINO_ID = new UsbId(2341, 42);
 
     @Getter
     private ThermostatBoard thermostat;
@@ -54,11 +54,12 @@ public class ThermostatAssembly extends Assembly implements CoreAssembly, Serial
 
             // When a serial connection is opened, the Arduino Mega automatically resets.
             // These delays allow the board to reboot for probing
-            serialBlinkMatch.setPostOpenDelayMs(1500);
+            serialBlinkMatch.setPostOpenDelayMs(2000);
+            serialBlinkMatch.setPostWriteDelayMs(1500);
 
             return serialBlinkMatch;
         }
         // Not a matching device
-        return new SerialBlinkMatch(0);
+        return null;
     }
 }
