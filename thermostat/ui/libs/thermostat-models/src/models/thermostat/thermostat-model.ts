@@ -75,15 +75,15 @@ export class ThermostatModelImpl implements IKosDataModel, IKosIdentifiable {
     this.temperature = options.temperature;
   }
 
-  @kosServiceRequest({
-    path: '/api/system/thermostat/service/state',
-    lifecycle: DependencyLifecycle.LOAD,
-  })
-  getState(data: ThermostatOptions) {
-    console.log('getState:', data);
+  // @kosServiceRequest({
+  //   path: '/api/system/thermostat/service/state',
+  //   lifecycle: DependencyLifecycle.LOAD,
+  // })
+  // getState(data: ThermostatOptions) {
+  //   console.log('getState:', data);
 
-    this.updateModel(data);
-  }
+  //   this.updateModel(data);
+  // }
 
   @kosTopicHandler({ topic: '/app/system/thermostat/state', websocket: true })
   stateHandler(data: ThermostatOptions) {
