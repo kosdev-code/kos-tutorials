@@ -11,6 +11,8 @@ import com.tccc.kos.commons.util.ListenerList;
 import com.tccc.kos.commons.util.concurrent.AdjustableCallback;
 import com.tccc.kos.core.service.assembly.Assembly;
 import com.tccc.kos.core.service.assembly.AssemblyPrePostInstallListener;
+import com.tccc.kos.core.service.hardware.Board;
+import com.tccc.kos.core.service.hardware.BoardLinkListener;
 
 
 /**
@@ -53,10 +55,10 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
     public void onPostInstall(Assembly assembly) {
         if (assembly instanceof ThermostatAssembly trayAssembly) {
             thermostat = trayAssembly.getThermostat();
-        }
 
-        // Start timer after thermostat board methods can be safely called
-        timer.start();
+            // Safely start the timer
+            timer.start();
+        }
     }
 
     /**
