@@ -14,9 +14,6 @@
 SerialBlinkComm comm(&Serial);
 BlinkService blink(&comm);
 
-#define DEBUG                Serial1
-#define DEBUG_BAUD           9600
-
 // baud rates for blink
 #define BLINK_BAUD           115200
 #define BOARD_NAME           "kos.tutorial.thermostat"
@@ -57,7 +54,6 @@ const blinkHandler handlers[] = {
 // Setup function
 void setup() {
     Serial.begin(BLINK_BAUD);
-    DEBUG.begin(DEBUG_BAUD);
 
     blink.setBoardType(BOARD_TYPE);
     blink.setBoardInstanceId(INSTANCE);
@@ -90,15 +86,11 @@ static void getTemp(BlinkService *s) {
     float fahrenheit = (celsius * 9.0 / 5.0) + 32.0;
     int32_t temp = (int32_t)round(fahrenheit);
 
-    DEBUG.print("Fahrenheit: ");
-    DEBUG.print(temp);
-    DEBUG.println("--------------------");
-
     //s->write(&fahrenheit, sizeof(fahrenheit));
 
     /* Determine how many bytes you are going to
     be sending back, in this case it is the number
-    of characters in the float */
+    of bytes in the int */
     int msgSize = sizeof(temp);
 
     /* Call reply with how many bytes you are going to
@@ -122,11 +114,11 @@ static void getMode(BlinkService *s) {
 
 // API 2: set mode
 static void setMode(BlinkService *s) {
-    // Read an integer, mode
+    // Read mode: 1 byte from the incoming stream
     int8_t newMode;
     s->read(&newMode, 1);
 
-    // Ignore invalid inputs
+    // Validate input against the number of supported modes
     if (newMode < 0 || newMode >= NUM_MODES) {
         return;
     }
