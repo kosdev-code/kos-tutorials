@@ -1,0 +1,74 @@
+name: wordpress-documentation-importer
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "**/*.md"
+      - "!**/README.md"
+
+jobs:
+  import_documentation:
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: read
+    container:
+      image: ghcr.io/kondra-code/wordpress-documentation-importer:1.0.0
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Mark repository as safe for Git
+        shell: bash
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Determine base and head SHAs
+        uses: nrwl/nx-set-shas@v4
+        with:
+          main-branch-name: "main"
+
+      - name: Import changed Documentation files
+        shell: bash
+        env:
+          WP_USERNAME: ${{ secrets.WP_USERNAME }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+          WP_MD_KEY: ${{ secrets.WP_MD_KEY }}
+          WP_BASE_URL: ${{ secrets.WP_BASE_URL }}
+        run: bash .github/import-documentation-wordpress.sh
+
+      - name: Upload changed documents to workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: changed-documentation-files
+          path: ${{ env.CHANGED_FILES_FILE }}
+
+      - name: Slack notification
+        if: success()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          # Read the list of imported files
+          FILE_LIST=$(cat "$CHANGED_FILES_FILE")
+          
+          # Prepare the payload for Slack
+          PAYLOAD=$(cat <<EOF
+          {
+            "text": ":tada: *Document import completed successfully*\n\n*Repository:* ${GITHUB_REPOSITORY}\n*Commit:* ${GITHUB_SHA}\n\n*Change logs:*\n\`\`\`\n${FILE_LIST}\n\`\`\`"
+          }
+          EOF
+          )
+          
+          # Send the notification
+          curl -X POST -H "Content-Type: application/json" \
+            --data "$PAYLOAD" \
+            "$SLACK_WEBHOOK_URL"
