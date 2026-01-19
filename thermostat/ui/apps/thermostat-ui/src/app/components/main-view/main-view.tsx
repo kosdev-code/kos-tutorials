@@ -18,8 +18,12 @@ const Container = styled.div`
 `;
 
 export const MainView: React.FunctionComponent = kosComponent(() => {
+  // Retrieve the Thermostat model so we can use its exposed data like the
+  // Thermostat mode and temperature.
   const { model: thermostat } = useThermostat();
 
+  // Create callback methods that utilize the Thermostat model's exposed
+  // methods to increase and decrease maximum and minimum temperatures.
   const increaseMaxTemp = useCallback(
     () => thermostat?.increaseMaxTemp(),
     [thermostat]
