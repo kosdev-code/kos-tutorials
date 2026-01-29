@@ -12,12 +12,15 @@
         </processorPath>
         <module name="tutorial-thermostat.sdk" />
         <module name="tutorial-thermostat.app" />
-        <module name="tutorial-thermostat-simulator" />
+        <module name="tutorial-arduino" />
+        <module name="adapter-tutorial" />
         <module name="tutorial-thermostat.core" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="tutorial-simulator" target="17" />
+      <module name="tutorial-thermostat" target="17" />
+      <module name="tutorial-thermostat-simulator" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
