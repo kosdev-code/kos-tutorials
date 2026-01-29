@@ -1,0 +1,26 @@
+name: "Build"
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  kos_build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/kosdev-code/kos-buildpublish/kos_builder:dockerimage
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.github_token }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Run Build All
+        run: |
+          chmod +x .github/build_all.sh
+          bash .github/build_all.sh
