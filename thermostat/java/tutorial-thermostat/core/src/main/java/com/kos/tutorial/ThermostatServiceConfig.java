@@ -15,7 +15,7 @@ import lombok.Setter;
  * @version 2025-12
  */
 @Getter @Setter
-public class ThermostatServiceConfigs extends ConfigBean {
+public class ThermostatServiceConfig extends ConfigBean {
     @ConfigDesc(value = "Maximum temperature set on the thermostat")
     private int maxTemp = 74;
 

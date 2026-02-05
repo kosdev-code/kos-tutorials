@@ -16,7 +16,7 @@ import com.tccc.kos.core.service.hardware.IfaceAwareBoard;
  * @author Sneh Gupta (sneh@kondra.com)
  * @version 2025-12
  */
-public class ThermostatBoard extends Board implements IfaceAwareBoard {
+public class ControlBoard extends Board implements IfaceAwareBoard {
     // board type
     private static final String TYPE = "kos.tutorial.thermostat";
     // instance ID
@@ -25,7 +25,7 @@ public class ThermostatBoard extends Board implements IfaceAwareBoard {
     // Client to safely call methods on the iface without error checking
     private final IfaceClient<ThermostatIface> client;
 
-    public ThermostatBoard(Assembly assembly, String name) {
+    public ControlBoard(Assembly assembly, String name) {
         // Create a constructor matching the super Board constructor
         super(assembly, name);
         // Create an iface Client

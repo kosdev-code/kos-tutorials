@@ -29,7 +29,7 @@ public class ThermostatAssembly extends Assembly implements CoreAssembly, Serial
     private static final UsbId ARDUINO_ID = new UsbId(0x2341, 0x42);
 
     @Getter
-    private ThermostatBoard thermostat;
+    private ControlBoard controlBoard;
 
     // Create a constructor that follows the super Assembly
     public ThermostatAssembly(String name) {
@@ -40,7 +40,7 @@ public class ThermostatAssembly extends Assembly implements CoreAssembly, Serial
     public void load() {
         // Load all boards in the assembly here.
         // In this tutorial we only have the thermostat board
-        thermostat = new ThermostatBoard(this, "thermostat");
+        controlBoard = new ControlBoard(this, "thermostat");
     }
 
     @Override

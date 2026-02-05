@@ -9,7 +9,7 @@
   <description>tutorial-thermostat</description>
   <!-- ====== Properties =========================================================== -->
   <properties>
-    <kos-bom.version>0.0.0-SNAPSHOT</kos-bom.version>
+    <kos-bom.version>1.9.x-SNAPSHOT</kos-bom.version>
     <kos-sdk-annotations.version>1.0.4</kos-sdk-annotations.version>
     <kos-kab-maven-plugin.version>1.3.4</kos-kab-maven-plugin.version>
     <kos-sdk-maven-plugin.version>1.0.1</kos-sdk-maven-plugin.version>

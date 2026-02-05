@@ -11,8 +11,6 @@ import com.tccc.kos.commons.util.ListenerList;
 import com.tccc.kos.commons.util.concurrent.AdjustableCallback;
 import com.tccc.kos.core.service.assembly.Assembly;
 import com.tccc.kos.core.service.assembly.AssemblyPrePostInstallListener;
-import com.tccc.kos.core.service.hardware.Board;
-import com.tccc.kos.core.service.hardware.BoardLinkListener;
 
 
 /**
@@ -27,21 +25,20 @@ import com.tccc.kos.core.service.hardware.BoardLinkListener;
  * @author Sneh Gupta (sneh@kondra.com)
  * @version 2025-12
  */
-public class ThermostatService extends AbstractConfigurableService<ThermostatServiceConfigs> implements AssemblyPrePostInstallListener {
-    private static final String THERMOSTAT_STATE_TOPIC = "/thermostat/state";
+public class ThermostatService extends AbstractConfigurableService<ThermostatServiceConfig> implements AssemblyPrePostInstallListener {
+    private static final String TOPIC_THERMOSTAT_STATE = "/thermostat/state";
 
-    private ThermostatBoard thermostat;
     @Autowired
     private MessageBroker broker;
-
     @Autowired
     private final ListenerList<ThermostatListener> listeners = new ListenerList<>();
+    private ControlBoard controlBoard;
     private final AdjustableCallback timer;
 
     public ThermostatService() {
         // Create a recurring timer that fires every 1000 ms (1 second)
         // Each time it fires, re-evaluate the thermostat state
-        timer = new AdjustableCallback(true, 1000, this::react);
+        timer = new AdjustableCallback(true, 1000, this::pollHardware);
     }
 
     /**
@@ -54,7 +51,7 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
     @Override
     public void onPostInstall(Assembly assembly) {
         if (assembly instanceof ThermostatAssembly trayAssembly) {
-            thermostat = trayAssembly.getThermostat();
+            controlBoard = trayAssembly.getControlBoard();
 
             // Safely start the timer
             timer.start();
@@ -63,13 +60,13 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
 
     /**
      * Any time a config is changed (example: temperature setpoints) it will trigger
-     * the react() method so that any changes like operation mode can be made
+     * the pollHardware() method so that any changes like operation mode can be made
      */
     @Override
     public void onConfigChanged(BeanChanges changes) {
         // This callback may happen before the onPostInstall() callback, so do a null check
-        if (thermostat != null) {
-            react();
+        if (controlBoard != null) {
+            pollHardware();
         }
     }
 
@@ -101,7 +98,7 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
      * Read the current environment temperature from the board.
      */
     public Integer getTemp() {
-        return thermostat.getTemp();
+        return controlBoard.getTemp();
     }
 
     /**
@@ -110,21 +107,18 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
      * communicate with real or simulated physical hardware.
      */
     public void setMode(Mode mode) {
-        thermostat.setMode(mode);
+        controlBoard.setMode(mode);
     }
 
     /**
      * Check the environment temperature against the configured min/max
      * and update the board mode accordingly
      */
-    private void react() {
+    private void pollHardware() {
         Integer temp = getTemp();
 
         // This is a null check in case the ifaceClient returns null
         if (temp == null) return;
-
-        // Notify listeners of the environment temperature
-        listeners.forEach(l -> l.onTemperatureChange(temp));
 
         // Determine the mode
         Mode mode = (temp < getConfig().getMinTemp()) ? Mode.HEATING :
@@ -134,15 +128,16 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
         // Update physical board state
         setMode(mode);
 
-        // Send temp and mode values to UI team
-        broker.send(THERMOSTAT_STATE_TOPIC, new ThermostatState(temp, mode.name()));
+        // Send temp and mode values to UI
+        broker.send(TOPIC_THERMOSTAT_STATE, new ThermostatState(temp, mode.name()));
 
-        // Notify listeners of the mode change
+        // Notify listeners
+        listeners.forEach(l -> l.onTemperatureChange(temp));
         listeners.forEach(l -> l.onModeChange(mode));
     }
 
     public ThermostatState getState() {
-        Mode mode = thermostat.getMode();
+        Mode mode = controlBoard.getMode();
         return new ThermostatState(getTemp(), mode.name());
     }
 }
