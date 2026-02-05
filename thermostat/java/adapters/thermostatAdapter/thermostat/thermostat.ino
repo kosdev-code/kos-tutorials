@@ -22,8 +22,7 @@ BlinkService blink(&comm);
 
 // API numbers
 #define API_GET_TEMP         0
-#define API_GET_MODE         1
-#define API_SET_MODE         2
+#define API_SET_MODE         1
 
 // the pins for each piece of hardware on the device
 #define OFF                  20
@@ -40,14 +39,12 @@ static int8_t currentMode = 0;
 
 // Function declarations
 static void getTemp(BlinkService *s);
-static void getMode(BlinkService *s);
 static void setMode(BlinkService *s);
 
 // handlers table for java side iface methods
 const blinkHandler handlers[] = {
     (blinkHandler) getTemp, // api 0
-    (blinkHandler) getMode, // api 1
-    (blinkHandler) setMode, // api 2
+    (blinkHandler) setMode, // api 1
     NULL
 };
 
@@ -105,14 +102,7 @@ static void getTemp(BlinkService *s) {
     s->write(&temp, msgSize);
 }
 
-// API 1: get current mode
-static void getMode(BlinkService *s) {
-    int msgSize = sizeof(currentMode);
-    s->reply(msgSize);
-    s->write(&currentMode, msgSize);
-}
-
-// API 2: set mode
+// API 1: set mode
 static void setMode(BlinkService *s) {
     // Read mode: 1 byte from the incoming stream
     int8_t newMode;

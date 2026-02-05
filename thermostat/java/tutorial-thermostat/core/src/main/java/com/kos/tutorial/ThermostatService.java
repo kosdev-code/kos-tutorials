@@ -7,11 +7,7 @@ import com.tccc.kos.commons.core.broker.MessageBroker;
 import com.tccc.kos.commons.core.context.annotations.Autowired;
 import com.tccc.kos.commons.core.service.AbstractConfigurableService;
 import com.tccc.kos.commons.core.service.config.BeanChanges;
-import com.tccc.kos.commons.util.ListenerList;
 import com.tccc.kos.commons.util.concurrent.AdjustableCallback;
-import com.tccc.kos.core.service.assembly.Assembly;
-import com.tccc.kos.core.service.assembly.AssemblyPrePostInstallListener;
-
 
 /**
  * ThermostatService is the central coordinator for thermostat behavior.
@@ -25,13 +21,11 @@ import com.tccc.kos.core.service.assembly.AssemblyPrePostInstallListener;
  * @author Sneh Gupta (sneh@kondra.com)
  * @version 2025-12
  */
-public class ThermostatService extends AbstractConfigurableService<ThermostatServiceConfig> implements AssemblyPrePostInstallListener {
+public class ThermostatService extends AbstractConfigurableService<ThermostatServiceConfig> {
     private static final String TOPIC_THERMOSTAT_STATE = "/thermostat/state";
 
     @Autowired
     private MessageBroker broker;
-    @Autowired
-    private final ListenerList<ThermostatListener> listeners = new ListenerList<>();
     private ControlBoard controlBoard;
     private final AdjustableCallback timer;
 
@@ -42,20 +36,12 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
     }
 
     /**
-     * Called after an Assembly is installed.
-     * <p>
-     * The service listens for the ThermostatAssembly, so it can safely
-     * retrieve the ThermostatBoard at the correct point in the lifecycle.
-     * This avoids race conditions and manual wiring.
+     * Initializes the service with a control board and starts the periodic hardware
+     * polling timer.
      */
-    @Override
-    public void onPostInstall(Assembly assembly) {
-        if (assembly instanceof ThermostatAssembly trayAssembly) {
-            controlBoard = trayAssembly.getControlBoard();
-
-            // Safely start the timer
-            timer.start();
-        }
+    public void start(ControlBoard controlBoard) {
+        this.controlBoard = controlBoard;
+        timer.start();
     }
 
     /**
@@ -64,50 +50,10 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
      */
     @Override
     public void onConfigChanged(BeanChanges changes) {
-        // This callback may happen before the onPostInstall() callback, so do a null check
+        // This callback may happen before the board has been initialized, so do a null check
         if (controlBoard != null) {
             pollHardware();
         }
-    }
-
-    public int getMinTemp() {
-        return getConfig().getMinTemp();
-    }
-
-    public int getMaxTemp() {
-        return getConfig().getMaxTemp();
-    }
-
-    /**
-     * Update the maximum temperature set point.
-     * This value is stored in persistent config.
-     */
-    public void setMaxTemp(int maxTemp) {
-        getConfig().setMaxTemp(maxTemp);
-    }
-
-    /**
-     * Update the minimum temperature set point.
-     * This value is stored in persistent config.
-     */
-    public void setMinTemp(int minTemp) {
-        getConfig().setMinTemp(minTemp);
-    }
-
-    /**
-     * Read the current environment temperature from the board.
-     */
-    public Integer getTemp() {
-        return controlBoard.getTemp();
-    }
-
-    /**
-     * Send the desired operating mode to the thermostat hardware.
-     * This call is forwarded to the logical board, which will eventually
-     * communicate with real or simulated physical hardware.
-     */
-    public void setMode(Mode mode) {
-        controlBoard.setMode(mode);
     }
 
     /**
@@ -115,29 +61,18 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
      * and update the board mode accordingly
      */
     private void pollHardware() {
-        Integer temp = getTemp();
-
-        // This is a null check in case the ifaceClient returns null
+        Integer temp = controlBoard.getTemp();
         if (temp == null) return;
 
-        // Determine the mode
+        // Evaluate to determine the mode
         Mode mode = (temp < getConfig().getMinTemp()) ? Mode.HEATING :
                     (temp > getConfig().getMaxTemp()) ? Mode.COOLING :
                     Mode.OFF;
 
         // Update physical board state
-        setMode(mode);
+        controlBoard.setMode(mode);
 
         // Send temp and mode values to UI
         broker.send(TOPIC_THERMOSTAT_STATE, new ThermostatState(temp, mode.name()));
-
-        // Notify listeners
-        listeners.forEach(l -> l.onTemperatureChange(temp));
-        listeners.forEach(l -> l.onModeChange(mode));
-    }
-
-    public ThermostatState getState() {
-        Mode mode = controlBoard.getMode();
-        return new ThermostatState(getTemp(), mode.name());
     }
 }

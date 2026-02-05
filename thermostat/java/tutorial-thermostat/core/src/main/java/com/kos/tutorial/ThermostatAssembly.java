@@ -3,13 +3,13 @@
  */
 package com.kos.tutorial;
 
+import com.tccc.kos.commons.core.context.annotations.Autowired;
 import com.tccc.kos.core.service.assembly.Assembly;
 import com.tccc.kos.core.service.assembly.CoreAssembly;
 import com.tccc.kos.core.service.udev.UsbId;
 import com.tccc.kos.core.service.udev.serial.SerialDevice;
 import com.tccc.kos.core.service.udev.serial.blink.SerialBlinkMatch;
 import com.tccc.kos.core.service.udev.serial.blink.SerialBlinkMatcher;
-import lombok.Getter;
 
 /**
  * This is the assembly for the thermostat
@@ -28,7 +28,8 @@ public class ThermostatAssembly extends Assembly implements CoreAssembly, Serial
     // This is used to identify the correct serial device during Blink probing.
     private static final UsbId ARDUINO_ID = new UsbId(0x2341, 0x42);
 
-    @Getter
+    @Autowired
+    private ThermostatService thermostatService;
     private ControlBoard controlBoard;
 
     // Create a constructor that follows the super Assembly
@@ -44,7 +45,9 @@ public class ThermostatAssembly extends Assembly implements CoreAssembly, Serial
     }
 
     @Override
-    public void start() {}
+    public void start() {
+        thermostatService.start(controlBoard);
+    }
 
     @Override
     public SerialBlinkMatch matchSerialBlinkDevice(UsbId usbId, SerialDevice device) {

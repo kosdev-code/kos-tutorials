@@ -27,17 +27,14 @@ public class ThermostatClient extends BinaryMsgClient {
     // API numbers for the Core Iface
     // API number for requesting current temperature
     private static final int API_GET_TEMP = 0;
-    // API number for requesting current mode
-    private static final int API_GET_MODE = 1;
     // API number for setting the thermostat operating mode
-    private static final int API_SET_MODE = 2;
+    private static final int API_SET_MODE = 1;
 
     public ThermostatClient(Thermostat thermostat, BinaryMsgIdentity identity) {
         super(NAME, identity, "localhost", 10001);
         // Add handlers to the core iface: Thermostat Iface
         BinaryMsgClientIface iface = getCoreIface();
         iface.addHandler(API_GET_TEMP, (api, msg) -> msg.writeInt((int) (thermostat.getTemp())));
-        iface.addHandler(API_GET_MODE, (api, msg) -> msg.writeInt((thermostat.getMode())));
         iface.addHandler(API_SET_MODE, (api, msg) -> thermostat.setMode(msg.readInt()));
 
         // Add handlers to the Board Iface

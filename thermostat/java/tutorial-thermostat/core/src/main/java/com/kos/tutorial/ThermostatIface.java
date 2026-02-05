@@ -4,7 +4,6 @@
 package com.kos.tutorial;
 
 import com.tccc.kos.commons.core.service.blink.binarymsg.*;
-
 import java.io.IOException;
 
 /**
@@ -25,10 +24,8 @@ public class ThermostatIface extends BinaryMsgIface {
     // API numbers
     // API number for requesting current temperature
     private static final int API_GET_TEMP = 0;
-    // API number for requesting current mode
-    private static final int API_GET_MODE = 1;
     // API number for setting the thermostat operating mode
-    private static final int API_SET_MODE = 2;
+    private static final int API_SET_MODE = 1;
 
     public ThermostatIface(BinaryMsgSession session, IfaceClient client) {
         super(NAME, session, client, null);
@@ -40,12 +37,6 @@ public class ThermostatIface extends BinaryMsgIface {
     public int getTemp() throws IOException {
         BinaryMsg msg = msg(API_GET_TEMP);
         return sendAndRecvInt(msg);
-    }
-
-    public Mode getMode() throws IOException {
-        BinaryMsg msg = msg(API_GET_MODE);
-        int value = sendAndRecvInt(msg);
-        return Mode.values()[value];
     }
 
     /**

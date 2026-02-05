@@ -4,8 +4,6 @@
 package com.kos.tutorial;
 
 import com.tccc.kos.sdk.annotations.Sdk;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /**
  * The mode of the thermostat: off, heating, cooling

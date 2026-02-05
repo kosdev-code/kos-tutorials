@@ -37,7 +37,7 @@ public class SimulatorService extends AbstractConfigurableService<SimulatorServi
      */
     @Override
     public boolean onBeanReady() {
-        // Timer to change simulate slight shifts in the environment temperature
+        // Timer to simulate slight shifts in the environment temperature
         AdjustableCallback timer = new AdjustableCallback(true,
                 getConfig().getAmbientTemperatureChangeDelay(), this::changeTemp);
         connectToNetwork();

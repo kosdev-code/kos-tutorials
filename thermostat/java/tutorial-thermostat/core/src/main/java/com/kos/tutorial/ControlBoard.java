@@ -48,10 +48,6 @@ public class ControlBoard extends Board implements IfaceAwareBoard {
         client.withCatch(iface -> iface.setMode(mode));
     }
 
-    public Mode getMode() {
-        return client.fromCatch(iface -> iface.getMode(), null);
-    }
-
     @Override
     public String getType() {
         // Board type must match the arduino side

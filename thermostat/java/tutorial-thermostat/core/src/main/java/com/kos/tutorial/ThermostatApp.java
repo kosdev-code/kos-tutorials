@@ -3,9 +3,6 @@
  */
 package com.kos.tutorial;
 
-import javax.swing.*;
-
-import com.kos.tutorial.ui.ThermostatUI;
 import com.tccc.kos.commons.core.context.annotations.Autowired;
 import com.tccc.kos.commons.core.vfs.VFSSource;
 import com.tccc.kos.commons.kab.KabFile;
@@ -24,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class ThermostatApp extends SystemApplication<BaseAppConfig> {
-    public static final String UI_KAB_TYPE = "kos.ui";
+    public static final String KAB_TYPE_UI = "kos.ui";
 
     @Autowired
     private BrowserService browserService;
@@ -33,7 +30,7 @@ public class ThermostatApp extends SystemApplication<BaseAppConfig> {
     @Override
     public void load() {
         // Load the UI KAB
-        KabFile uiKab = getKabByType(UI_KAB_TYPE);
+        KabFile uiKab = getKabByType(KAB_TYPE_UI);
         if (uiKab != null) {
             uiVfsSource = getVfs().mount("/ui", uiKab);
         } else {
@@ -42,30 +39,16 @@ public class ThermostatApp extends SystemApplication<BaseAppConfig> {
 
         // Beans added to the context in load() are automatically autowired before the start() callback
         addToCtx(new ThermostatService());
-        addToCtx(new ThermostatServiceController());
     }
 
     @Override
     public void start() {
-        // install the core assembly
-        // This assembly loads boards
+        // install the core assembly: this assembly loads boards
         installAssembly(new ThermostatAssembly("core"));
-        // TODO: start service instead of onPostInstall
     }
 
     @Override
     public void started() {
-        // Java Swing UI
-//        SwingUtilities.invokeLater(() -> {
-//            ThermostatUI ui = new ThermostatUI();
-//            addToCtx(ui);
-//
-//            // Beans added after load() must be explicitly autowired
-//            getCtx().update();
-//
-//            ui.setVisible(true);
-//        });
-
         // Browser-based UI
         browserService.goToUrl(uiVfsSource.getFullPath("index.html"));
     }
