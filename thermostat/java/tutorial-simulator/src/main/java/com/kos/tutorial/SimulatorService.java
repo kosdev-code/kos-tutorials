@@ -24,7 +24,7 @@ public class SimulatorService extends AbstractConfigurableService<SimulatorServi
     private static final String IDENTITY = "test";
 
     private final Thermostat thermostat;
-    private Random random;
+    private final Random random;
     private ThermostatClient client;
 
     public SimulatorService() {
@@ -38,7 +38,7 @@ public class SimulatorService extends AbstractConfigurableService<SimulatorServi
     @Override
     public boolean onBeanReady() {
         // Timer to simulate slight shifts in the environment temperature
-        AdjustableCallback timer = new AdjustableCallback(true,
+        new AdjustableCallback(true,
                 getConfig().getAmbientTemperatureChangeDelay(), this::changeTemp);
         connectToNetwork();
         return true;
