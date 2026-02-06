@@ -1,20 +1,20 @@
 package com.kos.tutorial;
 
-import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
-import com.tccc.kos.commons.core.service.blink.binarymsg.IfaceClient;
-import com.tccc.kos.core.service.assembly.Assembly;
-import com.tccc.kos.core.service.hardware.Board;
-import com.tccc.kos.core.service.hardware.IfaceAwareBoard;
+import com.kosdev.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
+import com.kosdev.kos.commons.core.service.blink.binarymsg.IfaceClient;
+import com.kosdev.kos.core.service.assembly.Assembly;
+import com.kosdev.kos.core.service.hardware.Board;
+import com.kosdev.kos.core.service.hardware.IfaceAwareBoard;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class NavigationBoard extends Board implements IfaceAwareBoard {
-    private static final String BOARD_TYPE = "navigationModule";
+public class ExampleBoard extends Board implements IfaceAwareBoard {
+    private static final String BOARD_TYPE = "kondraExample";
 
-    private IfaceClient<NavigationIface> ifaceClient;
+    private IfaceClient<ExampleIface> ifaceClient;
 
-    public NavigationBoard(Assembly assembly) {
+    public ExampleBoard(Assembly assembly) {
         super(assembly, BOARD_TYPE);
         ifaceClient = new IfaceClient<>();
     }
@@ -43,6 +43,6 @@ public class NavigationBoard extends Board implements IfaceAwareBoard {
 
     @Override
     public void onLinkSession(BinaryMsgSession session) {
-        new NavigationIface(session, ifaceClient);
+        new ExampleIface(session, ifaceClient);
     }
 }

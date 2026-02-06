@@ -1,14 +1,14 @@
 package com.kos.tutorial;
 
-import com.tccc.kos.core.service.assembly.Assembly;
-import com.tccc.kos.core.service.assembly.CoreAssembly;
+import com.kosdev.kos.core.service.assembly.Assembly;
+import com.kosdev.kos.core.service.assembly.CoreAssembly;
 
 import lombok.Getter;
 
 public class TutorialAssembly extends Assembly implements CoreAssembly {
 
     @Getter
-    private NavigationBoard navigationBoard;
+    private ExampleBoard navigationBoard;
 
     public TutorialAssembly() {
         super("TutorialAssembly");
@@ -16,7 +16,7 @@ public class TutorialAssembly extends Assembly implements CoreAssembly {
 
     @Override
     public void load() throws Exception {
-        navigationBoard = new NavigationBoard(this);
+        navigationBoard = new ExampleBoard(this);
     }
 
     @Override

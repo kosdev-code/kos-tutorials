@@ -2,18 +2,18 @@ package com.kos.tutorial;
 
 import java.io.IOException;
 
-import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsg;
-import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIface;
-import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
-import com.tccc.kos.commons.core.service.blink.binarymsg.IfaceClient;
+import com.kosdev.kos.commons.core.service.blink.binarymsg.BinaryMsg;
+import com.kosdev.kos.commons.core.service.blink.binarymsg.BinaryMsgIface;
+import com.kosdev.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
+import com.kosdev.kos.commons.core.service.blink.binarymsg.IfaceClient;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class NavigationIface extends BinaryMsgIface {
+public class ExampleIface extends BinaryMsgIface {
     //@formatter:off
 
-    private static final String IFACE_NAME = "nasa.navigationModuleIface";
+    private static final String IFACE_NAME = "kondra.exampleIface";
 
     // Java Api numbers
     private static final int API_JAVA_SEND              = 0; // java sends a command / event 
@@ -24,7 +24,7 @@ public class NavigationIface extends BinaryMsgIface {
     private static final int API_NATIVE_SEND            = 0; // native sends an event to java
     //@formatter:on
 
-    public NavigationIface(BinaryMsgSession session, IfaceClient<NavigationIface> ifaceClient ) {
+    public ExampleIface(BinaryMsgSession session, IfaceClient<ExampleIface> ifaceClient ) {
         super(IFACE_NAME, session, ifaceClient, null);
 
         // Register listeners for events from adapter

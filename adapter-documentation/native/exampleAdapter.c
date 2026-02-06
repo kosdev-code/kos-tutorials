@@ -24,7 +24,7 @@
 /*------------------------------------------------------------*/
 
 // Blink protocol name
-#define BLINK_NAME "nasa.navigationModuleIface"
+#define BLINK_NAME "kondra.exampleIface"
 
 #define BOARD_TYPE "navigationModule"
 

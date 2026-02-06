@@ -1,12 +1,12 @@
 package com.kos.tutorial;
 
-import com.tccc.kos.commons.core.context.annotations.Autowired;
-import com.tccc.kos.commons.kab.KabFile;
-import com.tccc.kos.core.service.app.BaseAppConfig;
-import com.tccc.kos.core.service.app.SystemApplication;
-import com.tccc.kos.core.service.fuse.FuseMount;
-import com.tccc.kos.core.service.fuse.FuseService;
-import com.tccc.kos.core.service.spawn.SpawnService;
+import com.kosdev.kos.commons.core.context.annotations.Autowired;
+import com.kosdev.kos.commons.kab.KabFile;
+import com.kosdev.kos.core.service.app.BaseAppConfig;
+import com.kosdev.kos.core.service.app.SystemApplication;
+import com.kosdev.kos.core.service.fuse.FuseMount;
+import com.kosdev.kos.core.service.fuse.FuseService;
+import com.kosdev.kos.core.service.spawn.SpawnService;
 
 import lombok.extern.slf4j.Slf4j;
 
