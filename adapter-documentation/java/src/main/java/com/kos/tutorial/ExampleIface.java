@@ -37,7 +37,6 @@ public class ExampleIface extends BinaryMsgIface {
     public void resetModule(boolean isHardReset) throws IOException {
         BinaryMsg msg = msg(API_JAVA_SEND);
 
-        // If the led is on turn it off otherwise turn it on
         msg.writeBoolean(isHardReset);
         send(msg);
     }
