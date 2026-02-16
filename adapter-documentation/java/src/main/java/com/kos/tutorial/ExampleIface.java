@@ -24,7 +24,7 @@ public class ExampleIface extends BinaryMsgIface {
     private static final int API_NATIVE_SEND            = 0; // native sends an event to java
     //@formatter:on
 
-    public ExampleIface(BinaryMsgSession session, IfaceClient<ExampleIface> ifaceClient ) {
+    public ExampleIface(BinaryMsgSession session, IfaceClient<ExampleIface> ifaceClient) {
         super(IFACE_NAME, session, ifaceClient, null);
 
         // Register listeners for events from adapter
