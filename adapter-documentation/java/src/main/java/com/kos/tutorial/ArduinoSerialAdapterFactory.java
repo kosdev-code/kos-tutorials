@@ -6,18 +6,16 @@ import com.kosdev.kos.core.service.spawn.Adapter;
 import com.kosdev.kos.core.service.udev.serial.SerialAdapterFactory;
 import com.kosdev.kos.core.service.udev.serial.SerialDevice;
 
-public class ArduinoAdapterFactory extends SerialAdapterFactory {
+public class ArduinoSerialAdapterFactory extends SerialAdapterFactory {
 
-    // vendorId / productId for mdb adapter
     private static final int VENDOR_ID = 0x10c4;
     private static final int PRODUCT_ID = 0xea60;
-    // name of the lidar adapter binary
     private static final String ADAPTER_NAME = "ArduinoAdapter";
 
     // base dir of the adapter binary
     private File baseDir;
 
-    public ArduinoAdapterFactory(File baseDir) {
+    public ArduinoSerialAdapterFactory(File baseDir) {
         this.baseDir = baseDir;
     }
 
