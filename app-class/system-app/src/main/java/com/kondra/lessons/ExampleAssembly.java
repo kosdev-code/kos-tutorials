@@ -11,6 +11,7 @@ public class ExampleAssembly extends Assembly {
 
     @Override
     public void load() throws Exception {
+        // add the weather station SDK
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'load'");
     }
