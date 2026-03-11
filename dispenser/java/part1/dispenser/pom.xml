@@ -12,7 +12,7 @@
 
   <!-- properties -->
   <properties>
-    <kos.version>0.0.0-SNAPSHOT</kos.version>
+    <kos.version>1.9.0</kos.version>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <kos-maven-plugin.version>1.0.7</kos-maven-plugin.version>

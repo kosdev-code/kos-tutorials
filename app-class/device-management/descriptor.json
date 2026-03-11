@@ -1,0 +1,8 @@
+{
+  "kos": {
+    "app": {
+      "appClass": "com.kondra.device.mgmt.DeviceManagementApplication",
+      "appId": "kondra-device-management"
+    }
+  }
+}
