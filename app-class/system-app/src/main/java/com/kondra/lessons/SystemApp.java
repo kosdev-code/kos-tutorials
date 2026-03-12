@@ -34,12 +34,14 @@ public class SystemApp extends SystemApplication<BaseAppConfig> {
         whenAppStarted(DeviceManagementApplication.APP_ID, app -> {
             log.info("Device management app started");
 
-            frontendController.setApiService( ((DeviceManagementApplication) app).getApiService());
+            frontendController.setApiService(((DeviceManagementApplication) app).getApiService());
 
             // can safely call endpoint on app that is started
             // get device info from device management app thats running on the primary node
-            DeviceManagementInfo info = apiClient.primaryGet("api/app/" + DeviceManagementApplication.APP_ID +"/device-managemant/info",
-                    DeviceManagementInfo.class).getData();
+            DeviceManagementInfo info = apiClient
+                    .primaryGet("api/app/" + DeviceManagementApplication.APP_ID + "/device-managemant/info",
+                            DeviceManagementInfo.class)
+                    .getData();
 
             frontendController.setDeviceManagementInfo(info);
 
