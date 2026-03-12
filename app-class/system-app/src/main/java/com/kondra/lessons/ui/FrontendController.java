@@ -8,8 +8,6 @@ import com.kosdev.kos.commons.util.ready.ReadyAndReadyListener;
 import com.kosdev.kos.commons.util.ready.ReadyIndicator;
 import com.kosdev.kos.commons.web.broker.BrokerClient;
 
-import lombok.Setter;
-
 /**
  * This controller isn't the typical controller used in KOS
  * with endpoints this is more following the MVC pattern
@@ -20,7 +18,6 @@ public class FrontendController implements ReadyAndReadyListener {
 
     @Autowired
     private BrokerClient brokerClient;
-    @Setter
     private ApiService apiService;
 
     private final Frontend frontend;
@@ -42,6 +39,10 @@ public class FrontendController implements ReadyAndReadyListener {
             return "API key not available yet";
         }
     }
+    public void setApiService(ApiService apiService) {
+        this.apiService = apiService;
+        apiServiceIsAvailable = true;
+    }
 
     @Override
     public ReadyIndicator getReady() {
@@ -55,8 +56,6 @@ public class FrontendController implements ReadyAndReadyListener {
 
         brokerClient.localSubscribe("/app/" + DeviceManagementApplication.APP_ID + "/heartbeat", null,
                 (data, x) -> frontend.showHeartbeat());
-
-        apiServiceIsAvailable = true;
 
         return true;
     }

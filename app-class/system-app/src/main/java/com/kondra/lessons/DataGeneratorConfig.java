@@ -15,5 +15,4 @@ public class DataGeneratorConfig extends ConfigBean {
     private int troublesInterval = 5000; 
     @ConfigDesc(value = "How often a analytic event is generated in MS", format = ConfigFormat.MS)
     private int analyticsInterval = 5000; 
-     
 }
