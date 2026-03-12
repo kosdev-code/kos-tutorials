@@ -19,7 +19,6 @@ public class DeviceManagementApplication extends Application<BaseAppConfig> {
     @Getter
     private ApiService apiService;
 
-
     @Sdk.Exclude
     @Override
     public void load() throws Exception {
@@ -34,7 +33,6 @@ public class DeviceManagementApplication extends Application<BaseAppConfig> {
 
         // context is automatically updated after load
     }
-
 
     @Sdk.Exclude
     @Override
