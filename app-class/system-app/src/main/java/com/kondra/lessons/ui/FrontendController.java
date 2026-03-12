@@ -36,9 +36,12 @@ public class FrontendController implements ReadyAndReadyListener {
     }
 
     public String getApiKey() {
-        return apiService.getApiKey();
+        if (apiServiceIsAvailable) {
+            return apiService.getApiKey();
+        } else {
+            return "API key not available yet";
+        }
     }
-
 
     @Override
     public ReadyIndicator getReady() {
@@ -52,7 +55,6 @@ public class FrontendController implements ReadyAndReadyListener {
 
         brokerClient.localSubscribe("/app/" + DeviceManagementApplication.APP_ID + "/heartbeat", null,
                 (data, x) -> frontend.showHeartbeat());
-
 
         apiServiceIsAvailable = true;
 
