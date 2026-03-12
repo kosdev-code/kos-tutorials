@@ -1,4 +1,4 @@
-package com.kondra.device.mgmt;
+package com.kondra.device.mgmt.service;
 
 import com.kosdev.kos.commons.core.service.config.ConfigBean;
 import com.kosdev.kos.commons.core.service.config.annotations.ConfigDesc;

@@ -1,5 +1,7 @@
 package com.kondra.device.mgmt;
 
+import com.kondra.device.mgmt.service.DeviceManagementController;
+import com.kondra.device.mgmt.service.TelemetryService;
 import com.kosdev.kos.core.service.app.Application;
 import com.kosdev.kos.core.service.app.BaseAppConfig;
 import com.kosdev.kos.sdk.annotations.Sdk;

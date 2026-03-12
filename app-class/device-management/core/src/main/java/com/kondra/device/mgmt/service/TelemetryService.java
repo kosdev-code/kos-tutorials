@@ -1,4 +1,4 @@
-package com.kondra.device.mgmt;
+package com.kondra.device.mgmt.service;
 
 import com.kondra.device.mgmt.data.DeviceManagementInfo;
 import com.kosdev.kos.commons.core.service.AbstractService;
