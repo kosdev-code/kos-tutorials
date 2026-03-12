@@ -1,10 +1,14 @@
 package com.kondra.device.mgmt;
 
+import com.kondra.device.mgmt.service.ApiService;
 import com.kondra.device.mgmt.service.DeviceManagementController;
+import com.kondra.device.mgmt.service.HeartBeatService;
 import com.kondra.device.mgmt.service.TelemetryService;
 import com.kosdev.kos.core.service.app.Application;
 import com.kosdev.kos.core.service.app.BaseAppConfig;
 import com.kosdev.kos.sdk.annotations.Sdk;
+
+import lombok.Getter;
 
 @Sdk
 public class DeviceManagementApplication extends Application<BaseAppConfig> {
@@ -12,6 +16,8 @@ public class DeviceManagementApplication extends Application<BaseAppConfig> {
     public static final String APP_ID = "kondra.device-management";
 
     private TelemetryService telemetryService;
+    @Getter
+    private ApiService apiService;
 
 
     @Sdk.Exclude
@@ -23,6 +29,8 @@ public class DeviceManagementApplication extends Application<BaseAppConfig> {
 
         // add controller to context
         addToCtx(new DeviceManagementController(telemetryService));
+        addToCtx(new HeartBeatService());
+        addToCtx(apiService = new ApiService());
 
         // context is automatically updated after load
     }

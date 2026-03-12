@@ -5,7 +5,7 @@ import com.kosdev.kos.commons.core.dispatcher.annotations.ApiController;
 import com.kosdev.kos.commons.core.dispatcher.annotations.ApiEndpoint;
 
 
-@ApiController(base = "/kondra-dm", title = "Endpoints for system app to use, and customer support")
+@ApiController(base = "/device-managemant", title = "Device Management")
 public class DeviceManagementController {
 
 

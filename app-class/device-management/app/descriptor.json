@@ -2,8 +2,8 @@
   "kos": {
     "app": {
       "appClass": "com.kondra.device.mgmt.DeviceManagementApplication",
-      "appId": "kondra.device-management"
-      "sdkClassPrefixes": ["com.kondra.device.mgmt"] 
+      "appId": "kondra.device-management",
+      "sdkClassPrefixes": ["com.kondra.device.mgmt"]
     },
     "softwareInfo": {
       "name": "Example application",

@@ -20,7 +20,7 @@ public class HeartBeatService extends AbstractConfigurableService<HeartBeatServi
     public boolean onBeanReady() {
         heartBeatCallback = new AdjustableCallback(true, getConfig().getHearBeatInterval(), () -> {
             log.info("Sending hearbeat");
-            broker.send("heartbeat");
+            broker.send("/heartbeat");
 
         });
         return true;
@@ -28,6 +28,8 @@ public class HeartBeatService extends AbstractConfigurableService<HeartBeatServi
 
     @Override
     public void onConfigChanged(BeanChanges changes) {
-        heartBeatCallback.setAbsDelay(getConfig().getHearBeatInterval());
+        if (heartBeatCallback != null) {
+            heartBeatCallback.setAbsDelay(getConfig().getHearBeatInterval());
+        }
     }
 }

@@ -9,6 +9,9 @@ import com.kosdev.kos.commons.web.api.ApiClient;
 import com.kosdev.kos.core.service.app.BaseAppConfig;
 import com.kosdev.kos.core.service.app.SystemApplication;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class SystemApp extends SystemApplication<BaseAppConfig> {
 
     @Autowired
@@ -29,10 +32,13 @@ public class SystemApp extends SystemApplication<BaseAppConfig> {
     public void start() throws Exception {
         // when the device management app is started, get the device info
         whenAppStarted(DeviceManagementApplication.APP_ID, app -> {
+            log.info("Device management app started");
+
+            frontendController.setApiService( ((DeviceManagementApplication) app).getApiService());
 
             // can safely call endpoint on app that is started
             // get device info from device management app thats running on the primary node
-            DeviceManagementInfo info = apiClient.primaryGet("api/kos/app/device-management/info",
+            DeviceManagementInfo info = apiClient.primaryGet("api/app/" + DeviceManagementApplication.APP_ID +"/device-managemant/info",
                     DeviceManagementInfo.class).getData();
 
             frontendController.setDeviceManagementInfo(info);

@@ -15,30 +15,28 @@ import java.util.Random;
 public class DataGenerator extends AbstractConfigurableService<DataGeneratorConfig> {
 
     private static final List<String> EVENT_TYPES = Arrays.asList(
-        "temperature_reading",
-        "humidity_reading",
-        "motion_detected",
-        "door_opened",
-        "door_closed",
-        "battery_low",
-        "connectivity_lost",
-        "connectivity_restored",
-        "pressure_reading",
-        "light_level_reading"
-    );
+            "temperature_reading",
+            "humidity_reading",
+            "motion_detected",
+            "door_opened",
+            "door_closed",
+            "battery_low",
+            "connectivity_lost",
+            "connectivity_restored",
+            "pressure_reading",
+            "light_level_reading");
 
     private static final List<String> EVENT_DATA = Arrays.asList(
-        "{\"value\": 23.5, \"unit\": \"celsius\", \"sensor_id\": \"temp-01\"}",
-        "{\"value\": 65.2, \"unit\": \"percent\", \"sensor_id\": \"hum-03\"}",
-        "{\"zone\": \"entry\", \"confidence\": 0.97, \"duration_ms\": 1200}",
-        "{\"door_id\": \"front\", \"user\": \"unknown\", \"timestamp_offset\": -300}",
-        "{\"door_id\": \"garage\", \"locked\": true, \"trigger\": \"manual\"}",
-        "{\"battery_id\": \"bat-07\", \"level\": 8, \"estimated_hours\": 4}",
-        "{\"interface\": \"wifi\", \"last_seen_ms\": 30000, \"retry_count\": 3}",
-        "{\"interface\": \"wifi\", \"signal_strength\": -62, \"ip\": \"192.168.1.42\"}",
-        "{\"value\": 1013.25, \"unit\": \"hPa\", \"sensor_id\": \"pres-02\"}",
-        "{\"value\": 340, \"unit\": \"lux\", \"sensor_id\": \"light-05\", \"auto_dim\": false}"
-    );
+            "{\"value\": 23.5, \"unit\": \"celsius\", \"sensor_id\": \"temp-01\"}",
+            "{\"value\": 65.2, \"unit\": \"percent\", \"sensor_id\": \"hum-03\"}",
+            "{\"zone\": \"entry\", \"confidence\": 0.97, \"duration_ms\": 1200}",
+            "{\"door_id\": \"front\", \"user\": \"unknown\", \"timestamp_offset\": -300}",
+            "{\"door_id\": \"garage\", \"locked\": true, \"trigger\": \"manual\"}",
+            "{\"battery_id\": \"bat-07\", \"level\": 8, \"estimated_hours\": 4}",
+            "{\"interface\": \"wifi\", \"last_seen_ms\": 30000, \"retry_count\": 3}",
+            "{\"interface\": \"wifi\", \"signal_strength\": -62, \"ip\": \"192.168.1.42\"}",
+            "{\"value\": 1013.25, \"unit\": \"hPa\", \"sensor_id\": \"pres-02\"}",
+            "{\"value\": 340, \"unit\": \"lux\", \"sensor_id\": \"light-05\", \"auto_dim\": false}");
 
     private static final Random RANDOM = new Random();
 
@@ -74,7 +72,6 @@ public class DataGenerator extends AbstractConfigurableService<DataGeneratorConf
 
     }
 
-
     public void stop() {
         troubleCallback.stop();
         troubleCallback = null;
@@ -82,13 +79,15 @@ public class DataGenerator extends AbstractConfigurableService<DataGeneratorConf
         analyticsCallback = null;
     }
 
-
     @Override
     public void onConfigChanged(BeanChanges changes) {
-        troubleCallback.setAbsDelay(getConfig().getTroublesInterval());
-        analyticsCallback.setAbsDelay(getConfig().getAnalyticsInterval());
+        if (troubleCallback != null) {
+            troubleCallback.setAbsDelay(getConfig().getTroublesInterval());
+        }
+        if (analyticsCallback != null) {
+            analyticsCallback.setAbsDelay(getConfig().getAnalyticsInterval());
+        }
     }
-
 
     @Override
     public boolean onBeanReady() {
