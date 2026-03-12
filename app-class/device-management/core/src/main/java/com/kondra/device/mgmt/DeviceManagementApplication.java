@@ -28,7 +28,7 @@ public class DeviceManagementApplication extends Application<BaseAppConfig> {
         addToCtx(telemetryService = new TelemetryService());
 
         // add controller to context
-        addToCtx(new DeviceManagementController(telemetryService));
+        addToCtx(new DeviceManagementController());
         addToCtx(new HeartBeatService());
         addToCtx(apiService = new ApiService());
 
