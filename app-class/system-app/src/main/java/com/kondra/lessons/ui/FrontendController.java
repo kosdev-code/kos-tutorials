@@ -4,8 +4,7 @@ import com.kondra.device.mgmt.DeviceManagementApplication;
 import com.kondra.device.mgmt.data.DeviceManagementInfo;
 import com.kondra.device.mgmt.service.ApiService;
 import com.kosdev.kos.commons.core.context.annotations.Autowired;
-import com.kosdev.kos.commons.util.ready.ReadyAndReadyListener;
-import com.kosdev.kos.commons.util.ready.ReadyIndicator;
+import com.kosdev.kos.commons.core.service.AbstractService;
 import com.kosdev.kos.commons.web.broker.BrokerClient;
 
 /**
@@ -14,7 +13,7 @@ import com.kosdev.kos.commons.web.broker.BrokerClient;
  * where business logic is in the controller and the
  * UI / View is in its own class.
  */
-public class FrontendController implements ReadyAndReadyListener {
+public class FrontendController extends AbstractService {
 
     @Autowired
     private BrokerClient brokerClient;
@@ -42,13 +41,6 @@ public class FrontendController implements ReadyAndReadyListener {
     public void setApiService(ApiService apiService) {
         this.apiService = apiService;
         apiServiceIsAvailable = true;
-    }
-
-    @Override
-    public ReadyIndicator getReady() {
-        ReadyIndicator ready = new ReadyIndicator();
-        ready.isReady();
-        return ready;
     }
 
     @Override
