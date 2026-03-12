@@ -49,8 +49,6 @@ public class DataGenerator extends AbstractConfigurableService<DataGeneratorConf
     private AdjustableCallback analyticsCallback;
     private boolean dependenciesReady = false;
 
-    // adjustable callback that is configurable
-
     /**
      * Start generating data with the service
      */
