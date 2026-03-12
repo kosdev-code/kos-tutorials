@@ -45,15 +45,9 @@ public class TelemetryService extends AbstractService
             "Five Guys",
             "Shake Shack");
 
-    // get troubles
-    // get serial number
 
     @Getter
     private DeviceManagementInfo deviceManagementInfo;
-
-    public TelemetryService() {
-
-    }
 
 
     public void syncWithServer() {
@@ -91,7 +85,6 @@ public class TelemetryService extends AbstractService
 
 
     // Exporting logs
-
     @Override
     public String getExporterName() {
         return "KondraDM";
