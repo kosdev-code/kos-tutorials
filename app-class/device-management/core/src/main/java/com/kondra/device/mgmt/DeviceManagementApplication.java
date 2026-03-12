@@ -2,12 +2,17 @@ package com.kondra.device.mgmt;
 
 import com.kosdev.kos.core.service.app.Application;
 import com.kosdev.kos.core.service.app.BaseAppConfig;
+import com.kosdev.kos.sdk.annotations.Sdk;
 
+@Sdk
 public class DeviceManagementApplication extends Application<BaseAppConfig> {
+
+    public static final String APP_ID = "kondra.device-management";
 
     private TelemetryService telemetryService;
 
 
+    @Sdk.Exclude
     @Override
     public void load() throws Exception {
 
@@ -20,6 +25,8 @@ public class DeviceManagementApplication extends Application<BaseAppConfig> {
         // context is automatically updated after load
     }
 
+
+    @Sdk.Exclude
     @Override
     public void start() throws Exception {
 
@@ -27,17 +34,22 @@ public class DeviceManagementApplication extends Application<BaseAppConfig> {
         telemetryService.syncWithServer();
     }
 
+    @Sdk.Exclude
     @Override
     public void started() throws Exception {
 
         // The app has officially started
     }
 
+
+    @Sdk.Exclude
     @Override
     public void stop() throws Exception {
         // app is stopping a place to clean up resources
     }
 
+
+    @Sdk.Exclude
     @Override
     public void unload() throws Exception {
         // app is being unloaded

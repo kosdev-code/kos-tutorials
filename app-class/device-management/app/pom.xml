@@ -5,21 +5,21 @@
     <!-- ====== Parent =============================================================== -->
 
     <parent>
-        <groupId>com.kondra.class.app</groupId>
-        <artifactId>weather-station</artifactId>
+        <groupId>com.kondra.lessons</groupId>
+        <artifactId>device-management</artifactId>
         <version>0.0.0-SNAPSHOT</version>
     </parent>
 
     <!-- ====== Basics =============================================================== -->
 
-    <artifactId>weather-station.app</artifactId>
+    <artifactId>device-management.app</artifactId>
 
     <!-- ====== Dependencies  ======================================================== -->
 
     <dependencies>
         <dependency>
-            <groupId>com.kondra.class.app</groupId>
-            <artifactId>weather-station.core</artifactId>
+            <groupId>com.kondra.lessons</groupId>
+            <artifactId>device-management.core</artifactId>
             <version>0.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>

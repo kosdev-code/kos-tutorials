@@ -1,3 +1,5 @@
 #!/bin/bash
-set -e -o pipefail -u
-mvn install --no-snapshot-updates -T4
+
+set -e -o pipefail
+
+mvn clean install -T8

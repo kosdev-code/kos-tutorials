@@ -1,5 +1,7 @@
 package com.kondra.lessons;
 
+import com.kondra.device.mgmt.DeviceManagementApplication;
+import com.kondra.device.mgmt.data.DeviceManagementInfo;
 import com.kosdev.kos.commons.core.context.annotations.Autowired;
 import com.kosdev.kos.commons.web.api.ApiClient;
 import com.kosdev.kos.core.service.app.BaseAppConfig;
@@ -7,7 +9,6 @@ import com.kosdev.kos.core.service.app.SystemApplication;
 
 public class SystemApp extends SystemApplication<BaseAppConfig> {
 
-    private static final String DEVICE_MGMT_APP_ID = "kondra-device-management";
     private DataGenerator dataGenerator;
     @Autowired
     private ApiClient apiClient;
@@ -22,12 +23,14 @@ public class SystemApp extends SystemApplication<BaseAppConfig> {
     @Override
     public void start() throws Exception {
         // when the device management app is started, get the device info
-        whenAppStarted(DEVICE_MGMT_APP_ID, app -> {
+        whenAppStarted(DeviceManagementApplication.APP_ID, app -> {
 
-            // get device info from device management app thats runnign on the primary node
-            apiClient.primaryGet("api/kos/app/device-management/info", DeviceManagementInfo.class);
+            // can safely call endpoint on app that is started
+            // get device info from device management app thats running on the primary node
+            DeviceManagementInfo info = apiClient.primaryGet("api/kos/app/device-management/info",
+                    DeviceManagementInfo.class).getData();
 
-        } );
+        });
     }
 
     @Override
@@ -35,16 +38,4 @@ public class SystemApp extends SystemApplication<BaseAppConfig> {
         dataGenerator.start();
     }
 
-
-
-
-
-
-
-
-
 }
-
-
-
-
