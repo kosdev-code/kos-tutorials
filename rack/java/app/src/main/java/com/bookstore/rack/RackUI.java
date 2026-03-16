@@ -8,8 +8,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import com.tccc.kos.commons.kab.KabFile;
-import com.tccc.kos.commons.util.concurrent.AdjustableCallback;
+import com.kosdev.kos.commons.kab.KabFile;
+import com.kosdev.kos.commons.util.concurrent.AdjustableCallback;
 
 import lombok.extern.slf4j.Slf4j;
 

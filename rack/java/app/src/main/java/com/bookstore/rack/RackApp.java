@@ -2,9 +2,9 @@ package com.bookstore.rack;
 
 import javax.swing.SwingUtilities;
 
-import com.tccc.kos.commons.kab.KabFile;
-import com.tccc.kos.core.service.app.BaseAppConfig;
-import com.tccc.kos.core.service.app.SystemApplication;
+import com.kosdev.kos.commons.kab.KabFile;
+import com.kosdev.kos.core.service.app.BaseAppConfig;
+import com.kosdev.kos.core.service.app.SystemApplication;
 
 /**
  * System application for simple digital rack that has a display that
