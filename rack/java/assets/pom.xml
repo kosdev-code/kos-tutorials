@@ -30,7 +30,8 @@
                             <type>tutorial.assets</type>
                             <content>
                                 <copy>
-                                    <include>*.png</include>
+                                    <include>pics</include>
+                                    <dir>pics</dir>
                                 </copy>
                             </content>
                         </configuration>
