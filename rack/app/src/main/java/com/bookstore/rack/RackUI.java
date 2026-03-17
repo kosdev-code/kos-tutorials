@@ -18,10 +18,10 @@ public class RackUI extends JFrame {
     private JLabel imageLabel;
     private int currentIndex = -1;
     private final String[] imagePaths = {
-            "/all.png",
-            "/book1.png",
-            "/book2.png",
-            "/book3.png"
+            "pics/all.png",
+            "pics/book1.png",
+            "pics/book2.png",
+            "pics/book3.png"
     };
     private KabFile assetsKab;
 
