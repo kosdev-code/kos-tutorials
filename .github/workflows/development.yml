@@ -19,8 +19,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           lfs: true
+      - name: Build and Publish
+        env:
+          STUDIO_APIKEY: ${{ secrets.STUDIO_APIKEY }}
 
-      - name: Run Build All
+        working-directory: ./${{ github.event.repository.name }}
         run: |
-          chmod +x .github/build_all.sh
-          bash .github/build_all.sh
+          kos_build_handler.sh automation .github/develop-all.json
+
