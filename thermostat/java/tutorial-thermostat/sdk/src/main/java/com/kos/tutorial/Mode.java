@@ -1,7 +1,6 @@
 /**
- * (C) Copyright 2025 Kondra. All rights reserved.
+ * (C) Copyright 2024 TCCC. All rights reserved.
  */
-
 package com.kos.tutorial;
 
 /**

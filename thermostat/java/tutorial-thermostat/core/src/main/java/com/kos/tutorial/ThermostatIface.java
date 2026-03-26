@@ -3,7 +3,7 @@
  */
 package com.kos.tutorial;
 
-import com.tccc.kos.commons.core.service.blink.binarymsg.*;
+import com.kosdev.kos.commons.core.service.blink.binarymsg.*;
 import java.io.IOException;
 
 /**
@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 public class ThermostatIface extends BinaryMsgIface {
     // iface name
-    public static final String NAME = "kos.tutorial.thermostat";
+    private static final String NAME = "kos.tutorial.thermostat";
 
     // API numbers
     // API number for requesting current temperature
