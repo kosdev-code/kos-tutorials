@@ -73,5 +73,4 @@ output/
 *.kab
 arduino/target/
 rack/.factorypath
-arduino/target/maven-status/maven-compiler-plugin/compile/default-compile
-.idea
+arduino/target
