@@ -1,8 +1,8 @@
 package com.kos.tutorial;
 
-import com.tccc.kos.core.service.app.BaseAppConfig;
-import com.tccc.kos.core.service.app.SystemApplication;
 
+import com.kosdev.kos.core.service.app.BaseAppConfig;
+import com.kosdev.kos.core.service.app.SystemApplication;
 
 public class TutorialApp extends SystemApplication<BaseAppConfig> {
 

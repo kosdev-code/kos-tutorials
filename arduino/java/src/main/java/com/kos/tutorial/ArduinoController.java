@@ -1,6 +1,9 @@
 package com.kos.tutorial;
 
-import com.tccc.kos.commons.core.dispatcher.annotations.*;
+
+import com.kosdev.kos.commons.core.dispatcher.annotations.ApiController;
+import com.kosdev.kos.commons.core.dispatcher.annotations.ApiEndpoint;
+import com.kosdev.kos.commons.core.dispatcher.annotations.HandleVariable;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

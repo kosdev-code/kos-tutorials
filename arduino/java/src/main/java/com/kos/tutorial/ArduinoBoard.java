@@ -1,73 +1,71 @@
 package com.kos.tutorial;
 
-import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
-import com.tccc.kos.core.service.assembly.Assembly;
-import com.tccc.kos.core.service.hardware.Board;
-import com.tccc.kos.core.service.hardware.IfaceAwareBoard;
+
+import com.kosdev.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
+import com.kosdev.kos.commons.core.service.blink.binarymsg.IfaceClient;
+import com.kosdev.kos.core.service.assembly.Assembly;
+import com.kosdev.kos.core.service.hardware.Board;
+import com.kosdev.kos.core.service.hardware.IfaceAwareBoard;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface> {
+public class ArduinoBoard extends Board implements IfaceAwareBoard{
+
+    private IfaceClient<ArduinoIface> ifaceClient = new IfaceClient<>();
 
     public ArduinoBoard(Assembly assembly, String name) {
         super(assembly, name);
+        ifaceClient = new IfaceClient<>();
     }
 
     /**
      * PART 1.1
      */
     public void hitHandler0() {
-        withIfaceCatch(ArduinoIface::hitHandler0);
+        ifaceClient.with(ArduinoIface::hitHandler0);
+
     }
 
     /**
      * PART 1.2
      */
     public void hitHandler1() {
-        withIfaceCatch(ArduinoIface::hitHandler1);
+        ifaceClient.with(ArduinoIface::hitHandler1);
     }
 
     /**
      * PART 2.1
      */
     public void hitHandler2() {
-        withIfaceCatch(ArduinoIface::hitHandler2);
+        ifaceClient.with(ArduinoIface::hitHandler2);
     }
 
     /**
      * PART 2.2
      */
     public void hitHandler3() {
-        withIfaceCatch(ArduinoIface::hitHandler3);
+        ifaceClient.with(ArduinoIface::hitHandler3);
     }
 
     /**
      * PART 3.1
      */
     public void hitHandler4() {
-        withIfaceCatch(ArduinoIface::hitHandler4);
+        ifaceClient.with(ArduinoIface::hitHandler4);
     }
 
     /**
      * PART 4.1
      */
     public void hitHandler5() {
-        withIfaceCatch(ArduinoIface::hitHandler5);
+        ifaceClient.with(ArduinoIface::hitHandler5);
     }
 
     /**
      * PART 5.1
      */
     public void hitHandler6() {
-        withIfaceCatch(ArduinoIface::hitHandler6);
-    }
-
-
-    @Override
-    public ArduinoIface createIface(BinaryMsgSession session) {
-        log.info("creating arduino iface");
-
-        return new ArduinoIface(session, this);
+        ifaceClient.with(ArduinoIface::hitHandler6);
     }
 
     @Override
@@ -90,35 +88,7 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard<ArduinoIface>
     }
 
     @Override
-    public ArduinoIface getIface() {
-        /*
-        we will store the arduino iface in the iface field of the
-        board class. Because the field is of type BinaryMsgIface
-        we must cast are iface to the correct type.
-         */
-
-        return (ArduinoIface) iface;
-    }
-
-    @Override
-    public void setIface(ArduinoIface iface) {
-        log.info("setting arduino iface...");
-
-        this.iface = iface;
-    }
-
-    @Override
-    public void onIfaceConnect() throws Exception {
-        log.info("arduino iface connected");
-
-        // add the request handler for the sample event
-        iface.addRequestHandler(ArduinoIface.EVENT_SAMPLE, m -> {
-            log.info("Sample event received: {}", m.readCString());
-        });
-    }
-
-    @Override
-    public void onIfaceDisconnect() throws Exception {
-        log.info("arduino iface disconnected");
+    public void onLinkSession(BinaryMsgSession session) {
+        session.bind(new ArduinoIface(session, ifaceClient));
     }
 }
