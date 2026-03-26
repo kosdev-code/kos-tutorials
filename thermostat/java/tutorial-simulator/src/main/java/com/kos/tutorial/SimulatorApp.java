@@ -3,8 +3,8 @@
  */
 package com.kos.tutorial;
 
-import com.tccc.kos.core.service.app.Application;
-import com.tccc.kos.core.service.app.BaseAppConfig;
+import com.kosdev.kos.core.service.app.Application;
+import com.kosdev.kos.core.service.app.BaseAppConfig;
 
 /**
  * This is the Application for simulating a thermostat

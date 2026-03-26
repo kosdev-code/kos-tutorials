@@ -3,8 +3,8 @@
  */
 package com.kos.tutorial;
 
-import com.tccc.kos.commons.core.service.config.ConfigBean;
-import com.tccc.kos.commons.core.service.config.annotations.ConfigDesc;
+import com.kosdev.kos.commons.core.service.config.ConfigBean;
+import com.kosdev.kos.commons.core.service.config.annotations.ConfigDesc;
 import lombok.Getter;
 import lombok.Setter;
 

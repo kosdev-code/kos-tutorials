@@ -6,12 +6,12 @@ package com.kos.tutorial;
 import javax.swing.*;
 
 import com.kos.tutorial.ui.ThermostatUI;
-import com.tccc.kos.commons.core.context.annotations.Autowired;
-import com.tccc.kos.commons.core.vfs.VFSSource;
-import com.tccc.kos.commons.kab.KabFile;
-import com.tccc.kos.core.service.app.BaseAppConfig;
-import com.tccc.kos.core.service.app.SystemApplication;
-import com.tccc.kos.core.service.browser.BrowserService;
+import com.kosdev.kos.commons.core.context.annotations.Autowired;
+import com.kosdev.kos.commons.core.vfs.VFSSource;
+import com.kosdev.kos.commons.kab.KabFile;
+import com.kosdev.kos.core.service.app.BaseAppConfig;
+import com.kosdev.kos.core.service.app.SystemApplication;
+import com.kosdev.kos.core.service.browser.BrowserService;
 import lombok.extern.slf4j.Slf4j;
 
 /**

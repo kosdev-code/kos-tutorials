@@ -3,9 +3,9 @@
  */
 package com.kos.tutorial;
 
-import com.tccc.kos.commons.core.context.annotations.Autowired;
-import com.tccc.kos.commons.core.dispatcher.annotations.ApiController;
-import com.tccc.kos.commons.core.dispatcher.annotations.ApiEndpoint;
+import com.kosdev.kos.commons.core.context.annotations.Autowired;
+import com.kosdev.kos.commons.core.dispatcher.annotations.ApiController;
+import com.kosdev.kos.commons.core.dispatcher.annotations.ApiEndpoint;
 
 /**
  * Thermostat Service controller

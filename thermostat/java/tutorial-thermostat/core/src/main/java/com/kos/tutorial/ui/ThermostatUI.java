@@ -6,9 +6,9 @@ package com.kos.tutorial.ui;
 import com.kos.tutorial.Mode;
 import com.kos.tutorial.ThermostatListener;
 import com.kos.tutorial.ThermostatService;
-import com.tccc.kos.commons.core.context.annotations.Autowired;
-import com.tccc.kos.commons.util.ready.ReadyAndReadyListener;
-import com.tccc.kos.commons.util.ready.ReadyIndicator;
+import com.kosdev.kos.commons.core.context.annotations.Autowired;
+import com.kosdev.kos.commons.util.ready.ReadyAndReadyListener;
+import com.kosdev.kos.commons.util.ready.ReadyIndicator;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 

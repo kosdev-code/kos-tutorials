@@ -3,7 +3,7 @@
  */
 package com.kos.tutorial;
 
-import com.tccc.kos.commons.core.service.blink.binarymsg.*;
+import com.kosdev.kos.commons.core.service.blink.binarymsg.*;
 
 import java.io.IOException;
 

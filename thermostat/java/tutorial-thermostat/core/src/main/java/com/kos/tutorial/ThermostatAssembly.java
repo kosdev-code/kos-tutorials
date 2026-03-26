@@ -3,12 +3,12 @@
  */
 package com.kos.tutorial;
 
-import com.tccc.kos.core.service.assembly.Assembly;
-import com.tccc.kos.core.service.assembly.CoreAssembly;
-import com.tccc.kos.core.service.udev.UsbId;
-import com.tccc.kos.core.service.udev.serial.SerialDevice;
-import com.tccc.kos.core.service.udev.serial.blink.SerialBlinkMatch;
-import com.tccc.kos.core.service.udev.serial.blink.SerialBlinkMatcher;
+import com.kosdev.kos.core.service.assembly.Assembly;
+import com.kosdev.kos.core.service.assembly.CoreAssembly;
+import com.kosdev.kos.core.service.udev.UsbId;
+import com.kosdev.kos.core.service.udev.serial.SerialDevice;
+import com.kosdev.kos.core.service.udev.serial.blink.SerialBlinkMatch;
+import com.kosdev.kos.core.service.udev.serial.blink.SerialBlinkMatcher;
 import lombok.Getter;
 
 /**

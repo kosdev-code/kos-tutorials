@@ -3,14 +3,14 @@
  */
 package com.kos.tutorial;
 
-import com.tccc.kos.commons.core.broker.MessageBroker;
-import com.tccc.kos.commons.core.context.annotations.Autowired;
-import com.tccc.kos.commons.core.service.AbstractConfigurableService;
-import com.tccc.kos.commons.core.service.config.BeanChanges;
-import com.tccc.kos.commons.util.ListenerList;
-import com.tccc.kos.commons.util.concurrent.AdjustableCallback;
-import com.tccc.kos.core.service.assembly.Assembly;
-import com.tccc.kos.core.service.assembly.AssemblyPrePostInstallListener;
+import com.kosdev.kos.commons.core.broker.MessageBroker;
+import com.kosdev.kos.commons.core.context.annotations.Autowired;
+import com.kosdev.kos.commons.core.service.AbstractConfigurableService;
+import com.kosdev.kos.commons.core.service.config.BeanChanges;
+import com.kosdev.kos.commons.util.ListenerList;
+import com.kosdev.kos.commons.util.concurrent.AdjustableCallback;
+import com.kosdev.kos.core.service.assembly.Assembly;
+import com.kosdev.kos.core.service.assembly.AssemblyPrePostInstallListener;
 
 
 /**

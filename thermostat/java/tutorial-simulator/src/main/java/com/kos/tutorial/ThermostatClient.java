@@ -3,9 +3,9 @@
  */
 package com.kos.tutorial;
 
-import com.tccc.kos.commons.core.client.binarymsg.BinaryMsgClient;
-import com.tccc.kos.commons.core.client.binarymsg.BinaryMsgClientIface;
-import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIdentity;
+import com.kosdev.kos.commons.core.client.binarymsg.BinaryMsgClient;
+import com.kosdev.kos.commons.core.client.binarymsg.BinaryMsgClientIface;
+import com.kosdev.kos.commons.core.service.blink.binarymsg.BinaryMsgIdentity;
 
 /**
  * This is the thermostat client which communicates with the BinaryMsgIface on the thermostat app side
