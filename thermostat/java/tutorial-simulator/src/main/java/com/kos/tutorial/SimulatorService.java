@@ -3,9 +3,9 @@
  */
 package com.kos.tutorial;
 
-import com.tccc.kos.commons.core.service.AbstractConfigurableService;
-import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIdentity;
-import com.tccc.kos.commons.util.concurrent.AdjustableCallback;
+import com.kosdev.kos.commons.core.service.AbstractConfigurableService;
+import com.kosdev.kos.commons.core.service.blink.binarymsg.BinaryMsgIdentity;
+import com.kosdev.kos.commons.util.concurrent.AdjustableCallback;
 
 import java.util.Random;
 
