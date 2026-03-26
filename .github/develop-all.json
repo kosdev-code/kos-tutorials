@@ -1,10 +1,9 @@
 {
   "default_keyset": "test.kos",
-  "build_cmd": ".github/buildall.sh",
+  "build_cmd": ".github/build_all.sh",
 
   "artifacts": [
     {
-      //TODO: update with artifacts
       "id": "kos-class-app-device-management",
       "filename": "app-class/device-management/app/target/device-management.app-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
@@ -13,6 +12,30 @@
     {
       "id": "kos-class-app-system-app",
       "filename": "app-class/system-app/target/system-app-${KOS_STD_VERSION_REGEX}.kab",
+      "artifactstore": "default_artifact_store",
+      "qualifier": "any"
+    },
+    { 
+      "id": "kosdev—tutorial-rack-app",
+      "filename": "rack/app/target/rack-app-${KOS_STD_VERSION_REGEX}.kab",
+      "artifactstore": "default_artifact_store",
+      "qualifier": "any"
+    },
+    { 
+      "id": "kosdev—tutorial-rack-assets",
+      "filename": "rack/assets/target/rack-assets-${KOS_STD_VERSION_REGEX}.kab",
+      "artifactstore": "default_artifact_store",
+      "qualifier": "any"
+    },
+    { 
+      "id": "kosdev-tutorial-thermostat",
+      "filename": "thermostat/java/tutorial-thermostat/app/target/tutorial-thermostat.app-${KOS_STD_VERSION_REGEX}.kab",
+      "artifactstore": "default_artifact_store",
+      "qualifier": "any"
+    },
+    { 
+      "id": "kosdev-tutorial-thermostat-simulator",
+      "filename": "thermostat/java/tutorial-simulator/target/tutorial-thermostat-simulator-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
       "qualifier": "any"
     }
