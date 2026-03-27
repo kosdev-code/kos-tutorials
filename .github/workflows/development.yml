@@ -28,5 +28,6 @@ jobs:
 
         working-directory: ./${{ github.event.repository.name }}
         run: |
+          set -x
           kos_build_handler.sh automation .github/develop-all.json
 
