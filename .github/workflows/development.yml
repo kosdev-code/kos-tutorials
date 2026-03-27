@@ -20,13 +20,13 @@ jobs:
         with:
           repository: ${{ github.repository }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          # path: ${{ github.event.repository.name }}
+          path: ${{ github.event.repository.name }}
           lfs: true
       - name: Build and Publish
         env:
           STUDIO_APIKEY: ${{ secrets.STUDIO_APIKEY }}
 
-        # working-directory: ./${{ github.event.repository.name }}
+        working-directory: ./${{ github.event.repository.name }}
         run: |
           set -x
           kos_build_handler.sh automation .github/develop-all.json

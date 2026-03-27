@@ -1,34 +1,31 @@
 #!/bin/bash
-# Initialize a flag
 EXIT_CODE=0
 
-printf "\n\n\n\nBuilding rack tutorial\n\n\n\n\n"
-pushd ./rack
-bash ./quickbuild.sh || EXIT_CODE=1
-popd
+# Helper function to safely build a module
+build_module() {
+    local DIR=$1
+    printf "\n\n--- Checking Directory: $DIR ---\n"
+    
+    if [ -d "$DIR" ]; then
+        pushd "$DIR" > /dev/null
+        echo "Starting build in $DIR..."
+        if bash ./quickbuild.sh; then
+            echo "Successfully built $DIR"
+        else
+            echo "ERROR: Build failed in $DIR"
+            EXIT_CODE=1
+        fi
+        popd > /dev/null
+    else
+        echo "SKIP/ERROR: Directory $DIR does not exist. Current path: $(pwd)"
+        EXIT_CODE=1
+    fi
+}
 
-printf "\n\n\n\nBuilding Thermostat tutorial\n\n\n\n\n"
-pushd ./thermostat/java/tutorial-simulator
-bash ./quickbuild.sh || EXIT_CODE=1
-popd
-pushd ./thermostat/java/tutorial-thermostat
-bash ./quickbuild.sh || EXIT_CODE=1
-popd
+# Run the builds
+build_module "./rack"
+build_module "./thermostat/java/tutorial-simulator"
+build_module "./thermostat/java/tutorial-thermostat"
 
-# printf "\n\n\n\nBuilding arduino tutorial\n\n\n\n"
-# pushd ./arduino/java
-# bash ./quickbuild.sh || EXIT_CODE=1
-# popd
-
-# echo "Building all projects"
-# printf "\n\n\n\nBuilding adapter tutorial\n\n\n\n"
-# pushd ./tutorial-adapter/java 
-# bash ./quickbuild.sh || EXIT_CODE=1
-# popd
-
-# printf "\n\n\n\nBuilding adapter-documentation\n\n\n\n\n"
-# pushd ./adapter-documentation/java
-# bash ./quickbuild.sh || EXIT_CODE=1
-# popd
-
+# Exit with the cumulative exit code
 exit $EXIT_CODE
