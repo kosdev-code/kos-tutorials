@@ -24,8 +24,8 @@ build_module() {
 
 # Run the builds
 build_module "./rack"
-build_module "./thermostat/java/tutorial-simulator"
 build_module "./thermostat/java/tutorial-thermostat"
+build_module "./thermostat/java/tutorial-simulator"
 
 # Exit with the cumulative exit code
 exit $EXIT_CODE
