@@ -32,6 +32,18 @@
       "filename": "arduino/java/target/tutorial-arduino-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
       "qualifier": "any"
+    },
+    {
+      "id": "kos-class-app-device-management",
+      "filename": "app-class/device-management/app/target/device-management.app-${KOS_STD_VERSION_REGEX}.kab",
+      "artifactstore": "default_artifact_store",
+      "qualifier": "any"
+    },
+    {
+      "id": "kos-class-app-system-app",
+      "filename": "app-class/system-app/target/system-app-${KOS_STD_VERSION_REGEX}.kab",
+      "artifactstore": "default_artifact_store",
+      "qualifier": "any"
     }
   ]
 }
