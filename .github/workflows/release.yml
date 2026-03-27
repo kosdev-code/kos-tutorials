@@ -30,8 +30,7 @@ jobs:
 
       - name: Build and Publish
         env:
-          KOSBUILD_SECRET_URL: ${{ secrets.KOSBUILD_SECRET_URL }}
-          KOSBUILD_SECRET_PASSWORD: ${{ secrets.KOSBUILD_SECRET_PASSWORD }}
+          STUDIO_APIKEY: ${{ secrets.STUDIO_APIKEY }}
         working-directory: ./${{ github.event.repository.name }}
         run: |
           kos_build_handler.sh automation .github/develop-all.json
