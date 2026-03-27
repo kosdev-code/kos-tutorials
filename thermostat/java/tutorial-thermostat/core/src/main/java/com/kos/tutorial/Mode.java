@@ -3,7 +3,7 @@
  */
 package com.kos.tutorial;
 
-import com.tccc.kos.sdk.annotations.Sdk;
+import com.kosdev.kos.sdk.annotations.Sdk;
 
 /**
  * The mode of the thermostat: off, heating, cooling
