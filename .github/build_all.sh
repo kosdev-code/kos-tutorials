@@ -15,10 +15,10 @@ pushd ./thermostat/java/tutorial-thermostat
 bash ./quickbuild.sh || EXIT_CODE=1
 popd
 
-printf "\n\n\n\nBuilding arduino tutorial\n\n\n\n"
-pushd ./arduino/java
-bash ./quickbuild.sh || EXIT_CODE=1
-popd
+# printf "\n\n\n\nBuilding arduino tutorial\n\n\n\n"
+# pushd ./arduino/java
+# bash ./quickbuild.sh || EXIT_CODE=1
+# popd
 
 # echo "Building all projects"
 # printf "\n\n\n\nBuilding adapter tutorial\n\n\n\n"
