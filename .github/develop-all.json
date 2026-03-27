@@ -26,6 +26,12 @@
       "filename": "thermostat/java/tutorial-simulator/target/tutorial-thermostat-simulator-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
       "qualifier": "any"
+    },
+    {
+      "id": "kosdev-tutorial-arduino",
+      "filename": "arduino/java/target/tutorial-arduino-${KOS_STD_VERSION_REGEX}.kab",
+      "artifactstore": "default_artifact_store",
+      "qualifier": "any"
     }
   ]
 }
