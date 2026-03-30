@@ -35,4 +35,4 @@ jobs:
         run: |
           export KOS_STD_VERSION=${KOSBUILD_VERSION} 
           export KOSBUILD_VERSION=${KOSBUILD_VERSION}
-          kos_build_handler.sh automation .github/develop-all.json
+          kos_build_handler.sh automation .github/release.json
