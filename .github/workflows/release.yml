@@ -33,4 +33,6 @@ jobs:
           STUDIO_APIKEY: ${{ secrets.STUDIO_APIKEY }}
         working-directory: ./${{ github.event.repository.name }}
         run: |
+          export KOS_STD_VERSION=${KOSBUILD_VERSION} 
+          export KOSBUILD_VERSION=${KOSBUILD_VERSION}
           kos_build_handler.sh automation .github/develop-all.json
