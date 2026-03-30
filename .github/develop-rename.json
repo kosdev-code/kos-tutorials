@@ -1,6 +1,6 @@
 {
   "default_keyset": "test.kos",
-  "build_cmd": ".github/build_all.sh",
+  "build_cmd": ".github/build_java.sh",
 
   "artifacts": [
     { 

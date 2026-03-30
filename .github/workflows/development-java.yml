@@ -1,4 +1,4 @@
-name: develop-publish
+name: develop-publish-java
 on:
   push:
     branches:
@@ -29,5 +29,5 @@ jobs:
         working-directory: ./${{ github.event.repository.name }}
         run: |
           set -x
-          kos_build_handler.sh automation .github/develop-all.json
+          kos_build_handler.sh automation .github/develop-java.json
 
