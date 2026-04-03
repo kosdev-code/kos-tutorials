@@ -2,6 +2,7 @@
 # .github/prebuild.sh
 
 set -e -o pipefail
+KOSBUILD_VERSION="1.9.0"
 
 if [ -z "${KOSBUILD_VERSION}" ]; then
   echo "ERROR: KOSBUILD_VERSION must be defined for release builds."

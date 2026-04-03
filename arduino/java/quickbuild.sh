@@ -1,3 +1,5 @@
 #!/bin/bash
 set -e -o pipefail -u
-mvn install --no-snapshot-updates -T4
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+mvn -f "$SCRIPT_DIR/pom.xml" clean install --no-snapshot-updates -T8
