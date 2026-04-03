@@ -13,7 +13,12 @@ TARGETS=(
 for ITEM in "${TARGETS[@]}"; do
     echo "--- Building: $ITEM ---"
 
-    "./$ITEM/quickbuild.sh" || EXIT_CODE=1
+    if ! "./$ITEM/quickbuild.sh"; then
+        echo "FAILED: $ITEM"
+        EXIT_CODE=1
+    else
+        echo "SUCCESS: $ITEM"
+    fi
 done
 
 exit $EXIT_CODE
