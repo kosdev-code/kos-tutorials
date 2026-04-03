@@ -1,14 +1,9 @@
 #!/bin/bash
+set -e -o pipefail -u
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-set -e -o pipefail
+echo "Building thermostat..."
+"$SCRIPT_DIR/system-app/quickbuild.sh"
 
-THIS_SCRIPT=$(realpath "$0")
-THIS_SCRIPT_DIR=$(dirname "$THIS_SCRIPT")
-
-cd "$THIS_SCRIPT_DIR"
-
-for d in */; do
-  pushd "$d"
-  ./quickbuild.sh
-  popd
-done
+echo "Building thermostat simulator..."
+"$SCRIPT_DIR/device-management/quickbuild.sh"
