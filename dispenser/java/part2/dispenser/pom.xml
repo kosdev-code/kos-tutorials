@@ -20,7 +20,7 @@
   <!-- ====== Properties =========================================================== -->
 
   <properties>
-    <kos.version>0.0.0-SNAPSHOT</kos.version>
+    <kos.version>1.10.0</kos.version>
     <ddk.version>0.0.0-SNAPSHOT</ddk.version>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>

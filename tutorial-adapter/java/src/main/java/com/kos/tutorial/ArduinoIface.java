@@ -2,10 +2,10 @@ package com.kos.tutorial;
 
 import java.io.IOException;
 
-import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsg;
-import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgIface;
-import com.tccc.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
-import com.tccc.kos.commons.core.service.blink.binarymsg.IfaceClient;
+import com.kosdev.kos.commons.core.service.blink.binarymsg.BinaryMsg;
+import com.kosdev.kos.commons.core.service.blink.binarymsg.BinaryMsgIface;
+import com.kosdev.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
+import com.kosdev.kos.commons.core.service.blink.binarymsg.IfaceClient;
 
 import lombok.extern.slf4j.Slf4j;
 

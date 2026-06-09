@@ -15,7 +15,7 @@
     <!-- ====== Properties =========================================================== -->
 
     <properties>
-        <kos.version>0.0.0-SNAPSHOT</kos.version>
+        <kos.version>1.10.0</kos.version>
     </properties>
 
     <!-- ====== Modules ============================================================== -->
