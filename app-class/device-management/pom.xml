@@ -9,6 +9,7 @@
   <description>A demonstration of device management</description>
   <!-- ====== Properties =========================================================== -->
   <properties>
+    <kos.version>1.9.x-SNAPSHOT</kos.version>
     <kos-sdk-annotations.version>1.0.6</kos-sdk-annotations.version>
     <kos-kab-maven-plugin.version>1.3.5</kos-kab-maven-plugin.version>
     <kos-sdk-maven-plugin.version>1.0.6</kos-sdk-maven-plugin.version>
