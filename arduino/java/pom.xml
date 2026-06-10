@@ -7,7 +7,7 @@
     <version>0.0.0-SNAPSHOT</version>
 
     <properties>
-        <kos.version>1.10.0</kos.version>
+        <kos.version>1.10.x-SNAPSHOT</kos.version>
         <kos-kab-maven-plugin.version>1.3.5</kos-kab-maven-plugin.version>
         <lombok.version>1.18.38</lombok.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
@@ -145,16 +145,13 @@
 
     <repositories>
         <repository>
-            <id>kosdevcode</id>
-            <name>kOS Code Repository</name>
-            <url>https://maven.pkg.github.com/kosdev-code/kos-maven</url>
+            <id>kos.public</id>
+            <url>https://kondra.mycloudrepo.io/public/repositories/kos-public</url>
             <releases>
-                <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
                 <checksumPolicy>fail</checksumPolicy>
             </releases>
             <snapshots>
-                <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
                 <checksumPolicy>fail</checksumPolicy>
             </snapshots>
