@@ -36,7 +36,7 @@ public class Valve extends Pump<ValveConfig> {
      * Starts a volume-based pour operation for this valve.
      */
     @Override
-    public FutureWork vpour(int volume, double rate) {
+    public FutureWork vpour(double volume, double rate) {
         // convert the volume pour to a timed pour
         return tpour((int) (volume / rate), rate);
     }

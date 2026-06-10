@@ -1,12 +1,12 @@
 package com.kosdev.samples.dispenser.part2;
 
+import com.kosdev.kos.commons.core.service.region.XmlRegionFactory;
 import com.kosdev.samples.dispenser.part2.brandset.Brandset;
 import com.kosdev.kos.commons.core.context.annotations.Autowired;
 import com.kosdev.kos.commons.kab.KabFile;
 import com.kosdev.kos.commons.util.KosUtil;
 import com.kosdev.kos.commons.util.resource.ClassLoaderResourceLoader;
 import com.kosdev.kos.core.service.app.SystemApplication;
-import com.kosdev.kos.core.service.region.XmlRegionFactory;
 import com.kosdev.kos.ext.dispense.service.ingredient.IngredientService;
 
 import lombok.Getter;

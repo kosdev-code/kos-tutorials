@@ -1,19 +1,16 @@
 package com.kosdev.samples.dispenser.part2.pour;
 
+import com.kosdev.kos.ext.dispense.pipeline.beverage.*;
 import com.kosdev.samples.dispenser.part2.DispenserApp;
 import com.kosdev.samples.dispenser.part2.brandset.Beverage;
 import com.kosdev.samples.dispenser.part2.brandset.Brandset;
 import com.kosdev.kos.commons.core.context.annotations.Autowired;
-import com.kosdev.koscommons.util.concurrent.future.FailedFuture;
-import com.kosdev.koscommons.util.concurrent.future.FutureWork;
-import com.kosdev.koscommons.util.concurrent.future.ParallelFuture;
-import com.kosdev.kosext.dispense.Pump;
-import com.kosdev.kosext.dispense.pipeline.beverage.BeveragePourEngine;
-import com.kosdev.kosext.dispense.pipeline.beverage.BeveragePourEngineConfig;
-import com.kosdev.kosext.dispense.pipeline.beverage.Pourable;
-import com.kosdev.kosext.dispense.pipeline.beverage.RecipeExtractor;
-import com.kosdev.kosext.dispense.pipeline.beverage.graph.BevGraphBuilder;
-import com.kosdev.kosext.dispense.pipeline.beverage.graph.BeverageNode;
+import com.kosdev.kos.commons.util.concurrent.future.FailedFuture;
+import com.kosdev.kos.commons.util.concurrent.future.FutureWork;
+import com.kosdev.kos.commons.util.concurrent.future.ParallelFuture;
+import com.kosdev.kos.ext.dispense.Pump;
+import com.kosdev.kos.ext.dispense.pipeline.beverage.graph.BevGraphBuilder;
+import com.kosdev.kos.ext.dispense.pipeline.beverage.graph.BeverageNode;
 
 /**
  * This is used abstract a way to pour a beverage
@@ -65,13 +62,13 @@ public class DispenserPourEngine extends BeveragePourEngine<BeveragePourEngineCo
     }
 
     @Override
-    public boolean isPourable(Pourable pourable) throws Exception {
+    public boolean isPourable(Pourable pourable) {
         // Can be poured if the beverage is available
         return isAvailable(((BevPourable) pourable).getBevId());
     }
 
     @Override
-    protected FutureWork buildFuture(Pourable pourable, Object lock) {
+    protected FutureWork buildFuture(BeveragePourSequence pourSequence, Pourable pourable) {
 
         String bevId = ((BevPourable) pourable).getBevId();
 

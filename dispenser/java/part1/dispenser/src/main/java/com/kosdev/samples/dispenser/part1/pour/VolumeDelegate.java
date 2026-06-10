@@ -1,7 +1,6 @@
 // @kdoc-volume-delegate@
 package com.kosdev.samples.dispenser.part1.pour;
 
-
 import com.kosdev.kos.ext.dispense.pipeline.beverage.BeveragePipelineDelegate;
 
 /**
@@ -17,8 +16,9 @@ import com.kosdev.kos.ext.dispense.pipeline.beverage.BeveragePipelineDelegate;
  */
 public class VolumeDelegate implements BeveragePipelineDelegate {
 
+    @Override
     public double getMaxPourVolume() {
-        return 946.0;  // 32 oz... kOS uses SI units
+        return 946;  // 32 oz... kOS uses SI units
     }
 }
 // @kdoc-volume-delegate@

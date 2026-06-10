@@ -21,12 +21,12 @@ public class VolumeDelegate implements BeveragePipelineDelegate {
     private DispenserApp app;   // access to config which contains cup sizes
 
     @Override
-    public int getMaxPourVolume() {
+    public double getMaxPourVolume() {
         return 946;  // 32 oz... kOS uses SI units
     }
 
     @Override
-    public int getFixedVolumeByName(String name) {
+    public double getFixedVolumeByName(String name) {
         // get the cup with the specified name from the application
         // config bean, but only if it's enabled
         Cup cup = app.getConfig().getCups().stream()

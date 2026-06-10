@@ -11,10 +11,10 @@ import com.kosdev.kos.core.service.assembly.CoreAssembly;
 import com.kosdev.kos.ext.dispense.DispenseAssembly;
 import com.kosdev.kos.ext.dispense.HolderBuilder;
 import com.kosdev.kos.ext.dispense.pipeline.beverage.BeverageNozzlePipeline;
-import com.kosdev.kosext.dispense.pipeline.ingredient.IngredientNozzlePipeline;
-import com.kosdev.kosext.dispense.pipeline.ingredient.XmlPumpIntentFactory;
-import com.kosdev.kosext.dispense.service.insertion.InsertionService;
-import com.kosdev.kosext.dispense.service.nozzle.Nozzle;
+import com.kosdev.kos.ext.dispense.pipeline.ingredient.IngredientNozzlePipeline;
+import com.kosdev.kos.ext.dispense.pipeline.ingredient.XmlPumpIntentFactory;
+import com.kosdev.kos.ext.dispense.service.insertion.InsertionService;
+import com.kosdev.kos.ext.dispense.service.nozzle.Nozzle;
 
 /**
  * An assembly is a logical representation of the hardware in your device.
@@ -30,7 +30,7 @@ public class DispenserAssembly extends DispenseAssembly implements CoreAssembly 
     private ControlBoard board;
 
     public DispenserAssembly(JsonDescriptor descriptor) throws Exception {
-        super("core", descriptor);
+        super("core");
     }
 
     @Override

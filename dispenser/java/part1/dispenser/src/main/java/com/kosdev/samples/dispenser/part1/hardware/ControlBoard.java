@@ -4,7 +4,6 @@ import com.kosdev.kos.commons.util.KosUtil;
 import com.kosdev.kos.commons.util.concurrent.future.FutureEvent;
 import com.kosdev.kos.commons.util.concurrent.future.FutureWork;
 import com.kosdev.kos.core.service.assembly.Assembly;
-import com.kosdev.kos.ext.dispense.DispenseAssembly;
 import com.kosdev.kos.ext.dispense.Pump;
 import com.kosdev.kos.ext.dispense.PumpBoard;
 import lombok.Getter;
