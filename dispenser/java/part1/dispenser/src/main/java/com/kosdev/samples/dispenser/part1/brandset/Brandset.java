@@ -1,8 +1,8 @@
 // @kdoc-brandset@
 package com.kosdev.samples.dispenser.part1.brandset;
 
-import com.tccc.kos.ext.dispense.service.ingredient.BaseIngredient;
-import com.tccc.kos.ext.dispense.service.ingredient.IngredientSource;
+import com.kosdev.kos.ext.dispense.service.ingredient.BaseIngredient;
+import com.kosdev.kos.ext.dispense.service.ingredient.IngredientSource;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -39,6 +39,11 @@ public class Brandset implements IngredientSource {
                 .filter(i -> i.getId().equals(id))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public List<Ingredient> getIngredients() {
+        return ingredients;
     }
 }
 // @kdoc-brandset@

@@ -2,8 +2,8 @@ package com.kosdev.samples.dispenser.part2.pour;
 
 import com.kosdev.samples.dispenser.part2.DispenserApp;
 import com.kosdev.samples.dispenser.part2.DispenserAppConfig.Cup;
-import com.tccc.kos.commons.core.context.annotations.Autowired;
-import com.tccc.kos.ext.dispense.pipeline.beverage.BeveragePipelineDelegate;
+import com.kosdev.kos.commons.core.context.annotations.Autowired;
+import com.kosdev.kos.ext.dispense.pipeline.beverage.BeveragePipelineDelegate;
 
 /**
  * kOS provides rich beverage pouring infrastructure out of the box, including
@@ -21,12 +21,12 @@ public class VolumeDelegate implements BeveragePipelineDelegate {
     private DispenserApp app;   // access to config which contains cup sizes
 
     @Override
-    public int getMaxPourVolume() {
+    public double getMaxPourVolume() {
         return 946;  // 32 oz... kOS uses SI units
     }
 
     @Override
-    public int getFixedVolumeByName(String name) {
+    public double getFixedVolumeByName(String name) {
         // get the cup with the specified name from the application
         // config bean, but only if it's enabled
         Cup cup = app.getConfig().getCups().stream()

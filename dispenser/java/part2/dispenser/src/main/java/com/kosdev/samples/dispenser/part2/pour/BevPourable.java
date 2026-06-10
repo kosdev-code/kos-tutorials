@@ -3,7 +3,7 @@
  */
 package com.kosdev.samples.dispenser.part2.pour;
 
-import com.tccc.kos.ext.dispense.pipeline.beverage.Pourable;
+import com.kosdev.kos.ext.dispense.pipeline.beverage.Pourable;
 import lombok.Getter;
 
 import java.io.IOException;

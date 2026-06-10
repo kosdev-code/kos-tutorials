@@ -1,12 +1,11 @@
 package com.kosdev.samples.dispenser.part1.hardware;
 
-import com.tccc.kos.commons.util.KosUtil;
-import com.tccc.kos.commons.util.concurrent.future.FutureEvent;
-import com.tccc.kos.commons.util.concurrent.future.FutureWork;
-import com.tccc.kos.core.service.assembly.Assembly;
-import com.tccc.kos.ext.dispense.DispenseAssembly;
-import com.tccc.kos.ext.dispense.Pump;
-import com.tccc.kos.ext.dispense.PumpBoard;
+import com.kosdev.kos.commons.util.KosUtil;
+import com.kosdev.kos.commons.util.concurrent.future.FutureEvent;
+import com.kosdev.kos.commons.util.concurrent.future.FutureWork;
+import com.kosdev.kos.core.service.assembly.Assembly;
+import com.kosdev.kos.ext.dispense.Pump;
+import com.kosdev.kos.ext.dispense.PumpBoard;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
