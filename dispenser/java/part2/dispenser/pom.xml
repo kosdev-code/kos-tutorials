@@ -20,14 +20,15 @@
   <!-- ====== Properties =========================================================== -->
 
   <properties>
-    <kos.version>1.10.0</kos.version>
+    <kos.version>1.10.x-SNAPSHOT</kos.version>
     <ddk.version>0.0.0-SNAPSHOT</ddk.version>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <kos-maven-plugin.version>1.0.7</kos-maven-plugin.version>
     <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
-    <lombok.version>1.18.28</lombok.version>
+    <lombok.version>1.18.38</lombok.version>
+    <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
   </properties>
 
   <!-- ====== Dependency Management ================================================ -->
@@ -67,6 +68,23 @@
   <build>
     <pluginManagement>
       <plugins>
+        <!-- Compiler -->
+        <!-- https://maven.apache.org/plugins/maven-compiler-plugin/ -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven-compiler-plugin.version}</version>
+          <configuration>
+            <annotationProcessorPaths>
+              <path>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+              </path>
+            </annotationProcessorPaths>
+          </configuration>
+        </plugin>
+
         <!-- Assembly -->
         <!-- https://maven.apache.org/plugins/maven-assembly-plugin/ -->
         <plugin>
@@ -98,9 +116,8 @@
 
   <repositories>
     <repository>
-      <id>kosdevcode</id>
-      <name>kOS Code Repository</name>
-      <url>https://maven.pkg.github.com/kosdev-code/kos-maven</url>
+      <id>kos.public</id>
+      <url>https://kondra.mycloudrepo.io/public/repositories/kos-public</url>
       <releases>
         <enabled>true</enabled>
         <updatePolicy>daily</updatePolicy>

@@ -1,7 +1,7 @@
 package com.kosdev.samples.dispenser.part1.hardware;
 
-import com.tccc.kos.commons.util.concurrent.future.FutureWork;
-import com.tccc.kos.ext.dispense.Pump;
+import com.kosdev.kos.commons.util.concurrent.future.FutureWork;
+import com.kosdev.kos.ext.dispense.Pump;
 import lombok.Getter;
 
 /**
@@ -30,16 +30,12 @@ public class Valve extends Pump<ValveConfig> {
     public FutureWork tpour(int duration, double rate) {
         return ((ControlBoard) getBoard()).tpour(this, duration, rate);
     }
-    // @kdoc-valve-tpour@
 
-    /**
-     * Starts a volume-based pour operation for this valve.
-     */
     @Override
-    public FutureWork vpour(int volume, double rate) {
-        // convert the volume pour to a timed pour
+    public FutureWork vpour(double volume, double rate) {
         return tpour((int) (volume / rate), rate);
     }
+    // @kdoc-valve-tpour@
 
     @Override
     public String getType() {

@@ -2,12 +2,12 @@ package com.kosdev.samples.dispenser.part1;
 
 import com.kosdev.samples.dispenser.part1.brandset.Brandset;
 import com.kosdev.samples.dispenser.part1.pour.VolumeDelegate;
-import com.tccc.kos.commons.core.context.annotations.Autowired;
-import com.tccc.kos.commons.kab.KabFile;
-import com.tccc.kos.commons.util.KosUtil;
-import com.tccc.kos.core.service.app.BaseAppConfig;
-import com.tccc.kos.core.service.app.SystemApplication;
-import com.tccc.kos.ext.dispense.service.ingredient.IngredientService;
+import com.kosdev.kos.commons.core.context.annotations.Autowired;
+import com.kosdev.kos.commons.kab.KabFile;
+import com.kosdev.kos.commons.util.KosUtil;
+import com.kosdev.kos.core.service.app.BaseAppConfig;
+import com.kosdev.kos.core.service.app.SystemApplication;
+import com.kosdev.kos.ext.dispense.service.ingredient.IngredientService;
 import lombok.Getter;
 
 /**

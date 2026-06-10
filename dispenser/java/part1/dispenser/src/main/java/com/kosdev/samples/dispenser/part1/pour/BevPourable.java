@@ -1,7 +1,7 @@
 // @kdoc-pourable@
 package com.kosdev.samples.dispenser.part1.pour;
 
-import com.tccc.kos.ext.dispense.pipeline.beverage.Pourable;
+import com.kosdev.kos.ext.dispense.pipeline.beverage.Pourable;
 import lombok.Getter;
 
 import java.io.IOException;
