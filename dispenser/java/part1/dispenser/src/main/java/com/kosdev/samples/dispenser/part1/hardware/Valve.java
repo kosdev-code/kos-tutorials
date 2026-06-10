@@ -1,7 +1,7 @@
 package com.kosdev.samples.dispenser.part1.hardware;
 
-import com.tccc.kos.commons.util.concurrent.future.FutureWork;
-import com.tccc.kos.ext.dispense.Pump;
+import com.kosdev.kos.commons.util.concurrent.future.FutureWork;
+import com.kosdev.kos.ext.dispense.Pump;
 import lombok.Getter;
 
 /**

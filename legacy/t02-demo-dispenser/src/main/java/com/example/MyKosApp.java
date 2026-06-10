@@ -1,11 +1,11 @@
 package com.example;
 
-import com.tccc.kos.commons.core.context.annotations.Autowired;
-import com.tccc.kos.commons.core.vfs.VFSSource;
-import com.tccc.kos.commons.kab.KabFile;
-import com.tccc.kos.core.service.app.SystemApplication;
-import com.tccc.kos.ext.dispense.pipeline.beverage.BeveragePourServiceDelegate;
-import com.tccc.kos.ext.dispense.service.ingredient.IngredientService;
+import com.kosdev.kos.commons.core.context.annotations.Autowired;
+import com.kosdev.kos.commons.core.vfs.VFSSource;
+import com.kosdev.kos.commons.kab.KabFile;
+import com.kosdev.kos.core.service.app.SystemApplication;
+import com.kosdev.kos.ext.dispense.pipeline.beverage.BeveragePourServiceDelegate;
+import com.kosdev.kos.ext.dispense.service.ingredient.IngredientService;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,7 @@
 package com.example;
 
-import com.tccc.kos.commons.util.misc.Str;
-import com.tccc.kos.ext.dispense.pipeline.beverage.Pourable;
+import com.kosdev.kos.commons.util.misc.Str;
+import com.kosdev.kos.ext.dispense.pipeline.beverage.Pourable;
 import lombok.Getter;
 import lombok.SneakyThrows;
 

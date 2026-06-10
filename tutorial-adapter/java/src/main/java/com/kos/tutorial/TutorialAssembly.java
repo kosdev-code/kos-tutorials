@@ -1,7 +1,7 @@
 package com.kos.tutorial;
 
-import com.tccc.kos.core.service.assembly.Assembly;
-import com.tccc.kos.core.service.assembly.CoreAssembly;
+import com.kosdev.kos.core.service.assembly.Assembly;
+import com.kosdev.kos.core.service.assembly.CoreAssembly;
 
 public class TutorialAssembly extends Assembly implements CoreAssembly {
 

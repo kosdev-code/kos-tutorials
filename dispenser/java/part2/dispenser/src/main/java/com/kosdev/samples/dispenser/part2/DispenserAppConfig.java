@@ -3,9 +3,9 @@ package com.kosdev.samples.dispenser.part2;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tccc.kos.commons.core.service.config.annotations.ConfigDesc;
-import com.tccc.kos.commons.core.service.config.annotations.ConfigFormat;
-import com.tccc.kos.core.service.app.BaseAppConfig;
+import com.kosdev.kos.commons.core.service.config.annotations.ConfigDesc;
+import com.kosdev.kos.commons.core.service.config.annotations.ConfigFormat;
+import com.kosdev.kos.core.service.app.BaseAppConfig;
 
 import lombok.Getter;
 import lombok.Setter;

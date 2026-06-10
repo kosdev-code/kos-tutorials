@@ -1,7 +1,7 @@
 package com.example;
 
-import com.tccc.kos.commons.core.service.config.annotations.ConfigDesc;
-import com.tccc.kos.core.service.app.BaseAppConfig;
+import com.kosdev.kos.commons.core.service.config.annotations.ConfigDesc;
+import com.kosdev.kos.core.service.app.BaseAppConfig;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

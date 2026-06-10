@@ -2,8 +2,8 @@ package com.kosdev.samples.dispenser.part2.pour;
 
 import com.kosdev.samples.dispenser.part2.DispenserApp;
 import com.kosdev.samples.dispenser.part2.DispenserAppConfig.Cup;
-import com.tccc.kos.commons.core.context.annotations.Autowired;
-import com.tccc.kos.ext.dispense.pipeline.beverage.BeveragePipelineDelegate;
+import com.kosdev.kos.commons.core.context.annotations.Autowired;
+import com.kosdev.kos.ext.dispense.pipeline.beverage.BeveragePipelineDelegate;
 
 /**
  * kOS provides rich beverage pouring infrastructure out of the box, including

@@ -1,19 +1,17 @@
 package com.kosdev.samples.dispenser.part1.pour;
 
+import com.kosdev.kos.commons.core.context.annotations.Autowired;
+import com.kosdev.kos.commons.util.concurrent.future.FailedFuture;
+import com.kosdev.kos.commons.util.concurrent.future.FutureWork;
+import com.kosdev.kos.commons.util.concurrent.future.ParallelFuture;
+import com.kosdev.kos.ext.dispense.Pump;
+import com.kosdev.kos.ext.dispense.pipeline.beverage.*;
+import com.kosdev.kos.ext.dispense.pipeline.beverage.graph.BevGraphBuilder;
+import com.kosdev.kos.ext.dispense.pipeline.beverage.graph.BeverageNode;
 import com.kosdev.samples.dispenser.part1.DispenserApp;
 import com.kosdev.samples.dispenser.part1.brandset.Beverage;
 import com.kosdev.samples.dispenser.part1.brandset.Brandset;
-import com.tccc.kos.commons.core.context.annotations.Autowired;
-import com.tccc.kos.commons.util.concurrent.future.FailedFuture;
-import com.tccc.kos.commons.util.concurrent.future.FutureWork;
-import com.tccc.kos.commons.util.concurrent.future.ParallelFuture;
-import com.tccc.kos.ext.dispense.Pump;
-import com.tccc.kos.ext.dispense.pipeline.beverage.BeveragePourEngine;
-import com.tccc.kos.ext.dispense.pipeline.beverage.BeveragePourEngineConfig;
-import com.tccc.kos.ext.dispense.pipeline.beverage.Pourable;
-import com.tccc.kos.ext.dispense.pipeline.beverage.RecipeExtractor;
-import com.tccc.kos.ext.dispense.pipeline.beverage.graph.BevGraphBuilder;
-import com.tccc.kos.ext.dispense.pipeline.beverage.graph.BeverageNode;
+
 
 /**
  * This is used abstract a way to pour a beverage
@@ -70,16 +68,13 @@ public class DispenserPourEngine extends BeveragePourEngine<BeveragePourEngineCo
 
     // @kdoc-ispourable@
     @Override
-    public boolean isPourable(Pourable pourable) throws Exception {
+    public boolean isPourable(Pourable pourable) {
         // Can be poured if the beverage is available
         return isAvailable(((BevPourable) pourable).getBevId());
     }
-    // @kdoc-ispourable@
 
-    // @kdoc-build-future@
     @Override
-    protected FutureWork buildFuture(Pourable pourable, Object lock) {
-
+    protected FutureWork buildFuture(BeveragePourSequence seq, Pourable pourable) {
         String bevId = ((BevPourable) pourable).getBevId();
 
         // Create recipe extractor to extract the pumps to use
@@ -106,5 +101,4 @@ public class DispenserPourEngine extends BeveragePourEngine<BeveragePourEngineCo
 
         return future;
     }
-    // @kdoc-build-future@
 }

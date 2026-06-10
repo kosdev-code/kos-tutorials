@@ -1,7 +1,7 @@
 package com.kosdev.samples.dispenser.part2.brandset;
 
-import com.tccc.kos.ext.dispense.service.ingredient.BaseIngredient;
-import com.tccc.kos.ext.dispense.service.ingredient.IngredientSource;
+import com.kosdev.kosext.dispense.service.ingredient.BaseIngredient;
+import com.kosdev.kosext.dispense.service.ingredient.IngredientSource;
 import lombok.Getter;
 import lombok.Setter;
 

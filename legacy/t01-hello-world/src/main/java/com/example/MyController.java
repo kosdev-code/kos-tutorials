@@ -1,9 +1,9 @@
 package com.example;
 
-import com.tccc.kos.commons.core.dispatcher.annotations.ApiController;
-import com.tccc.kos.commons.core.dispatcher.annotations.ApiEndpoint;
-import com.tccc.kos.commons.core.dispatcher.annotations.PathVariable;
-import com.tccc.kos.commons.core.dispatcher.annotations.RequestParam;
+import com.kosdev.kos.commons.core.dispatcher.annotations.ApiController;
+import com.kosdev.kos.commons.core.dispatcher.annotations.ApiEndpoint;
+import com.kosdev.kos.commons.core.dispatcher.annotations.PathVariable;
+import com.kosdev.kos.commons.core.dispatcher.annotations.RequestParam;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;

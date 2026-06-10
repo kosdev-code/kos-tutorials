@@ -1,10 +1,10 @@
 package com.example;
 
-import com.tccc.kos.commons.core.vfs.VFSSource;
-import com.tccc.kos.commons.kab.KabFile;
-import com.tccc.kos.commons.util.KosUtil;
-import com.tccc.kos.ext.dispense.service.ingredient.BaseIngredient;
-import com.tccc.kos.ext.dispense.service.ingredient.IngredientSource;
+import com.kosdev.kos.commons.core.vfs.VFSSource;
+import com.kosdev.kos.commons.kab.KabFile;
+import com.kosdev.kos.commons.util.KosUtil;
+import com.kosdev.kos.ext.dispense.service.ingredient.BaseIngredient;
+import com.kosdev.kos.ext.dispense.service.ingredient.IngredientSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;

@@ -1,7 +1,7 @@
 package com.example;
 
-import com.tccc.kos.core.service.app.BaseAppConfig;
-import com.tccc.kos.core.service.app.SystemApplication;
+import com.kosdev.kos.core.service.app.BaseAppConfig;
+import com.kosdev.kos.core.service.app.SystemApplication;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

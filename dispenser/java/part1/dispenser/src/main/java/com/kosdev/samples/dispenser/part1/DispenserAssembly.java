@@ -4,14 +4,14 @@ import com.kosdev.samples.dispenser.part1.brandset.Ingredient;
 import com.kosdev.samples.dispenser.part1.hardware.ControlBoard;
 import com.kosdev.samples.dispenser.part1.pour.VolumeDelegate;
 import com.kosdev.samples.dispenser.part1.pour.DispenserPourEngine;
-import com.tccc.kos.commons.core.context.annotations.Autowired;
-import com.tccc.kos.commons.util.json.JsonDescriptor;
-import com.tccc.kos.core.service.assembly.CoreAssembly;
-import com.tccc.kos.ext.dispense.DispenseAssembly;
-import com.tccc.kos.ext.dispense.HolderBuilder;
-import com.tccc.kos.ext.dispense.pipeline.beverage.BeverageNozzlePipeline;
-import com.tccc.kos.ext.dispense.service.insertion.InsertionService;
-import com.tccc.kos.ext.dispense.service.nozzle.Nozzle;
+import com.kosdev.kos.commons.core.context.annotations.Autowired;
+import com.kosdev.kos.commons.util.json.JsonDescriptor;
+import com.kosdev.kos.core.service.assembly.CoreAssembly;
+import com.kosdev.kos.ext.dispense.DispenseAssembly;
+import com.kosdev.kosext.dispense.HolderBuilder;
+import com.kosdev.kosext.dispense.pipeline.beverage.BeverageNozzlePipeline;
+import com.kosdev.kosext.dispense.service.insertion.InsertionService;
+import com.kosdev.kosext.dispense.service.nozzle.Nozzle;
 
 /**
  * An assembly is a logical representation of the hardware in your device.

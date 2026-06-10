@@ -1,6 +1,6 @@
 package com.example;
 
-import com.tccc.kos.ext.dispense.service.ingredient.BaseIngredient;
+import com.kosdev.kos.ext.dispense.service.ingredient.BaseIngredient;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

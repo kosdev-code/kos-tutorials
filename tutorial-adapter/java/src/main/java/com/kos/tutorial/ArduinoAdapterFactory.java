@@ -1,10 +1,12 @@
 package com.kos.tutorial;
 
-import java.io.File;
-
 import com.kosdev.kos.core.service.spawn.Adapter;
 import com.kosdev.kos.core.service.udev.serial.SerialAdapterFactory;
 import com.kosdev.kos.core.service.udev.serial.SerialDevice;
+
+import java.io.File;
+
+
 
 public class ArduinoAdapterFactory extends SerialAdapterFactory {
 
@@ -36,5 +38,4 @@ public class ArduinoAdapterFactory extends SerialAdapterFactory {
         }
         return null;
     }
-
 }

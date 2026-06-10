@@ -1,7 +1,7 @@
 // @kdoc-ingredient@
 package com.kosdev.samples.dispenser.part1.brandset;
 
-import com.tccc.kos.ext.dispense.service.ingredient.BaseIngredient;
+import com.kosdev.kos.ext.dispense.service.ingredient.BaseIngredient;
 
 /**
  * Represents an ingredient that can be assigned

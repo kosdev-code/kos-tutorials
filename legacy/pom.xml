@@ -6,7 +6,7 @@
 
     <!-- ====== Basics =============================================================== -->
 
-    <groupId>com.tccc.kos.tutorials</groupId>
+    <groupId>com.kosdev.kos.tutorials</groupId>
     <artifactId>kos-java-tutorials</artifactId>
     <version>1.2.3</version>
     <packaging>pom</packaging>
@@ -15,7 +15,7 @@
     <!-- ====== Properties =========================================================== -->
 
     <properties>
-        <kos.version>0.0.0-SNAPSHOT</kos.version>
+        <kos.version>1.9.x-SNAPSHOT</kos.version>
     </properties>
 
     <!-- ====== Modules ============================================================== -->

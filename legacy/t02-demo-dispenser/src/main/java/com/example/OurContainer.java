@@ -1,7 +1,7 @@
 package com.example;
 
-import com.tccc.kos.ext.dispense.Container;
-import com.tccc.kos.ext.dispense.ContainerSlice;
+import com.kosdev.kos.ext.dispense.Container;
+import com.kosdev.kos.ext.dispense.ContainerSlice;
 
 /**
  * Simple container that contains a single slice.

@@ -1,10 +1,10 @@
 package com.example;
 
-import com.tccc.kos.commons.core.context.annotations.Autowired;
-import com.tccc.kos.core.service.assembly.Assembly;
-import com.tccc.kos.ext.dispense.pipeline.beverage.BeverageNozzlePipeline;
-import com.tccc.kos.ext.dispense.service.insertion.InsertionService;
-import com.tccc.kos.ext.dispense.service.nozzle.Nozzle;
+import com.kosdev.kos.commons.core.context.annotations.Autowired;
+import com.kosdev.kos.core.service.assembly.Assembly;
+import com.kosdev.kos.ext.dispense.pipeline.beverage.BeverageNozzlePipeline;
+import com.kosdev.kos.ext.dispense.service.insertion.InsertionService;
+import com.kosdev.kos.ext.dispense.service.nozzle.Nozzle;
 import java.util.List;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

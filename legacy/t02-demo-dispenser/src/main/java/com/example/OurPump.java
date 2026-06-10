@@ -1,8 +1,8 @@
 package com.example;
 
-import com.tccc.kos.commons.util.concurrent.future.FutureWork;
-import com.tccc.kos.commons.util.convert.Convert;
-import com.tccc.kos.ext.dispense.Pump;
+import com.kosdev.kos.commons.util.concurrent.future.FutureWork;
+import com.kosdev.kos.commons.util.convert.Convert;
+import com.kosdev.kos.ext.dispense.Pump;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,9 +1,9 @@
 package com.example;
 
-import com.tccc.kos.commons.util.KosUtil;
-import com.tccc.kos.commons.util.concurrent.future.FutureEvent;
-import com.tccc.kos.commons.util.concurrent.future.FutureWork;
-import com.tccc.kos.ext.dispense.PumpBoard;
+import com.kosdev.kos.commons.util.KosUtil;
+import com.kosdev.kos.commons.util.concurrent.future.FutureEvent;
+import com.kosdev.kos.commons.util.concurrent.future.FutureWork;
+import com.kosdev.kos.ext.dispense.PumpBoard;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;

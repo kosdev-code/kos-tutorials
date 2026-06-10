@@ -1,6 +1,6 @@
 package com.kosdev.samples.dispenser.part2.hardware;
 
-import com.tccc.kos.ext.dispense.PumpConfig;
+import com.kosdev.kosext.dispense.PumpConfig;
 
 /**
  * Configuration class for a valve. Every {@link Pump} in kOS has
