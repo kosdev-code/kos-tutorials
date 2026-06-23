@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- ====== Basics =============================================================== -->
+
+  <parent>
+    <groupId>com.kos.tutorials.thermostat</groupId>
+    <artifactId>tutorial-thermostat</artifactId>
+    <version>0.0.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>tutorial-thermostat</artifactId>
+  <packaging>pom</packaging>
+  <description>tutorial-thermostat</description>
+
+  <!-- ====== Modules ==================================================== -->
+
+  <modules>
+    <module>core</module>
+    <module>app</module>
+    <module>sdk</module>
+  </modules>
+
+  <!-- ====== Build ==================================================== -->
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <!-- Compiler -->
+        <!-- https://maven.apache.org/plugins/maven-compiler-plugin/index.html -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven-compiler-plugin.version}</version>
+          <configuration>
+            <annotationProcessorPaths>
+              <path>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+              </path>
+            </annotationProcessorPaths>
+          </configuration>
+        </plugin>
+        <!-- kOS Maven Plugins -->
+        <plugin>
+          <groupId>com.kosdev.kos.maven</groupId>
+          <artifactId>kos-kab-maven-plugin</artifactId>
+          <version>${kos-kab-maven-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>com.kosdev.kos.maven</groupId>
+          <artifactId>kos-sdk-maven-plugin</artifactId>
+          <version>${kos-sdk-maven-plugin.version}</version>
+          <executions>
+            <execution>
+              <phase>generate-sources</phase>
+              <goals>
+                <goal>sdk</goal>
+              </goals>
+              <configuration>
+                <appId>kondra.fdt.crewserve-cui</appId>
+                <srcDirs>
+                  <srcDir>../core</srcDir>
+                </srcDirs>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <!-- ====== Build profiles ==================================================== -->
+
+  <profiles>
+    <profile>
+      <id>automation</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>3.2.4</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
