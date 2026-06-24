@@ -1,4 +1,4 @@
-name: develop-publish-java
+name: default-publish-java
 on:
   push:
     branches:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  kos_build:
+  java_tutorials_build:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/kosdev-code/kos-buildpublish/kos_builder:dockerimage
@@ -24,7 +24,8 @@ jobs:
           lfs: true
       - name: Build and Publish
         env:
-          STUDIO_APIKEY: ${{ secrets.STUDIO_APIKEY }}
+          KOSBUILD_SECRET_URL: ${{ secrets.KOSBUILD_SECRET_URL }}
+          KOSBUILD_SECRET_PASSWORD: ${{ secrets.KOSBUILD_SECRET_PASSWORD }}
 
         working-directory: ./${{ github.event.repository.name }}
         run: |

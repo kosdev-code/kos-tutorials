@@ -2,24 +2,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- ====== Parent =============================================================== -->
+    <!-- ====== Basics =============================================================== -->
 
     <parent>
-        <groupId>com.kos.tutorials</groupId>
-        <artifactId>tutorial-thermostat</artifactId>
+        <groupId>com.kos.tutorials.thermostat</groupId>
+        <artifactId>tutorial-thermostat.java.thermostat</artifactId>
         <version>0.0.0-SNAPSHOT</version>
     </parent>
 
-    <!-- ====== Basics =============================================================== -->
-
-    <artifactId>tutorial-thermostat.app</artifactId>
+    <artifactId>tutorial-thermostat.java.thermostat.app</artifactId>
+    <description>Thermostat App</description>
 
     <!-- ====== Dependencies  ======================================================== -->
 
     <dependencies>
         <dependency>
-            <groupId>com.kos.tutorials</groupId>
-            <artifactId>tutorial-thermostat.core</artifactId>
+            <groupId>com.kos.tutorials.thermostat</groupId>
+            <artifactId>tutorial-thermostat.java.thermostat.core</artifactId>
             <version>0.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>

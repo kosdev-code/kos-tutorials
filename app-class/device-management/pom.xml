@@ -1,62 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <!-- ====== Basics =============================================================== -->
-  <groupId>com.kondra.lessons</groupId>
-  <artifactId>device-management</artifactId>
-  <name>Kondra device management</name>
-  <version>0.0.0-SNAPSHOT</version>
+
+  <parent>
+    <groupId>com.kos.tutorials.app</groupId>
+    <artifactId>tutorial-app</artifactId>
+    <version>0.0.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>tutorial-app.device-management</artifactId>
   <packaging>pom</packaging>
   <description>A demonstration of device management</description>
-  <!-- ====== Properties =========================================================== -->
-  <properties>
-    <kos.version>0.0.0-SNAPSHOT</kos.version>
-    <kos-sdk-annotations.version>1.0.6</kos-sdk-annotations.version>
-    <kos-kab-maven-plugin.version>1.3.5</kos-kab-maven-plugin.version>
-    <kos-sdk-maven-plugin.version>1.0.6</kos-sdk-maven-plugin.version>
-    <!-- Specify encoding so that build is not platform dependent -->
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>17</java.version>
-    <maven.compiler.release>${java.version}</maven.compiler.release>
-    <maven.compiler.source>${java.version}</maven.compiler.source>
-    <maven.compiler.target>${java.version}</maven.compiler.target>
-    <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-    <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
-    <lombok.version>1.18.38</lombok.version>
-  </properties>
+
   <!-- ====== Modules ============================================================== -->
   <modules>
     <module>core</module>
     <module>app</module>
     <module>sdk</module>
   </modules>
-  <!-- ====== Dependency Management ================================================ -->
-  <dependencyManagement>
-    <dependencies>
-      <!-- BOM for kOS SDK Code (core, dispense, freestyle) -->
-      <dependency>
-        <groupId>com.kosdev.kos.sdk.bom</groupId>
-        <artifactId>kos-bom</artifactId>
-        <version>${kos.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.kosdev.kos.sdk.tools</groupId>
-        <artifactId>annotations</artifactId>
-        <version>${kos-sdk-annotations.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <!-- Lombok annotations -->
-      <!-- https://www.projectlombok.org/ -->
-      <dependency>
-        <groupId>org.projectlombok</groupId>
-        <artifactId>lombok</artifactId>
-        <version>${lombok.version}</version>
-        <scope>provided</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+
   <!-- ====== Plugin Management ==================================================== -->
   <build>
     <pluginManagement>
@@ -81,12 +43,10 @@
         <plugin>
           <groupId>com.kosdev.kos.maven</groupId>
           <artifactId>kos-kab-maven-plugin</artifactId>
-          <version>${kos-kab-maven-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>com.kosdev.kos.maven</groupId>
           <artifactId>kos-sdk-maven-plugin</artifactId>
-          <version>${kos-sdk-maven-plugin.version}</version>
         </plugin>
       </plugins>
     </pluginManagement>
