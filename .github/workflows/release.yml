@@ -30,7 +30,8 @@ jobs:
 
       - name: Build and Publish
         env:
-          STUDIO_APIKEY: ${{ secrets.STUDIO_APIKEY }}
+          KOSBUILD_SECRET_URL: ${{ secrets.KOSBUILD_SECRET_URL }}
+          KOSBUILD_SECRET_PASSWORD: ${{ secrets.KOSBUILD_SECRET_PASSWORD }}
         working-directory: ./${{ github.event.repository.name }}
         run: |
           export KOS_STD_VERSION=${KOSBUILD_VERSION} 

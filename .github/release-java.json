@@ -1,5 +1,5 @@
 {
-  "default_keyset": "test.kos",
+  "default_keyset": "test.kos.keyset",
   "build_cmd": ".github/quickbuild.sh",
 
   "artifacts": [

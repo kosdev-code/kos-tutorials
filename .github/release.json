@@ -1,48 +1,51 @@
 {
-  "default_keyset": "test.kos",
+  "default_keyset": "test.kos.keyset",
   "prebuild_cmd": ".github/release_prebuild.sh",
-  "build_cmd": ".github/build_all.sh",
+  "build_cmd": ".github/quickbuild.sh",
 
   "artifacts": [
-    { 
+    {
       "id": "kosdev—tutorial-rack-app",
-      "filename": "rack/app/target/rack-app-${KOS_STD_VERSION_REGEX}.kab",
+      "filename": "rack/app/target/tutorial-rack.app-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
       "qualifier": "any"
     },
-    { 
+    {
       "id": "kosdev—tutorial-rack-assets",
-      "filename": "rack/assets/target/rack-assets-${KOS_STD_VERSION_REGEX}.kab",
+      "filename": "rack/assets/target/tutorial-rack.assets-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
       "qualifier": "any"
     },
-    { 
+
+    {
       "id": "kosdev-tutorial-thermostat",
-      "filename": "thermostat/java/tutorial-thermostat/app/target/tutorial-thermostat.app-${KOS_STD_VERSION_REGEX}.kab",
+      "filename": "thermostat/java/tutorial-thermostat/app/target/tutorial-thermostat.java.thermostat.app-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
       "qualifier": "any"
     },
-    { 
+    {
       "id": "kosdev-tutorial-thermostat-simulator",
-      "filename": "thermostat/java/tutorial-simulator/target/tutorial-thermostat-simulator-${KOS_STD_VERSION_REGEX}.kab",
+      "filename": "thermostat/java/tutorial-simulator/target/tutorial-thermostat.java.simulator-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
       "qualifier": "any"
     },
+
     {
       "id": "kosdev-tutorial-arduino",
-      "filename": "arduino/java/target/tutorial-arduino-${KOS_STD_VERSION_REGEX}.kab",
+      "filename": "arduino/java/target/tutorial-arduino.java-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
       "qualifier": "any"
     },
+
     {
       "id": "kos-class-app-device-management",
-      "filename": "app-class/device-management/app/target/device-management.app-${KOS_STD_VERSION_REGEX}.kab",
+      "filename": "app-class/device-management/app/target/tutorial-app.device-management.app-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
       "qualifier": "any"
     },
     {
       "id": "kos-class-app-system-app",
-      "filename": "app-class/system-app/target/system-app-${KOS_STD_VERSION_REGEX}.kab",
+      "filename": "app-class/system-app/target/tutorial-app.system-app-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
       "qualifier": "any"
     }
