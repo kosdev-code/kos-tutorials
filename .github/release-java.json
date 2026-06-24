@@ -3,28 +3,28 @@
   "build_cmd": "./quickbuild.sh",
 
   "artifacts": [
-    { 
+    {
       "id": "kosdev—tutorial-rack-app",
       "filename": "rack/app/target/tutorial-rack.app-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
       "qualifier": "any"
     },
-    { 
+    {
       "id": "kosdev—tutorial-rack-assets",
       "filename": "rack/assets/target/tutorial-rack.assets-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
       "qualifier": "any"
     },
 
-    { 
+    {
       "id": "kosdev-tutorial-thermostat",
-      "filename": "thermostat/java/tutorial-thermostat/app/target/tutorial-thermostat.java.thermostat.app-${KOS_STD_VERSION_REGEX}.kab",
+      "filename": "thermostat/java/thermostat/app/target/tutorial-thermostat.java.thermostat.app-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
       "qualifier": "any"
     },
-    { 
+    {
       "id": "kosdev-tutorial-thermostat-simulator",
-      "filename": "thermostat/java/tutorial-simulator/target/tutorial-thermostat.java.simulator-${KOS_STD_VERSION_REGEX}.kab",
+      "filename": "thermostat/java/simulator/target/tutorial-thermostat.java.simulator-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
       "qualifier": "any"
     },

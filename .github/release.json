@@ -1,7 +1,7 @@
 {
-  "default_keyset": "prod.kondra",
+  "default_keyset": "test.kondra",
   "prebuild_cmd": ".github/release_prebuild.sh",
-  "build_cmd": ".github/quickbuild.sh",
+  "build_cmd": "./quickbuild.sh",
 
   "artifacts": [
     {
@@ -19,13 +19,13 @@
 
     {
       "id": "kosdev-tutorial-thermostat",
-      "filename": "thermostat/java/tutorial-thermostat/app/target/tutorial-thermostat.java.thermostat.app-${KOS_STD_VERSION_REGEX}.kab",
+      "filename": "thermostat/java/thermostat/app/target/tutorial-thermostat.java.thermostat.app-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
       "qualifier": "any"
     },
     {
       "id": "kosdev-tutorial-thermostat-simulator",
-      "filename": "thermostat/java/tutorial-simulator/target/tutorial-thermostat.java.simulator-${KOS_STD_VERSION_REGEX}.kab",
+      "filename": "thermostat/java/simulator/target/tutorial-thermostat.java.simulator-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
       "qualifier": "any"
     },
