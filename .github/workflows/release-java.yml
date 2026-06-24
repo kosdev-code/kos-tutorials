@@ -1,20 +1,19 @@
-name: Kosdev Tutorials - Release Workflow
+name: default-publish-java
 on:
   push:
-    tags:
-      - "[0-9]+.[0-9]+.[0-9]+"
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
-  rack_release:
+  java_tutorials_build:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/kosdev-code/kos-buildpublish/kos_builder:dockerimage
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
-      env:
-        KOS_KABTOOL_JAR: "/usr/local/lib/kabtool.jar"
-        JAVA_CMD: "java"
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -23,11 +22,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           path: ${{ github.event.repository.name }}
           lfs: true
-
-      - name: Extract Version
-        run: |
-          echo KOSBUILD_VERSION=${GITHUB_REF#refs/tags/} >> $GITHUB_ENV
-
       - name: Build and Publish
         env:
           KOSBUILD_SECRET_URL: ${{ secrets.KOSBUILD_SECRET_URL }}
@@ -35,6 +29,6 @@ jobs:
 
         working-directory: ./${{ github.event.repository.name }}
         run: |
-          export KOS_STD_VERSION=${KOSBUILD_VERSION} 
-          export KOSBUILD_VERSION=${KOSBUILD_VERSION}
-          kos_build_handler.sh automation .github/release.json
+          set -x
+          kos_build_handler.sh automation .github/release-java.json
+

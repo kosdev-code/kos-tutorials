@@ -2,28 +2,39 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- ====== Basics ==================================================== -->
+
     <parent>
-        <groupId>com.kos.tutorials.arduino</groupId>
-        <artifactId>tutorial-arduino</artifactId>
+        <groupId>com.kos.tutorials.thermostat</groupId>
+        <artifactId>tutorial-thermostat.java</artifactId>
         <version>0.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>tutorial-arduino.java</artifactId>
+    <artifactId>tutorial-thermostat.java.simulator</artifactId>
+
+    <!-- ====== Dependencies ==================================================== -->
 
     <dependencies>
-        <dependency>
-            <groupId>com.kosdev.kos.sdk.api</groupId>
-            <artifactId>api-dispense</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.kosdev.kos.sdk.api</groupId>
             <artifactId>api-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.kosdev.kos.sdk.api</groupId>
+            <artifactId>api-dispense</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.kos.tutorials.thermostat</groupId>
+            <artifactId>tutorial-thermostat.java.thermostat.sdk</artifactId>
+            <version>0.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
+
+    <!-- ====== Build ==================================================== -->
 
     <build>
         <pluginManagement>
@@ -63,7 +74,6 @@
             </plugins>
         </pluginManagement>
 
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -95,7 +105,7 @@
                             <goal>kabtool</goal>
                         </goals>
                         <configuration>
-                            <type>kos.system</type>
+                            <type>kos.app</type>
                             <content>
                                 <copy>
                                     <includes>

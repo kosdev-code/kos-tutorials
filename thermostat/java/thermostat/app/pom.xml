@@ -5,19 +5,20 @@
     <!-- ====== Basics =============================================================== -->
 
     <parent>
-        <groupId>com.kos.tutorials.app</groupId>
-        <artifactId>tutorial-app.device-management</artifactId>
+        <groupId>com.kos.tutorials.thermostat</groupId>
+        <artifactId>tutorial-thermostat.java.thermostat</artifactId>
         <version>0.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>tutorial-app.device-management.app</artifactId>
+    <artifactId>tutorial-thermostat.java.thermostat.app</artifactId>
+    <description>Thermostat App</description>
 
     <!-- ====== Dependencies  ======================================================== -->
 
     <dependencies>
         <dependency>
-            <groupId>com.kos.tutorials.app</groupId>
-            <artifactId>tutorial-app.device-management.core</artifactId>
+            <groupId>com.kos.tutorials.thermostat</groupId>
+            <artifactId>tutorial-thermostat.java.thermostat.core</artifactId>
             <version>0.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -41,7 +42,6 @@
             <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
-            <version>3.1.4</version>
             <configuration>
               <skip>true</skip> <!-- Skip deployment for submodules in this profile -->
             </configuration>
@@ -77,7 +77,7 @@
                             <goal>kabtool</goal>
                         </goals>
                         <configuration>
-                           <type>kos.app</type>
+                           <type>kos.system</type>
                            <content>
                               <copy>
                                  <includes>

@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <!-- ====== Basics =============================================================== -->
 
   <parent>
-    <groupId>com.kos.tutorials.app</groupId>
-    <artifactId>tutorial-app</artifactId>
+    <groupId>com.kos.tutorials.thermostat</groupId>
+    <artifactId>tutorial-thermostat.java</artifactId>
     <version>0.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>tutorial-app.device-management</artifactId>
+  <artifactId>tutorial-thermostat.java.thermostat</artifactId>
   <packaging>pom</packaging>
-  <description>A demonstration of device management</description>
+  <description>tutorial-thermostat</description>
 
-  <!-- ====== Modules ============================================================== -->
+  <!-- ====== Modules ==================================================== -->
+
   <modules>
     <module>core</module>
     <module>app</module>
     <module>sdk</module>
   </modules>
 
-  <!-- ====== Plugin Management ==================================================== -->
+  <!-- ====== Build ==================================================== -->
+
   <build>
     <pluginManagement>
       <plugins>
@@ -47,40 +50,27 @@
         <plugin>
           <groupId>com.kosdev.kos.maven</groupId>
           <artifactId>kos-sdk-maven-plugin</artifactId>
+          <executions>
+            <execution>
+              <phase>generate-sources</phase>
+              <goals>
+                <goal>sdk</goal>
+              </goals>
+              <configuration>
+                <appId>kondra.fdt.crewserve-cui</appId>
+                <srcDirs>
+                  <srcDir>../core</srcDir>
+                </srcDirs>
+              </configuration>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
   </build>
-  <!-- ====== Code Repositories ==================================================== -->
-  <repositories>
-    <repository>
-      <id>kos.public</id>
-      <url>https://kondra.mycloudrepo.io/public/repositories/kos-public</url>
-      <releases>
-        <updatePolicy>daily</updatePolicy>
-        <checksumPolicy>fail</checksumPolicy>
-      </releases>
-      <snapshots>
-        <updatePolicy>always</updatePolicy>
-        <checksumPolicy>fail</checksumPolicy>
-      </snapshots>
-    </repository>
-  </repositories>
-  <!-- ====== Plugin Repositories ================================================== -->
-  <pluginRepositories>
-    <pluginRepository>
-      <id>kos.public</id>
-      <url>https://kondra.mycloudrepo.io/public/repositories/kos-public</url>
-      <releases>
-        <updatePolicy>daily</updatePolicy>
-        <checksumPolicy>fail</checksumPolicy>
-      </releases>
-      <snapshots>
-        <updatePolicy>always</updatePolicy>
-        <checksumPolicy>fail</checksumPolicy>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
+
+  <!-- ====== Build profiles ==================================================== -->
+
   <profiles>
     <profile>
       <id>automation</id>
