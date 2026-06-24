@@ -1,5 +1,5 @@
 {
-  "default_keyset": "test.kos.keyset",
+  "default_keyset": "prod.kondra",
   "prebuild_cmd": ".github/release_prebuild.sh",
   "build_cmd": ".github/quickbuild.sh",
 

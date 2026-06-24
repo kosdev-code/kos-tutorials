@@ -32,6 +32,7 @@ jobs:
         env:
           KOSBUILD_SECRET_URL: ${{ secrets.KOSBUILD_SECRET_URL }}
           KOSBUILD_SECRET_PASSWORD: ${{ secrets.KOSBUILD_SECRET_PASSWORD }}
+
         working-directory: ./${{ github.event.repository.name }}
         run: |
           export KOS_STD_VERSION=${KOSBUILD_VERSION} 

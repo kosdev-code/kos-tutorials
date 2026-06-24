@@ -1,6 +1,6 @@
 {
-  "default_keyset": "test.kos.keyset",
-  "build_cmd": ".github/quickbuild.sh",
+  "default_keyset": "test.kondra",
+  "build_cmd": "./quickbuild.sh",
 
   "artifacts": [
     { 
