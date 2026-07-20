@@ -1,0 +1,86 @@
+# .github/workflows/snippets.yml
+name: export_snippets
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  # Ensure that all the snippets can build.
+  build-snippets:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/kosdev-code/kos-buildpublish/kos_builder:dockerimage
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.github_token }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ github.event.repository.name }}
+
+      - name: Build
+        working-directory: ${{ github.event.repository.name }}
+        run: ./quickbuild.sh
+
+  # Extract the annotation portions of the snippets and generate JSON file and save it.
+  extract-snippets:
+    runs-on: ubuntu-latest
+    needs: build-snippets
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ github.event.repository.name }}
+
+      - name: Extract Snippets
+        uses: matrica-code/snippet-viewer/extractor@main
+        with:
+          snippet-file: article-snippets.json
+          paths: ${{ github.event.repository.name }}
+
+      - name: Upload Snippets
+        uses: actions/upload-artifact@v4
+        with:
+          name: tutorial-snippets
+          path: tutorial-snippets.json
+
+  # Download the saved JSON file and export the snippets to article_snippets artifact store.
+  export-snippets:
+    runs-on: ubuntu-latest
+    needs: extract-snippets
+    container:
+      image: ghcr.io/kosdev-code/kos-buildpublish/kos_builder:dockerimage
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.github_token }}
+
+    steps:
+      - name: Checkout Repository (.github only)
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ github.event.repository.name }}
+          sparse-checkout: .github
+          sparse-checkout-cone-mode: false
+
+      - name: Download Snippets
+        uses: actions/download-artifact@v4
+        with:
+          name: article-snippets
+          path: ${{ github.event.repository.name }}
+
+      - name: Export Snippets
+        working-directory: ${{ github.event.repository.name }}
+        env:
+          KOSBUILD_SECRET_URL: ${{ secrets.KOSBUILD_SECRET_URL }}
+          KOSBUILD_SECRET_PASSWORD: ${{ secrets.KOSBUILD_SECRET_PASSWORD }}
+        run: kos_build_handler.sh automation .github/article-snippet-deployment.json

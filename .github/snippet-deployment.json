@@ -1,0 +1,3 @@
+{
+  "build_cmd": "kos_deploy_to_artifactstore.sh .github/snippet-deployment-target.json"
+}
