@@ -46,7 +46,7 @@ jobs:
       - name: Extract Snippets
         uses: matrica-code/snippet-viewer/extractor@main
         with:
-          snippet-file: article-snippets.json
+          snippet-file: tutorial-snippets.json
           paths: ${{ github.event.repository.name }}
 
       - name: Upload Snippets
