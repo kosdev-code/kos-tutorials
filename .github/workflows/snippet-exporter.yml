@@ -55,7 +55,7 @@ jobs:
           name: tutorial-snippets
           path: tutorial-snippets.json
 
-  # Download the saved JSON file and export the snippets to article_snippets artifact store.
+  # Download the saved JSON file and export the snippets to snippets artifact store.
   export-snippets:
     runs-on: ubuntu-latest
     needs: extract-snippets
