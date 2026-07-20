@@ -1,4 +1,4 @@
-name: Kosdev Tutorials - Release Workflow
+name: release
 on:
   push:
     tags:

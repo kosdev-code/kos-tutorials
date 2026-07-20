@@ -1,4 +1,4 @@
-name: default-publish-java
+name: release-java
 on:
   push:
     branches:

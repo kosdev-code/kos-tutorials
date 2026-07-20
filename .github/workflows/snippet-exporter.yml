@@ -1,5 +1,5 @@
 # .github/workflows/snippets.yml
-name: export_snippets
+name: snippet-exporter
 on:
   push:
     branches:
