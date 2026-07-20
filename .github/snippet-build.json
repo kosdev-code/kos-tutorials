@@ -1,0 +1,4 @@
+{
+  "default_keyset": "test.kondra",
+  "build_cmd": "./quickbuild.sh"
+}
