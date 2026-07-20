@@ -16,7 +16,7 @@ jobs:
       actions: read
       contents: read
     container:
-      image: ghcr.io/kondra-code/wordpress-documentation-importer:1.0.2
+      image: ghcr.io/kondra-code/wordpress-documentation-importer:1.0.3
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
@@ -43,7 +43,9 @@ jobs:
           WP_USERNAME: ${{ secrets.WP_USERNAME }}
           WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
           WP_MD_KEY: ${{ secrets.WP_MD_KEY }}
-          WP_BASE_URL: ${{ secrets.WP_BASE_URL }}
+          WP_BASE_URL: "https://staging23.kosdev.com"
+          WP_PROXY: "https://content.kosdev.com"
+          WP_PROXY_PASS: ${{ secrets.WP_PROXY_PASS }}
         run: bash .github/import-documentation-wordpress.sh
 
       - name: Upload changed documents to workflow artifact
