@@ -78,7 +78,7 @@ jobs:
       - name: Download Snippets
         uses: actions/download-artifact@v4
         with:
-          name: article-snippets
+          name: tutorial-snippets
           path: ${{ github.event.repository.name }}
 
       - name: Export Snippets
