@@ -1,4 +1,7 @@
 // @kdoc-ui@
+/**
+ * (C) Copyright 2026, Kondra, All rights reserved.
+ */
 package com.bookstore.rack;
 
 import java.awt.BorderLayout;
@@ -13,6 +16,7 @@ import com.kosdev.kos.commons.util.concurrent.AdjustableCallback;
 
 import lombok.extern.slf4j.Slf4j;
 
+// extract-code rack-ui
 @Slf4j
 public class RackUI extends JFrame {
     private JLabel imageLabel;

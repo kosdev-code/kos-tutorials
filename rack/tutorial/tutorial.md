@@ -13,13 +13,29 @@ author: sneh
 
 Welcome to the tutorial on building your first KOS app! In this guide, you'll learn how to create, configure, build, run, and debug a KOS application from start to finish.
 
+[kondra_note type="info" title="Information"]
+Before beginning, ensure you have completed all three steps in the [Get Started section](https://kosdev.com/articles/setup-you-kos-java-workspace/).
+[/kondra_note]
+
+[kondra_note type="admin-alert" title="Target Audience"]
+This tutorial assumes you have Java experience. The source code for these tutorials is available on [GitHub](https://github.com/kosdev-code/kos-tutorials).
+[/kondra_note]
+
 ## Customer Request
 
 This tutorial imagines a bookstore chain looking to modernize their bestseller display using a digital smart rack.
 
+[kondra_note type="info" title="Information"]
+A smart rack is an advanced shelving system that uses modern technology to enhance shopping and store management. It might include sensors to track inventory, Bluetooth and NFC to gather data on customer habits, or digital screens and shelf fronts to display updated prices and promotions.
+
+Their business objectives are:
+1. Save time and money by transitioning from cardboard signage to over-the-air updates of digital content.
+2. Enhance the customer experience through more engaging and dynamic displays.
+[/kondra_note]
+
 Our solution is to build a smart rack application that will rotate a collection of image files promoting recent bestselling books.
 
-<image title="bestsellers" name="bestsellers.png" caption="Figure 1. Open bestsellers.png" />
+<image title="" name="bestsellers.svg" caption="Open bestsellers" />
 
 Let's dive into creating an innovative and engaging digital product rack using KOS for our customer!
 
@@ -33,9 +49,19 @@ Follow instructions for your OS to install KOS Studio [here](https://kosdev.com/
 
 Our digital rack project is quite straightforward. We need to loop through a collection of content and display it on the screen. This can be easily achieved by installing Linux on a Raspberry Pi and running a small Java Swing application. In fact, this example will demonstrate the KOS equivalent of this setup. While the example is simple, it allows us to introduce a few initial KOS concepts, use KOS Studio to install software and run in a simulator, and set up debugger support for remote debugging on any hardware target. We'll also get a glimpse into the simplicity of building a dedicated-purpose device using KOS, where no install or startup scripts are required. We'll simply push the play button and watch our device boot as a smart rack.
 
+[kondra_note type="info" title="What is an Application in KOS?"]
+KOS is an application-based platform. There are many examples of application-based platforms these days. From mobile devices to smart televisions, it seems everything can run applications. How is KOS any different from these platforms? The primary difference is the collaboration model for applications. On most consumer devices, applications represent dedicated experiences that a user interacts with one at a time. These applications are inherently untrusted and are typically isolated from each other using a form of sandboxing. In KOS, the application model is designed to be collaborative, where applications work together to enable new functionality. This model emphasizes the ability for applications to provide core functionality that other applications can use, similar to a library or a microservice
+
+Find more [here](https://kosdev.com/articles/applications/)
+[/kondra_note]
+
 ### The System Application
 
 Now that we have a way to display our digital content, we need to code the core component that launches it: the System Application.
+
+[kondra_note type="info" title="What is a System Application?"]
+As KOS is designed for dedicated-use devices, the operating system boots into a single user-provided application that takes over the device and orchestrates all other functionality. In our example, this application simply displays content on the screen, but in other cases, the system application may load other applications that are dynamically defined and pushed over the air. In this tutorial, we’ll get our first look at a simple system application.
+[/kondra_note]
 
 ### Displaying Content
 
@@ -47,17 +73,22 @@ Rather than bundling images inside the application [KAB](https://kosdev.com/arti
 
 Creating a system application for KOS is as simple as extending the `SystemApplication` class. In the example below, we use the `load()` method to retrieve our asset KAB and then pass it to our UI.
 
-<snippet-viewer source="articles" snippet="RackApp.java"></snippet-viewer>
+<snippet-viewer source="tutorials" snippet="rack-app@RackApp.java"></snippet-viewer>
 
 ### The User Interface
 
 The provided Java code defines a class `RackUI` that displays the book rack content directly from the `KabFile`. It is launched in the started method of the System Application. It uses the KOS `AdjustableCallback` to handle the timing of the image rotation.
 
-<snippet-viewer source="articles" snippet="RackUI.java"></snippet-viewer>
+<snippet-viewer source="tutorials" snippet="rack-ui@RackUI.java"></snippet-viewer>
 
 ## Step 3: Setup Project
 
 In this section, we'll walk you through setting up a Maven project to create and build a KOS-specific deployable file, known as a KAB, for deployment. We'll cover the creation of a POM file for building the project and using a descriptor file to tell the KOS environment where to start. This tutorial assumes you are already familiar with Maven and POM files.
+
+[kondra_note type="info" title="What are KABs?"]
+For now, think of a KAB file as a collection of related files that serve as a universal container for all components of the operating system, from the kernel to applications. In a KOS release, EVERYTHING is a KAB.
+Learn more [here](https://kosdev.com/articles/everything-is-a-kab/)
+[/kondra_note]
 
 ### Create the POM file
 
@@ -69,13 +100,25 @@ Here is the creation of the parent `pom.xml` file.
 
 The `<properties>` section centralizes project-wide settings and versions, ensuring consistency and ease of updates. This includes specifying the version of KOS to target, the version of Java required by KOS, and the versions of essential plugins.
 
-<!-- TODO: verify snippet name -- excerpt from the parent pom.xml, not the full file -->
-<snippet-viewer source="articles" snippet="pom.xml"></snippet-viewer>
+```pom.xml
+<!-- properties -->
+<properties>
+    <kos.version>1.10.0</kos.version>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <kos-kab-maven-plugin.version>1.3.5</kos-kab-maven-plugin.version>
+    <lombok.version>1.18.38</lombok.version>
+</properties>
+```
 
 The parent `pom.xml` also define two modules: `app` and `assets`.
 
-<!-- TODO: verify snippet name -- excerpt from the parent pom.xml, not the full file -->
-<snippet-viewer source="articles" snippet="pom.xml"></snippet-viewer>
+```pom.xml
+<modules>
+    <module>app</module>
+    <module>assets</module>
+</modules>
+```
 
 #### Section 2: Include the KOS SDK
 
@@ -85,41 +128,237 @@ Solution: We use the configuration management concept of a Bill of Materials (BO
 
 In this example, we've added kos-bom as a `<dependency>` using the property kos.version from our properties section.
 
-<!-- TODO: verify snippet name -- excerpt from the parent pom.xml, not the full file -->
-<snippet-viewer source="articles" snippet="pom.xml"></snippet-viewer>
+```pom.xml
+<!-- include kOS SDK BOM -->
+<dependencyManagement>
+    <dependencies>
+        <!-- kOS SDK -->
+        <dependency>
+            <groupId>com.kosdev.kos.sdk.bom</groupId>
+            <artifactId>kos-bom</artifactId>
+            <version>${kos.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
 
 Then, in the `<dependencies>` element, we can add our core-api SDK without having to specify the version.
 
-<!-- TODO: verify snippet name -- excerpt from the parent pom.xml, not the full file -->
-<snippet-viewer source="articles" snippet="pom.xml"></snippet-viewer>
+```pom.xml
+<!-- project dependencies -->
+<dependencies>
+    <dependency>
+        <groupId>com.kosdev.kos.sdk.api</groupId>
+        <artifactId>api-core</artifactId>
+    </dependency>
+</dependencies>    
+```
 
 #### Section 3: Plugin Management
 
 The build and `<pluginManagement>` sections manage the versions of plugins used in the build process. This includes plugins for packaging your application JAR and data files and converting into a KAB file for deployment. Remember, building jars is just steps to build what a KOS environment really needs: KAB files.
 
-<!-- TODO: verify snippet name -- excerpt from the parent pom.xml, not the full file -->
-<snippet-viewer source="articles" snippet="pom.xml"></snippet-viewer>
+```pom.xml
+<!-- plugins to build zip and kab files -->
+<build>
+    <pluginManagement>
+        <plugins>
+            <!-- kOS plugin for kab files -->
+            <plugin>
+                <groupId>com.kosdev.kos.maven</groupId>
+                <artifactId>kos-sdk-maven-plugin</artifactId>
+                <version>${kos-maven-plugin.version}</version>
+            </plugin>
+        </plugins>
+    </pluginManagement>
+</build>
+```
 
 #### Section 4: Profiles
 
 The `<profiles>` section defines build profiles that can be activated under specific conditions. The developer profile is activated by default and includes plugins for packaging your application into a KAB file, tailored for KOS development. Using the kos-kab-maven-plugin, you can specify which files you need in your KAB and in which directories they should be placed.
 
-<!-- TODO: verify snippet name -- excerpt from the parent pom.xml, not the full file -->
-<snippet-viewer source="articles" snippet="pom.xml"></snippet-viewer>
-
-[Complete pom.xml](https://www.kosdev.net/kos/page/100333/Setup%20Project#complete-pom-xml)
+```pom.xml
+<profiles>
+    <profile>
+        <id>developer</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+        <build>
+            <plugins>
+                <!-- Build KAB file -->
+                <plugin>
+                    <groupId>com.kosdev.kos.maven</groupId>
+                    <artifactId>kos-kab-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>kabtool</goal>
+                            </goals>
+                            <configuration>
+                                <type>kos.system</type>
+                                <content>
+                                    <copy>
+                                        <dir>lib</dir>
+                                        <include>${project.build.directory}/${project.artifactId}-${project.version}.jar</include>
+                                    </copy>
+                                    <copy>
+                                        <dir>.</dir>
+                                        <include>${project.basedir}/descriptor.json</include>
+                                    </copy>
+                                </content>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+</profiles>
+```
 
 ### App POM file
 
 The application `pom.xml` manages the Java compilation and packages the `RackApp` code. It uses `kos.system` type in the KAB plugin, to indicate that it is being packaged into a system application KAB.
 
-<snippet-viewer source="articles" snippet="app/pom.xml"></snippet-viewer>
+```pom.xml
+<?xml version="1.0" encoding="utf-8"?>
+<!-- @kdoc-pomcomplete@ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+      <groupId>com.kos.tutorials</groupId>
+      <artifactId>rack</artifactId>
+      <version>0.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>rack-app</artifactId>
+
+
+    <!-- project dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>com.kosdev.kos.sdk.api</groupId>
+            <artifactId>api-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- build kab file -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${maven-assembly-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>make-jar-with-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.kosdev.kos.maven</groupId>
+                <artifactId>kos-kab-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>kabtool</goal>
+                        </goals>
+                        <configuration>
+                            <type>kos.system</type>
+                            <content>
+                                <copy>
+                                    <include>descriptor.json</include>
+                                </copy>
+                                <copy>
+                                    <include>
+                                        ${project.build.directory}/${project.artifactId}-${project.version}-jar-with-dependencies.jar</include>
+                                    <dir>lib</dir>
+                                </copy>
+                            </content>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+```
 
 ### Assets POM file
 
 This `pom.xml` is used to package images into a data KAB. The KAB type is a custom type called `tutorial.assets` for the purpose of this tutorial. Note, this matches the `ASSETS_KAB_TYPE` we defined in our `RackApp` to fetch the assets KAB and get the images.
 
-<snippet-viewer source="articles" snippet="assets/pom.xml"></snippet-viewer>
+```pom.xml
+<?xml version="1.0" encoding="utf-8"?>
+<!-- @kdoc-pomcomplete@ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+      <groupId>com.kos.tutorials</groupId>
+      <artifactId>rack</artifactId>
+      <version>0.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>rack-assets</artifactId>
+
+    <!-- build kab file -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.kosdev.kos.maven</groupId>
+                <artifactId>kos-kab-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>kabtool</goal>
+                        </goals>
+                        <configuration>
+                            <type>tutorial.assets</type>
+                            <content>
+                                <copy>
+                                    <include>*.png</include>
+                                </copy>
+                            </content>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+```
 
 ### Create the Descriptor File
 
@@ -127,7 +366,16 @@ The descriptor.json file provides a standardized method for embedding metadata i
 
 #### The descriptor.json File
 
-<snippet-viewer source="articles" snippet="descriptor.json"></snippet-viewer>
+```json
+{
+  "kos": {
+    "app": {
+      "appClass": "com.bookstore.rack.RackApp",
+      "appId": "system"
+    }
+  }
+}
+```
 
 `appClass`: Specifies to KOS the class that it should load to launch your application.
 
@@ -137,7 +385,7 @@ The descriptor.json file provides a standardized method for embedding metadata i
 
 #### Adding Images to Your Project
 
-Add these [four images](https://github.com/kosdev-code/kos-java-tutorials/tree/main/rack/src/main/resources/images) to the assets directory.
+Add these [four images](https://github.com/kosdev-code/kos-tutorials/tree/main/rack/assets/pics) to the assets directory.
 
 #### Project Directory Structure
 
@@ -159,10 +407,11 @@ rack/
 │                           └── RackUI.java
 ├── assets/
 │   ├── pom.xml             (Assets POM)
-│   ├── all.png
-│   ├── book1.png
-│   ├── book2.png
-│   └── book3.png
+│   └── pics
+│       ├── all.png
+│       ├── book1.png
+│       ├── book2.png
+│       └── book3.png 
 └── README.md
 ```
 
@@ -197,10 +446,11 @@ rack/
 │       └── rack-app-0.0.0-SNAPSHOT.kab
 ├── assets/
 │   ├── pom.xml  
-│   ├── all.png
-│   ├── book1.png
-│   ├── book2.png
-│   ├── book3.png
+│   ├── pics
+│   │   ├── all.png
+│   │   ├── book1.png
+│   │   ├── book2.png
+│   │   └── book3.png 
 │   └── target/
 │       ├── rack-assets-0.0.0-SNAPSHOT.jar
 │       └── rack-assets-0.0.0-SNAPSHOT.kab
@@ -213,9 +463,18 @@ By following these steps, you built your KOS system application and generated th
 
 This section guides you through using KOS Studio to create and configure a runnable KOS image for your Java application. You'll open KOS Studio, create a new image, configure it with the necessary settings, add your KAB file, and assign it to the appropriate section. You'll run the configured image in the KOS Studio simulator to test its functionality. Finally, you'll debug your applications to step through the code you've written. Following these steps is essential to running your application on your developer machine.
 
+[kondra_note type="info" title="Why can’t I run a KOS app like any other Java application?"]
+A KOS application, packaged into an image, is a complete set of code and dependencies that executes only on the KOS runtime system. KOS Studio includes a simulator to test applications in a KOS environment before deploying them to actual hardware.
+Learn more about Studio [here](https://kosdev.com/articles/kos-studio/)
+[/kondra_note]
+
 ### Create the image in Studio
 
 Now that our Java application is written and bundled into a KAB file, let's turn our attention to KOS Studio.
+
+[kondra_note type="info" title="KOS Image"]
+In a nutshell, an image, or disk image, is the blueprint for what a KOS node will run when it boots. It’s defined by a manifest, which outlines the filesystem’s contents and how user space functions. For nodes running Java, this manifest also specifies all the Java code to execute. Think of the image as an editable version of this manifest—your ticket to creating a bootable and reusable environment for multiple devices without the hassle of repeated inheritance setups.
+[/kondra_note]
 
 Follow these steps to create an image:
 
@@ -230,7 +489,7 @@ In this Images window, click on the "create new image" button.
 
 In the popup dialog, enter a "Name" for this image, leave the "Parent Image" field blank, then click "Create":
 
-<image title="Name it" name="name_it.png" caption="" />
+<image title="Name your Image" name="name_it.png" caption="" />
 
 Now the Images window shows an entry for the image you just created:
 
@@ -280,14 +539,11 @@ At this point, the "KOS Version" section is no longer red, meaning it is configu
 2. Click the "Select local artifact" button.
 3. Navigate to and select the KAB files created earlier by our Java code.
 
-<!-- TODO: verify image filename -- source page gave no alt text for these two screenshots -->
-<image title="" name="Screenshot-2026-01-27-at-2.58.16-PM-1024x654.png" caption="" />
-<image title="" name="Screenshot-2026-01-27-at-2.59.22-PM-1024x660.png" caption="" />
+<image title="Configure Local Artifact" name="local_artifact.png" caption="" />
 
-Click the Select button, where you should see:
+4. Click the Select button, where you should see:
 
-<!-- TODO: verify image filename -- source page gave no alt text for this screenshot -->
-<image title="" name="Screenshot-2026-01-27-at-3.00.48-PM-1024x732.png" caption="" />
+<image title="Showing selected private local artifact" name="available.png" caption="" />
 
 #### Add local artifact to section
 
@@ -296,13 +552,11 @@ A section in KOS is the artifact container. It is where you group your KABs and 
 1. Open the "Sections" card.
 2. Drag the "rack-app-0.0.0-SNAPSHOT.kab" item from "Local Artifacts" to the kos.system "Section".
 
-<!-- TODO: verify image filename -- source page gave no alt text for this screenshot -->
-<image title="" name="Screenshot-2026-01-27-at-3.02.00-PM-1024x890.png" caption="" />
+<image title="Add the local artifact to the kos.system section of the image" name="sections.png" caption="" />
 
 3. Create a new section called `kos.assets` to match the name defined in the `RackApp`. Add the `rack-assets-0.0.0-SNAPSHOT.kab` to this section.
 
-<!-- TODO: verify image filename -- source page gave no alt text for this screenshot -->
-<image title="" name="Screenshot-2026-01-27-at-3.04.28-PM-1024x888.png" caption="" />
+<image title="" name="rack-assets.png" caption="" />
 
 ### Execute the image
 
@@ -311,8 +565,6 @@ To run your KOS application in Studio's built-in simulator:
 1. On the main Studio screen, find your "Bestseller Rack" image entry.
 2. Ensure that "Simulator" is selected.
 3. Click the "run now" (play) icon.
-
-<image title="Start simulator" name="start_simulator.png" caption="" />
 
 The application first downloads all necessary artifacts, showing the status in the Connections window. The first time you run an application it may take a while to download the required packages. Subsequent executions open much faster.
 

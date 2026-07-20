@@ -1,3 +1,7 @@
+// extract-code rack-app
+/**
+ * (C) Copyright 2026, Kondra, All rights reserved.
+ */
 package com.bookstore.rack;
 
 import javax.swing.SwingUtilities;
