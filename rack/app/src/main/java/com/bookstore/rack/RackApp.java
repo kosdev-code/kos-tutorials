@@ -1,4 +1,3 @@
-// extract-code rack-app
 /**
  * (C) Copyright 2026, Kondra, All rights reserved.
  */
@@ -17,6 +16,7 @@ import com.kosdev.kos.core.service.app.SystemApplication;
  * @author David Vogt (david@kondra.com)
  * @version 2024-09-17
  */
+// extract-code rack-app
 public class RackApp extends SystemApplication<BaseAppConfig> {
     private static final String SECTION_ASSETS = "kos.assets";
     private static final String ASSETS_KAB_TYPE = "tutorial.assets";
@@ -38,4 +38,3 @@ public class RackApp extends SystemApplication<BaseAppConfig> {
         });
     }
 }
-// extract-code end rack-app
