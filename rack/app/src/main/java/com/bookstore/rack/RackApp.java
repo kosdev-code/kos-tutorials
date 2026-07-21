@@ -38,3 +38,4 @@ public class RackApp extends SystemApplication<BaseAppConfig> {
         });
     }
 }
+// extract-code end rack-app
