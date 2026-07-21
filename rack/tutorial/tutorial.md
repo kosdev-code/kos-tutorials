@@ -35,7 +35,7 @@ Their business objectives are:
 
 Our solution is to build a smart rack application that will rotate a collection of image files promoting recent bestselling books.
 
-<image title="" name="bestsellers.svg" caption="Open bestsellers" />
+<image title="" name="bestsellers.png" caption="Open bestsellers" />
 
 Let's dive into creating an innovative and engaging digital product rack using KOS for our customer!
 
