@@ -7,8 +7,6 @@ status: publish
 author: sneh
 ---
 
-# Your First KOS App
-
 ## Introduction
 
 Welcome to the tutorial on building your first KOS app! In this guide, you'll learn how to create, configure, build, run, and debug a KOS application from start to finish.
