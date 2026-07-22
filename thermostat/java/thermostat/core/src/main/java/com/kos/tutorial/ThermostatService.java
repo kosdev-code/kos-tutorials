@@ -33,29 +33,13 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
     @Autowired
     private final ListenerList<ThermostatListener> listeners = new ListenerList<>();
     private ControlBoard controlBoard;
+    // extract-code setup-timer
     private final AdjustableCallback timer;
 
     public ThermostatService() {
         // Create a recurring timer that fires every 1000 ms (1 second)
         // Each time it fires, re-evaluate the thermostat state
         timer = new AdjustableCallback(true, 1000, this::pollHardware);
-    }
-
-    /**
-     * Called after an Assembly is installed.
-     * <p>
-     * The service listens for the ThermostatAssembly, so it can safely
-     * retrieve the ThermostatBoard at the correct point in the lifecycle.
-     * This avoids race conditions and manual wiring.
-     */
-    @Override
-    public void onPostInstall(Assembly assembly) {
-        if (assembly instanceof ThermostatAssembly trayAssembly) {
-            controlBoard = trayAssembly.getControlBoard();
-
-            // Safely start the timer
-            timer.start();
-        }
     }
 
     /**
@@ -66,7 +50,27 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
     public void onConfigChanged(BeanChanges changes) {
         // This callback may happen before the onPostInstall() callback, so do a null check
         if (controlBoard != null) {
+            // If the user changes the set points, immediately re-evaluate mode
             pollHardware();
+        }
+    }
+    // extract-code end setup-timer
+
+    /**
+     * Called after an Assembly is installed.
+     * <p>
+     * The service listens for the ThermostatAssembly, so it can safely
+     * retrieve the ThermostatBoard at the correct point in the lifecycle.
+     * This avoids race conditions and manual wiring.
+     */
+    // extract-code setup-get-board
+    @Override
+    public void onPostInstall(Assembly assembly) {
+        if (assembly instanceof ThermostatAssembly thermostatAssembly) {
+            controlBoard = thermostatAssembly.getControlBoard();
+
+            // Safely start the timer
+            timer.start();
         }
     }
 
@@ -78,19 +82,20 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
         return getConfig().getMaxTemp();
     }
 
+    // extract-code setup-service
     /**
      * Update the maximum temperature set point.
-     * This value is stored in persistent config.
      */
     public void setMaxTemp(int maxTemp) {
+        // extract-code ignore setup-service
         getConfig().setMaxTemp(maxTemp);
     }
 
     /**
      * Update the minimum temperature set point.
-     * This value is stored in persistent config.
      */
     public void setMinTemp(int minTemp) {
+        // extract-code ignore setup-service
         getConfig().setMinTemp(minTemp);
     }
 
@@ -98,6 +103,7 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
      * Read the current environment temperature from the board.
      */
     public Integer getTemp() {
+        // extract-code ignore setup-service
         return controlBoard.getTemp();
     }
 
@@ -107,8 +113,10 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
      * communicate with real or simulated physical hardware.
      */
     public void setMode(Mode mode) {
+        // extract-code ignore setup-service
         controlBoard.setMode(mode);
     }
+    // extract-code end setup-service
 
     /**
      * Check the environment temperature against the configured min/max

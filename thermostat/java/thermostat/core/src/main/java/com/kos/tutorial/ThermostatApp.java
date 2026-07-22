@@ -45,12 +45,12 @@ public class ThermostatApp extends SystemApplication<BaseAppConfig> {
         addToCtx(new ThermostatServiceController());
     }
 
+    // extract-code setup-install-assembly
     @Override
     public void start() {
         // install the core assembly
         // This assembly loads boards
         installAssembly(new ThermostatAssembly("core"));
-        // TODO: start service instead of onPostInstall
     }
 
     @Override

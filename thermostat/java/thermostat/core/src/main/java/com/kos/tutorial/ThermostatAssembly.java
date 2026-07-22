@@ -19,11 +19,14 @@ import lombok.Getter;
  * @author Sneh Gupta (sneh@kondra.com)
  * @version 2025-12
  */
+// extract-code setup-assembly
 public class ThermostatAssembly extends Assembly implements CoreAssembly, SerialBlinkMatcher {
+    // extract-code ignore setup-assembly
     // Serial baud rate used by the Arduino Mega thermostat adapter.
     // Must match BLINK_BAUD in the Arduino firmware.
     private static final int BAUD_RATE = 115200;
 
+    // extract-code ignore setup-assembly
     // USB vendor/product ID for the Arduino Mega running the thermostat adapter.
     // This is used to identify the correct serial device during Blink probing.
     private static final UsbId ARDUINO_ID = new UsbId(0x2341, 0x42);
@@ -43,9 +46,11 @@ public class ThermostatAssembly extends Assembly implements CoreAssembly, Serial
         controlBoard = new ControlBoard(this, "thermostat");
     }
 
+    // extract-code ignore setup-assembly
     @Override
     public void start() {}
 
+    // extract-code ignore setup-assembly
     @Override
     public SerialBlinkMatch matchSerialBlinkDevice(UsbId usbId, SerialDevice device) {
         if (ARDUINO_ID.equals(usbId)) {
