@@ -25,7 +25,6 @@ public class ThermostatAssembly extends Assembly implements CoreAssembly, Serial
     // Serial baud rate used by the Arduino Mega thermostat adapter.
     // Must match BLINK_BAUD in the Arduino firmware.
     private static final int BAUD_RATE = 115200;
-
     // extract-code ignore setup-assembly
     // USB vendor/product ID for the Arduino Mega running the thermostat adapter.
     // This is used to identify the correct serial device during Blink probing.
@@ -46,7 +45,6 @@ public class ThermostatAssembly extends Assembly implements CoreAssembly, Serial
         controlBoard = new ControlBoard(this, "thermostat");
     }
 
-    // extract-code ignore setup-assembly
     @Override
     public void start() {}
 

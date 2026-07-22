@@ -22,7 +22,6 @@ public class ControlBoard extends Board implements IfaceAwareBoard {
     private static final String TYPE = "kos.tutorial.thermostat";
     // instance ID
     private static final String INSTANCE_ID = "1";
-
     // extract-code ignore setup-board
     // Client to safely call methods on the iface without error checking
     private final IfaceClient<ThermostatIface> client;
@@ -30,28 +29,27 @@ public class ControlBoard extends Board implements IfaceAwareBoard {
     public ControlBoard(Assembly assembly, String name) {
         // Create a constructor matching the super Board constructor
         super(assembly, name);
-
         // extract-code ignore setup-board
         // Create an iface Client
         client = new IfaceClient<>();
     }
 
+    // extract-code ignore setup-board
+    // extract-code setup-s3
     /**
      * Retrieves the current ambient temperature from the physical
      * temperature sensor in the environment.
      */
-    // extract-code ignore setup-board
-    // extract-code setup-s3
     public Integer getTemp() {
         // extract-code ignore setup-s3
         return client.fromCatch(iface -> iface.getTemp(), null);
     }
 
+    // extract-code ignore setup-board
     /**
      * Sets the operating mode of the physical thermostat, such as
      * heating, cooling, or idle (no active temperature control).
      */
-    // extract-code ignore setup-board
     public void setMode(Mode mode) {
         // extract-code ignore setup-s3
         client.withCatch(iface -> iface.setMode(mode));
@@ -77,13 +75,13 @@ public class ControlBoard extends Board implements IfaceAwareBoard {
         return INSTANCE_ID;
     }
 
+    // extract-code ignore setup-board
     /**
      * Callback received when implementing IfaceAwareBoard on creating a link session
      * Bind an instance of the ThermostatIface to the session
      * This iface will be later bound to the IfaceClient, which is how the logical board
      * communicates to the physical board
      */
-    // extract-code ignore setup-board
     @Override
     public void onLinkSession(BinaryMsgSession session) {
         session.bind(new ThermostatIface(session, client));

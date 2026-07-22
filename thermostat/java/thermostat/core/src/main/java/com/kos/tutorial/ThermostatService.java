@@ -68,7 +68,7 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
     public void onPostInstall(Assembly assembly) {
         if (assembly instanceof ThermostatAssembly thermostatAssembly) {
             controlBoard = thermostatAssembly.getControlBoard();
-
+            // extract-code ignore setup-get-board
             // Safely start the timer
             timer.start();
         }
