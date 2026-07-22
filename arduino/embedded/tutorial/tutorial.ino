@@ -58,14 +58,14 @@ const blinkHandler handlers[] = {
 // init and config connection
 void setup() {
   // setup the blink board type
-  blink.setBoardType("kondra.arduino");
+  blink.setBoardType("kondra.led.arduino");
   blink.setBoardInstanceId(1);
 
   // add iface for our custom handlers
-  arduinoIfaceNum = blink.addIface("kondra.arduino", 1, handlers);
+  arduinoIfaceNum = blink.addIface("kondra.led.arduino", 1, handlers);
 
   // add iface for embedded logging
-  blink.addLoggerIface("kondra.arduino", "1", sampleOverrideCallback);  
+  blink.addLoggerIface("kondra.led.arduino", "1", sampleOverrideCallback);  
   
   // configure baud rates
   Serial.begin(BLINK_BAUD);

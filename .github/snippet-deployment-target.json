@@ -1,7 +1,7 @@
 [
   {
     "input_file": "tutorial-snippets.json",
-    "output_file": "tutorial-snippets.json",
+    "output_file": "tutorial-snippets-public.json",
     "artstore": "kos_snippets"
   }
 ]
