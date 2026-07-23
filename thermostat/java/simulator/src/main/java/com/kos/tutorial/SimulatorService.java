@@ -27,6 +27,7 @@ public class SimulatorService extends AbstractConfigurableService<SimulatorServi
     private Random random;
     private ThermostatClient client;
 
+    // extract-code thermostat-sim-service-init
     public SimulatorService() {
         thermostat  = new Thermostat(INITIAL_TEMP, INITIAL_MODE.ordinal());
         random = new Random();
@@ -35,6 +36,7 @@ public class SimulatorService extends AbstractConfigurableService<SimulatorServi
     /**
      * Callback when dependencies are ready
      */
+    // extract-code thermostat-sim-service-ready
     @Override
     public boolean onBeanReady() {
         // Timer to change simulate slight shifts in the environment temperature
@@ -47,6 +49,7 @@ public class SimulatorService extends AbstractConfigurableService<SimulatorServi
     /**
      * Simulates small shifts in the environment temperature
      */
+    // extract-code thermostat-sim-service-temp
     private void changeTemp() {
         if (thermostat.getMode() == Mode.OFF.ordinal()) {
             thermostat.setTemp(thermostat.getTemp() + random.nextGaussian() * getConfig().getAmbientTempStd());
@@ -60,6 +63,7 @@ public class SimulatorService extends AbstractConfigurableService<SimulatorServi
     /**
      * Setup the thermostat client which communicates with the java backend via Binary link
      */
+    // extract-code thermostat-sim-blink
     public void connectToNetwork() {
         BinaryMsgIdentity identity = new BinaryMsgIdentity();
         identity.setName(NAME);

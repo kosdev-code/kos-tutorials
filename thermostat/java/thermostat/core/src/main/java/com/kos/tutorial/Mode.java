@@ -11,8 +11,10 @@ import com.kosdev.kos.sdk.annotations.Sdk;
  * @author Sneh Gupta (sneh@kondra.com)
  * @version 2025-12
  */
+// extract-code thermostat-sim-sdk
 @Sdk
 public enum Mode {
+    // extract-code end thermostat-sim-sdk
     OFF {
         @Override public String getColor() { return "#AFB2B4"; }
     },

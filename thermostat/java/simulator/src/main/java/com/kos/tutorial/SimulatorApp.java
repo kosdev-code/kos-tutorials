@@ -12,6 +12,7 @@ import com.kosdev.kos.core.service.app.BaseAppConfig;
  * @author Sneh Gupta (sneh@kondra.com)
  * @version 2025-12
  */
+// extract-code thermostat-sim-app
 public class SimulatorApp extends Application<BaseAppConfig> {
 
     public void load() {

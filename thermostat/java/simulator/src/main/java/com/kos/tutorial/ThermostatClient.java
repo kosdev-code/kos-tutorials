@@ -13,6 +13,7 @@ import com.kosdev.kos.commons.core.service.blink.binarymsg.BinaryMsgIdentity;
  * @author Sneh Gupta (sneh@kondra.com)
  * @version 2025-12
  */
+// extract-code thermostat-sim-client
 public class ThermostatClient extends BinaryMsgClient {
     private static final String NAME = "kos.tutorial.thermostat";
     private static final String INSTANCE_ID = "1";
