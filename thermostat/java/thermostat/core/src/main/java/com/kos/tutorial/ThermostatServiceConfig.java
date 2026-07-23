@@ -14,7 +14,7 @@ import lombok.Setter;
  * @author Sneh Gupta (sneh@kondra.com)
  * @version 2025-12
  */
-// extract-code setup-config
+// extract-code thermostat-setup-config
 @Getter @Setter
 public class ThermostatServiceConfig extends ConfigBean {
     @ConfigDesc(value = "Maximum temperature set on the thermostat")

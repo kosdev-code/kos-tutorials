@@ -9,7 +9,7 @@ package com.kos.tutorial;
  * @author Sneh Gupta (sneh@kondra.com)
  * @version 2025-12
  */
-// extract-code backend-listener
+// extract-code thermostat-backend-listener
 public interface ThermostatListener {
     void onTemperatureChange(int temperature);
     void onModeChange(Mode mode);

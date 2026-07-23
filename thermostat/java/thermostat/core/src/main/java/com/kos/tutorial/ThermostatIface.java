@@ -18,7 +18,7 @@ import java.io.IOException;
  * @author Sneh Gupta (sneh@kondra.com)
  * @version 2025-12
  */
-// extract-code backend-iface
+// extract-code thermostat-backend-iface
 public class ThermostatIface extends BinaryMsgIface {
     // iface name
     public static final String NAME = "kos.tutorial.thermostat";

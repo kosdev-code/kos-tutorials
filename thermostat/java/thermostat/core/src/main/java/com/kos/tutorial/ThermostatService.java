@@ -29,11 +29,11 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
     private static final String TOPIC_THERMOSTAT_STATE = "/thermostat/state";
     @Autowired
     private MessageBroker broker;
-    // extract-code backend-listener-list
+    // extract-code thermostat-backend-listener-list
     @Autowired
     private final ListenerList<ThermostatListener> listeners = new ListenerList<>();
     private ControlBoard controlBoard;
-    // extract-code setup-timer
+    // extract-code thermostat-setup-timer
     private final AdjustableCallback timer;
 
     public ThermostatService() {
@@ -54,7 +54,7 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
             pollHardware();
         }
     }
-    // extract-code end setup-timer
+    // extract-code end thermostat-setup-timer
 
     /**
      * Called after an Assembly is installed.
@@ -63,12 +63,12 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
      * retrieve the ThermostatBoard at the correct point in the lifecycle.
      * This avoids race conditions and manual wiring.
      */
-    // extract-code setup-get-board
+    // extract-code thermostat-setup-get-board
     @Override
     public void onPostInstall(Assembly assembly) {
         if (assembly instanceof ThermostatAssembly thermostatAssembly) {
             controlBoard = thermostatAssembly.getControlBoard();
-            // extract-code ignore setup-get-board
+            // extract-code ignore thermostat-setup-get-board
             // Safely start the timer
             timer.start();
         }
@@ -82,12 +82,12 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
         return getConfig().getMaxTemp();
     }
 
-    // extract-code setup-service
+    // extract-code thermostat-setup-service
     /**
      * Update the maximum temperature set point.
      */
     public void setMaxTemp(int maxTemp) {
-        // extract-code ignore setup-service
+        // extract-code ignore thermostat-setup-service
         getConfig().setMaxTemp(maxTemp);
     }
 
@@ -95,7 +95,7 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
      * Update the minimum temperature set point.
      */
     public void setMinTemp(int minTemp) {
-        // extract-code ignore setup-service
+        // extract-code ignore thermostat-setup-service
         getConfig().setMinTemp(minTemp);
     }
 
@@ -103,7 +103,7 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
      * Read the current environment temperature from the board.
      */
     public Integer getTemp() {
-        // extract-code ignore setup-service
+        // extract-code ignore thermostat-setup-service
         return controlBoard.getTemp();
     }
 
@@ -113,10 +113,10 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
      * communicate with real or simulated physical hardware.
      */
     public void setMode(Mode mode) {
-        // extract-code ignore setup-service
+        // extract-code ignore thermostat-setup-service
         controlBoard.setMode(mode);
     }
-    // extract-code end setup-service
+    // extract-code end thermostat-setup-service
 
     /**
      * Check the environment temperature against the configured min/max
@@ -139,11 +139,11 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
         // Send temp and mode values to UI
         broker.send(TOPIC_THERMOSTAT_STATE, new ThermostatState(temp, mode.name()));
 
-        // extract-code backend-notify
+        // extract-code thermostat-backend-notify
         // Notify listeners
         listeners.forEach(l -> l.onTemperatureChange(temp));
         listeners.forEach(l -> l.onModeChange(mode));
-        // extract-code end backend-notify
+        // extract-code end thermostat-backend-notify
     }
 
     public ThermostatState getState() {

@@ -29,7 +29,7 @@ public class ThermostatUI extends JFrame implements ReadyAndReadyListener, Therm
     private static final int INITIAL_TEMP = 70;
 
     // Use dependency injection to access the thermostatService
-    // extract-code backend-autowire
+    // extract-code thermostat-backend-autowire
     @Autowired
     private ThermostatService thermostatService;
     // ReadyIndicator so that the UI can indicate when it is ready
@@ -163,7 +163,7 @@ public class ThermostatUI extends JFrame implements ReadyAndReadyListener, Therm
         return readyIndicator;
     }
 
-    // extract-code backend-updates
+    // extract-code thermostat-backend-updates
     /**
      * Callback when temperature is updated because ThermostatListener is implemented
      */
@@ -180,5 +180,5 @@ public class ThermostatUI extends JFrame implements ReadyAndReadyListener, Therm
         modeLabel.updateText(mode.name());
         modeLabel.updateColor(Color.decode(mode.getColor()));
     }
-    // extract-code end backend-updates
+    // extract-code end thermostat-backend-updates
 }

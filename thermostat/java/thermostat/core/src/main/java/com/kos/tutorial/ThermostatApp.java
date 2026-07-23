@@ -45,7 +45,7 @@ public class ThermostatApp extends SystemApplication<BaseAppConfig> {
         addToCtx(new ThermostatServiceController());
     }
 
-    // extract-code setup-install-assembly
+    // extract-code thermostat-setup-install-assembly
     @Override
     public void start() {
         // install the core assembly

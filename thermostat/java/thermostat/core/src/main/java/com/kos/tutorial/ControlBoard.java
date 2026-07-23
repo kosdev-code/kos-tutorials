@@ -16,54 +16,54 @@ import com.kosdev.kos.core.service.hardware.IfaceAwareBoard;
  * @author Sneh Gupta (sneh@kondra.com)
  * @version 2025-12
  */
-// extract-code setup-board
+// extract-code thermostat-setup-board
 public class ControlBoard extends Board implements IfaceAwareBoard {
     // board type: ensure it is unique by namespacing
     private static final String TYPE = "kos.tutorial.thermostat";
     // instance ID
     private static final String INSTANCE_ID = "1";
-    // extract-code ignore setup-board
+    // extract-code ignore thermostat-setup-board
     // Client to safely call methods on the iface without error checking
     private final IfaceClient<ThermostatIface> client;
 
     public ControlBoard(Assembly assembly, String name) {
         // Create a constructor matching the super Board constructor
         super(assembly, name);
-        // extract-code ignore setup-board
+        // extract-code ignore thermostat-setup-board
         // Create an iface Client
         client = new IfaceClient<>();
     }
 
-    // extract-code ignore setup-board
-    // extract-code setup-s3
-    // extract-code backend-s1
+    // extract-code ignore thermostat-setup-board
+    // extract-code thermostat-setup-s3
+    // extract-code thermostat-backend-s1
     /**
      * Retrieves the current ambient temperature from the physical
      * temperature sensor in the environment.
      */
     public Integer getTemp() {
-        // extract-code ignore setup-s3
+        // extract-code ignore thermostat-setup-s3
         return client.fromCatch(iface -> iface.getTemp(), null);
     }
 
-    // extract-code ignore setup-board
+    // extract-code ignore thermostat-setup-board
     public Mode getMode() {
-        // extract-code ignore setup-s3
+        // extract-code ignore thermostat-setup-s3
         return client.fromCatch(iface -> iface.getMode(), null);
     }
-    // extract-code end backend-s1
+    // extract-code end thermostat-backend-s1
 
-    // extract-code ignore setup-board
+    // extract-code ignore thermostat-setup-board
     /**
      * Sets the operating mode of the physical thermostat, such as
      * heating, cooling, or idle (no active temperature control).
      */
-    // extract-code backend-s2
+    // extract-code thermostat-backend-s2
     public void setMode(Mode mode) {
-        // extract-code ignore setup-s3
+        // extract-code ignore thermostat-setup-s3
         client.withCatch(iface -> iface.setMode(mode));
     }
-    // extract-code end setup-s3
+    // extract-code end thermostat-setup-s3
 
     @Override
     public String getType() {
@@ -79,7 +79,7 @@ public class ControlBoard extends Board implements IfaceAwareBoard {
         return INSTANCE_ID;
     }
 
-    // extract-code ignore setup-board
+    // extract-code ignore thermostat-setup-board
     /**
      * Callback received when implementing IfaceAwareBoard on creating a link session
      * Bind an instance of the ThermostatIface to the session
