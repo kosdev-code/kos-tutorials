@@ -8,11 +8,14 @@
 /* (C) Copyright 2025, TCCC                                   */
 /* All rights reserved.                                       */
 /*------------------------------------------------------------*/
+// extract-code thermostat-hardware-clib
 #include <blink.h>
 
 // setup blink using Serial as the transport
+// extract-code thermostat-hardware-serial
 SerialBlinkComm comm(&Serial);
 BlinkService blink(&comm);
+// extract-code end thermostat-hardware-serial
 
 // baud rates for blink
 #define BLINK_BAUD           115200
@@ -38,11 +41,14 @@ static const int modePins[] = { OFF, HEATING, COOLING };
 // Store state: Current thermostat mode (0=OFF, 1=HEATING, 2=COOLING)
 static int8_t currentMode = 0;
 
+// extract-code thermostat-hardware-functions
 // Function declarations
 static void getTemp(BlinkService *s);
 static void getMode(BlinkService *s);
 static void setMode(BlinkService *s);
+// extract-code end thermostat-hardware-functions
 
+// extract-code thermostat-hardware-handlers
 // handlers table for java side iface methods
 const blinkHandler handlers[] = {
     (blinkHandler) getTemp, // api 0
@@ -50,13 +56,17 @@ const blinkHandler handlers[] = {
     (blinkHandler) setMode, // api 2
     NULL
 };
+// extract-code end thermostat-hardware-handlers
 
 // Setup function
+// extract-code thermostat-hardware-setup
 void setup() {
     Serial.begin(BLINK_BAUD);
 
     blink.setBoardType(BOARD_TYPE);
     blink.setBoardInstanceId(INSTANCE);
+    // extract-code end thermostat-hardware-setup
+    // extract-code end thermostat-hardware-add-iface
     blink.addIface(BOARD_NAME, 1, handlers);
 
     // Initialize mode LEDs
@@ -72,11 +82,13 @@ void setup() {
     digitalWrite(OFF, HIGH);
 }
 
+// extract-code thermostat-hardware-loop
 // Main loop
 void loop() {
     blink.poll();
 }
 
+// extract-code thermostat-hardware-get-temp
 // API 0: get temperature (returns °F)
 static void getTemp(BlinkService *s) {
     int raw = analogRead(TEMP_SENSOR_PIN);
@@ -105,6 +117,7 @@ static void getTemp(BlinkService *s) {
     s->write(&temp, msgSize);
 }
 
+// extract-code thermostat-hardware-get-mode
 // API 1: get current mode
 static void getMode(BlinkService *s) {
     int msgSize = sizeof(currentMode);
@@ -112,6 +125,7 @@ static void getMode(BlinkService *s) {
     s->write(&currentMode, msgSize);
 }
 
+// extract-code thermostat-hardware-set-mode
 // API 2: set mode
 static void setMode(BlinkService *s) {
     // Read mode: 1 byte from the incoming stream

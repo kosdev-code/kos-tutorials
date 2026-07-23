@@ -1,8 +1,9 @@
 ---
 title: Connecting to a Browser-Based UI
 excerpt: The backend sends real-time state updates to a browser-based UI using KOS message broker topics, enabling a reactive, event-driven interface.
-categories: [Backend]
+categories: ["Thermostat Backend"]
 tags: [Tutorial]
+date: 2026-07-13 00:00:00
 status: publish
 author: sneh
 ---

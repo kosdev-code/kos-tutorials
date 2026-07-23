@@ -71,13 +71,13 @@ Rather than bundling images inside the application [KAB](https://kosdev.com/arti
 
 Creating a system application for KOS is as simple as extending the `SystemApplication` class. In the example below, we use the `load()` method to retrieve our asset KAB and then pass it to our UI.
 
-<snippet-viewer source="tutorials" snippet="rack-app@RackApp.java"></snippet-viewer>
+<snippet-viewer source="tutorials-public" snippet="rack-app@RackApp.java"></snippet-viewer>
 
 ### The User Interface
 
 The provided Java code defines a class `RackUI` that displays the book rack content directly from the `KabFile`. It is launched in the started method of the System Application. It uses the KOS `AdjustableCallback` to handle the timing of the image rotation.
 
-<snippet-viewer source="tutorials" snippet="rack-ui@RackUI.java"></snippet-viewer>
+<snippet-viewer source="tutorials-public" snippet="rack-ui@RackUI.java"></snippet-viewer>
 
 ## Step 3: Setup Project
 

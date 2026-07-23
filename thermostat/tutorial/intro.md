@@ -1,8 +1,9 @@
 ---
 title: Thermostat Tutorial Introduction
 excerpt: Build an end-to-end KOS application, covering backend logic, hardware integration, and user interface integration
-categories: [Backend]
+categories: ["Thermostat Backend"]
 tags: [Tutorial]
+date: 2026-07-10 00:00:00
 status: publish
 author: sneh
 ---

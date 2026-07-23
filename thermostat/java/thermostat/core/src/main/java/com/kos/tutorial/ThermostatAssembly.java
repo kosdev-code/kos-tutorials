@@ -49,6 +49,7 @@ public class ThermostatAssembly extends Assembly implements CoreAssembly, Serial
     public void start() {}
 
     // extract-code ignore thermostat-setup-assembly
+    // extract-code thermostat-hardware-blink
     @Override
     public SerialBlinkMatch matchSerialBlinkDevice(UsbId usbId, SerialDevice device) {
         if (ARDUINO_ID.equals(usbId)) {
