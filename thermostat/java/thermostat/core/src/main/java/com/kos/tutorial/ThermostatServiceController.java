@@ -13,10 +13,12 @@ import com.kosdev.kos.commons.core.dispatcher.annotations.ApiEndpoint;
  * @author Sneh Gupta (sneh@kondra.com)
  * @version 2025-10
  */
+// extract-code thermostat-browser-controller
 @ApiController(base = "/thermostat/service",
         title = "Thermostat Service controller",
         desc = "Endpoints for interacting with the thermostat")
 public class ThermostatServiceController {
+
     @Autowired
     private ThermostatService service;
 

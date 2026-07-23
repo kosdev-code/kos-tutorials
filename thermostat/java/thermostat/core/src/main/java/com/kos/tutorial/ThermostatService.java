@@ -137,6 +137,7 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
         setMode(mode);
 
         // Send temp and mode values to UI
+        // extract-code thermostat-browser-broker
         broker.send(TOPIC_THERMOSTAT_STATE, new ThermostatState(temp, mode.name()));
 
         // extract-code thermostat-backend-notify

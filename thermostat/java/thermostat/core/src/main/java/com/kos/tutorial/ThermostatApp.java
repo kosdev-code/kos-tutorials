@@ -33,8 +33,10 @@ public class ThermostatApp extends SystemApplication<BaseAppConfig> {
     @Override
     public void load() {
         // Load the UI KAB
+        // extract-code thermostat-browser-kab
         KabFile uiKab = getKabByType(UI_KAB_TYPE);
         if (uiKab != null) {
+            // extract-code thermostat-browser-vfs
             uiVfsSource = getVfs().mount("/ui", uiKab);
         } else {
             log.error("kos.ui KAB not found.");
@@ -42,6 +44,7 @@ public class ThermostatApp extends SystemApplication<BaseAppConfig> {
 
         // Beans added to the context in load() are automatically autowired before the start() callback
         addToCtx(new ThermostatService());
+        // extract-code thermostat-browser-controller
         addToCtx(new ThermostatServiceController());
     }
 
@@ -67,6 +70,7 @@ public class ThermostatApp extends SystemApplication<BaseAppConfig> {
 //        });
 
         // Browser-based UI
+        // extract-code thermostat-browser-url
         browserService.goToUrl(uiVfsSource.getFullPath("index.html"));
     }
 }
