@@ -43,7 +43,7 @@ Controllers are a common concept in KOS applications. They define HTTP APIs that
 
 A controller, `ThermostatServiceController`, for the thermostat service can be defined as follows. The class is marked as a controller using the `@ApiController` annotation. Each endpoint is defined using the `@ApiEndpoint` annotation, which specifies the `HTTP` operation type, `URL` path, and description. The supported operations are `GET`, `PUT`, `POST`, and `DELETE`.
 
-<snippet-viewer source="tutorials-public" snippet="thermostat-browser-controller@ThermostatController.java"></snippet-viewer>
+<snippet-viewer source="tutorials-public" snippet="thermostat-browser-controller@ThermostatServiceController.java"></snippet-viewer>
 
 To make the controller active and visible in the "API Browser" tool on KOS Studio, it must be added to the application context:
 
