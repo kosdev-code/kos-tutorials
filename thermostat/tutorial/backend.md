@@ -19,7 +19,7 @@ Multiple ifaces can operate concurrently over the same session. On the Java side
 
 The diagram below illustrates this idea. A single network connection to a board can carry multiple ifaces, such as a thermostat iface, a humidity iface, and a board iface. Each iface is routed to the appropriate board or service on the Java side. The board iface plays a special role: it connects to `HardwareService` and enables KOS to automatically discover and link all other ifaces on that connection to their correct targets. The diagram also shows a separate network connection that links the `FilesystemService` on the Java side to the native filesystem.
 
-![]()![](https://kosdev.com/wp-content/uploads/2025/12/Network-Connection-3_1.png)
+<image title="" name="native-to-java.png" caption="" />
 
 An iface is a protocol that describes how KOS communicates with an external system. Rather than embedding hardware-specific logic inside services or boards, ifaces cleanly separate what the system can do from how it is implemented. This keeps the system modular and allows hardware implementations to change independently from the Java application.
 
@@ -27,21 +27,13 @@ In many KOS deployments, ifaces are implemented by native adapters that communic
 
 ### Accessing Hardware with IfaceClient
 
-Ifaces are inherently transient: they only exist while the associated hardware or adapter is connected. If a device disconnects, restarts, or reconnects, the previous iface [instance](https://kosdev.com/articles/artifacts-instances-and-stores/) becomes invalid and a new one is created. Managing this lifecycle manually leads to race conditions and error handling.
+Ifaces are inherently transient: they only exist while the associated hardware or adapter is connected. If a device disconnects, restarts, or reconnects, the previous iface instance becomes invalid and a new one is created. Managing this lifecycle manually leads to race conditions and error handling.
 
 To address this, KOS provides `IfaceClient`, a long-living client wrapper around an iface. An `IfaceClient` allows an object to safely interact with the hardware at any time, even when the hardware is temporarily unavailable. The client automatically tracks the active iface instance and handles lifecycle events internally.
 
 As a result, the `ThermostatBoard` holds an instance of `IfaceClient`, which it uses to communicate with the physical hardware.
 
-```
-public class ThermostatBoard extends Board {
-    private final IfaceClient<ThermostatIface> client;
-    public ThermostatBoard() {
-        // Create an instance of the ifaceClient within the constructor
-        client = new IfaceClient<>();
-    }
-}
-```
+<snippet-viewer source="tutorials-private" snippet="backend-board@ControlBoard.java"></snippet-viewer>
 
 Optionally, the board can implement `IfaceConnectAware` to receive callbacks when the iface connects and disconnects. These hooks can be used to perform setup, cleanup, or validation as needed.
 
@@ -49,26 +41,11 @@ Optionally, the board can implement `IfaceConnectAware` to receive callbacks whe
 
 To retrieve data from the hardware, the board uses the `IfaceClient`'s `from()` methods. These methods safely return a value when the iface is connected and handle error cases consistently.
 
-```
-public int getTemp() {
-    return client.from(iface -> iface.getTemp());
-}
-public Mode getMode() throws IOException {
-    return client.from(iface -> iface.getMode());
-}
-```
+<snippet-viewer source="tutorials-public" snippet="backend-s1@ControlBoard.java"></snippet-viewer>
 
 To send commands to the hardware, the board uses the `with()` methods, which safely sends values to the iface.
 
-```
-/**
- * Sets the operating mode of the physical thermostat, such as
- * heating, cooling, or idle (no active temperature control).
- */
-public void setMode(Mode mode) {
-    client.with(iface -> iface.setMode(mode));
-}
-```
+<snippet-viewer source="tutorials-public" snippet="backend-s2@ControlBoard.java"></snippet-viewer>
 
 With this approach the board remains a clean abstraction, while all hardware communication, lifecycle management, and error handling are delegated to the `IfaceClient`.
 
@@ -76,36 +53,7 @@ With this approach the board remains a clean abstraction, while all hardware com
 
 The `ThermostatIface` defines the thermostat-specific messaging protocol used to communicate with the hardware. An iface groups a related set of operations into a single interface, with each iface defining its own namespace of API numbers (0 to 255). This keeps different areas of functionality isolated and easier to evolve independently. These API numbers form a contract between the Java side and the firmware running on the device.
 
-```
-public class ThermostatIface extends BinaryMsgIface {
-    // iface name
-    public static final String NAME = "kos.tutorial.thermostat";
-    // API numbers
-    // API number for requesting current temperature
-    private static final int API_GET_TEMP = 0;
-    // API number for setting the thermostat operating mode
-    private static final int API_SET_MODE = 1;
-    public ThermostatIface(BinaryMsgSession session,
-                           BinaryMsgIfaceListener<?> listener) {
-        super(NAME, session, listener);
-    }
-    /**
-     * Return the temperature reading in Fahrenheit.
-     */
-    public int getTemp() throws IOException {
-        BinaryMsg msg = msg(API_GET_TEMP);
-        return sendAndRecvInt(msg);
-    }
-    /**
-     * Set the operating mode of the thermostat.
-     */
-    public void setMode(Mode mode) throws IOException {
-        BinaryMsg msg = msg(API_SET_MODE);
-        msg.writeByte(mode.ordinal());
-        send(msg);
-    }
-}
-```
+<snippet-viewer source="tutorials-public" snippet="backend-iface@ThermostatIface.java"></snippet-viewer>
 
 The iface extends `BinaryMsgIface`, the base abstraction for message based communication over a `BinaryMsgSession`. When a session is established, Java and the adapter exchange the list of supported ifaces. This negotiation step decouples Java code from transport details and enables the same iface to be reused across different hardware implementations.
 
@@ -136,32 +84,11 @@ The system application lifecycle is important here:
 - Beans added to the context during `load()` are automatically autowired before `start()` is called.
 - Beans added after `load()` must be manually autowired by calling `update()` on the context.
 
-```
-@Override
-public void load() {
-    // Beans added to the BeanContext in load() are automatically autowired
-    addToCtx(new ThermostatService());
-}
-@Override
-public void started() {
-    // Create the java swing UI window
-    SwingUtilities.invokeLater(new Runnable() {
-            ThermostatUI ui = new ThermostatUI();
-            addToCtx(ui);
-  
-            // Beans added after load() must be explicitly autowired
-            getCtx().update();
-            ui.setVisible(true);
-    });
-}
-```
+<snippet-viewer source="tutorials-private" snippet="backend-autowire@ThermostatApp.java"></snippet-viewer>
 
 Inside the UI, the `ThermostatService` can now be injected directly
 
-```
-@Autowired
-private ThermostatService thermostatService;
-```
+<snippet-viewer source="tutorials-public" snippet="backend-autowire@ThermostatUI.java"></snippet-viewer>
 
 This allows the UI to invoke service methods, for example updating [configuration](https://kosdev.com/articles/configuration/) values when a button is pressed.
 
@@ -173,30 +100,11 @@ To handle this safely, KOS uses a "ready" protocol. Components that require set 
 
 Implementing `Ready`: If a component itself has initialization steps and needs to notify others when it is ready, it implements `Ready` and exposes a `ReadyIndicator`.
 
-```
-public class ThermostatUI extends JFrame implements Ready {
-    private final ReadyIndicator readyIndicator = new ReadyIndicator();
-  
-    @Override
-    public ReadyIndicator getReady() {
-        return readyIndicator;
-    }
-}
-```
+<snippet-viewer source="tutorials-private" snippet="backend-ready@ThermostatUI.java"></snippet-viewer>
 
 Implementing `ReadyListener`: If a component depends on one or more `Ready` objects, for example the UI depends on the `ThermostatService`, it implements `ReadyListener`. KOS will automatically detect will when all dependencies have become ready and invoke `onBeanReady()`.
 
-```
-public class ThermostatUI extends JFrame implements ReadyListener {
-    @Autowired
-    private ThermostatService thermostatService;
-    @Override
-    public boolean onBeanReady() {
-        // Safe to use thermostatService here
-        return true;
-    }
-}
-```
+<snippet-viewer source="tutorials-private" snippet="backend-on-ready@ThermostatUI.java"></snippet-viewer>
 
 This avoids race conditions, ensures configuration values are valid before being accessed, and removes the need for manual dependency logic.
 
@@ -204,48 +112,19 @@ This avoids race conditions, ensures configuration values are valid before being
 
 Now the UI needs to react whenever the service detects a temperature or mode change. Instead of having the `ThermostatService` call the UI directly, which would tightly couple the two, a listener pattern is used. A `ThermostatListener` interface is defined with callbacks for temperature and mode updates. Any component that wants to receive those updates simply implements this interface.
 
-```
-public interface ThermostatListener {
-    public void onTemperatureChange(int temperature);
-    public void onModeChange(Mode mode);
-}
-```
+<snippet-viewer source="tutorials-public" snippet="backend-listener@ThermostatListener.java"></snippet-viewer>
 
-Inside the `ThermostatService`, a `ListenerList<ThermostatListener>` holds every registered listener. Whenever the thermostat encounters new data, it notifies all the listeners by calling their `onTemperatureChange()` and `onModeChange()` methods. The service does not need to know who these listeners are, it just broadcasts updates to the list.
+Inside the `ThermostatService`, a `ListenerList<ThermostatListener>` holds every registered listener. 
 
-```
-public class ThermostatService {
-    @Autowired
-    private final ListenerList<ThermostatListener> listeners = new ListenerList<>();
-    private void react() {
-        // Notify listeners
-        listeners.forEach(l -> l.onTemperatureChange(temp));
-        listeners.forEach(l -> l.onModeChange(mode));
-    }
-}
-```
+<snippet-viewer source="tutorials-public" snippet="backend-listener-list@ThermostatService.java"></snippet-viewer>
+
+Whenever the thermostat encounters new data, it notifies all the listeners by calling their `onTemperatureChange()` and `onModeChange()` methods. The service does not need to know who these listeners are, it just broadcasts updates to the list.
+
+<snippet-viewer source="tutorials-public" snippet="backend-notify@ThermostatService.java"></snippet-viewer>
 
 The UI becomes a listener by implementing `ThermostatListener`. This gives it callbacks invoked by the service. As stated earlier, both the service and UI live in the application context. By design, the `ListenerList<T>` is autowired, and any object that implements `T` is automatically registered as a listener, no manual registration or cleanup is required.
 
-```
-public class ThermostatUI implements ThermostatListener {
-    /**
-     * Callback when temperature is updated because ThermostatListener is implemented
-     */
-    @Override
-    public void onTemperatureChange(int temperature) {
-        currentTempLabel.updateText(temperature + " F");
-    }
-    /**
-     * Callback when mode is updated because ThermostatListener is implemented
-     */
-    @Override
-    public void onModeChange(Mode mode) {
-        modeLabel.updateText(mode.name());
-        modeLabel.updateColor(Color.decode(mode.getColor()));
-    }
-}
-```
+<snippet-viewer source="tutorials-public" snippet="backend-updates@ThermostatUI.java"></snippet-viewer>
 
 KOS handles the entire lifecycle: components appear, are recognized as listeners, are registered, and those destroyed are unregistered. This keeps the design simple, and fully decoupled.
 

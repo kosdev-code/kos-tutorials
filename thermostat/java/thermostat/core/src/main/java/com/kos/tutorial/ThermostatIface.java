@@ -18,10 +18,10 @@ import java.io.IOException;
  * @author Sneh Gupta (sneh@kondra.com)
  * @version 2025-12
  */
+// extract-code backend-iface
 public class ThermostatIface extends BinaryMsgIface {
     // iface name
     public static final String NAME = "kos.tutorial.thermostat";
-
     // API numbers
     // API number for requesting current temperature
     private static final int API_GET_TEMP = 0;

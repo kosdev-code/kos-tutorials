@@ -27,9 +27,9 @@ import com.kosdev.kos.core.service.assembly.AssemblyPrePostInstallListener;
  */
 public class ThermostatService extends AbstractConfigurableService<ThermostatServiceConfig> implements AssemblyPrePostInstallListener {
     private static final String TOPIC_THERMOSTAT_STATE = "/thermostat/state";
-
     @Autowired
     private MessageBroker broker;
+    // extract-code backend-listener-list
     @Autowired
     private final ListenerList<ThermostatListener> listeners = new ListenerList<>();
     private ControlBoard controlBoard;
@@ -139,9 +139,11 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
         // Send temp and mode values to UI
         broker.send(TOPIC_THERMOSTAT_STATE, new ThermostatState(temp, mode.name()));
 
+        // extract-code backend-notify
         // Notify listeners
         listeners.forEach(l -> l.onTemperatureChange(temp));
         listeners.forEach(l -> l.onModeChange(mode));
+        // extract-code end backend-notify
     }
 
     public ThermostatState getState() {

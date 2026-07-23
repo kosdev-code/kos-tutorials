@@ -36,6 +36,7 @@ public class ControlBoard extends Board implements IfaceAwareBoard {
 
     // extract-code ignore setup-board
     // extract-code setup-s3
+    // extract-code backend-s1
     /**
      * Retrieves the current ambient temperature from the physical
      * temperature sensor in the environment.
@@ -46,20 +47,23 @@ public class ControlBoard extends Board implements IfaceAwareBoard {
     }
 
     // extract-code ignore setup-board
+    public Mode getMode() {
+        // extract-code ignore setup-s3
+        return client.fromCatch(iface -> iface.getMode(), null);
+    }
+    // extract-code end backend-s1
+
+    // extract-code ignore setup-board
     /**
      * Sets the operating mode of the physical thermostat, such as
      * heating, cooling, or idle (no active temperature control).
      */
+    // extract-code backend-s2
     public void setMode(Mode mode) {
         // extract-code ignore setup-s3
         client.withCatch(iface -> iface.setMode(mode));
     }
     // extract-code end setup-s3
-
-    // extract-code ignore setup-board
-    public Mode getMode() {
-        return client.fromCatch(iface -> iface.getMode(), null);
-    }
 
     @Override
     public String getType() {
