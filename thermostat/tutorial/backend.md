@@ -7,7 +7,7 @@ status: publish
 author: sneh
 ---
 
-## Introduction
+## Introduction 
 
 This section focuses on preparing the `ThermostatBoard` to communicate with hardware using an `IfaceClient`. It also ensures that the UI and backend are fully wired, connected, and reactive.
 
