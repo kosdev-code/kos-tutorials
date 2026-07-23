@@ -1,7 +1,7 @@
 ---
 title: Backend Wiring and Reactive UI
 excerpt: Learn how a board communicates with hardware through IfaceClient, enabling a reactive and decoupled backend and UI.
-categories: ["Thermostat Backend"]
+categories: [Thermostat Backend]
 tags: [Tutorial]
 date: 2026-07-12 00:00:00
 status: publish
