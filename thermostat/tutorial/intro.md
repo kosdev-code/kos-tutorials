@@ -8,7 +8,11 @@ status: publish
 author: sneh
 ---
 
-This tutorial series demonstrates how to build an end-to-end thermostat application, covering backend logic, hardware integration, and user interface integration. Before starting this tutorial, the reader should complete the “Your First KOS App” tutorial, which explains how to create a simple System Application in KOS and run it using KOS Studio. That tutorial establishes the core structure and tooling that are used in KOS.
+This tutorial series demonstrates how to build an end-to-end thermostat application, covering backend logic, hardware integration, and user interface integration.
+
+[kondra_note type="admin-alert" title="Target Audience"]
+This tutorial assumes you have completed the [Your First KOS App](https://staging23.kosdev.com/articles/rack_tutorial_tutorial_md/#kondra-heading-6) tutorial. The source code for the thermostat tutorials is available on [GitHub](https://github.com/kosdev-code/kos-tutorials/tree/main/thermostat).
+[/kondra_note]
 
 The goal of this tutorial is not to create a production-ready thermostat, but to clearly illustrate how KOS concepts work together in practice—including connecting logical and physical Boards, building a hardware simulator, using configs, services, the message broker, and applications.
 

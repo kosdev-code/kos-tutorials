@@ -16,7 +16,7 @@ Before beginning, ensure you have completed all three steps in the [Get Started 
 [/kondra_note]
 
 [kondra_note type="admin-alert" title="Target Audience"]
-This tutorial assumes you have Java experience. The source code for these tutorials is available on [GitHub](https://github.com/kosdev-code/kos-tutorials).
+This tutorial assumes you have Java experience. The source code for these tutorials is available on [GitHub](https://github.com/kosdev-code/kos-tutorials/tree/main/rack).
 [/kondra_note]
 
 ## Customer Request
