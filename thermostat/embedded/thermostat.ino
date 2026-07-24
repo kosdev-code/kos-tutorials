@@ -58,7 +58,7 @@ const blinkHandler handlers[] = {
 };
 // extract-code end thermostat-hardware-handlers
 
-// Setup function
+// Setup functionality
 // extract-code thermostat-hardware-setup
 void setup() {
     Serial.begin(BLINK_BAUD);
