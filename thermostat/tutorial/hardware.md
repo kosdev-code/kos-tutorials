@@ -53,8 +53,6 @@ Next, the firmware must identify itself so that it can be correctly matched with
 
 The firmware specifies the serial baud rate, the board name and type, and the board instance ID. These values must match the expectations of the Java backend.
 
-<snippet-viewer source="tutorials-public" snippet="thermostat-hardware-constants@thermostat.ino"></snippet-viewer>
-
 In the `setup()` function, the serial connection is initialized and the BLINK service is configured with this metadata.
 
 <snippet-viewer source="tutorials-public" snippet="thermostat-hardware-setup@thermostat.ino"></snippet-viewer>

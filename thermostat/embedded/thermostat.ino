@@ -66,7 +66,7 @@ void setup() {
     blink.setBoardType(BOARD_TYPE);
     blink.setBoardInstanceId(INSTANCE);
     // extract-code end thermostat-hardware-setup
-    // extract-code end thermostat-hardware-add-iface
+    // extract-code thermostat-hardware-add-iface
     blink.addIface(BOARD_NAME, 1, handlers);
 
     // Initialize mode LEDs
