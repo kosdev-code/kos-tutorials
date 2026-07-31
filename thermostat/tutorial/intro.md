@@ -6,6 +6,7 @@ tags: [Tutorial]
 date: 2026-07-10 00:00:00
 status: publish
 author: sneh
+_yoast_wpseo_focuskw: Application
 ---
 
 This tutorial series demonstrates how to build an end-to-end thermostat application, covering backend logic, hardware integration, and user interface integration.
