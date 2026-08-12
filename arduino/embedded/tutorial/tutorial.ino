@@ -1,7 +1,9 @@
 // extract-code arduino-s2
 #include <blink.h>
+// extract-code end arduino-s2
 
-// extract-code ignore arduino-s7
+
+// extract-code arduino-s7
 // baud rates for blink 
 #define BLINK_BAUD 115200
 
