@@ -8,22 +8,6 @@ author: james
 _yoast_wpseo_focuskw: Arduino
 ---
 
-[kondra_note type="info" title="Information"]
-This tutorial will cover the basics of using the native serial BLINK library for kos. Specifically, it will 
-focus on using it with an Arduino Mega. It will cover in detail each of the ways embedded code may communicate
-with Jave using basic samples. 
-
-objectives:
-1. Understand the KOS serial BLINK library
-2. Learns the various conventions used when programming with the serial Blink library
-3. Explore some of the common user errors to avoid them in the future
-
-topics:
-1. Serial Communication Basics
-2. Sending and Receiving Data
-3. Error Handling and Debugging
-[/kondra_note]
-
 ## Introduction
 
 One of the great things about KOS is all of the tooling and support that makes it a pleasure to work with. A great example of this would be the Arduino library. The inclusion of this library means that unlike some other pieces of hardware, which would require a custom adapter to be written, KOS comes with a pre-built adapter and surrounding infrastructure for Arduino which makes communication between the embedded code and the java side of KOS extremely intuitive. This tutorial will cover how you can get an Arduino to connect to and communicate with your application. We will be operating under the assumption that you have read the previous tutorials on adapters. For for this reason, most of what will be discussed here will revolve around the embedded code. It is recommend that you view the full tutorial code in the tutorials repository. That being said, let’s begin. 
