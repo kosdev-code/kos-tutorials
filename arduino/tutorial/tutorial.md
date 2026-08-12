@@ -46,7 +46,7 @@ You may also notice that the class which implements `SerialBlinkMatcher` is the 
 
 ### Setup
 
-Before going further, it is important that you import the BLINK library into your Arduino IDE. To do so, download the zip, before going to the Arduino IDE and clicking Sketch>Include Library>Add .ZIP Library and selecting the previously downloaded file. You will now be able to include the necessary BLINK headers in your .ino file. 
+Before going further, it is important that you import the serial BLINK library into your Arduino IDE. To do so, download the zip, before going to the Arduino IDE and clicking Sketch>Include Library>Add .ZIP Library and selecting the previously downloaded file. You will now be able to include the necessary BLINK headers in your .ino file. 
 
 Shifting focus back to the embedded code, this tutorial will begin with the bare minimum of what is required to get the Arduino to connect to the java iface. Starting with headers, the `blink.h` header file will need to be included. This will provide access to `BlinkService` and `BlinkComm` classes. The former contains most of the core implementation necessary for using the BLINK protocol, while the latter is an abstraction of the communication channel that BLINK will run over. The `BlinkService` will be used more heavily, while `BlinkComm` only needs to be initialized with the serial port to use and passed to the constructor of `BlinkService`. This tutorial will cover `BlinkComm` in more detail later, but for now one may initialize these two classes globally so that they are always accessible like so…
 
@@ -65,12 +65,12 @@ The aforementioned handlers are callbacks, which are defined by the developer an
 
 <snippet-viewer source="tutorials-public" snippet="arduino-s6@tutorial.ino"></snippet-viewer>
 
-Now that the handlers have been declared and added, it is time to configure the baud rate. It is vital that the baud rate you defined on the embedded side remain consistent with that specified in the `SerialBlinkMatcher`. Failing to do so will prevent the Arduino from properly communicating with your iface. The baud rate is set my making a call to the Arduino `Serial` object like so. This part is standard to Arduino and not KOS specific. 
+Now that the handlers have been declared and added, it is time to configure the baud rate. It is vital that the baud rate you defined on the embedded side remain consistent with that specified in the `SerialBlinkMatcher`. Failing to do so will prevent the Arduino from properly communicating with your iface. The baud rate is set by making a call to the Arduino `Serial` object like so. This part is standard to Arduino and not KOS specific. 
 
 <snippet-viewer source="tutorials-public" snippet="arduino-s7@tutorial.ino"></snippet-viewer>
 <snippet-viewer source="tutorials-public" snippet="arduino-s8@tutorial.ino"></snippet-viewer>
 
-At this point, the only remaining step is for `BlinkService` to begin polling. To do this the `poll()` function of `BlinkService` is called in `loop()`. Every call to `poll()` will check if any new information has arrived in the receive buffer.  Because we want the service continually checking for incoming messages, it is placed in the Arduino loop() function. Consequently, it is important that `loop()` does not get blocked for any significant amount of time by any other process running on the Arduino. Blocking for the `BlinkService` from polling can cause the embedded and Java side to stop communicating.
+At this point, the only remaining step is for `BlinkService` to begin polling. To do this the `poll()` function of `BlinkService` is called in `loop()`. Every call to `poll()` will check if any new information has arrived in the receive buffer.  Because we want the service continually checking for incoming messages, it is placed in the Arduino loop() function. Consequently, it is important that `loop()` does not get blocked for any significant amount of time by any other process running on the Arduino. Blocking the `BlinkService` from polling can cause the embedded and Java side to stop communicating.
 
 <snippet-viewer source="tutorials-public" snippet="arduino-s9@tutorial.ino"></snippet-viewer>
 
@@ -91,11 +91,11 @@ Reading multiple pieces of information is much the same, with a few more conside
 
 <snippet-viewer source="tutorials-public" snippet="arduino-s11@tutorial.ino"></snippet-viewer>
 
-Here a string is read, then an integer, followed by another string. Because there is other information in the buffer, `remaining()` cannot be exclusively used to determine the size of the string. Rather, when sending the string from the iface, the size of the string is sent first to indicate the size of the string in bytes. Following the first string, a 32-bit integer is read, followed by another string. Notice that this time, since all the other data in the buffer has been read, we can use the `remaining()` function to find the size of the string. For this reason it is convention that if you must send a string you send it last. 
+Here a string is read, then an integer, followed by another string. Because there is other information in the buffer, `remaining()` cannot be exclusively used to determine the size of the string. Rather, when sending the string from the iface, the size of the string in bytes is sent first. Following the first string, a 32-bit integer is read, followed by another string. Notice that this time, since all the other data in the buffer has been read, we can use the `remaining()` function to find the size of the string. For this reason it is convention that if you must send a string you send it last. 
 
 #### Part 2.1: Writing Basic Information
 
-Having demonstrated how to read information, this tutorial will now explain how to write information back to the iface. For this tutorial, the information being written back will simply be the information that was read and stored in the previous two parts. This is demonstrated in the following handler:
+Having demonstrated how to read information, this tutorial will now explain how to write information back to the iface. In this case, the information being written back will simply be the information that was read and stored in the previous two parts. This is demonstrated in the following handler:
 
 <snippet-viewer source="tutorials-public" snippet="arduino-s11@tutorial.ino"></snippet-viewer>
 
@@ -103,7 +103,7 @@ You will notice the introduction of two new functions. The first of these is `re
 
 #### Part 2.2: Writing Multiple Pieces of Information 
 
-Writing multiple pieces of information is really not much different. The only difference is the fact that the size passed to `reply()` will no longer equal what is being passed to a single `write()` call. Below is a sample handler which wrights multiple pieces of information back as a response. 
+Writing multiple pieces of information is really not much different. The only difference is that the size passed to `reply()` will no longer equal what is being passed to a single `write()` call. Below is a sample handler which wrights multiple pieces of information back as a response. 
 
 <snippet-viewer source="tutorials-public" snippet="arduino-s12@tutorial.ino"></snippet-viewer>
 
@@ -113,7 +113,7 @@ There will be situations where instead of requesting information and receiving a
 
 <snippet-viewer source="tutorials-public" snippet="arduino-s13@tutorial.ino"></snippet-viewer>
 
-An event is generated by making a call to the event function of the `BlinkService` and passing it the identifying number of the iface which will receive it. This iface number is the same one that was generated in the setup by `addIface()`. In addition to the iface number, the API number of the event, and the total size of any attached message is passed. It is worth noting that `event` is similar to `reply()` in that it is generating a header. Unlike `reply()` however, `event()` will return an integer indicating whether the iface number that you passed is valid; zero for yes, and negative one otherwise. Additionally, like `reply()` once `event()` has been called you can begin writing. Similarly, you don’t have to write anything to an event. If all you want is a notification that something has occurred, you can specify zero for the message size. Going back to the Java end for a bit, you will need to add request handlers to the iface for any events generated on the embedded side in order to receive them. One can do this like so:
+An event is generated by making a call to the event function of the `BlinkService` and passing it the identifying number of the iface which will receive it. This iface number is the same one that was generated in the setup by `addIface()`. In addition to the iface number, the API number of the event, and the total size of any attached message is passed. It is worth noting that `event()` is similar to `reply()` in that it is generating a header. Unlike `reply()` however, `event()` will return an integer indicating whether the iface number that you passed is valid; zero for yes, and negative one otherwise. Additionally, like `reply()` once `event()` has been called you can begin writing. Similarly, you don’t have to write anything to an event. If all you want is a notification that something has occurred, you can specify zero for the message size. Going back to the Java end for a bit, you will need to add request handlers to the iface for any events generated on the embedded side in order to receive them. One can do this like so:
 
 <snippet-viewer source="tutorials-public" snippet="arduino-s14@ArduinoIface.java"></snippet-viewer>
 <snippet-viewer source="tutorials-public" snippet="arduino-s15@ArduinoIface.java"></snippet-viewer>
@@ -132,7 +132,7 @@ For now, to create an embedded log all you have to do is call `log()` with `Blin
 
 <snippet-viewer source="tutorials-public" snippet="arduino-s17@tutorial.ino"></snippet-viewer>
 
-When it comes to using overrides, things get a bit more complicated. Because of the inherent memory limitations of working with Arduino and similar microcontrollers, the same system of overrides that exists in KOS is not implemented by default in `BlinkService`. Instead, it is up to the user to determine how overrides are handled. They can do this by defining an override callback and passing it when adding the logger iface. The override callback is called whenever an override is created or removed. Below is an example implementation of an override callback which functions similar to the normal KOS Java override system. Additionally, for this tutorial a wrapper has been created for the basic embedded log function which allows us to easily apply groups to log statements. 
+When it comes to using overrides, things get a bit more complicated. Because of the inherent memory limitations of working with Arduino and similar microcontrollers, the same system of overrides that exists in KOS Java is not implemented by default in `BlinkService`. Instead, it is up to the user to determine how overrides are handled. They can do this by defining an override callback and passing it when adding the logger iface. The override callback is called whenever an override is created or removed. Below is an example implementation of an override callback which functions similar to the normal KOS Java override system. Additionally, for this tutorial a wrapper has been created for the basic embedded log function which allows us to easily apply groups to log statements. 
 
 <snippet-viewer source="tutorials-public" snippet="arduino-s18@tutorial.ino"></snippet-viewer>
 <snippet-viewer source="tutorials-public" snippet="arduino-s19@tutorial.ino"></snippet-viewer>
