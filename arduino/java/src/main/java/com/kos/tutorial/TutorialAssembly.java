@@ -7,6 +7,7 @@ import com.kosdev.kos.core.service.udev.serial.SerialDevice;
 import com.kosdev.kos.core.service.udev.serial.blink.SerialBlinkMatch;
 import com.kosdev.kos.core.service.udev.serial.blink.SerialBlinkMatcher;
 
+// extract-code arduino-s1
 public class TutorialAssembly extends Assembly implements CoreAssembly, SerialBlinkMatcher {
     private static final int BAUD = 115200; // baud rate
 

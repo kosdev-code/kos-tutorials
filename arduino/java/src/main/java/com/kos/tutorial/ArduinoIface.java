@@ -18,6 +18,7 @@ public class ArduinoIface extends BinaryMsgIface {
     private final static int API_HANDLER_5 = 5;
     private final static int API_HANDLER_6 = 6;
 
+    // extract-code arduino-s14
     // API EVENTS:
     public final static int EVENT_SAMPLE = 7;
 
@@ -27,6 +28,7 @@ public class ArduinoIface extends BinaryMsgIface {
         log.info("arduino iface created");
     }
 
+    // extract-code arduino-s15
     @Override
     public void onConnect() throws Exception {
         log.info("arduino iface connected");

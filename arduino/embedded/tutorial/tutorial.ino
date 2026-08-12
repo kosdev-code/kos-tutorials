@@ -1,11 +1,14 @@
+// extract-code arduino-s2
 #include <blink.h>
 
+// extract-code ignore arduino-s7
 // baud rates for blink 
 #define BLINK_BAUD 115200
 
 // event api numbers 
 #define API_EVENT_EXAMPLE 7
 
+// extract-code arduino-s18
 // the maximum number which can be stored 
 #define MAX_OVERRIDES 4
 
@@ -17,10 +20,13 @@ struct override{
 // and track the current number of overrides and overrides themselves
 uint8_t numOverrides = 0;   
 override overrides[MAX_OVERRIDES];
+// extract-code end arduino-s18
 
+// extract-code arduino-s3
 // setup blink using Serial as the transport
 SerialBlinkComm comm(&Serial);
 BlinkService blink(&comm);
+// extract-code end arduino-s3
 
 // the index of the arduino iface 
 int arduinoIfaceNum;
@@ -29,6 +35,8 @@ int arduinoIfaceNum;
 char receivedString1[64] = "Default String 1";
 char receivedString2[64] = "Default String 2";
 int receivedNum;
+
+// extract-code arduino-s6
 
 // handler declarations 
 static void handler0(BlinkService *s);  // part 1.1
@@ -55,22 +63,35 @@ const blinkHandler handlers[] = {
     NULL
 };
 
+// extract-code end arduino-s6
+
+// extract-code arduino-s4
+// extract-code arduino-s5
+// extract-code arduino-s8
 // init and config connection
 void setup() {
   // setup the blink board type
-  blink.setBoardType("kondra.led.arduino");
+  blink.setBoardType("kondra.arduino");
   blink.setBoardInstanceId(1);
 
+  // extract-code ignore arduino-s4
   // add iface for our custom handlers
-  arduinoIfaceNum = blink.addIface("kondra.led.arduino", 1, handlers);
+  arduinoIfaceNum = blink.addIface("kondra.arduino", 1, handlers);
 
+  // extract-code ignore arduino-s4
+  // extract-code ignore arduino-s5
+  // extract-code ignore arduino-s8
+  // extract-code arduino-s16
   // add iface for embedded logging
-  blink.addLoggerIface("kondra.led.arduino", "1", sampleOverrideCallback);  
-  
+  blink.addLoggerIface("kondra.arduino", "1", sampleOverrideCallback);
+
+  // extract-code ignore arduino-s4
+  // extract-code ignore arduino-s5
   // configure baud rates
   Serial.begin(BLINK_BAUD);
 }
 
+// extract-code arduino-s9
 /**
  * Standard loop method
  */
@@ -79,11 +100,13 @@ void loop() {
   blink.poll();
 }
 
+// extract-code arduino-s10
 static void handler0(BlinkService *s){
     // read the C string that was sent
     s->read(receivedString1, s->remaining());
 }
 
+// extract-code arduino-s11
 static void handler1(BlinkService *s){    
     int recvStr1Size;
 
@@ -94,6 +117,7 @@ static void handler1(BlinkService *s){
     s->read(receivedString2, s->remaining());  //read what is remaining into the string 
 }
 
+// extract-code arduino-s12
 static void handler2(BlinkService *s){
     /* Determine how many bytes you are going to 
     be sending back, in this case it is the number
@@ -114,6 +138,7 @@ static void handler2(BlinkService *s){
     s->write(receivedString1, msgSize);
 }
 
+<snippet-viewer source="tutorials-public" snippet="arduino-s12@tutorial.ino"></snippet-viewer>
 static void handler3(BlinkService *s){
     /* Determine how many bytes you are going to 
     be sending back including both strings, their 
@@ -130,8 +155,13 @@ static void handler3(BlinkService *s){
     s->write(&receivedNum, 4);
 }
 
+// extract-code arduino-s13
 static void handler4(BlinkService *s){
-  int msgSize = strlen(receivedString1) + 1;\
+  // extract-code arduino-s17
+  // extract-code ignore arduino-s13
+  s->log(4, "intitating handler 4");
+
+  int msgSize = strlen(receivedString1) + 1;
 
   // generate the log event and write the log
 	int eventStatus = s->event(arduinoIfaceNum, API_EVENT_EXAMPLE, msgSize);
@@ -157,6 +187,7 @@ static void handler6(BlinkService *s){
   s->replyError(errCode);
 }
 
+// extract-code arduino-s19
 /* This is a wrapper class for the log function of blink service.
 This implementation allows for a group name to be attached to the 
 log so that the group names of overrides can be used to filter 
@@ -216,3 +247,5 @@ static void sampleOverrideCallback(char* name, uint8_t level, bool add){
     }
   }
 }
+// extract-code end arduino-s19
+
