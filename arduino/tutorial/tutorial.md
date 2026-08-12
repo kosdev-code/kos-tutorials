@@ -8,6 +8,22 @@ author: james
 _yoast_wpseo_focuskw: Arduino
 ---
 
+[kondra_note type="info" title="Information"]
+This tutorial will cover the basics of using the native serial BLINK library for kos. Specifically, it will 
+focus on using it with an Arduino Mega. It will cover in detail each of the ways embedded code may communicate
+with Jave using basic samples. 
+
+objectives:
+1. Understand the KOS serial BLINK library
+2. Learns the various conventions used when programming with the serial Blink library
+3. Explore some of the common user errors to avoid them in the future
+
+topics:
+1. Serial Communication Basics
+2. Sending and Receiving Data
+3. Error Handling and Debugging
+[/kondra_note]
+
 ## Introduction
 
 One of the great things about KOS is all of the tooling and support that makes it a pleasure to work with. A great example of this would be the Arduino library. The inclusion of this library means that unlike some other pieces of hardware, which would require a custom adapter to be written, KOS comes with a pre-built adapter and surrounding infrastructure for Arduino which makes communication between the embedded code and the java side of KOS extremely intuitive. This tutorial will cover how you can get an Arduino to connect to and communicate with your application. We will be operating under the assumption that you have read the previous tutorials on adapters. For for this reason, most of what will be discussed here will revolve around the embedded code. It is recommend that you view the full tutorial code in the tutorials repository. That being said, let’s begin. 
@@ -18,7 +34,7 @@ One of the great things about KOS is all of the tooling and support that makes i
 
 While in a typical KOS hardware pattern you would have to write a custom adapter and corresponding adapter factory, for Arduinos and other such boards implementing the serial BLINK library, this is not the case. The adapter and its related infrastructure has been handled for you behind the scenes. All that is left to you, as the developer, is to implement a `SerialBlinkMatcher`.
 
-The `SerialBlinkMatcher` is an interface which is used to find devices running the serial blink library. When such a device is found, a call will be made to `matchSerialBlinkDevice()` which will be passed as arguments the usbId; containing the usbId and product, and the `SerialDevice` in question. Here we will preform a quick check to see if the vendor and product ids match that of Arduino. These ids vary by the specific Arduino board, but you can find them by either looking them up on the internet, or plugging in your Arduino and checking them through your computer. Below is a sample implementation of a `SerialBlinkMatcher` for connecting to an Arduino Mega:
+The `SerialBlinkMatcher` is an interface which is used to find devices running the serial BLINK library. When such a device is found, a call will be made to `matchSerialBlinkDevice()` which will be passed as arguments the usbId; containing the usbId and product, and the `SerialDevice` in question. Here we will preform a quick check to see if the vendor and product ids match that of Arduino. These ids vary by the specific Arduino board, but you can find them by either looking them up on the internet, or plugging in your Arduino and checking them through your computer. Below is a sample implementation of a `SerialBlinkMatcher` for connecting to an Arduino Mega:
 
 <snippet-viewer source="tutorials-public" snippet="arduino-s1@TutorialAssembly.java"></snippet-viewer>
 
@@ -93,7 +109,7 @@ Writing multiple pieces of information is really not much different. The only di
 
 #### Part 3.1: Generating Events
 
-There will be situations where instead of requesting information and receiving a response, you will want the Arduino to send you information unprompted. Take, for instance, a scenario where you have your Arduino connected to a sensor, and you want to be notified if the sensor's reading has changed. For such scenarios the blink library supports what are known as events. Observe the following handler. 
+There will be situations where instead of requesting information and receiving a response, you will want the Arduino to send you information unprompted. Take, for instance, a scenario where you have your Arduino connected to a sensor, and you want to be notified if the sensor's reading has changed. For such scenarios the BLINK library supports what are known as events. Observe the following handler. 
 
 <snippet-viewer source="tutorials-public" snippet="arduino-s13@tutorial.ino"></snippet-viewer>
 
@@ -133,7 +149,7 @@ For this final part we will cover the functions that are present in the `BlinkSe
 
 ### `BlinkComm`
 
-It was mentioned earlier that BlinkComm was an abstraction of the communication channel, but you may ask yourself why this is necessary. The reason is that it offers the ability to use other boards, so long as you define your own class which extends BlinkComm, the user can define how things are read from and written to the stream. To do this, all the user must do is override three functions: `available()`, `read()`, and `write()` This allows users to use boards that are not Arduino. A good example of where you might use this is with a Teensy board. Unlike a typical Arduino, the Teensy communicates at much higher rates with a much larger read buffer, since it uses Usb instead of Serial. 
+It was mentioned earlier that `BlinkComm` was an abstraction of the communication channel, but you may ask yourself why this is necessary. The reason is that it offers the ability to use other boards, so long as you define your own class which extends `BlinkComm`, the user can define how things are read from and written to the stream. To do this, all the user must do is override three functions: `available()`, `read()`, and `write()` This allows users to use boards that are not Arduino. A good example of where you might use this is with a Teensy board. Unlike a typical Arduino, the Teensy communicates at much higher rates with a much larger read buffer, since it uses Usb instead of Serial. 
 
 
 
