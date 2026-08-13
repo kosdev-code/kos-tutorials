@@ -1,7 +1,7 @@
 ---
-title: Using Arduino in KOS 
-excerpt: Build an app in KOS that interacts with an external Arduino Board. 
-categories: [Arduino]
+title: Using Serial Blink in KOS 
+excerpt: Build an app in KOS that interacts with an external Arduino board, via the serial BLINK library. 
+categories: [Serial BLINK]
 tags: [Tutorial]
 status: publish
 author: james
@@ -10,7 +10,7 @@ _yoast_wpseo_focuskw: Arduino
 
 ## Introduction
 
-One of the great things about KOS is all of the tooling and support that makes it a pleasure to work with. A great example of this would be the Arduino library. The inclusion of this library means that unlike some other pieces of hardware, which would require a custom adapter to be written, KOS comes with a pre-built adapter and surrounding infrastructure for Arduino which makes communication between the embedded code and the java side of KOS extremely intuitive. This tutorial will cover how you can get an Arduino to connect to and communicate with your application. We will be operating under the assumption that you have read the previous tutorials on adapters. For for this reason, most of what will be discussed here will revolve around the embedded code. It is recommend that you view the full tutorial code in the tutorials repository. That being said, let’s begin. 
+One of the great things about KOS is the plethera of tooling and support that makes it easy to work with. A great example of this would be the native serial BLINK library. The inclusion of this library allows users to easily integrate with almost any microcontroller that supports the Arduino.h library. This library allows users to take advantage of a pre-built adapter and other surrounding infrastructure, dramatically decreasing the amount of work involved in integrating new devices. This tutorial will explore this library by covering the process of getting an Arduino Mega to connect to and communicate with an application. The assumption will be that you have read the previous tutorial on adapters. For this reason, most of what will be discussed here will revolve around the embedded code. It is recommended that you view the full tutorial code in the [kos-tutorials](https://github.com/kosdev-code/kos-tutorials) repository. That being said, let’s begin. 
 
 ## Java Code
 
@@ -24,15 +24,15 @@ The `SerialBlinkMatcher` is an interface which is used to find devices running t
 
 You will notice there is a call on the `SerialBlinkMatch` to `setPostOpenDelayMs()`. This method creates a specified delay between when the serial connection is opened, and when the device is probed. This is necessary because in some models of Arduino, when the serial connection is opened the device is still rebooting. If there were no delay the payload sent to probe the device would never get a response because of this, and thus the connection would fail. 
 
-You may also notice that the class which implements `SerialBlinkMatcher` is the `Assembly`. It is a common pattern in KOS to have the `Assembly` implement `SerialBlinkMatcher`, as whatever class implements `SerialBlinkMatcher` must be added to the context for it to work. Having the `Assembly` implement `SerialBlinkMatcher` ensures that it will always be added to the context. It is worth noting that there can be multiple instances of `SerialBlinkMatcher`. So long as each is added to the context, they will be called every time a new serial device is detected. Beyond implementing `SerialBlinkMatcher`, much of the java code is as one might expect; an App, Assembly, and board class along with an accompanying iface. The only exclusion is the `SerialAdapterFactory` which does not need to be directly defined for devices which implement the serial BLINK library. All of these are available in the project repository linked above. With that out of the way, it is time to dive into the embedded side.
+You may also notice that the class which implements `SerialBlinkMatcher` is the `Assembly`. It is a common pattern in KOS to have the `Assembly` implement `SerialBlinkMatcher`, as whatever class implements `SerialBlinkMatcher` must be added to the context for it to work. Having the `Assembly` implement `SerialBlinkMatcher` ensures that it will always be added to the context. It is worth noting that there can be multiple instances of `SerialBlinkMatcher`. So long as each is added to the context, they will be called every time a new serial device is detected. Beyond implementing `SerialBlinkMatcher`, much of the Java code is as one might expect; an App, Assembly, and board class along with an accompanying iface. The only exclusion is the `SerialAdapterFactory` which does not need to be directly defined for devices which implement the serial BLINK library. All of these are available in the project repository linked above. With that out of the way, it is time to dive into the embedded side.
 
-## Arduino Code
+## Embedded Code
 
 ### Setup
 
 Before going further, it is important that you import the serial BLINK library into your Arduino IDE. To do so, download the zip, before going to the Arduino IDE and clicking Sketch>Include Library>Add .ZIP Library and selecting the previously downloaded file. You will now be able to include the necessary BLINK headers in your .ino file. 
 
-Shifting focus back to the embedded code, this tutorial will begin with the bare minimum of what is required to get the Arduino to connect to the java iface. Starting with headers, the `blink.h` header file will need to be included. This will provide access to `BlinkService` and `BlinkComm` classes. The former contains most of the core implementation necessary for using the BLINK protocol, while the latter is an abstraction of the communication channel that BLINK will run over. The `BlinkService` will be used more heavily, while `BlinkComm` only needs to be initialized with the serial port to use and passed to the constructor of `BlinkService`. This tutorial will cover `BlinkComm` in more detail later, but for now one may initialize these two classes globally so that they are always accessible like so…
+Shifting focus back to the embedded code, this tutorial will begin with the bare minimum of what is required to get the Arduino to connect to the Java iface. Starting with headers, the `blink.h` header file will need to be included. This will provide access to `BlinkService` and `BlinkComm` classes. The former contains most of the core implementation necessary for using the BLINK protocol, while the latter is an abstraction of the communication channel that BLINK will run over. The `BlinkService` will be used more heavily, while `BlinkComm` only needs to be initialized with the serial port to use and passed to the constructor of `BlinkService`. This tutorial will cover `BlinkComm` in more detail later, but for now one may initialize these two classes globally so that they are always accessible like so…
 
 <snippet-viewer source="tutorials-public" snippet="arduino-s2@tutorial.ino"></snippet-viewer>
 <snippet-viewer source="tutorials-public" snippet="arduino-s3@tutorial.ino"></snippet-viewer>
@@ -129,7 +129,7 @@ To test this, you can run the tutorial and hit the part 4 endpoint. This will ma
 
 #### Part 6.1: Other 
 
-For this final part we will cover the functions that are present in the `BlinkService` that are not present in the tutorial. These are `setBoardSerialNum()` and `available()`. The former allows you to initialize the serial number of the board within the `BlinkService`. To use it, simply pass the function a character pointer pointing to the serial number in question. The use of this function is optional, but should you choose to do so, the serial number will be available within the board class on the java end. The latter function; `available()`, is a bit more nuanced. The `available()` function returns the number of bytes currently stored in the receive buffer but will return zero once the end of the message is reached (i.e remaining() returns 0). In practice, besides a couple of niche use cases, this function will probably not be useful. 
+For this final part we will cover the functions that are present in the `BlinkService` that are not present in the tutorial. These are `setBoardSerialNum()` and `available()`. The former allows you to initialize the serial number of the board within the `BlinkService`. To use it, simply pass the function a character pointer pointing to the serial number in question. The use of this function is optional, but should you choose to do so, the serial number will be available within the board class on the Java end. The latter function; `available()`, is a bit more nuanced. The `available()` function returns the number of bytes currently stored in the receive buffer but will return zero once the end of the message is reached (i.e remaining() returns 0). In practice, besides a couple of niche use cases, this function will probably not be useful. 
 
 ### `BlinkComm`
 
