@@ -1,5 +1,5 @@
 ---
-title: Using Serial Blink in KOS 
+title: Using Serial BLINK in KOS 
 excerpt: Build an app in KOS that interacts with an external Arduino board, via the serial BLINK library. 
 categories: [Arduino]
 tags: [Tutorial]
@@ -58,7 +58,7 @@ At this point, the only remaining step is for `BlinkService` to begin polling. T
 
 <snippet-viewer source="tutorials-public" snippet="arduino-s9@tutorial.ino"></snippet-viewer>
 
-### Communicating Over Blink
+### Communicating Over BLINK
 
 #### Part 1.1: Reading Basic Information
 
