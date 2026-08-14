@@ -18,7 +18,7 @@ One of the great things about KOS is the plethera of tooling and support that ma
 
 While in a typical KOS hardware pattern you would have to write a custom adapter and corresponding adapter factory, for Arduinos and other such boards implementing the serial BLINK library, this is not the case. The adapter and its related infrastructure has been handled for you behind the scenes. All that is left to you, as the developer, is to implement a `SerialBlinkMatcher`.
 
-The `SerialBlinkMatcher` is an interface which is used to find devices running the serial BLINK library. When such a device is found, a call will be made to `matchSerialBlinkDevice()` which will be passed as arguments the usbId; containing the usbId and product, and the `SerialDevice` in question. Here we will preform a quick check to see if the vendor and product ids match that of Arduino. These ids vary by the specific Arduino board, but you can find them by either looking them up on the internet, or plugging in your Arduino and checking them through your computer. Below is a sample implementation of a `SerialBlinkMatcher` for connecting to an Arduino Mega:
+The `SerialBlinkMatcher` is an interface which is used to find devices running the serial BLINK library. When such a device is found, a call will be made to `matchSerialBlinkDevice()` which will be passed as arguments the usbId; containing the usbId and product, and the `SerialDevice` in question. Here a quick check will be performed to see if the vendor and product ids match that of Arduino. These ids vary by the specific Arduino board, but you can find them by either looking them up on the internet, or plugging in your Arduino and checking them through your computer. Below is a sample implementation of a `SerialBlinkMatcher` for connecting to an Arduino Mega:
 
 <snippet-viewer source="tutorials-public" snippet="arduino-s1@TutorialAssembly.java"></snippet-viewer>
 
@@ -62,11 +62,11 @@ At this point, the only remaining step is for `BlinkService` to begin polling. T
 
 #### Part 1.1: Reading Basic Information
 
-To demonstrate the different ways you can communicate over BLINK, this section will be split into a number of parts, each of which will cover a different feature. We will begin by discussing how you can read information over BLINK from the iface. Below is an instance of a handler that reads a single string sent from the iface:
+To demonstrate the different ways you can communicate over BLINK, this section will be split into a number of parts, each of which will cover a different feature. This will begin with the discussion of how you can read information over BLINK from the iface. Below is an instance of a handler that reads a single string sent from the iface:
 
 <snippet-viewer source="tutorials-public" snippet="arduino-s10@tutorial.ino"></snippet-viewer>
 
-Within the iface, the string is sent as it would normally be, by constructing an instance of `BinaryMsg` with the appropriate API number, before calling `writeCString()` and `send()` respectively. On the embedded side we call the read function of `BlinkService`. The function is passed two arguments. The first is a pointer to the location in memory where the received information will be stored, and the second is the number of bytes that you intend to read. To get the number of bytes, we use the `remaining()` function of `BlinkService`. This will tell us how many bytes in the current message have yet to be read. The number of total bytes in the message is sent as part of the incoming message’s header.  Because we are only sending the one string in this message, we know that `remaining()` will return the size of the string. 
+Within the iface, the string is sent as it would normally be, by constructing an instance of `BinaryMsg` with the appropriate API number, before calling `writeCString()` and `send()` respectively. On the embedded side you call the read function of `BlinkService`. The function is passed two arguments. The first is a pointer to the location in memory where the received information will be stored, and the second is the number of bytes that you intend to read. To get the number of bytes, you can use the `remaining()` function of `BlinkService`. This will tell us how many bytes in the current message have yet to be read. The number of total bytes in the message is sent as part of the incoming message’s header. Because the one string is the only information being sent in this message, you know that `remaining()` will return the size of the string. 
 
 
 #### Part 1.2: Reading Multiple Pieces of information 
@@ -75,7 +75,7 @@ Reading multiple pieces of information is much the same, with a few more conside
 
 <snippet-viewer source="tutorials-public" snippet="arduino-s11@tutorial.ino"></snippet-viewer>
 
-Here a string is read, then an integer, followed by another string. Because there is other information in the buffer, `remaining()` cannot be exclusively used to determine the size of the string. Rather, when sending the string from the iface, the size of the string in bytes is sent first. Following the first string, a 32-bit integer is read, followed by another string. Notice that this time, since all the other data in the buffer has been read, we can use the `remaining()` function to find the size of the string. For this reason it is convention that if you must send a string you send it last. 
+Here a string is read, then an integer, followed by another string. Because there is other information in the buffer, `remaining()` cannot be exclusively used to determine the size of the string. Rather, when sending the string from the iface, the size of the string in bytes is sent first. Following the first string, a 32-bit integer is read, followed by another string. Notice that this time, since all the other data in the buffer has been read, you can use the `remaining()` function to find the size of the string. For this reason it is convention that if you must send a string you send it last. 
 
 #### Part 2.1: Writing Basic Information
 
@@ -129,7 +129,7 @@ To test this, you can run the tutorial and hit the part 4 endpoint. This will ma
 
 #### Part 6.1: Other 
 
-For this final part we will cover the functions that are present in the `BlinkService` that are not present in the tutorial. These are `setBoardSerialNum()` and `available()`. The former allows you to initialize the serial number of the board within the `BlinkService`. To use it, simply pass the function a character pointer pointing to the serial number in question. The use of this function is optional, but should you choose to do so, the serial number will be available within the board class on the Java end. The latter function; `available()`, is a bit more nuanced. The `available()` function returns the number of bytes currently stored in the receive buffer but will return zero once the end of the message is reached (i.e remaining() returns 0). In practice, besides a couple of niche use cases, this function will probably not be useful. 
+This final section will cover the functions that are present in the `BlinkService` that are not present in the tutorial. These are `setBoardSerialNum()` and `available()`. The former allows you to initialize the serial number of the board within the `BlinkService`. To use it, pass the function a character pointer pointing to the serial number in question. The use of this function is optional, but should you choose to do so, the serial number will be available within the board class on the Java end. The latter function; `available()`, is a bit more nuanced. The `available()` function returns the number of bytes currently stored in the receive buffer but will return zero once the end of the message is reached (i.e remaining() returns 0). In practice, besides a couple of niche use cases, this function will probably not be useful. 
 
 ### `BlinkComm`
 
