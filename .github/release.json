@@ -5,13 +5,13 @@
 
   "artifacts": [
     {
-      "id": "kosdev—tutorial-rack-app",
+      "id": "kosdev-tutorial-rack-app",
       "filename": "rack/app/target/tutorial-rack.app-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
       "qualifier": "any"
     },
     {
-      "id": "kosdev—tutorial-rack-assets",
+      "id": "kosdev-tutorial-rack-assets",
       "filename": "rack/assets/target/tutorial-rack.assets-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "default_artifact_store",
       "qualifier": "any"
