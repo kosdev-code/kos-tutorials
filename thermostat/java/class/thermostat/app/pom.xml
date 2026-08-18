@@ -6,11 +6,11 @@
 
     <parent>
         <groupId>com.kos.tutorials.thermostat</groupId>
-        <artifactId>tutorial-thermostat.java.thermostat</artifactId>
+        <artifactId>tutorial-thermostat.java.class.thermostat</artifactId>
         <version>0.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>tutorial-thermostat.java.thermostat.app</artifactId>
+    <artifactId>tutorial-thermostat.java.class.thermostat.app</artifactId>
     <description>Thermostat App</description>
 
     <!-- ====== Dependencies  ======================================================== -->

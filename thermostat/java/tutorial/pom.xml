@@ -8,17 +8,17 @@
 
     <parent>
         <groupId>com.kos.tutorials.thermostat</groupId>
-        <artifactId>tutorial-thermostat</artifactId>
+        <artifactId>tutorial-thermostat.java</artifactId>
         <version>0.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>tutorial-thermostat.java</artifactId>
+    <artifactId>tutorial-thermostat.java.tutorial</artifactId>
     <packaging>pom</packaging>
 
     <!-- ====== Modules ==================================================== -->
 
     <modules>
-        <module>class</module>
-        <module>tutorial</module>
+        <module>simulator</module>
+        <module>thermostat</module>
     </modules>
 </project>
