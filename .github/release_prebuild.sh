@@ -1,26 +1,4 @@
-#! /bin/bash
-THIS_SCRIPT=$(realpath "$0")
-THIS_SCRIPT_DIR=$(dirname "$THIS_SCRIPT")
-TOP_DIR="${THIS_SCRIPT_DIR}/.."
-set -e -o pipefail
-
-if [ -z "${KOSBUILD_VERSION}" ]; then
-  echo "check release version is for release builds, KOSBUILD_VERSION must be defined"
-  exit 1
-fi
-
-cd "${TOP_DIR}"
-mvn versions:set -DnewVersion="${KOSBUILD_VERSION}" -DgenerateBackupPoms=false
-
-exit 0
-
-
-
-
-
 #!/bin/bash
-# .github/prebuild.sh
-
 set -e -o pipefail
 
 # Check to make sure the KOSBUILD_VERSION environment variable has been set
@@ -30,11 +8,12 @@ if [ -z "${KOSBUILD_VERSION}" ]; then
 fi
 
 # Update the versions across all the projects
-echo "Updating project versions to: ${KOSBUILD_VERSION}"
 cd "${TOP_DIR}"
+echo "Updating Java project versions to: ${KOSBUILD_VERSION}"
 mvn versions:set -DnewVersion="${KOSBUILD_VERSION}" -DgenerateBackupPoms=false
 
-# 3. Update any UI/Node packages in any of the tutorials if they exist
+# Update any UI/Node packages in any of the tutorials if they exist
+echo "Updating UI project versions to: ${KOSBUILD_VERSION}"
 while IFS= read -r pkg; do
     ui_dir=$(dirname "$pkg")
     echo "Updating UI version in ${ui_dir}..."
