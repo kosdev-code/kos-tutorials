@@ -1,10 +1,10 @@
 # .github/workflows/snippets.yml
 name: snippet-exporter
 on:
+  workflow_dispatch: # Enables the manual trigger button
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
   # Ensure that all the snippets can build.
