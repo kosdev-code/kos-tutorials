@@ -1,7 +1,6 @@
 name: wordpress-documentation-importer
 
 on:
-  workflow_dispatch: # Enables the manual trigger button
   push:
     branches:
       - main
