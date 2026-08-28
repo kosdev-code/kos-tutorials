@@ -4,6 +4,7 @@ import java.io.File;
 
 import com.kosdev.kos.core.service.spawn.Adapter;
 
+// extract-code adapter-s17
 public class ExampleAdapter extends Adapter {
     private static final String ADAPTER_NAME = "exampleAdapter";
 

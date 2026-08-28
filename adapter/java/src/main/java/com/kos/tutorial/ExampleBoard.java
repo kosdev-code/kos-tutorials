@@ -8,6 +8,7 @@ import com.kosdev.kos.core.service.hardware.IfaceAwareBoard;
 
 import lombok.extern.slf4j.Slf4j;
 
+// extract-code adapter-s15
 @Slf4j
 public class ExampleBoard extends Board implements IfaceAwareBoard {
     private static final String BOARD_TYPE = "kondraExample";

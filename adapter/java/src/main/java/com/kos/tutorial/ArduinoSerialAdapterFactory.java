@@ -6,6 +6,7 @@ import com.kosdev.kos.core.service.spawn.Adapter;
 import com.kosdev.kos.core.service.udev.serial.SerialAdapterFactory;
 import com.kosdev.kos.core.service.udev.serial.SerialDevice;
 
+//extract-code adapter-s19
 public class ArduinoSerialAdapterFactory extends SerialAdapterFactory {
 
     private static final int VENDOR_ID = 0x10c4;

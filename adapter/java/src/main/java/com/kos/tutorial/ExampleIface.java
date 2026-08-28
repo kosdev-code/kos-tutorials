@@ -9,6 +9,7 @@ import com.kosdev.kos.commons.core.service.blink.binarymsg.IfaceClient;
 
 import lombok.extern.slf4j.Slf4j;
 
+// extract-code adapter-s12
 @Slf4j
 public class ExampleIface extends BinaryMsgIface {
     //@formatter:off
@@ -27,6 +28,8 @@ public class ExampleIface extends BinaryMsgIface {
     public ExampleIface(BinaryMsgSession session, IfaceClient<ExampleIface> ifaceClient) {
         super(IFACE_NAME, session, ifaceClient, null);
 
+        // extract-code ignore adapter-s12
+        // extract-code adapter-s14
         // Register listeners for events from adapter
         this.addRequestHandler(API_NATIVE_SEND, res -> {
             int severity = res.readInt();
@@ -34,6 +37,8 @@ public class ExampleIface extends BinaryMsgIface {
         });
     }
 
+    // extract-code ignore adapter-s12
+    // extract-code adapter-s13
     public void resetModule(boolean isHardReset) throws IOException {
         BinaryMsg msg = msg(API_JAVA_SEND);
 
@@ -41,6 +46,8 @@ public class ExampleIface extends BinaryMsgIface {
         send(msg);
     }
 
+    // extract-code ignore adapter-s12
+    // extract-code adapter-s13
     /**
      *
      * @return an array representing the current coordinates in the form of [x,y,z]
@@ -58,6 +65,7 @@ public class ExampleIface extends BinaryMsgIface {
         return coords;
     }
 
+    // extract-code ignore adapter-s12
     /**
      * Send structured data to the adapter
      * 

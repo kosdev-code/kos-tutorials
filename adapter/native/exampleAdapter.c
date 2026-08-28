@@ -10,8 +10,6 @@
 /*------------------------------------------------------------*/
 #include <ctype.h>
 #include <fcntl.h>
-#include <kos/board.h>
-#include <kos/kos.h>
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,23 +17,34 @@
 #include <time.h>
 #include <unistd.h>
 
+// extract-code adapter-s1
+#include <kos/board.h>
+#include <kos/kos.h>
+// extract-code end adapter-s1
+
 /*------------------------------------------------------------*/
 /* Define a few constants...                                  */
 /*------------------------------------------------------------*/
 
+// extract-code adapter-s1
 // Blink protocol name
 #define BLINK_NAME "kondra.exampleIface"
 
+// extract-code adapter-s11
 #define BOARD_TYPE "navigationModule"
+
 
 // Revision number
 #define REVISION 1
 
+// extract-code adapter-s5
 // Java Api numbers
 #define API_JAVA_SEND                  0 // java sends a command / event decode input
 #define API_JAVA_SEND_AND_RECEIVE      1 // java sends a command / event and recieves a response encode input
 #define API_JAVA_SEND_STRUCT           2 // cast recieved data to a struct
+// extract-code end adapter-s5
 
+// extract-code adapter-s10
 // Native Api numbers
 #define API_NATIVE_SEND                0 // native sends a command / event to java
 
@@ -43,7 +52,9 @@
 /* Global state...                                            */
 /*------------------------------------------------------------*/
 
+// extract-code adapter-s1
 static blinkClient *client;          // blink client
+
 static pthread_t programEventThread; // A thread so that this program will use
                                      // to send events to java
 blinkIface *navigationIface;
@@ -52,6 +63,7 @@ blinkIface *navigationIface;
 /* Code...                                                    */
 /*------------------------------------------------------------*/
 
+// extract-code adapter-s9
 // A struct that java will pass to the adapter
 typedef struct NavigationModuleDestination {
   // coordinates of destination
@@ -74,6 +86,7 @@ static int usage() {
   return -1;
 }
 
+// extract-code adapter-s7
 /**
  * This function simulates a fire and forget api
  * This funcion will perfrom some action and doesn't
@@ -98,6 +111,8 @@ static int processJavaSendAPI(blinkApiArg *arg) {
   return 0;
 }
 
+
+// extract-code adapter-s8
 /**
  *  This API behaves like a GET as java is requesting
  *  data and this function will return the requested data
@@ -127,6 +142,7 @@ static int processJavaSendAndRecvAPI(blinkApiArg *arg) {
   return encoderSize(&arg->enc);
 }
 
+// extract-code adapter-s9
 static int processJavaSendStructAPI(blinkApiArg *arg) {
 
   // Get data from Java
@@ -153,6 +169,7 @@ static int processJavaSendStructAPI(blinkApiArg *arg) {
   return encoderSize(&arg->enc);
 }
 
+// extract-code adapter-s10
 /**
  * Get input from arduino and send blink event
  */
@@ -179,11 +196,18 @@ static void cleanup() {
   pthread_join(programEventThread, NULL);
 }
 
+// extract-code adapter-s1
+// extract-code adapter-s6
+// extract-code adapter-s11
 /**
  * main() : Main program entry point.
  */
 int main(int argc, char *argv[]) {
+  // extract-code ignore start adapter-s1
+  // extract-code ignore start adapter-s6
   struct boardIfaceData boardData; // board data for linking to java
+
+  // extract-code ignore start adapter-s11
   int console = 0;
 
   atexit(cleanup);
@@ -211,10 +235,14 @@ int main(int argc, char *argv[]) {
   if (!console)
     kosLogToSyslog();
 
+  // extract-code ignore end adapter-s1
+
   // create a client to connect to a SockEndpoint running
   // in a JVM on the local machine... override via properties
   client = blinkCreate(BLINK_NAME, REVISION, NULL, NULL, 0, 0);
+  // extract-code ignore end adapter-s11
 
+  // extract-code ignore start adapter-s1
   // zero the memory in boardData
   memset(&boardData, 0, sizeof(boardData));
 
@@ -224,8 +252,11 @@ int main(int argc, char *argv[]) {
   // register the board iface
   blinkAddBoardIface(client, &boardData);
 
+  // extract-code ignore start adapter-s11
   // get iface
   navigationIface = client->coreIface;
+
+  // extract-code ignore end adapter-s6
 
   // register the handler to API number and pass the user data
   blinkRegisterApi(navigationIface, API_JAVA_SEND, processJavaSendAPI, NULL);
@@ -234,9 +265,14 @@ int main(int argc, char *argv[]) {
   blinkRegisterApi(navigationIface, API_JAVA_SEND_STRUCT,
                    processJavaSendStructAPI, NULL);
 
+  // extract-code ignore start adapter-s6
   // listen for events from the arduino
   pthread_create(&programEventThread, NULL, simulateEvents, NULL);
+  // extract-code ignore end adapter-s1
 
   // process connections from java indefinitely
   blinkDispatch(client);
+  // extract-code ignore end adapter-s6
+
+  // extract-code ignore end adapter-s11
 }

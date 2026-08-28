@@ -15,11 +15,15 @@ public class TutorialApp extends SystemApplication<BaseAppConfig> {
 
     @Autowired
     private SpawnService spawnService;
+
+    // extract-code adapter-s16
     @Autowired
     private FuseService fuseService;
+
     private ExampleAdapter adapter;
     private TutorialAssembly assembly;
 
+    // extract-code adapter-s16
     @Override
     public void load() throws Exception {
         // Get the adapter from the image and mount it so
@@ -48,6 +52,7 @@ public class TutorialApp extends SystemApplication<BaseAppConfig> {
 
         // Spawn the adapter
         if (adapter != null) {
+            // extract-code adapter-s18
             spawnService.addProcess(adapter);
         }
     }
