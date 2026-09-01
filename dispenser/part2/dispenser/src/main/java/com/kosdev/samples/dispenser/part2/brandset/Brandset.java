@@ -39,4 +39,9 @@ public class Brandset implements IngredientSource {
                 .findFirst()
                 .orElse(null);
     }
+
+    @Override
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
 }

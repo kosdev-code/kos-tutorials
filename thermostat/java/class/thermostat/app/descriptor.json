@@ -1,0 +1,13 @@
+{
+  "kos": {
+    "app": {
+      "appClass": "com.kos.tutorial.ThermostatApp",
+      "appId": "system",
+      "altClassesDir": "/home/david/src/kos-java-tutorials/thermostat/java/tutorial-thermostat/core/target/classes",
+      "sdkClassPrefixes": ["com.kos.tutorial"]
+    },
+    "softwareInfo": {
+      "name": "Thermostat App"
+    }
+  }
+}
