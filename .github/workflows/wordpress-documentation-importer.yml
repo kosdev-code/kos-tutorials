@@ -37,14 +37,15 @@ jobs:
         with:
           main-branch-name: "main"
 
+
       - name: Import changed Documentation files
         shell: bash
         env:
           WP_USERNAME: ${{ secrets.WP_USERNAME }}
           WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
           WP_MD_KEY: ${{ secrets.WP_MD_KEY }}
-          WP_BASE_URL: "https://staging23.kosdev.com"
-          WP_PROXY: "https://content.kosdev.com"
+          WP_BASE_URL: ${{ secrets.WP_BASE_URL }}
+          WP_PROXY: ${{ secrets.WP_PROXY }}
           WP_PROXY_PASS: ${{ secrets.WP_PROXY_PASS }}
         run: bash .github/import-documentation-wordpress.sh
 
