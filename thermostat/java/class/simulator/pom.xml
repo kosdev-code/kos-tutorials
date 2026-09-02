@@ -29,7 +29,7 @@
         </dependency>
         <dependency>
             <groupId>com.kos.tutorials.thermostat</groupId>
-            <artifactId>tutorial-thermostat.java.thermostat.sdk</artifactId>
+            <artifactId>tutorial-thermostat.java.class.thermostat.sdk</artifactId>
             <version>0.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
