@@ -33,7 +33,7 @@
 // extract-code adapter-s11
 #define BOARD_TYPE "navigationModule"
 
-
+// extract-code adapter-s1
 // Revision number
 #define REVISION 1
 
