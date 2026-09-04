@@ -5,10 +5,8 @@ import com.kosdev.kos.core.service.assembly.CoreAssembly;
 
 import lombok.Getter;
 
+// extract-code adapter-s3
 public class TutorialAssembly extends Assembly implements CoreAssembly {
-
-    @Getter
-    private ExampleBoard navigationBoard;
 
     public TutorialAssembly() {
         super("TutorialAssembly");
@@ -16,12 +14,11 @@ public class TutorialAssembly extends Assembly implements CoreAssembly {
 
     @Override
     public void load() throws Exception {
-        navigationBoard = new ExampleBoard(this);
+        new ArduinoBoard(this);
     }
 
     @Override
     public void start() throws Exception {
 
     }
-
 }

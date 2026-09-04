@@ -10,46 +10,36 @@ import com.kosdev.kos.core.service.spawn.SpawnService;
 
 import lombok.extern.slf4j.Slf4j;
 
+// extract-code adapter-s12
+// extract-code adapter-s4
+// extract-code adapter-s1
 @Slf4j
 public class TutorialApp extends SystemApplication<BaseAppConfig> {
 
-    @Autowired
-    private SpawnService spawnService;
+    // extract-code ignore adapter-s4
+    // extract-code ignore adapter-s1
     @Autowired
     private FuseService fuseService;
-    private ExampleAdapter adapter;
-    private TutorialAssembly assembly;
 
+    // extract-code ignore adapter-s4
     @Override
     public void load() throws Exception {
-        // Get the adapter from the image and mount it so
-        // that it can be run on the device
-        KabFile adapterKab = getKabByType("kos.adapter");
-        if (adapterKab != null) {
-            FuseMount mount = fuseService.mount(adapterKab);
-            if (mount != null) {
-                adapter = new ExampleAdapter(mount.getRootDir());
-            }
+        // extract-code ignore start adapter-s1
+        KabFile adapter = getKabByType("kos.adapter");
+        if (adapter != null) {
+            FuseMount mount = fuseService.mount(adapter);
+            addToCtx(new ArduinoAdapterFactory(mount.getRootDir()));
         } else {
             log.error("No adapter found");
         }
-
-        assembly = new TutorialAssembly();
-
-        // make the endpoints for testing available
-        addToCtx(new TutorialController(assembly));
-
+        // extract-code ignore end adapter-s1
     }
 
+    // extract-code ignore adapter-s12
     @Override
     public void start() throws Exception {
-        // install assembly after everything is setup in load
-        installAssembly(assembly);
-
-        // Spawn the adapter
-        if (adapter != null) {
-            spawnService.addProcess(adapter);
-        }
+        // extract-code ignore adapter-s1
+        installAssembly(new TutorialAssembly());
     }
 
 }
