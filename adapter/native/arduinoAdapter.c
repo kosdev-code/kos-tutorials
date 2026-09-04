@@ -8,6 +8,7 @@
 /* (C) Copyright 2025, Kondra                                 */
 /* All rights reserved.                                       */
 /*------------------------------------------------------------*/
+
 #include <ctype.h>
 #include <fcntl.h>
 #include <kos/board.h>
@@ -19,6 +20,7 @@
 #include <termios.h>
 #include <unistd.h>
 
+// extract-code adapter-s8
 /*------------------------------------------------------------*/
 /* Define a few constants...                                  */
 /*------------------------------------------------------------*/
@@ -37,10 +39,13 @@
 /* Global state...                                            */
 /*------------------------------------------------------------*/
 
-static blinkClient *client; // blink client
+// extract-code ignore start adapter-s8
 static int serialFd;        // file descriptor for serial port
 static int verbose = 0;     // verbose flag
 static pthread_t buttonListeningThread;
+// extract-code ignore end adapter-s8
+
+static blinkClient *client; // blink client
 blinkIface *arduinoIface;
 
 /*------------------------------------------------------------*/
@@ -61,6 +66,7 @@ static int usage() {
   return -1;
 }
 
+// extract-code adapter-s10
 /**
  * command handler, just passes user command onto the arduino
  */
@@ -115,6 +121,7 @@ void *listenToArduino() {
 
         // If recieved button message from arduino send
         if (strstr(buf, "BUTTON")) {
+          // extract-code adapter-s11
           blinkSendMsg(arduinoIface, API_BUTTON_PRESSED, NULL, 0);
         }
 
@@ -132,11 +139,18 @@ static void cleanup() {
   pthread_join(buttonListeningThread, NULL);
 }
 
+// extract-code adapter-s10
+// extract-code adapter-s9
+// extract-code adapter-s8
 /**
  * main() : Main program entry point.
  */
 int main(int argc, char *argv[]) {
+  // extract-code ignore start adapter-s10
+  // extract-code ignore start adapter-s8
   struct boardIfaceData boardData; // board data for registering iface
+
+  // extract-code ignore start adapter-s9
   struct termios tio;
   char *dev = NULL;
   int console = 0;
@@ -190,11 +204,16 @@ int main(int argc, char *argv[]) {
   cfsetospeed(&tio, B115200); // Set the output baud rate to 115200
   tcsetattr(serialFd, TCSANOW, &tio); // apply configuration now
   tcflush(serialFd, TCIFLUSH); // Flush the input buffer
+  // extract-code ignore end adapter-s8
+
 
   // create a client to connect to a SockEndpoint running
   // in a JVM on the local machine... override via properties
   client = blinkCreate(BLINK_NAME, REVISION, NULL, NULL, 0, 0);
 
+  // extract-code ignore end adapter-s9
+
+  // extract-code ignore start adapter-s8
   // zero the memory in boardData
   memset(&boardData, 0, sizeof(boardData));
 
@@ -203,16 +222,25 @@ int main(int argc, char *argv[]) {
 
   // register the board iface
   blinkAddBoardIface(client, &boardData);
+  // extract-code ignore end adapter-s8
 
+  // extract-code ignore start adapter-s9
   // get iface
   arduinoIface = client->coreIface;
 
+  // extract-code ignore end adapter-s10
+
+  // extract-code ignore start adapter-s8
   // register the handler to API number and pass the user data
   blinkRegisterApi(arduinoIface, API_ILLUMINATE_LED, sendLedCommand, NULL);
 
+  // extract-code ignore start adapter-s10
   // listen for events from the arduino
   pthread_create(&buttonListeningThread, NULL, listenToArduino, NULL);
+  // extract-code ignore end adapter-s8
 
   // process connections from java indefinitely
   blinkDispatch(client);
+  // extract-code ignore end adapter-s9
+  // extract-code ignore end adapter-s10
 }

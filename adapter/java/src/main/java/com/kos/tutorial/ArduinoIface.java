@@ -9,6 +9,7 @@ import com.kosdev.kos.commons.core.service.blink.binarymsg.IfaceClient;
 
 import lombok.extern.slf4j.Slf4j;
 
+// extract-code adapter-s5
 @Slf4j
 public class ArduinoIface extends BinaryMsgIface {
     private static final String IFACE_NAME = "arduino.iface";
@@ -33,5 +34,4 @@ public class ArduinoIface extends BinaryMsgIface {
         send(msg);
         log.info("Button pressed turning led {}", isOn ? "On" : "Off");
     }
-
 }

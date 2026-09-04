@@ -15,7 +15,6 @@ public class ArduinoService extends AbstractService implements IfaceAwareService
         client = new IfaceClient<>();
     }
 
-
     @Override
     public ArduinoIface createIface(BinaryMsgSession session) {
         return new ArduinoIface(session, client);

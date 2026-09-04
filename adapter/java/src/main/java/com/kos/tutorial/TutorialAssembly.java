@@ -5,6 +5,7 @@ import com.kosdev.kos.core.service.assembly.CoreAssembly;
 
 import lombok.Getter;
 
+// extract-code adapter-s3
 public class TutorialAssembly extends Assembly implements CoreAssembly {
 
     public TutorialAssembly() {

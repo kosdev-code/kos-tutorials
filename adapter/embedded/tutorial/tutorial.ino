@@ -1,3 +1,4 @@
+// extract-code adapter-s14
 #define BAUD 115200
 
 #define LED_PIN 13
@@ -39,3 +40,4 @@ void loop() {
   }
 
 }
+// extract-code end adapter-s14

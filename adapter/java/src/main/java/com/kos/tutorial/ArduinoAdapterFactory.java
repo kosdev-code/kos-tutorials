@@ -6,6 +6,7 @@ import com.kosdev.kos.core.service.spawn.Adapter;
 import com.kosdev.kos.core.service.udev.serial.SerialAdapterFactory;
 import com.kosdev.kos.core.service.udev.serial.SerialDevice;
 
+// extract-code adapter-s13
 public class ArduinoAdapterFactory extends SerialAdapterFactory {
 
     // vendorId / productId for mdb adapter
