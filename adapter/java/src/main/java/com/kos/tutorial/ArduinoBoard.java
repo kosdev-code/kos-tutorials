@@ -16,8 +16,6 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard {
     public ArduinoBoard(Assembly assembly) {
         super(assembly, "arduino");
         arduinoIfaceClient = new IfaceClient<>();
-
-
     }
 
     @Override
