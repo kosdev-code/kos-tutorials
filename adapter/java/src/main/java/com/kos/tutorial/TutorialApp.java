@@ -16,12 +16,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TutorialApp extends SystemApplication<BaseAppConfig> {
 
-    // extract-code ignore start adapter-s4
+    // extract-code ignore adapter-s4
     // extract-code ignore adapter-s1
     @Autowired
     private FuseService fuseService;
 
-    // extract-code ignore end adapter-s4
+    // extract-code ignore adapter-s4
     @Override
     public void load() throws Exception {
         // extract-code ignore start adapter-s1

@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ArduinoBoard extends Board implements IfaceAwareBoard {
 
+    // extract-code ignore adapter-s2
     IfaceClient<ArduinoIface> arduinoIfaceClient;
 
     public ArduinoBoard(Assembly assembly) {

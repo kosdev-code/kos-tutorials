@@ -21,6 +21,7 @@
 #include <unistd.h>
 
 // extract-code adapter-s8
+
 /*------------------------------------------------------------*/
 /* Define a few constants...                                  */
 /*------------------------------------------------------------*/
@@ -47,6 +48,8 @@ static pthread_t buttonListeningThread;
 
 static blinkClient *client; // blink client
 blinkIface *arduinoIface;
+
+// extract-code end adapter-s8
 
 /*------------------------------------------------------------*/
 /* Code...                                                    */
