@@ -1,8 +1,8 @@
 CC ?= gcc
 CFLAGS = -Wall
 OUTDIR ?= adapter
-TARGET = $(OUTDIR)/exampleAdapter
-OBJS = exampleAdapter.o
+TARGET = $(OUTDIR)/ArduinoAdapter
+OBJS = ArduinoAdapter.o
 KAB_VERSION ?= 0.0.0
 
 $(TARGET): $(OBJS) | $(OUTDIR)
@@ -22,5 +22,6 @@ debug: CFLAGS += -g
 debug: $(TARGET)
 
 package: $(TARGET)
-	kabtool --build --type kos.adapter -dir adapter --version "${KAB_VERSION}" --name exampleAdapter exampleAdapter-arm64.kab
+	kabtool -b -t kos.adapter -dir adapter -v "${KAB_VERSION}" arduino-adapter-arm64.kab
+
 .PHONY: package clean debug
