@@ -140,7 +140,6 @@ static void handler2(BlinkService *s){
     s->write(receivedString1, msgSize);
 }
 
-<snippet-viewer source="tutorials-public" snippet="arduino-s12@tutorial.ino"></snippet-viewer>
 static void handler3(BlinkService *s){
     /* Determine how many bytes you are going to 
     be sending back including both strings, their 

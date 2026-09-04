@@ -5,20 +5,20 @@ import com.kosdev.kos.commons.core.service.blink.binarymsg.BinaryMsgSession;
 import com.kosdev.kos.commons.core.service.blink.binarymsg.IfaceClient;
 import com.kosdev.kos.core.util.iface.IfaceAwareService;
 
-public class ExampleService extends AbstractService implements IfaceAwareService<ExampleIface> {
+public class ArduinoService extends AbstractService implements IfaceAwareService<ArduinoIface> {
 
     private static final String IFACE_NAME = "kondra.exampleIface";
 
-    IfaceClient<ExampleIface> client;
+    IfaceClient<ArduinoIface> client;
 
-    public ExampleService() {
+    public ArduinoService() {
         client = new IfaceClient<>();
     }
 
 
     @Override
-    public ExampleIface createIface(BinaryMsgSession session) {
-        return new ExampleIface(session, client);
+    public ArduinoIface createIface(BinaryMsgSession session) {
+        return new ArduinoIface(session, client);
     }
 
     @Override

@@ -1,231 +1,173 @@
 ---
 title: Creating and using an Adapter with KOS
-excerpt: Build an adapter with KOS. . 
-categories: [Arduino]
+excerpt: Build an adapter with KOS.
+categories: [Adapter]
 tags: [Tutorial]
 status: publish
 author: james
-_yoast_wpseo_focuskw: Arduino
+_yoast_wpseo_focuskw: Adapter
 ---
 
-## Introduction
-As mentioned in [Hardware Abstraction](https://kosdev.com/articles/hardware-abstraction/)  KOS runs in the JVM (Java Virtual Machine), which has limited hardware and low level integrations. Additionally, technologies, such as JNI (Java Native Interface), are brittle and can crash the entire Java virtual machine. To solve for this KOS introduces the concept of adapters, which are native programs that bridge the gap between Java and low-level native functionality. This article will explain how to create adapters and integrate them into a KOS application. It will also explain the Blink protocol, and related concepts for the creation of adapters.
+## Integrating Custom Hardware Tutorial
 
-## How does an adapter communicate with KOS?
+In this tutorial we’re going to learn how to properly integrate custom hardware into a KOS device. It’s assumed that you’ve read the first [tutorial](https://kosdev.com/articles/digital-product-rack/). The tutorial aims to be a minimal example that makes the [Hardware Abstraction Article](https://kosdev.com/articles/hardware-abstraction/) concrete. The hardware we’ll be connecting to is an Arduino type micro-controller, connected via USB. The Arduino will be connected to a button and an LED, this way we can receive events in java and send down commands to the arduino. This exercise will explain how KOS models hardware and how to write an adapter to integrate with hardware. 
 
-An adapter is primarily a native program. What differentiates a native program and an adapter is that an adapter establishes a network connection with KOS, using the BLINK protocol.
+While most development with KOS is done with Java on the backend, there are scenarios, like communicating with hardware, that are best suited for lower level languages. Technologies like JNI (Java Native Interface) have significant limitations when it comes to interacting with hardware, as it might crash the whole Java virtual machine. The solution that KOS provides is BLINK (Binary Link) a simple binary network protocol that provides a structured way to interact with native programs, which in KOS are called adapters. There is a kos library for Arduino that completely eliminates the need for an adapter. It’s important to learn how KOS interacts with and abstracts hardware, and the role that adapter play before moving onto the arduino [tutorial](https://kondra.atlassian.net/wiki/x/DYAxS).
 
-### What is the BLINK protocol? 
+You can check out the final tutorial code [here](https://github.com/kosdev-code/kos-tutorials/tree/main/adapter).
 
-BLINK (Binary Link) is a network protocol that packs data in a binary format, making data transfer extremely efficient. This allows data that is received from the Java side to be cast directly into C structs. Additionally the protocol is endian neutral where the Java side will adapt to the endianness of the client. 
+## Project Setup
 
-### How does the BLINK protocol work? 
+KOS is built with Maven, and rather than having to hand-craft the project structure, we provide maven archetypes to get started with development quickly. You can check out the archetypes repo and install the archetypes locally by executing the following commands in the terminal.
 
-A blink connection is made up of Ifaces, An Iface acts as a contract that defines API’s between the two sides of a BLINK connection. Iface stands for interface but was renamed to distinguish them from Java interfaces. A BLINK connection can have up to 16 Ifaces, where each Iface has a name and a list of defined APIs. A BLINK connection must have at least one Iface with the first Iface referred to as the core Iface. The core Iface encapsulates the main purpose of the BLINK connection. 
+```bash
+git clone https://github.com/kosdev-code/kos-maven-archetypes
+cd kos-maven-archetyps
 
-An Iface API is defined by a number between 0 and 255. It is up to the developer to give a meaning to these APIs. When a message is sent over BLINK the header defines which Iface and which API the message is intended for. The receiver of the message can then decode the body of the message in the way particular to the API.  For specifics on the BLINK header refer to the Javadocs for BinaryMsgSession.
+./install_archetypes.sh
+```
 
-<image title="iface diagram" name="iface_diagram.png" caption="" />
+Now that you have the archetypes installed, navigate to a directory where you want to create your project and generate a new project using the system-app archetype to get started. 
 
-Iface APIs can optionally expect a response, effectively creating two types of APIs, request-response APIs and event APIs.
+```bash
+mvn archetype:generate -DarchetypeGroupId=com.kos.archetypes -DarchetypeArtifactId=system-app
+```
 
-An adapter will create a BLINK client that registers listeners for the various APIs which is how it receives messages from Java. Additionally, the BLINK client can send messages to Java, and Java will have to register listeners for those messages. Since each side of the BLINK connection has to register listeners, API numbers can be reused. Take API number 55, for instance, both the Java side and the adapter side can register listeners for that API and interpret them differently.  It’s best to think of an API as a two-lane road, where Java and the adapter can send requests and receive responses without conflict. This then opens up the total number of APIs possible to 512, 256 for each side of the connection for a single Iface.
+## Java Implementation
 
-<image title="iface diagram" name="BLINK_connection_diagram.png" caption="" />
+### Creating the System App
 
-### How are BLINK connections established?
+Every project using KOS starts with the `SystemApplication` which is a Java class and a concept.
 
-When a blink client establishes a network connection to KOS it sends an identity packet that contains information about the blink connection and provides a list of declared Ifaces. These are Ifaces that the client has implemented and wants a connection for. KOS will continuously query all of the Iface factories trying to bind the client Iface to one in Java.
+In concept, all the Java code that will be written in this tutorial is part of the system app and represents the foundation of the device being built. Additional applications can later be added to the image to provide additional functionality, see [Applications](https://kosdev.com/articles/applications/). As a class the `SystemApplication` is the starting point of the code, and it is the first thing that runs after KOS has booted.
 
-If an adapter includes a board Iface KOS will link the adapter's BLINK connection to the board that has the same type and instanceId. 
+So to get started we create the following class. 
 
-### How do board play into all of this?
+<snippet-viewer source="tutorials-public" snippet="adapter-s1@TutorialApp.java"></snippet-viewer>
 
-Boards are one of the chief features of KOS; a way to abstract physical hardware to reduce the potential of race conditions. Most times a board has a core purpose, for instance an RFID module reads and writes RFID tags, the functions of this core purpose are placed in the core Iface. Each blink connection has a core Iface, acting as the primary interface and reason for the BLINK connection. Resulting in 15 Ifaces left available for the BLINK connection. One of those slots can be used by the board  Iface.
+Now we have a class with two methods `load()` and `start()`. The former is where we do some initial setup for the device before the system app is fully started. KOS has many services that make use of listeners; where you have a class that extends an interface, you then place an instance of that class into the context, and the class will receive the interface's callbacks. We’ll make use of this later in the tutorial. The `load()` method is where you would instantiate services and add listeners to the context; see [Dependency Injection](https://kosdev.com/articles/dependency-injection/). The next method, `start()`, is called right before the application is actually started, and is in place to do any final initialization. For instance, in `load()` you might set up some services, and then in `start()` you might need to make use of those services, but the device still isn’t ready to fully start yet. 
 
-The board Iface is simple; the name of the Iface is kos.board and it has 4 apis defined. 
+We will make use of the `start()` method in a moment, but first we must update the `descriptor.json` so that KOS knows which class is the system app and to start calling these lifecycle methods. The descriptor specifies information about the KAB, and for applications it specifies the Java `Application` class and appId. The descriptor can also hold additional data as desired, which you access within the application class by calling the `getDescriptor()` method. 
 
+```json
+{
+  "kos": {
+    "app": {
+      "appClass": "com.kos.tutorial.TutorialApp",
+      "appId": "system"
+    }
+  }
+} 
+```
 
-| API | Number | Description                                                                                                                                                                |
-|--|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| get board type | 1      | The adapter returns the type of board that it is as a string. Used to link boards in conjunction with instance ID.                                                         | 
-| get instance ID | 2      | The adapter returns a string used to differentiate between multiple instances of the same type of board.                                                                   |
-| get identity | 3      | Expects the adapter to return a unique string to represent the board. Can be used to link a board to an adapter as opposed to using board type and instance ID.            |
-| get manufacturing serial number | 4      | Expects the adapter to return the serial number of the physical board that it is communicating with. This is the serial number that the manufacturer of the board gave it. |
+### Creating the Arduino Board and Assembly
 
-KOS has great integrations to streamline the development and integration of adapters that link to boards. The KOS C library has plenty of helper functions to easily connect an adapter to a board instance. Additionally the Java API provides solutions for many common use cases such as starting an adapter when a USB device has been inserted. Many of these will be covered in the following reference project. 
+KOS abstracts hardware into logical boards which are then stored within a unified group of hardware components known as an Assembly; see [Hardware Abstraction](https://kosdev.com/articles/hardware-abstraction/). For this tutorial we only need one board. We create it like so.
 
-## Reference Project
+<snippet-viewer source="tutorials-public" snippet="adapter-s2@ArduinoBoard.java"></snippet-viewer>
 
-To make things more concrete, a reference project has been provided here. This tutorial will go over the parts that are pertinent to the development and integration of adapters. The whole project can be found [here](https://github.com/kosdev-code/kos-tutorials/tree/main/adapter). This project demonstrates the most common reason for creating an adapter, which is communicating with hardware. Consequently, this project has an [assembly](https://kosdev.com/articles/assembly-model-and-hardware-topology/) and a [board](https://kosdev.com/articles/docs_topics_board_md/) to abstract the hardware in Java. This project will make use of two Ifaces, the board Iface, and a custom Iface that has been implemented. 
+The `Board` class takes in an `Assembly` and a name in the constructor. The name is used for creating the handle, a unique name to specify a specific instance of a Java object; see [Handle Paths](https://kosdev.com/articles/handle-path/).  The board type is used to match the board to the correct BLINK connection. We will delve into this in a moment. The `instanceId` differentiates multiple instances of the same type of board. For instance, if we had two Arduinos we could have them read the input of a GPIO pin to detect which board it is. This way we know exactly which physical board we’re communicating with. But for this tutorial, since we only have one Arduino board, we can return null for the `instanceId`. 
 
-### Custom Iface 
+We can now create an `Assembly` into which our board can be integrated. We do this by instantiating it in the `load()` method of the assembly class as demonstrated below. It is important that boards are instantiated in the `load()` method of the assembly, as opposed to `start()` or `started()`. Doing otherwise will result in the board not being properly integrated into the greater KOS system. Another thing to notice is that this `Assembly` implements the `CoreAssembly` interface. This means that it is integral to the KOS device and without this hardware the device would not be functional. In KOS devices there can and must be a single `CoreAssembly`.
 
-We’ll first start with the defining the Iface and then it can be implemented on both the Java side and the adapter side. For this Iface we’ll define 4 APIs to show off the variety of ways that the Iface can be used. 
+<snippet-viewer source="tutorials-public" snippet="adapter-s3@TutorialAssembly.java"></snippet-viewer>
 
-API Definition
+We have now properly structured the logical hardware components of our device and can integrate the assembly into the system app by installing the assembly in the `start()` method like so. The assembly must be installed in the `start()` method as the installation process relies on the Application’s `load()` method to complete. 
 
-| API Name              | API Number | Description                                                                                                                                 | Example |
-|-----------------------|------------|---------------------------------------------------------------------------------------------------------------------------------------------| ----- |
-| Java Send             | 0          | Java will send a BLINK message with data to the adapter but not receive any data back from the adapter.                                     | Streaming configurations for LEDs, which LEDs are on showing what color at what brightness. There’s no error states with LED’s they’re either on or off, so Java doesn’t need a response just to send the requested state. |
-| Java Send and Receive | 1          | Java sends a BLINK message and expects data to be returned.                                                                                 | Requesting a payment terminal to charge a specific amount. Java would want to receive the status of the request and handle failure or success appropriately. | 
-| Java Send Struct      | 2          | Java sends a BLINK message with structured data that can be converted to a C struct. For this API Java will also expect data to be returned. | Configuring the state of the board. Java would send many pieces of data that the adapter can use for configuration and the adapter can return the status of the configuration. |
-| Adapter Send          | 0          | The adapter sends an BLINK message to Java. | A door switch detects the door opened and would send that message to java.      |  
+<snippet-viewer source="tutorials-public" snippet="adapter-s4@TutorialApp.java"></snippet-viewer>
 
-These are the different cases of BLINK messages Java can send a message with or without data, it can wait for a response and retrieve data from the response. Or the adapter can send a BLINK message to Java with or without data.
+### Integrating with Native Programs
 
-Notice that the API number 0 has been reused. When Java sends a BLINK message with API number 0 only the adapter will receive that message, so Java can safely listen for messages from the adapter sent over API 0 without conflict.
+We now have the virtual abstractions created and can start integrating with the hardware through an adapter, but what is an adapter? An adapter is simply a native program that uses BLINK to communicate with Java. An adapter will create a BLINK client that will manage the connection with the Java side. The adapter can then register up to 16 iface’s with the BLINK client. An iface is like a sub protocol in which you have up to 256 api numbers that you can use and give meaning to. This structure allows you to better maintain a separation of concerns if your adapter needs to make use of different parts of the Java application. You can send multiple messages concurrently using the different ifaces over the same blink connection. In this tutorial we’ll only create one iface but will make use of another, the board iface which is defined by KOS. The board iface is the way KOS links your logical board to the adapter and consequently the physical board. The board iface will be the first to connect and facilitate the connection of our own iface to the board. An iface doesn’t have to be linked to a board, and adapters are not limited to programs that interact with hardware. 
 
-The name for this Iface is arbitrary, but it must match up on both the adapter and Java side to establish a connection. For this example it will be kondra.exampleIface. 
+Let’s make this more concrete by creating an iface in Java like so. 
 
-### Iface Implementation in an Adapter
+<snippet-viewer source="tutorials-public" snippet="adapter-s5@ArduinoIface.java"></snippet-viewer>
 
-Starting with the native C side, a minimal adapter that creates a BLINK client and processes BLINK connections can be created like so. From here the full implementation can be built.  
+Let’s break this down, starting from the top. 
 
-<snippet-viewer source="tutorials-public" snippet="adapter-s1@exampleAdapter.c"></snippet-viewer>
+We can see that there are some `static final` fields, the first being the name of the iface, this name is used to match up the Java iface to the native C iface. On the C side we will be able to reference this iface to register handlers for when we receive a message for a particular API number. The next two fields are the API numbers. Zero represents the LED request we’re sending to the adapter and one is the event we expect to receive from the adapter when the button is pressed. The last field is a boolean to hold the state of the LED.
 
-This program makes use of the KOS C library that can be found on a KOS device by selecting the developer tools options. The developer tools option is only necessary when using a KOS device for active development and should be unchecked otherwise. Since KOS is an operating system, it is expected that any native programs that are developed to run on KOS will be built on KOS, as it guarantees compatibility of the binaries. For more information on developing native programs for KOS check out this article [Native Development for KOS](https://kosdev.com/articles/native-development-for-kos/).
+In the constructor we see how a request handler is registered against the API for a button press. This is the lambda that will be executed when the adapter sends a request with API number one. The handle button method is very simple we just send a message back to the adapter to turn on the LED or turn it off depending on the current state. One interesting thing of note is the way that we pass data with the request. We have to write the data exactly as we want to receive it on the adapter side. You could write additional data using other helper methods like `writeInt(int v)`, `writeCString(String s)`, `writeLong(long v)`, etc. Once you’ve written your data you can send the request with `send()`. If you’re anticipating a response from the adapter you can use `sendAndRecv()` which will return a BinaryMsg response. You can then use the correlating methods `readInt()` , `readCString()`, etc. to read data from this response. 
 
-From the KOS library we’ll make use of many different functions the first being `blinkCreate()`, which creates a blink client struct used for communicating to Java.
+At the time of this writing the best way to connect an iface to a board is to have your board implement the `IfaceAwareBoard<T extends BinaryMsgIface>` interface, this will give us three new methods, one to instantiate the iface, and two life cycle events, when the iface connects and disconnects. You will not get the life cycle events if you do not pass the board as a listener in the `createIface` method. 
 
-<snippet-viewer source="tutorials-private" snippet="adapter-s2@exampleAdapter.c"></snippet-viewer>
+<snippet-viewer source="tutorials-public" snippet="adapter-s6@ArduinoBoard.java"></snippet-viewer>
 
-Looking at the minimal implementation, one cas see that the name of the Iface defined as the first argument is passed to the function, declaring it the core Iface. Each BLINK connection has a core Iface, or the core reason for this BLINK connection. The second argument, the version number, can be used for backwards compatibility. The third argument in the function is the server where you can specify the URL of the blink server you want to connect to, useful in multi-node situations. For most cases you just want to connect to the JVM running on the same machine, so passing NULL is fine for the third argument. The fourth argument is a `properties` struct where you can specify properties to override defaults. The last two arguments are the size of the input buffer and output buffer, which can be overridden as needed, but default to 8192 bytes. 
+We’ve now setup the Java side of the BLINK protocol setup we can proceed to write the adapter. 
 
-The second function used from the KOS library is the `blinkDispatch()` method which takes in a `blinkClient` struct, this function will continuously attempt to connect to Java as opposed to just ending the program whenever Java disconnects.
+## Writing the Adapter
 
-### Registering callbacks for BLINK APIs
+An adapter is first and foremost a native program. It becomes an adapter when we integrate BLINK to communicate with Java. In that spirit we will get started with a simple program that, given a device name, communicates with an Arduino over serial. The protocol we’re expecting the Arduino to follow is that the adapter will send the commands `ILLUMINATE` and `EXTINGUISH` to the Arduino to turn the LED on and off respectively. In response the `Arduino` will send a message, `BUTTON`, when the button has been pressed. The code for the Arduino and a schematic can be found at the end of the tutorial.
 
-To register callbacks for BLINK API’s a blinkIface struct is required. The reference to the core iface’s struct can be obtained from the blinkClient like so. 
+Below is the C program that implements this simple protocol, it will turn the LED on and off every 500ms and log every time that the button is pressed.
 
-<snippet-viewer source="tutorials-private" snippet="adapter-s3@exampleAdapter.c"></snippet-viewer>
+<snippet-viewer source="tutorials-public" snippet="adapter-s7@exampleAdapter.java"></snippet-viewer>
 
-When additional Ifaces are needed, they should be obtained via the blinkRegisterInterface() method. 
+At the top we can see that we pull in two `kos` header files, how did we get these? These are available on any KOS device that has the developer tools flag checked. Developer tools includes a bunch of tools needed for native development, including git, make, gdb, etc. see [Native Development of KOS](https://kosdev.com/articles/native-development-for-kos/). To confirm that your native programs will work on a KOS device you must compile on a KOS device.
 
-<snippet-viewer source="tutorials-private" snippet="adapter-s4@exampleAdapter.c"></snippet-viewer>
+With the KOS library we have access to some helper methods, one of which is `kosLog()`, this function will log your statements in a standard way, and can be seen in KOS Studio through the log viewer tool by selecting syslog. Alternatively you can view the logs on the device at `/mnt/datafs/logs/live/syslog*`. 
 
-Now that the Iface struct has been defined it can be register callbacks for the different API’s that have been defined using the `blinkRegisterApi()` function which takes in as arguments a `blinkIface` struct, the API number were registering against, the `blinkApiHandler()` function to be called when the BLINK message is received, and then a void pointer to pass any additional data that may be needed for the handler. The adapter can be updated like so. 
+Great! We have this basic program and can now start integrating BLINK into it so that we can connect from the Arduino to the Java side. Firstly let's create the `blinkClient`, this will be the struct that represents the connection to the Java side, and is used to communicate with the Java side.  Here’s how we can do that and start processing connections from the JVM. 
 
-<snippet-viewer source="tutorials-public" snippet="adapter-s5@exampleAdapter.c"></snippet-viewer>
+<snippet-viewer source="tutorials-public" snippet="adapter-s8@exampleAdapter.java"></snippet-viewer>
 
-Now let's look into implementing the callback functions. These functions take in a single argument, a `blinkApiArg` struct. This struct is used to decode data from the BLINK message and encode data for the response message if the API was defined that way. Both the KOS Java sdk and the KOS C library have helper functions to encode and decode BLINK messages. To make this concrete let's look at an implementation of the "Java Send" API that was defined for our Iface. 
+Looking at the constants we see that the name that we are passing into the blinkCreate() function is the same name as the iface we created on the Java side. This is because each BLINK connection has a core iface, or the core reason for this BLINK connection, and the core reason for this BLINK connection is to bridge the gap between the Arduino and Java. The revision number is the version of the adapter. The other arguments in the create method are server where you can specify the ip and port number of the blink server you want to connect to but for most cases you just want to connect to the JVM running on the same machine so passing null is fine. The next argument is a properties struct where you can specify properties to override defaults. The last two arguments are the size of the input buffer and output buffer, which you could override as needed, but there’s a reasonable minimum in place. After getting the blink client we can store the core iface so that we can register the APIs with a handler function and so that we can send events to Java using the iface. 
 
-<snippet-viewer source="tutorials-public" snippet="adapter-s6@exampleAdapter.c"></snippet-viewer>
+After the client has been created, we can start processing requests to connect to Java. In theory the Arduino iface could establish a connection, but the Arduino iface is only created in Java when it gets the callback for it in the board class, so how is the board supposed to know about this BLINK client? The answer is the board iface. While the core iface for this adapter is the Arduino iface, in order for this adapter to link directly to a board it needs to add the board iface to the blink client. The board iface will use the board type and instanceId to link up this adapter with the board on the Java side, since we only have one board we only have to specify the board type. We can add the board iface by using the `blinkAddBoardIface()` helper function that takes in the client and `boardIfaceData` struct. 
 
-A couple of things
+<snippet-viewer source="tutorials-public" snippet="adapter-s9@exampleAdapter.java"></snippet-viewer>
 
-The `decodeBool()` function is being used on a pointer to a decoder struct. This is decoding the first byte in the BLINK message data buffer. There are many different helper functions available to decode all of the standard data types.
+Great now when we run our program while running our KOS app the board will link and will connect to our arduino iface, but how do we actually use the arduino iface to send and receive events? To receive an event we can register a function to act as a handler for a specific API using the `blinkRegisterApi` function. Let's register our sendLedCommand function to handle the `ILLUMINATE_LED` api we defined in our Java iface. We’re going to need to refactor the `sendLedCommand` function to be a `blinkApiHandler` so that it can take in the binary message, decode it and react appropriately. 
 
-Another function from the KOS c library is `kosLog()` this will by default output logs to stdout which can be useful for debugging. But to have the logs show up in the standard KOS location the `kosLogToSyslog()` function needs to be called. This way KOS will process the logs and they’ll be accessible through the “Log Viewer” tool in KOS Studio or at `/mnt/datafs/logs/live/syslog*` on the running device.
+<snippet-viewer source="tutorials-public" snippet="adapter-s10@exampleAdapter.java"></snippet-viewer>
 
-The value that the function returns is zero. This value is the size of the data in the response message. But since, for this API, Java isn’t expecting a response we can safely return zero.
+Now we are able to receive events and react to them, we can even read data from the request as we can see with the `decodeBool()` function call. Just as we saw on the Java side where you can write data of different types into the message you can do the same on the adapter side. When decoding values from the binary message you must do so in the order you sent it from Java. If you sent two ints and a string you must decode them in that order on the C side. In response we could also encode data with a similar helper functions as we used in Java, `encodeBool()`, `encodeInt()`, etc. It’s worth noting that we are now returning an int or the length of the response, which in this case is nothing. 
 
-Now let's look into encoding data into the response message, with an implementation of the second API 
+What about sending an event when a button is pressed? How can we send events over the Arduino iface? This can be done very easily using  the `blinkSendMsg` function and replacing our log command in the `listenToArduino()` function. When calling the function we specify the iface over which we’re sending the event, the API number we want to use, and message data and size. 
 
-<snippet-viewer source="tutorials-public" snippet="adapter-s7@exampleAdapter.c"></snippet-viewer>
+<snippet-viewer source="tutorials-public" snippet="adapter-s11@exampleAdapter.java"></snippet-viewer>
 
-Here you can see the use of one of the encode helper functions, in this case encoding three doubles to the data buffer that will be sent in the response message that the Java side can consume. The other thing to note is that the return value of the function is returned from a call to another helper function `encoderSize()` built for this very use case where multiple pieces of data are placed into the response buffer.
+We now have completed the adapter, and it should function as desired. We just need to compile it and then… run it? How are we going to go about that? Firstly since everything is a KAB, see [Everything is a KAB](https://kosdev.com/articles/everything-is-a-kab/), we need to compile the program and put it in a KAB. This article shows how to set up build automation for continuously building and publishing the adapter [Native Development for KOS](https://kosdev.com/articles/native-development-for-kos/). The article also goes into detail on how to setup a shared drive with samba between your development machine and a kos device. This way you can compile the adapter on the KOS device and have the executable accessible on your development machine. Once you’ve compiled the program, you need to make a KAB and specify that the program has executable permissions this is done by creating a directory and placing the compiled executable and a .perm file which specifies the permissions. The `.perm` file would look like
 
-This encoding and decoding works well for a few data points, but BLINK really shines in the ability to cast the data received into a C struct greatly enhancing the developer experience. An example of this can be seen below where a new struct is defined and the BLINK data buffer pointer is cast into a pointer of our new type. When dealing with structs, beware of any padding that the compiler may add, as this may cause issues.
+```txt
+755:1:1:ArduinoAdapter 
+```
 
-<snippet-viewer source="tutorials-public" snippet="adapter-s8@exampleAdapter.c"></snippet-viewer>
+The final folder structure would look like this.
 
-### Sending Events from The Adapter 
+```txt
+adapter
+├── .perm
+└── ArduinoAdapter
+```
 
-This tutorial has explored the features around receiving and dealing with a BLINK message that was sent from Java to native code, but what if the adapter is interfacing with hardware and needs to surface an event to Java? This can be done with the `blinkSendMsg()` function. Here's an example that sends an event every twenty seconds.
+And you can build a kab by using kabtool on a development machine that has kosStudio installed. 
 
-<snippet-viewer source="tutorials-public" snippet="adapter-s9@exampleAdapter.c"></snippet-viewer>
+```bash
+kabtool -b -t kos.adapter -dir adapter -v "0.0.0" arduino-adapter-arm64.kab
+```
 
-The `blinkSendMsg()` function takes four arguments, the Iface which the message is for, the API for that Iface, data, and the size of the data that is being sent with the message.
+Now that you have a kab you can add it to your image as a local artifact. Where do I put the kab? How is the adapter going to be extracted from the kab? And how is the adapter going to be started?
 
-### Implementing the Board Iface
+The KAB can be placed in the same section as the system app; `kos.system`, it is then very easy to get the KAB in the system app by calling `getKabByType(“kos.adapter”)` This method will return the adapter KAB if it can find it. Now to extract the KAB and make it available to the system, you can autowire `FuseService` and mount the KAB like so.
 
-One of the core tenets of KOS is the logical abstraction of hardware, which is done through boards and assemblies on the Java side. Since an adapter is often the connection to a piece of hardware, the status of a board's connectivity is the status of the BLINK connection. So if the BLINK connection is no longer connected, the board will become unlinked on the Java side and can be dealt with accordingly at that level of abstraction. 
+<snippet-viewer source="tutorials-public" snippet="adapter-s12@exampleAdapter.java"></snippet-viewer>
 
-The convention in KOS is that adapters are written to run indefinitely; the Java side determines when to start the adapter and when to kill the adapter. When an adapter is started, KOS will restart it if the process is ever terminated. So when it comes to a board's connection status, it is linked to whether the adapter is running. 
+After mounting KAB the adapter is now on the file system at an actual location, and runnable. We can get the directory where it was mounted by accessing it from the `FuseMount` returned from the mounting call. Then there is the instantiation of a new Java object the `ArduinoAdapterFactory` this answers the last question of how is the adapter started? The `ArduinoAdapterFactory` extends `SerialAdapterFactory` which has a call to match a serial device and return an `Adapter` to be started. You can match the device any way that you'd like as you can probe the device my sending messages directly, or you can use any of the given properties and methods available in the `SerialDevice` object. In order for a `SerialAdapterFactory` to get the callback all that needs to be done is to put it in the context, and KOS will find it and notify it when there’s a new serial device. Below is the implementation of the `ArduinoAdapterFactory`, the matching logic could be more complicated, but for this example the `vendorId` an `productId` are enough to identify the Arduino.
 
-Since USB is often used to connect hardware to the KOS node, KOS has standard methods to start adapters when a USB is inserted. KOS will kill the adapter when that USB is removed, greatly reducing the amount of code required to manage hardware connections. 
+<snippet-viewer source="tutorials-public" snippet="adapter-s13@ArduinoAdapterFactory.java"></snippet-viewer>
 
-To link an adapter to the board object in Java the BLINK connection must include the board Iface. The board Iface has a simple API that retrieves data about the board. This makes adding the board Iface to a BLINK connection simple, get all of the data about the board and put it into an `boardIfaceData` struct and call `blinkAddBoardIface()` which takes in the `blinkClient` and a pointer to the `boardIfaceData` struct. Now the adapter is linked to a board, below is an example of this process.
+We now have a kos app that interacts with hardware. There are many concepts but not that much code. Arduino’s are so useful for prototyping and development that we have made it even easier to interact with them by creating an Arduino library for BLINK so you can communicate directly to Java from an Arduino. 
 
-<snippet-viewer source="tutorials-public" snippet="adapter-s10@exampleAdapter.c"></snippet-viewer>
+## Embedded Code 
 
-With this the adapter is complete, although it still needs to be compiled put it into a KAB. This tutorial describes how you can do so, along with information on how to set up build and publishing automaton for your native artifacts.
+Here is the schematic for the esp32. The resistor for the led was 220 Ohms and the resistor for the button was 10k Ohms.  
 
-## Integration with Java
+<image title="Esp32 Wiring Schematic" name="esp32_schematic.png" caption="" />
 
-To integrate the adapter in Java there are a couple of things that your KOS application will have to do.
-- Establish Iface connections and handle them according the Iface contract.
-- Make the adapter binary available to system by mounting the kab on disk.
-- Starting the adapter binary and passing in program arguments as required 
+The code to drive the esp32 is very simple, it sets up the gpio pins for input and output, processes messages from serial and prints `BUTTON` to serial whenever the button is pressed. 
 
-### Establishing Iface Connections
+<snippet-viewer source="tutorials-public" snippet="adapter-s14@tutorial.ino"></snippet-viewer>
 
-For a KOS application to interact with an Iface, it needs to define a representation of the Iface in Java, and a way to interact with it and dynamically create an instance when a BLINK connection with that Iface is established. To define the Iface KOS has the `BinaryMsgIface` class, which contains the methods that sends and receives messages sent over the BLINK connection. 
 
-#### Creating the Iface
-
-Implementing an Iface on the Java side is simple, `BinaryMsgIface` provides methods to interact with the APIs defined by the Iface, as well as handle incoming messages. Below is the minimum required to extend the `BinaryMsgIface` class. All that is required is to implement the constructor. Here constants that define the Iface’s APIs have also been included.
-
-<snippet-viewer source="tutorials-public" snippet="adapter-s11@ExampleIface.java"></snippet-viewer>
-
-The super constructor of `BinaryMsgIface` takes four arguments.
-
-- The name of the Iface, used to establish the Iface connection within the BLINK connection
-- `BinaryMsgSession` which is an abstraction of the BLINK network connection.
-- `IfaceClient` is a wrapper around the `BinaryMsgIface` that provides many helper functions to safely call methods on the `BinaryMsgIface` and handle `null` references and exceptions.
-- `BinaryMsgIfaceListener` is listener for connect and disconnect events of the Iface.
-
-The `BinaryMsgIface` class provides the necessary methods to transmit and receive BLINK messages. To send a message over BLINK, an instance of `BinaryMsg` is created, this object manages the payload buffer for a BLINK message, it has methods to write and read data from the buffer. When the `BinaryMsg` is ready it can be sent via the `send()` method or if expecting a response with the `sendAndRecv()`. Below are two methods, one is an example of an Iface method that sends a BLINK message with a boolean encoded in the BLINK message. The other shows how a BLINK response can be received and data retrieved from it.
-
-<snippet-viewer source="tutorials-public" snippet="adapter-s12@ExampleIface.java"></snippet-viewer>
-
-<snippet-viewer source="tutorials-public" snippet="adapter-s13@ExampleIface.java"></snippet-viewer>
-
-#### Receiving BLINK Messages
-
-To handle BLINK messages coming from the adapter a listener needs to be registered for the specific API number that one is listening for. This is done by calling the addRequestHandler method and registering a callback, like the example below.
-
-<snippet-viewer source="tutorials-public" snippet="adapter-s14@ExampleIface.java"></snippet-viewer>
-
-### Creating Instances of BinaryMsgIface 
-
-There are a number of ways to create an instance of a `BinaryMsgIface` given a blink connection. Fundamentally an instance of `BinaryMsgIface` is expected to be created by a class that implements the `BinaryMsgIfaceFactory` interface. For KOS to get access to an instance of the Iface factory it needs to be added to the context. When KOS receives a blink connection request it will attempt to create and connect the Iface when it receives a connection request, with the `IfaceFactories` available in the context. 
-
-Typically Ifaces are not standalone and are used within a service or as an interface to a board. KOS has `IfaceAware` interfaces, that implement `BinaryMsgIfaceFactory` for these patterns. For services there is the `IfaceAwareNodeService` and `IfaceAwareService`. The `IfaceAwareNodeService` can be used for interacting with an adapter on one or more nodes in a KOS device, it provides additional methods for caching node-specific data. The `IfaceAwareService` does not have the additional caching methods and is not recommended to be used in multi-node configurations.
-
-Following the KOS hardware abstraction model a `Board` class will contain functionality related to the physical board it represents. As mentioned before, KOS defines an iface for boards, the `Board` class includes the necessary information to link a board to the adapter that implments its iface. KOS will raise the `BoardNotLinked` trouble until that boards Iface connects. For cases where the board is not communicating to hardware via an adapter, a Board should implement the `SelfLinkingBoard` interface and call the `selfLink()` and `selfUnlink()` methods at appropriate times. 
-
-To facilitate other Iface connections, a board can implement the `IfaceAwareBoard` interface, which provides the `onLinkSession()` method which is called when the board Iface connection is established. This method is the place to create instances of the other Iface that a board may use when interacting with an adapter. Below is an example implementation of a board, showing how the Iface is linked and used with a `IfaceClient`.
-
-<snippet-viewer source="tutorials-public" snippet="adapter-s15@ExampleIface.java"></snippet-viewer>
-
-#### Why IfaceClient?
-
-The `IfaceClient` abstraction was created to remove boilerplate code around `null` checks and handling of exceptions. Thus `IfaceClient` has methods for handling the different scenarios, there are two basic methods `from()` and `with()`, and variations with additional arguments for handling exceptions and in case the Iface is null. The `from()` method is used to receive a value from the Iface and `with()` is for safely using the Iface, without triggering a null pointer exception. 
-
-### Starting an Adapter
-
-At this point we have created an adapter that uses our custom Iface, and have integrated that Iface into our KOS application. Following [Native Development for KOS](https://kosdev.com/articles/native-development-for-kos/) we have packaged our adapter binary into a KAB. The last missing piece is to run the adapter binary on our KOS device. We have to mount the binary into the filesystem and then start it. 
-
-#### Mounting files on disk
-
-To preserve immutability KOS runs in a read only file system. To make the contents of a KAB available to the rest of the system KOS provides FuseService to mount and unmount KABs to the local filesystem. This is how we can take the KAB with our adapter and add it to the local filesystem. 
-
-<snippet-viewer source="tutorials-public" snippet="adapter-s16@ExampleBoard.java"></snippet-viewer>
-
-#### Stating the Adapter
-
-Adapters can be started explicitly using SpawnService or by using a `SerialAdapterFactory`. Both methods require the use of an `Adapter` object. This object specifies the different configurations for running the program, such as specifying program arguments, the working directory, setting the group the process should run as, see more in the [Javadocs](https://api.kosdev.com/v0.0.0-SNAPSHOT/api-core/com/kosdev/kos/core/service/spawn/Adapter.html).  Below is a minimal implementation. 
-
-<snippet-viewer source="tutorials-public" snippet="adapter-s17@TutorialApp.java"></snippet-viewer>
-
-Once an adapter is started KOS will ensure it continuously runs, so if the program exists or is killed, KOS will restart it. To start an adapter using the `SpawnService` the `addProcess()` method is called with an Adapter instance as an argument, like so.
-
-<snippet-viewer source="tutorials-public" snippet="adapter-s18@ExampleAdapter.java"></snippet-viewer>
-
-Alternatively the adapter can be started by a `SerialAdapterFactory`. This class provides a method to match serial devices, allowing the app to start the adapter when the hardware is attached to the KOS device. The method provides an instance of a SerialDevice object which is used to identify the device. Like in the example below it provides the vendor ID and product ID of the device. It provides additional methods for interacting with the serial device directly permitting the application to probe the serial device to confirm it’s identity, for situations where the VID/PID may not be robust enough. 
-
-<snippet-viewer source="tutorials-public" snippet="adapter-s19@ArduinoSerialAdapterFactory.java"></snippet-viewer>
-
-As alluded to in the code above, Arduinos are a common USB device used for development, so common in fact that KOS has added first class support when it comes to interacting with them. An example of how they can be integrated into KOS can be found in the Serial BLINK and Thermostat Tutorials. 

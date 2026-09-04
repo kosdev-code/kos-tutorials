@@ -14,47 +14,23 @@ import lombok.extern.slf4j.Slf4j;
 public class TutorialApp extends SystemApplication<BaseAppConfig> {
 
     @Autowired
-    private SpawnService spawnService;
-
-    // extract-code adapter-s16
-    @Autowired
     private FuseService fuseService;
 
-    private ExampleAdapter adapter;
-    private TutorialAssembly assembly;
-
-    // extract-code adapter-s16
     @Override
     public void load() throws Exception {
-        // Get the adapter from the image and mount it so
-        // that it can be run on the device
-        KabFile adapterKab = getKabByType("kos.adapter");
-        if (adapterKab != null) {
-            FuseMount mount = fuseService.mount(adapterKab);
-            if (mount != null) {
-                adapter = new ExampleAdapter(mount.getRootDir());
-            }
+        KabFile adapter = getKabByType("kos.adapter");
+        if (adapter != null) {
+            FuseMount mount = fuseService.mount(adapter);
+            addToCtx(new ArduinoAdapterFactory(mount.getRootDir()));
         } else {
             log.error("No adapter found");
         }
-
-        assembly = new TutorialAssembly();
-
-        // make the endpoints for testing available
-        addToCtx(new TutorialController(assembly));
 
     }
 
     @Override
     public void start() throws Exception {
-        // install assembly after everything is setup in load
-        installAssembly(assembly);
-
-        // Spawn the adapter
-        if (adapter != null) {
-            // extract-code adapter-s18
-            spawnService.addProcess(adapter);
-        }
+        installAssembly(new TutorialAssembly());
     }
 
 }

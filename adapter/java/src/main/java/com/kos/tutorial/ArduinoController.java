@@ -14,11 +14,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @ApiController(base = "/test", title = "Testing endpoints")
-public class TutorialController {
+public class ArduinoController {
 
     private TutorialAssembly assembly;
 
-    public TutorialController(TutorialAssembly assembly) {
+    public ArduinoController(TutorialAssembly assembly) {
         this.assembly = assembly;
     }
 
