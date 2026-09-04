@@ -21,13 +21,13 @@ public class ArduinoBoard extends Board implements IfaceAwareBoard {
         arduinoIfaceClient = new IfaceClient<>();
     }
 
-    // extract-code adapter-s6
+    // extract-code ignore adapter-s6
     @Override
     public String getType() {
         return "arduino";
     }
 
-    // extract-code adapter-s6
+    // extract-code ignore adapter-s6
     @Override
     public String getInstanceId() {
         // since there is only the one board, nothing needs to be returned

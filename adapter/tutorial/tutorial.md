@@ -102,7 +102,7 @@ An adapter is first and foremost a native program. It becomes an adapter when we
 
 Below is the C program that implements this simple protocol, it will turn the LED on and off every 500ms and log every time that the button is pressed.
 
-<snippet-viewer source="tutorials-public" snippet="adapter-s7@exampleAdapter.java"></snippet-viewer>
+<snippet-viewer source="tutorials-private" snippet="adapter-s7@arduinoAdapter.c"></snippet-viewer>
 
 At the top we can see that we pull in two `kos` header files, how did we get these? These are available on any KOS device that has the developer tools flag checked. Developer tools includes a bunch of tools needed for native development, including git, make, gdb, etc. see [Native Development of KOS](https://kosdev.com/articles/native-development-for-kos/). To confirm that your native programs will work on a KOS device you must compile on a KOS device.
 
@@ -110,7 +110,7 @@ With the KOS library we have access to some helper methods, one of which is `kos
 
 Great! We have this basic program and can now start integrating BLINK into it so that we can connect from the Arduino to the Java side. Firstly let's create the `blinkClient`, this will be the struct that represents the connection to the Java side, and is used to communicate with the Java side.  Here’s how we can do that and start processing connections from the JVM. 
 
-<snippet-viewer source="tutorials-private" snippet="adapter-s8@arduinoAdapter.c"></snippet-viewer>
+<snippet-viewer source="tutorials-public" snippet="adapter-s8@arduinoAdapter.c"></snippet-viewer>
 
 Looking at the constants we see that the name that we are passing into the blinkCreate() function is the same name as the iface we created on the Java side. This is because each BLINK connection has a core iface, or the core reason for this BLINK connection, and the core reason for this BLINK connection is to bridge the gap between the Arduino and Java. The revision number is the version of the adapter. The other arguments in the create method are server where you can specify the ip and port number of the blink server you want to connect to but for most cases you just want to connect to the JVM running on the same machine so passing null is fine. The next argument is a properties struct where you can specify properties to override defaults. The last two arguments are the size of the input buffer and output buffer, which you could override as needed, but there’s a reasonable minimum in place. After getting the blink client we can store the core iface so that we can register the APIs with a handler function and so that we can send events to Java using the iface. 
 
