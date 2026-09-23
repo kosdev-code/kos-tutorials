@@ -1,7 +1,6 @@
 {
   "studio2" : true,
   "default_keyset": "test.kondra",
-  "prebuild_cmd": "./thermostat/ui/quickbuild.sh",
   "build_cmd": "./quickbuild.sh",
 
   "artifacts": [
