@@ -9,13 +9,13 @@
   "artifacts": [
     {
       "id": "kos-class-thermostat",
-      "filename": "thermostat/java/class/thermostat/app/target/tutorial-thermostat.java.thermostat.app-${KOS_STD_VERSION_REGEX}.kab",
+      "filename": "thermostat/java/class/thermostat/app/target/tutorial-thermostat.java.class.thermostat.app-0.0.0-SNAPSHOT.kab",
       "artifactstore": "ArtifactStore",
       "qualifier": "any"
     },
     {
       "id": "kos-class-thermostat-simulator",
-      "filename": "thermostat/java/class/simulator/target/tutorial-thermostat.java.simulator-${KOS_STD_VERSION_REGEX}.kab",
+      "filename": "thermostat/java/class/simulator/target/tutorial-thermostat.java.class.simulator-0.0.0-SNAPSHOT.kab",
       "artifactstore": "ArtifactStore",
       "qualifier": "any"
     },
