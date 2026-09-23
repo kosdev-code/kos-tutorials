@@ -5,16 +5,14 @@ on:
       - main
 
 jobs:
-  rack_release:
+  develop:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/kosdev-code/kos-buildpublish/kos_builder:dockerimage
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
-      env:
-        KOS_KABTOOL_JAR: "/usr/local/lib/kabtool.jar"
-        JAVA_CMD: "java"
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -31,8 +29,6 @@ jobs:
 
         working-directory: ./${{ github.event.repository.name }}
         run: |
-          export KOS_STD_VERSION=${KOSBUILD_VERSION} 
-          export KOSBUILD_VERSION=${KOSBUILD_VERSION}
           kos_build_handler.sh automation .github/studio1-release.json
 
       - name: Studio 2 Build and Publish
@@ -42,7 +38,5 @@ jobs:
 
         working-directory: ./${{ github.event.repository.name }}
         run: |
-          export KOS_STD_VERSION=${KOSBUILD_VERSION} 
-          export KOSBUILD_VERSION=${KOSBUILD_VERSION}
           kos_build_handler.sh automation .github/studio2-release.json
       
