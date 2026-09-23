@@ -12,6 +12,9 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
+      env:
+        KOS_KABTOOL_JAR: "/usr/local/lib/kabtool.jar"
+        JAVA_CMD: "java"
 
     steps:
       - name: Checkout Repository
