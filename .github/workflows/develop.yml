@@ -1,8 +1,8 @@
-name: release
+name: develop
 on:
   push:
-    tags:
-      - "[0-9]+.[0-9]+.[0-9]+"
+    branches:
+      - main
 
 jobs:
   rack_release:
@@ -23,10 +23,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           path: ${{ github.event.repository.name }}
           lfs: true
-
-      - name: Extract Version
-        run: |
-          echo KOSBUILD_VERSION=${GITHUB_REF#refs/tags/} >> $GITHUB_ENV
 
       - name: Studio 1 Build and Publish
         env:
