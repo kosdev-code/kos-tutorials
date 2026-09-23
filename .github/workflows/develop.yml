@@ -29,7 +29,7 @@ jobs:
 
         working-directory: ./${{ github.event.repository.name }}
         run: |
-          kos_build_handler.sh automation .github/studio1-release.json
+          kos_build_handler.sh automation .github/studio1-develop.json
 
       - name: Studio 2 Build and Publish
         env:
@@ -38,5 +38,5 @@ jobs:
 
         working-directory: ./${{ github.event.repository.name }}
         run: |
-          kos_build_handler.sh automation .github/studio2-release.json
+          kos_build_handler.sh automation .github/studio2-develop.json
       
