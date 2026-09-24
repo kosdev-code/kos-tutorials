@@ -1,19 +1,19 @@
 {
   "studio2" : true,
-  "default_keyset": "test.kondra",
+  "default_keyset": "prod.kondra",
   "prebuild_cmd": ".github/release_prebuild.sh",
   "build_cmd": "./quickbuild.sh",
 
   "artifacts": [
     {
       "id": "kos-class-thermostat",
-      "filename": "thermostat/java/class/thermostat/app/target/tutorial-thermostat.java.class.thermostat.app-0.0.0-SNAPSHOT.kab",
+      "filename": "thermostat/java/class/thermostat/app/target/tutorial-thermostat.java.class.thermostat.app-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "ArtifactStore",
       "qualifier": "any"
     },
     {
       "id": "kos-class-thermostat-simulator",
-      "filename": "thermostat/java/class/simulator/target/tutorial-thermostat.java.class.simulator-0.0.0-SNAPSHOT.kab",
+      "filename": "thermostat/java/class/simulator/target/tutorial-thermostat.java.class.simulator-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "ArtifactStore",
       "qualifier": "any"
     },
