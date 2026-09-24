@@ -20,4 +20,18 @@ while IFS= read -r pkg; do
     cd "${TOP_DIR}/${ui_dir}" && npm version "${KOSBUILD_VERSION}" --no-git-tag-version && cd "${TOP_DIR}"
 done < <(find . -path "*/ui/package.json" -not -path "*/node_modules/*")
 
+# Update the .kos.json version in any UI projects (the UI kab version is read from .kos.json)
+echo "Updating UI .kos.json versions to: ${KOSBUILD_VERSION}"
+while IFS= read -r kos; do
+    echo "Updating .kos.json version in ${kos}..."
+    node -e "
+        const fs = require('fs');
+        const file = '${kos}';
+        const json = JSON.parse(fs.readFileSync(file, 'utf8'));
+        if (!json.version) process.exit(0);
+        json.version = '${KOSBUILD_VERSION}';
+        fs.writeFileSync(file, JSON.stringify(json, null, 2) + '\n');
+    "
+done < <(find . -path "*/ui/*/.kos.json" -not -path "*/node_modules/*" -not -path "*/dist/*")
+
 exit 0
