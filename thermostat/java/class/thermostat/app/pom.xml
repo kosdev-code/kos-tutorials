@@ -10,7 +10,8 @@
         <version>0.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>tutorial-thermostat.java.class.thermostat.app</artifactId>
+    <artifactId>kos-class-thermostat</artifactId>
+    <name>tutorial-thermostat.java.class.thermostat.app</name>
     <description>Thermostat App</description>
 
     <!-- ====== Dependencies  ======================================================== -->
