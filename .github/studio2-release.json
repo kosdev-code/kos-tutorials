@@ -1,5 +1,5 @@
 {
-  "studio2" : true,
+  "studio2": true,
   "default_keyset": "test.demo-tutorials",
   "prebuild_cmd": ".github/release_prebuild.sh",
   "build_cmd": "./quickbuild.sh",
@@ -22,7 +22,31 @@
       "filename": "thermostat/ui/dist/archives/packages/thermostat-ui/thermostat-ui.kab",
       "artifactstore": "defaultArtifact",
       "qualifier": "any"
+    },
+    {
+      "id": "kosdev-class-app-system-app",
+      "filename": "app-class/system-app/target/tutorial-app.system-app-${KOS_STD_VERSION_REGEX}.kab",
+      "artifactstore": "default_artifact_store",
+      "qualifier": "any"
+    },
+    {
+      "id": "kosdev-class-app-device-management",
+      "filename": "app-class/device-management/app/target/tutorial-app.device-management.app-${KOS_STD_VERSION_REGEX}.kab",
+      "artifactstore": "default_artifact_store",
+      "qualifier": "any"
+    },
+
+    {
+      "id": "kos-tutorial-rack-app",
+      "filename": "rack/app/target/tutorial-rack.app-${KOS_STD_VERSION_REGEX}.kab",
+      "artifactstore": "default_artifact_store",
+      "qualifier": "any"
+    },
+    {
+      "id": "kos-tutorial-rack-assets",
+      "filename": "rack/assets/target/tutorial-rack.assets-${KOS_STD_VERSION_REGEX}.kab",
+      "artifactstore": "default_artifact_store",
+      "qualifier": "any"
     }
   ]
 }
-
