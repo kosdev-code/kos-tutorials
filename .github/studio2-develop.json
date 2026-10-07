@@ -1,6 +1,6 @@
 {
   "studio2" : true,
-  "default_keyset": "test.kondra",
+  "default_keyset": "test.demo-tutorials",
   "build_cmd": "./quickbuild.sh",
 
   "artifacts": [
