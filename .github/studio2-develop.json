@@ -5,12 +5,6 @@
 
   "artifacts": [
     {
-      "id": "kos-class-thermostat",
-      "filename": "thermostat/java/class/thermostat/app/target/kos-class-thermostat-0.0.0-SNAPSHOT.kab ",
-      "artifactstore": "defaultArtifact",
-      "qualifier": "any"
-    },
-    {
       "id": "kos-class-thermostat-simulator",
       "filename": "thermostat/java/class/simulator/target/kos-class-thermostat-simulator-0.0.0-SNAPSHOT.kab",
       "artifactstore": "defaultArtifact",
@@ -22,19 +16,6 @@
       "artifactstore": "defaultArtifact",
       "qualifier": "any"
     },
-    {
-      "id": "kosdev-class-app-system-app",
-      "filename": "app-class/system-app/target/tutorial-app.system-app-${KOS_STD_VERSION_REGEX}.kab",
-      "artifactstore": "defaultArtifact",
-      "qualifier": "any"
-    },
-    {
-      "id": "kosdev-class-app-device-management",
-      "filename": "app-class/device-management/app/target/tutorial-app.device-management.app-${KOS_STD_VERSION_REGEX}.kab",
-      "artifactstore": "defaultArtifact",
-      "qualifier": "any"
-    },
-
     {
       "id": "kos-tutorial-rack-app",
       "filename": "rack/app/target/tutorial-rack.app-${KOS_STD_VERSION_REGEX}.kab",
