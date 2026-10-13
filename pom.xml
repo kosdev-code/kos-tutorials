@@ -30,7 +30,6 @@
 
     <modules>
         <module>adapter</module>
-        <module>app-class</module>
         <module>arduino</module>
         <module>dispenser</module>
         <module>rack</module>
