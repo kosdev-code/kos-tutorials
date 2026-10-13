@@ -6,18 +6,6 @@
 
   "artifacts": [
     {
-      "id": "kos-class-thermostat-simulator",
-      "filename": "thermostat/java/class/simulator/target/kos-class-thermostat-simulator-${KOS_STD_VERSION_REGEX}.kab",
-      "artifactstore": "defaultArtifact",
-      "qualifier": "any"
-    },
-    {
-      "id": "kos-class-thermostat-ui",
-      "filename": "thermostat/ui/dist/archives/packages/thermostat-ui/thermostat-ui.kab",
-      "artifactstore": "defaultArtifact",
-      "qualifier": "any"
-    },
-    {
       "id": "kos-tutorial-rack-app",
       "filename": "rack/app/target/tutorial-rack.app-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "defaultArtifact",
