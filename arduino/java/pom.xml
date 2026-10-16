@@ -10,7 +10,8 @@
         <version>0.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>tutorial-arduino.java</artifactId>
+    <name>tutorial-arduino.java</name>
+    <artifactId>tutorials-arduino-system-app</artifactId>
 
     <!-- ====== Dependencies ==================================================== -->
 
@@ -32,44 +33,6 @@
     <!-- ====== Build ==================================================== -->
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <!-- Compiler -->
-                <!-- https://maven.apache.org/plugins/maven-compiler-plugin/index.html -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven-compiler-plugin.version}</version>
-                    <configuration>
-                        <annotationProcessorPaths>
-                            <path>
-                                <groupId>org.projectlombok</groupId>
-                                <artifactId>lombok</artifactId>
-                                <version>${lombok.version}</version>
-                            </path>
-                        </annotationProcessorPaths>
-                    </configuration>
-                </plugin>
-
-                <!-- Assembly -->
-                <!-- https://maven.apache.org/plugins/maven-assembly-plugin/ -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <version>${maven-assembly-plugin.version}</version>
-                </plugin>
-
-                <!-- kOS Maven Plugin -->
-                <plugin>
-                    <groupId>com.kosdev.kos.maven</groupId>
-                    <artifactId>kos-kab-maven-plugin</artifactId>
-                    <version>${kos-kab-maven-plugin.version}</version>
-                </plugin>
-
-            </plugins>
-        </pluginManagement>
-
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -1,8 +1,0 @@
-{
-  "kos": {
-    "app": {
-      "appClass": "com.kos.tutorial.SimulatorApp",
-      "appId": "kondra-tutorial-thermostat-simulator"
-    }
-  }
-}

@@ -34,44 +34,6 @@
     </dependency>
   </dependencies>
 
-  <!-- plugins to build zip and kab files -->
-  <build>
-    <pluginManagement>
-      <plugins>
-        <!-- assembly plugin for zip files -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-assembly-plugin</artifactId>
-          <version>${maven-assembly-plugin.version}</version>
-        </plugin>
-
-        <!-- kOS plugin for kab files -->
-        <plugin>
-          <groupId>com.kosdev.kos.maven</groupId>
-          <artifactId>kos-sdk-maven-plugin</artifactId>
-          <version>${kos-maven-plugin.version}</version>
-        </plugin>
-
-        <!-- Compiler -->
-        <!-- https://maven.apache.org/plugins/maven-compiler-plugin/index.html -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>${maven-compiler-plugin.version}</version>
-          <configuration>
-            <annotationProcessorPaths>
-              <path>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-              </path>
-            </annotationProcessorPaths>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
-
   <!-- ====== Profiles ============================================================= -->
 
   <profiles>

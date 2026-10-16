@@ -14,7 +14,8 @@
       <version>0.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>tutorial-rack.app</artifactId>
+    <name>tutorial-rack.app</name>
+    <artifactId>tutorials-rack-system-app</artifactId>
 
     <!-- ====== Dependencies ==================================================== -->
 
