@@ -45,12 +45,6 @@
       "filename": "adapter/java/target/tutorials-adapter-system-app-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "defaultArtifact",
       "qualifier": "any"
-    },
-    {
-      "id": "tutorials-adapter-arduino-adapter",
-      "filename": "adapter/native/ArduinoAdapter/tutorials-adapter-arduino-adapter.kab",
-      "artifactstore": "defaultArtifact",
-      "qualifier": "any"
     }
   ]
 }

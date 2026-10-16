@@ -41,7 +41,7 @@
         <module>thermostat</module>
     </modules>
 
-    <!-- ====== Dependency Management  ==================================================== -->
+    <!-- ====== Dependency Management  ====================================== -->
 
     <dependencyManagement>
         <dependencies>
@@ -150,13 +150,6 @@
                     <version>${kos-kab-maven-plugin.version}</version>
                 </plugin>
 
-                <!-- Exec Plugin for native build-->
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>exec-maven-plugin</artifactId>
-                    <version>${exec-maven-plugin.version}</version>
-                </plugin>
-
                 <!-- KOS Sdk maven plugin -->
                 <plugin>
                     <groupId>com.kosdev.kos.maven</groupId>
@@ -166,5 +159,4 @@
             </plugins>
         </pluginManagement>
     </build>
-
 </project>
