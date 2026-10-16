@@ -11,7 +11,7 @@
     </parent>
 
     <name>tutorial-adapter.java</name>
-    <artifactId>demo-tutorials-tutorials-adapter-system-app</artifactId>
+    <artifactId>tutorials-adapter-system-app</artifactId>
 
     <!-- ====== Dependencies ==================================================== -->
 

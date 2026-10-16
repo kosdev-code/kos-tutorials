@@ -11,7 +11,7 @@
     </parent>
 
     <name>tutorial-adapter.native</name>
-    <artifactId>demo-tutorials-tutorials-adapter-arduino-adapter</artifactId>
+    <artifactId>tutorials-adapter-arduino-adapter</artifactId>
 
     <!-- ====== Dependencies ==================================================== -->
 

@@ -42,13 +42,13 @@
     },
     {
       "id": "tutorials-adapter-system-app",
-      "filename": "adapter/native/ArduinoAdapter/demo-tutorials-tutorial-adapter-arduino-adapter.kab",
+      "filename": "adapter/java/target/tutorials-adapter-system-app-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "defaultArtifact",
       "qualifier": "any"
     },
     {
-      "id": "tutorials-adapter-system-app",
-      "filename": "adapter/java/target/demo-tutorials-tutorials-adapter-system-app-${KOS_STD_VERSION_REGEX}.kab",
+      "id": "tutorials-adapter-arduino-adapter",
+      "filename": "adapter/native/ArduinoAdapter/tutorials-adapter-arduino-adapter.kab",
       "artifactstore": "defaultArtifact",
       "qualifier": "any"
     }
