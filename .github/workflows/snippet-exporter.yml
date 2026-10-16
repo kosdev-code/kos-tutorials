@@ -86,4 +86,5 @@ jobs:
         env:
           KOSBUILD_SECRET_URL: ${{ secrets.STUDIO2_KOSBUILD_SECRET_URL }}
           KOSBUILD_SECRET_PASSWORD: ${{ secrets.STUDIO2_KOSBUILD_SECRET_PASSWORD }}
+
         run: kos_build_handler.sh automation .github/snippet-exporter/snippet-deployment.json
