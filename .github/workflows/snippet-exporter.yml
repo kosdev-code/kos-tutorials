@@ -27,8 +27,8 @@ jobs:
       - name: Build
         working-directory: ${{ github.event.repository.name }}
         env:
-          KOSBUILD_SECRET_URL: ${{ secrets.KOSBUILD_SECRET_URL }}
-          KOSBUILD_SECRET_PASSWORD: ${{ secrets.KOSBUILD_SECRET_PASSWORD }}
+          KOSBUILD_SECRET_URL: ${{ secrets.STUDIO2_KOSBUILD_SECRET_URL }}
+          KOSBUILD_SECRET_PASSWORD: ${{ secrets.STUDIO2_KOSBUILD_SECRET_PASSWORD }}
         run: kos_build_handler.sh automation .github/snippet-exporter/snippet-build.json
 
   # Extract the annotation portions of the snippets and generate JSON file and save it.

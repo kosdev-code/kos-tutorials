@@ -1,5 +1,4 @@
 {
-  "studio2": true,
   "default_keyset": "test.demo-tutorials",
   "build_cmd": "kos_deploy_to_artifactstore.sh .github/snippet-exporter/snippet-deployment-target.json"
 }
