@@ -18,7 +18,7 @@
     <!-- ====== Modules ==================================================== -->
 
     <modules>
-        <module>simulator</module>
         <module>thermostat</module>
+        <module>simulator</module>
     </modules>
 </project>
