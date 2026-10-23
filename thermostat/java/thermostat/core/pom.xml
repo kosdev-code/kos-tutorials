@@ -11,7 +11,7 @@
     </parent>
 
     <name>tutorial-thermostat.java.thermostat.core</name>
-    <artifactId>kos-tutorial-thermostat.java.thermostat.core</artifactId>
+    <artifactId>tutorial-thermostat.java.thermostat.core</artifactId>
     <description>Thermostat Core</description>
 
     <!-- ====== Dependencies  ======================================================== -->
