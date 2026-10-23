@@ -11,7 +11,7 @@
     </parent>
 
     <name>tutorial-thermostat.java.simulator</name>
-    <artifactId>tutorials-thermostat-simulator</artifactId>
+    <artifactId>kos-tutorials-thermostat-simulator</artifactId>
 
     <!-- ====== Dependencies ==================================================== -->
 
@@ -30,7 +30,7 @@
         </dependency>
         <dependency>
             <groupId>com.kos.tutorials.thermostat</groupId>
-            <artifactId>tutorial-thermostat.java.thermostat.sdk</artifactId>
+            <artifactId>kos-tutorial-thermostat.java.thermostat.sdk</artifactId>
             <version>0.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

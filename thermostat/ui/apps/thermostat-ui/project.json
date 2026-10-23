@@ -90,7 +90,7 @@
       "options": {
         "outputPath": "dist/archives/packages/thermostat-ui/",
         "zipName": "ui.zip",
-        "kabName": "tutorials-thermostat-ui.kab"
+        "kabName": "kos-tutorials-thermostat-ui.kab"
       },
       "dependsOn": ["zip"]
     },
