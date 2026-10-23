@@ -5,44 +5,44 @@
 
   "artifacts": [
     {
-      "id": "tutorials-arduino-system-app",
-      "filename": "arduino/java/target/tutorials-arduino-system-app-${KOS_STD_VERSION_REGEX}.kab",
+      "id": "kos-tutorials-arduino-system-app",
+      "filename": "arduino/java/target/kos-tutorials-arduino-system-app-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "defaultArtifact",
       "qualifier": "any"
     },
     {
-      "id": "tutorials-rack-system-app",
-      "filename": "rack/app/target/tutorials-rack-system-app-${KOS_STD_VERSION_REGEX}.kab",
+      "id": "kos-tutorials-rack-system-app",
+      "filename": "rack/app/target/kos-tutorials-rack-system-app-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "defaultArtifact",
       "qualifier": "any"
     },
     {
-      "id": "tutorials-rack-assets",
-      "filename": "rack/assets/target/tutorials-rack-assets-${KOS_STD_VERSION_REGEX}.kab",
+      "id": "kos-tutorials-rack-assets",
+      "filename": "rack/assets/target/kos-tutorials-rack-assets-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "defaultArtifact",
       "qualifier": "any"
     },
     {
-      "id": "tutorials-thermostat-system-app",
-      "filename": "thermostat/java/thermostat/app/target/tutorials-thermostat-system-app-${KOS_STD_VERSION_REGEX}.kab",
+      "id": "kos-tutorials-thermostat-system-app",
+      "filename": "thermostat/java/thermostat/app/target/kos-tutorials-thermostat-system-app-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "defaultArtifact",
       "qualifier": "any"
     },
     {
-      "id": "tutorials-thermostat-simulator",
-      "filename": "thermostat/java/simulator/target/tutorials-thermostat-simulator-${KOS_STD_VERSION_REGEX}.kab",
+      "id": "kos-tutorials-thermostat-simulator",
+      "filename": "thermostat/java/simulator/target/kos-tutorials-thermostat-simulator-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "defaultArtifact",
       "qualifier": "any"
     },
     {
-      "id": "tutorials-thermostat-ui",
-      "filename": "thermostat/ui/dist/archives/packages/thermostat-ui/tutorials-thermostat-ui.kab",
+      "id": "kos-tutorials-thermostat-ui",
+      "filename": "thermostat/ui/dist/archives/packages/thermostat-ui/kos-tutorials-thermostat-ui.kab",
       "artifactstore": "defaultArtifact",
       "qualifier": "any"
     },
     {
-      "id": "tutorials-adapter-system-app",
-      "filename": "adapter/java/target/tutorials-adapter-system-app-${KOS_STD_VERSION_REGEX}.kab",
+      "id": "kos-tutorials-adapter-system-app",
+      "filename": "adapter/java/target/kos-tutorials-adapter-system-app-${KOS_STD_VERSION_REGEX}.kab",
       "artifactstore": "defaultArtifact",
       "qualifier": "any"
     }

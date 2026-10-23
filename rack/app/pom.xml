@@ -15,7 +15,7 @@
     </parent>
 
     <name>tutorial-rack.app</name>
-    <artifactId>tutorials-rack-system-app</artifactId>
+    <artifactId>kos-tutorials-rack-system-app</artifactId>
 
     <!-- ====== Dependencies ==================================================== -->
 

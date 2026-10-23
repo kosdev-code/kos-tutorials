@@ -15,7 +15,7 @@
     </parent>
 
     <name>tutorial-rack.assets</name>
-    <artifactId>tutorials-rack-assets</artifactId>
+    <artifactId>kos-tutorials-rack-assets</artifactId>
 
     <!-- ====== Build ==================================================== -->
 

@@ -11,7 +11,7 @@
     </parent>
 
     <name>tutorial-adapter.java</name>
-    <artifactId>tutorials-adapter-system-app</artifactId>
+    <artifactId>kos-tutorials-adapter-system-app</artifactId>
 
     <!-- ====== Dependencies ==================================================== -->
 
