@@ -11,7 +11,7 @@
     </parent>
 
     <name>tutorial-arduino.java</name>
-    <artifactId>tutorials-arduino-system-app</artifactId>
+    <artifactId>kos-tutorials-arduino-system-app</artifactId>
 
     <!-- ====== Dependencies ==================================================== -->
 

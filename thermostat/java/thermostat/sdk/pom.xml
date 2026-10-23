@@ -11,7 +11,7 @@
     </parent>
 
     <name>tutorial-thermostat.java.thermostat.sdk</name>
-    <artifactId>kos-tutorial-thermostat.java.thermostat.sdk</artifactId>
+    <artifactId>kos-tutorials-thermostat.java.thermostat.sdk</artifactId>
     <description>Thermostat SDK</description>
 
     <!-- ====== Dependencies =============================================================== -->
