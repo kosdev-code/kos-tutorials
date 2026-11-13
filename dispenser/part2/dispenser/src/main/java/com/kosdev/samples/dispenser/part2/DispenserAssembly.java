@@ -42,7 +42,6 @@ public class DispenserAssembly extends DispenseAssembly implements CoreAssembly 
 
         // Create an instance of a board that controls several valves
         board = new ControlBoard(this, "control");
-        addBoard(board);
 
         // Add the valves from the board to the nozzle
         nozzle.add(board.getSyrupValves());

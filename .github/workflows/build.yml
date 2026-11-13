@@ -41,4 +41,3 @@ jobs:
         working-directory: ./${{ github.event.repository.name }}
         run: |
           kos_build_handler.sh automation .github/publishing/studio2/build.json
-      
