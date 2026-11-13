@@ -47,7 +47,7 @@ jobs:
           WP_BASE_URL: ${{ secrets.WP_BASE_URL }}
           WP_PROXY: ${{ secrets.WP_PROXY }}
           WP_PROXY_PASS: ${{ secrets.WP_PROXY_PASS }}
-        run: bash .github/import-documentation-wordpress.sh
+        run: bash .github/wordpress-importer/import-documentation-wordpress.sh
 
       - name: Upload changed documents to workflow artifact
         uses: actions/upload-artifact@v4
