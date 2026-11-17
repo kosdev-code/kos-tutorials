@@ -1,8 +1,8 @@
 ---
 title: Your First KOS App
 excerpt: Build your first KOS app! Learn how to create, configure, build, run, and debug a KOS application from start to finish.
-categories: [ Rack ]
-tags: [ Tutorial ]
+categories: [Rack]
+tags: [Tutorial]
 status: draft
 author: sneh
 _yoast_wpseo_focuskw: Application
@@ -332,9 +332,7 @@ application.
 ## Step 4: Build the Project
 
 Run `mvn clean install` then navigate to the `target` directory within your project. You will find several files,
-including:
-
-- **KAB File**: samples-rack-0.0.0-SNAPSHOT.kab. This is the KOS Archive Bundle that packages your application for
+including `kos-tutorials-rack-system-app-0.0.0-SNAPSHOT.kab`. This is the KOS Archive Bundle that packages your application for
   deployment.
 
 Your target directory should contain the JAR and KAB files, along with any other directories that Maven may generate.
