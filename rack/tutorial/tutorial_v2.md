@@ -380,8 +380,8 @@ your application is properly packaged and ready for deployment on KOS-supported 
 ## Step 5: Run the Application
 
 This section guides you through using KOS Studio to create and configure a runnable KOS image for your Java application.
-You'll open KOS Studio, create a new image, configure it with the necessary settings, add your KAB file, and assign it
-to the appropriate section. You'll run the configured image in the KOS Studio simulator to test its functionality.
+You'll open KOS Studio, create a new image, configure it with the necessary settings, add your source tree, and assign
+it to the appropriate section. You'll run the configured image in the KOS Studio simulator to test its functionality.
 Finally, you'll debug your applications to step through the code you've written. Following these steps is essential to
 running your application on your developer machine.
 
@@ -403,28 +403,21 @@ also specifies all the Java code to execute. Think of the image as an editable v
 creating a bootable and reusable environment for multiple devices without the hassle of repeated inheritance setups.
 [/kondra_note]
 
-Follow these steps to create an image:
+First, launch the KOS Studio application. This will lead you to a pillars page. 
 
-1. Open the KOS Studio application.
-2. In the top-level menu bar, click on the "open image manager" button.
+<image title="Home: Pillars" name="pillars_v2.png" caption="" />
 
-<image title="Open my images" name="my_images.png" caption="" />
+Go into "Images" and create an image. 
 
-In this Images window, click on the "create new image" button.
+<image title="Images" name="my_images_v2.png" caption="" />
 
-<image title="Create image" name="create_image.png" caption="" />
+This will launch a wizard with steps that you can follow.
 
-In the popup dialog, enter a "Name" for this image, leave the "Parent Image" field blank, then click "Create":
+### Source Trees
 
-<image title="Name your Image" name="name_it.png" caption="" />
+### KOS Release
 
-Now the Images window shows an entry for the image you just created:
-
-<image title="Listed image" name="listed_image.png" caption="" />
-
-Close the Images window and return to the main Studio window.
-
-<image title="My images updates" name="my_images_updates.png" caption="" />
+### System Application
 
 ### Configure the image
 
