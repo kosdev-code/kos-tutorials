@@ -405,105 +405,81 @@ creating a bootable and reusable environment for multiple devices without the ha
 
 First, launch the KOS Studio application. This will lead you to a pillars page. 
 
-<image title="Home: Pillars" name="pillars_v2.png" caption="" />
+<image title="Home: Pillars" name="pillars.png" caption="" />
 
 Go into "Images" and create an image. 
 
-<image title="Images" name="my_images_v2.png" caption="" />
+<image title="Images" name="my_images.png" caption="" />
 
-This will launch a wizard with steps that you can follow.
+This will launch a wizard with steps that you can follow. 
+
+<image title="Create Image" name="create_image.png" caption="" />
 
 ### Source Trees
 
+A source tree points at a source-control repository, and Studio surfaces the artifacts built in it. Those artifacts are available to every developer with the same source tree configured, so a team can develop, build, and test locally - and override a published artifact with a local one when needed.
+
+Within the image creation wizard, you can create a source tree, which launches a source tree creation wizard. Since you have already written the Java application, you should have a folder that contains your code. You can use this as the directory for the source tree. 
+
+<image title="Create Source Trees" name="source_tree.png" caption="" />
+
+Since this is a Java tutorial and you have built the Java KAB, you will notice only the Java artifacts in the Discovered artifacts list, not the UI artifacts. 
+
+<image title="Source Trees: Discovered Artifacts" name="source_tree_artifacts.png" caption="" />
+
+#### Perspectives
+
+Perspectives let you swap published artifacts for your local ones at run time. You can tag your discovered artifacts as Java. Then, run an image with that perspective and Studio uses this source tree's copy instead of the published one — local development without editing the image.
+
+<image title="Source Trees: Perspectives" name="perspectives.png" caption="" />
+
+Now that you have setup source trees, you can make a code change, build, and run your image. It will reflect the changes you just made immediately without any extra setup. 
+
 ### KOS Release
+
+Next, you can select a KOS release, that is, the version of KOS to be used for this image. Here, the production release is selected. Additionally, the Graphics option is toggled on so that the UI can be displayed when the image is run. 
+
+<image title="Select a KOS Release" name="kos_release.png" caption="" />
 
 ### System Application
 
-### Configure the image
+A section in KOS is an artifact container where you group your KABs and give them meaning by their
+names. More about [Sections](https://kosdev.com/articles/docs_topics_kabs_md/). All images require a system application. Select the `kos-tutorials-rack-system-app` for the System Application. 
 
-On the main Studio screen, click the gear icon associated with the image you just created, which opens up the
-configuration dialog. This configuration window is perhaps the most important part of KOS Studio. It gives you and your
-team the ability to create any number of runnable images, each with a wide variety of options. Much time will be devoted
-to using it.
+<image title="System Application" name="system_application.png" caption="" />
 
-<image title="Config" name="config.png" caption="" />
+Finally, exit out of the wizard by selecting "Create Image".
 
-As you can see, there is a stack of six configuration items, also known as "cards":
+### Artifacts
 
-- **Sections**: A section in KOS is an artifact container where you group your KABs and give them meaning by their
-  names. More about [Sections]().
-- **File Mappings**: Defines mappings into the device/simulator file system.
-- **Layers**: A layer is a specific type of KAB file that allows you to customize OS-level changes for your image. You
-  can choose from Market, Published, or local layers to add to your image.
-- **Local Artifacts**: The Local Artifacts card in the image configuration window lets users select a locally available
-  KAB for use in the image. This is useful for testing changes or using artifacts that are not yet published.
-- **Hardware Settings**: The Hardware Settings card allows users to configure their simulation and node settings,
-  including selecting hardware profiles, configuring port mappings, and setting developer flags.
-- **KOS Version**: The KOS Version card is the first step in setting up your image. Here, you can specify which KOS
-  version and add-ons you want to use.
+In the artifacts page, we still need to add our assets KAB. Create a new section called `kos.assets` to match the name defined in the `RackApp`. From the "Source Tree" list, add the `kos-tutorials-rack-assets` artifacts to this section.
 
-The "KOS Version" item has red text, meaning that it needs attention.
+<image title="Image: Artifacts" name="image_artifacts.png" caption="" />
 
-#### Configure the KOS Version
-
-Our next step is to tell Studio which release of KOS we want to use, which will satisfy the current alert.
-
-1. Click on the "KOS Version" card.
-2. Click on the "Configure new release" button.
-3. On the left-hand side, navigate and then select the desired KOS release.
-4. Give this selection a name and an optional note.
-5. Check Graphics.
-
-<image title="Configure KOS release" name="release.png" caption="" />
-
-1. Click the "Submit" button.
-2. Then select the newly-created release.
-
-At this point, the "KOS Version" section is no longer red, meaning it is configured properly.
-
-#### Configure the local artifact
-
-1. Click on the "Local Artifacts" card.
-2. Click the "Select local artifact" button.
-3. Navigate to and select the KAB files created earlier by our Java code.
-
-<image title="Configure Local Artifact" name="local_artifact.png" caption="" />
-
-4. Click the Select button, where you should see:
-
-<image title="Showing selected private local artifact" name="available.png" caption="" />
-
-#### Add local artifact to section
-
-A section in KOS is the artifact container. It is where you group your KABs and give them meaning by their names.
-
-1. Open the "Sections" card.
-2. Drag the "rack-app-0.0.0-SNAPSHOT.kab" item from "Local Artifacts" to the kos.system "Section".
-
-<image title="Add the local artifact to the kos.system section of the image" name="sections.png" caption="" />
-
-3. Create a new section called `kos.assets` to match the name defined in the `RackApp`. Add the
-   `rack-assets-0.0.0-SNAPSHOT.kab` to this section.
-
-<image title="" name="rack-assets.png" caption="" />
+Notice that each of the artifacts you have selected have a green folder icon. This indicates that the artifacts are currently being served local KAB instances.
 
 ### Execute the image
 
-To run your KOS application in Studio's built-in simulator:
+Now, run your KOS application in Studio's built-in simulator by selecting the "Play Image" button.
 
-1. On the main Studio screen, find your "Bestseller Rack" image entry.
-2. Ensure that "Simulator" is selected.
-3. Click the "run now" (play) icon.
+<image title="Run Image" name="run_image.png" caption="" />
 
-The application first downloads all necessary artifacts, showing the status in the Connections window. The first time
-you run an application it may take a while to download the required packages. Subsequent executions open much faster.
-
-<image title="The connections window" name="downloading.png" caption="" />
-
-When downloading is finished, the application will begin to load. You'll see the simulator starting up, with a KOS
+The application first downloads all necessary artifacts, showing the status. The first time
+you run an application it may take a while to download the required packages. Subsequent executions open much faster. When downloading is finished, the application will begin to load. You'll see the simulator starting up, with a KOS
 splash screen. When the simulator has finished, you should see your bestsellers rack application:
 
-<image title="Screenshot" name="app-ui.png" caption="" />
+<image title="Application UI" name="simulator.png" caption="" />
+
+### Connection Tools
+
+While running the image, notice that an additional Connected Device window pops up. This contains a home screen, along with connections tools. 
+
+The home screen displays dashboard cards, which summarize the status of the running image. 
+
+<image title="Connected Device" name="connected_device.png" caption="" />
+
+The other tabs on the left of this window are [connection tools](https://kosdev.com/articles/connection-tools-overview/).
+
 
 Try dropping a break point in your app and give it a whirl!
 
