@@ -42,7 +42,7 @@
       <!-- @kdoc-brandset-plugin-pom@ -->
       <!-- Convert the ZIP file to a KAB file -->
       <plugin>
-        <groupId>com.kosdev.kos.maven</groupId>
+        <groupId>com.kosdev.kos2.maven</groupId>
         <artifactId>kos-kab-maven-plugin</artifactId>
         <configuration>
           <type>dispenser.brandset</type>

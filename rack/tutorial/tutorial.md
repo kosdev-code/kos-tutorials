@@ -179,30 +179,15 @@ have to know the specific SDK version. We place these special BOM dependencies a
 to ensure version consistency across this Maven module. If this were a multi-module app, as will be used in future
 tutorials, it would ensure consistency across all modules.
 
-```pom.xml
-<parent>
-    <groupId>com.kosdev.kos2.sdk.bom</groupId>
-    <artifactId>kos-bom</artifactId>
-    <version>2.0.0</version>
-    <relativePath/>
-</parent>
-```
+<snippet-viewer source="tutorials-public" snippet="rack-properties-pom@pom.xml"></snippet-viewer>
 
 Then, in the `<dependencies>` element, we can add our core-api SDK without having to specify the version.
 
-```pom.xml
-<!-- project dependencies -->
-<dependencies>
-    <dependency>
-        <groupId>com.kosdev.kos2.sdk.api</groupId>
-        <artifactId>api-core</artifactId>
-    </dependency>
-</dependencies>    
-```
+<snippet-viewer source="tutorials-public" snippet="rack-dependencies-pom@pom.xml"></snippet-viewer>
 
-#### Section 4: Profiles
+#### Section 4: Plugins
 
-The `<profiles>` section defines build profiles that can be activated under specific conditions. The developer profile
+The `<plugins>` section defines plugins that can be used. The developer profile
 is activated by default and includes plugins for packaging your application into a KAB file, tailored for KOS
 development. Using the kos-kab-maven-plugin, you can specify which files you need in your KAB and in which directories
 they should be placed.
