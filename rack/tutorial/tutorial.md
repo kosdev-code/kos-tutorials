@@ -3,7 +3,7 @@ title: Your First KOS App
 excerpt: Build your first KOS app! Learn how to create, configure, build, run, and debug a KOS application from start to finish.
 categories: [Rack]
 tags: [Tutorial]
-status: draft
+status: publish
 author: sneh
 _yoast_wpseo_focuskw: Application
 ---
@@ -253,7 +253,7 @@ they should be placed.
 The application `pom.xml` manages the Java compilation and packages the `RackApp` code. It uses `kos.system` type in the
 KAB plugin, to indicate that it is being packaged into a system application KAB.
 
-<snippet-viewer source="tutorials-public" snippet="rack-app-pom@pom.mxl"></snippet-viewer>
+<snippet-viewer source="tutorials-public" snippet="rack-app-pom@pom.xml"></snippet-viewer>
 
 ### Assets POM file
 
@@ -261,7 +261,7 @@ This `pom.xml` is used to package images into a data KAB. The KAB type is a cust
 purpose of this tutorial. Note, this matches the `ASSETS_KAB_TYPE` we defined in our `RackApp` to fetch the assets KAB
 and get the images.
 
-<snippet-viewer source="tutorials-public" snippet="rack-assets-pom@pom.mxl"></snippet-viewer>
+<snippet-viewer source="tutorials-public" snippet="rack-assets-pom@pom.xml"></snippet-viewer>
 
 ### Create the Descriptor File
 
