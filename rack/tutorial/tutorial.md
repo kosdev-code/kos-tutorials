@@ -152,12 +152,7 @@ essential plugins.
 
 The parent `pom.xml` also define two modules: `app` and `assets`.
 
-```pom.xml
-<modules>
-    <module>app</module>
-    <module>assets</module>
-</modules>
-```
+<snippet-viewer source="tutorials-public" snippet="rack-modules-pom@pom.xml"></snippet-viewer>
 
 #### Section 2: Include the KOS SDK
 
@@ -170,7 +165,7 @@ have to know the specific SDK version. We place these special BOM dependencies a
 to ensure version consistency across this Maven module. If this were a multi-module app, as will be used in future
 tutorials, it would ensure consistency across all modules.
 
-<snippet-viewer source="tutorials-public" snippet="rack-properties-pom@pom.xml"></snippet-viewer>
+<snippet-viewer source="tutorials-public" snippet="rack-bom-pom@pom.xml"></snippet-viewer>
 
 Then, in the `<dependencies>` element, we can add our core-api SDK without having to specify the version.
 
@@ -183,46 +178,7 @@ is activated by default and includes plugins for packaging your application into
 development. Using the kos-kab-maven-plugin, you can specify which files you need in your KAB and in which directories
 they should be placed.
 
-```pom.xml
-<profiles>
-    <profile>
-        <id>developer</id>
-        <activation>
-            <activeByDefault>true</activeByDefault>
-        </activation>
-        <build>
-            <plugins>
-                <!-- Build KAB file -->
-                <plugin>
-                    <groupId>com.kosdev.kos.maven</groupId>
-                    <artifactId>kos-kab-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>kabtool</goal>
-                            </goals>
-                            <configuration>
-                                <type>kos.system</type>
-                                <content>
-                                    <copy>
-                                        <dir>lib</dir>
-                                        <include>${project.build.directory}/${project.artifactId}-${project.version}.jar</include>
-                                    </copy>
-                                    <copy>
-                                        <dir>.</dir>
-                                        <include>${project.basedir}/descriptor.json</include>
-                                    </copy>
-                                </content>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </build>
-    </profile>
-</profiles>
-```
+<snippet-viewer source="tutorials-public" snippet="rack-kab-plugin-pom@pom.xml"></snippet-viewer>
 
 ### App POM file
 

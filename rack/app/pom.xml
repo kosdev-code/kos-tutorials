@@ -79,6 +79,7 @@
                 </executions>
             </plugin>
 
+            <!-- extract-code start rack-kab-plugin-pom -->
             <plugin>
                 <groupId>com.kosdev.kos2.maven</groupId>
                 <artifactId>kos-kab-maven-plugin</artifactId>
@@ -105,6 +106,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- extract-code end rack-kab-plugin-pom -->
         </plugins>
     </build>
 </project>
