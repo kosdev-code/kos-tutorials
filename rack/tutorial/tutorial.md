@@ -14,13 +14,11 @@ Welcome to the tutorial on building your first KOS app! In this guide, you'll le
 run, and debug a KOS application from start to finish.
 
 [kondra_note type="info" title="Information"]
-Before beginning, ensure you have completed all three steps in
-the [Get Started section](https://kosdev.com/articles/setup-you-kos-java-workspace/).
+Before beginning, ensure you have completed all three steps in the [Get Started section](https://kosdev.com/articles/setup-you-kos-java-workspace/).
 [/kondra_note]
 
 [kondra_note type="admin-alert" title="Target Audience"]
-This tutorial assumes you have Java experience. The source code for these tutorials is available
-on [GitHub](https://github.com/kosdev-code/kos-tutorials/tree/main/rack).
+This tutorial assumes you have Java experience. The source code for these tutorials is available on [GitHub](https://github.com/kosdev-code/kos-tutorials/tree/main/rack).
 [/kondra_note]
 
 ## Customer Request
@@ -28,15 +26,13 @@ on [GitHub](https://github.com/kosdev-code/kos-tutorials/tree/main/rack).
 This tutorial imagines a bookstore chain looking to modernize their bestseller display using a digital smart rack.
 
 [kondra_note type="info" title="Information"]
-A smart rack is an advanced shelving system that uses modern technology to enhance shopping and store management. It
-might include sensors to track inventory, Bluetooth and NFC to gather data on customer habits, or digital screens and
-shelf fronts to display updated prices and promotions.
+A smart rack is an advanced shelving system that uses modern technology to enhance shopping and store management. It might include sensors to track inventory, Bluetooth and NFC to gather data on customer habits, or digital screens and shelf fronts to display updated prices and promotions.
 
 Their business objectives are:
 
 1. Save time and money by transitioning from cardboard signage to over-the-air updates of digital content.
 2. Enhance the customer experience through more engaging and dynamic displays.
-   [/kondra_note]
+[/kondra_note]
 
 Our solution is to build a smart rack application that will rotate a collection of image files promoting recent
 bestselling books.
@@ -66,13 +62,7 @@ dedicated-purpose device using KOS, where no install or startup scripts are requ
 and watch our device boot as a smart rack.
 
 [kondra_note type="info" title="What is an Application in KOS?"]
-KOS is an application-based platform. There are many examples of application-based platforms these days. From mobile
-devices to smart televisions, it seems everything can run applications. How is KOS any different from these platforms?
-The primary difference is the collaboration model for applications. On most consumer devices, applications represent
-dedicated experiences that a user interacts with one at a time. These applications are inherently untrusted and are
-typically isolated from each other using a form of sandboxing. In KOS, the application model is designed to be
-collaborative, where applications work together to enable new functionality. This model emphasizes the ability for
-applications to provide core functionality that other applications can use, similar to a library or a microservice
+KOS is an application-based platform. There are many examples of application-based platforms these days. From mobile devices to smart televisions, it seems everything can run applications. How is KOS any different from these platforms? The primary difference is the collaboration model for applications. On most consumer devices, applications represent dedicated experiences that a user interacts with one at a time. These applications are inherently untrusted and are typically isolated from each other using a form of sandboxing. In KOS, the application model is designed to be collaborative, where applications work together to enable new functionality. This model emphasizes the ability for applications to provide core functionality that other applications can use, similar to a library or a microservice
 
 Find more [here](https://kosdev.com/articles/applications/)
 [/kondra_note]
@@ -83,10 +73,7 @@ Now that we have a way to display our digital content, we need to code the core 
 Application.
 
 [kondra_note type="info" title="What is a System Application?"]
-As KOS is designed for dedicated-use devices, the operating system boots into a single user-provided application that
-takes over the device and orchestrates all other functionality. In our example, this application simply displays content
-on the screen, but in other cases, the system application may load other applications that are dynamically defined and
-pushed over the air. In this tutorial, we’ll get our first look at a simple system application.
+As KOS is designed for dedicated-use devices, the operating system boots into a single user-provided application that takes over the device and orchestrates all other functionality. In our example, this application simply displays content on the screen, but in other cases, the system application may load other applications that are dynamically defined and pushed over the air. In this tutorial, we’ll get our first look at a simple system application.
 [/kondra_note]
 
 ### Displaying Content
@@ -128,9 +115,7 @@ file to tell the KOS environment where to start. This tutorial assumes you are a
 files.
 
 [kondra_note type="info" title="What are KABs?"]
-For now, think of a KAB file as a collection of related files that serve as a universal container for all components of
-the operating system, from the kernel to applications. In a KOS release, EVERYTHING is a KAB.
-Learn more [here](https://kosdev.com/articles/everything-is-a-kab/)
+For now, think of a KAB file as a collection of related files that serve as a universal container for all components of the operating system, from the kernel to applications. In a KOS release, EVERYTHING is a KAB. Learn more [here](https://kosdev.com/articles/everything-is-a-kab/)
 [/kondra_note]
 
 ### Create the POM file
@@ -316,9 +301,7 @@ Finally, you'll debug your applications to step through the code you've written.
 running your application on your developer machine.
 
 [kondra_note type="info" title="Why can’t I run a KOS app like any other Java application?"]
-A KOS application, packaged into an image, is a complete set of code and dependencies that executes only on the KOS
-runtime system. KOS Studio includes a simulator to test applications in a KOS environment before deploying them to
-actual hardware.
+A KOS application, packaged into an image, is a complete set of code and dependencies that executes only on the KOS runtime system. KOS Studio includes a simulator to test applications in a KOS environment before deploying them to actual hardware. 
 Learn more about Studio [here](https://kosdev.com/articles/kos-studio/)
 [/kondra_note]
 
@@ -327,15 +310,12 @@ Learn more about Studio [here](https://kosdev.com/articles/kos-studio/)
 Now that our Java application is written and bundled into a KAB file, let's turn our attention to KOS Studio.
 
 [kondra_note type="info" title="KOS Image"]
-In a nutshell, an image, or disk image, is the blueprint for what a KOS node will run when it boots. It’s defined by a
-manifest, which outlines the filesystem’s contents and how user space functions. For nodes running Java, this manifest
-also specifies all the Java code to execute. Think of the image as an editable version of this manifest—your ticket to
-creating a bootable and reusable environment for multiple devices without the hassle of repeated inheritance setups.
+In a nutshell, an image, or disk image, is the blueprint for what a KOS node will run when it boots. It’s defined by a manifest, which outlines the filesystem’s contents and how user space functions. For nodes running Java, this manifest also specifies all the Java code to execute. Think of the image as an editable version of this manifest—your ticket to creating a bootable and reusable environment for multiple devices without the hassle of repeated inheritance setups.
 [/kondra_note]
 
 First, launch the KOS Studio application. This will lead you to a pillars page. 
 
-<image title="Home: Pillars" name="pillars.png" caption="" />
+<image title="" name="pillars.png" caption="Home: Pillars" />
 
 Go into "Images" and create an image. 
 
