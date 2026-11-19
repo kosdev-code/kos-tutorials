@@ -68,6 +68,7 @@
                             <goal>kabtool</goal>
                         </goals>
                         <configuration>
+                            <name>kos-tutorials-adapter-system-app</name>
                             <type>kos.system</type>
                             <content>
                                 <copy>

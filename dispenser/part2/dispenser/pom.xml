@@ -80,6 +80,7 @@
                 </goals>
                 <configuration>
                   <type>kos.system</type>
+                  <name>tutorial-dispenser.part2.dispenser</name>
                 </configuration>
               </execution>
             </executions>

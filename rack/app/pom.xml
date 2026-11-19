@@ -90,6 +90,7 @@
                         </goals>
                         <configuration>
                             <type>kos.system</type>
+                            <name>kos-tutorials-rack-system-app</name>
                             <content>
                                 <copy>
                                     <include>descriptor.json</include>

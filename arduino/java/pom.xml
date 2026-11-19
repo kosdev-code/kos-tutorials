@@ -68,6 +68,7 @@
                             <goal>kabtool</goal>
                         </goals>
                         <configuration>
+                            <name>kos-tutorials-arduino-system-app</name>
                             <type>kos.system</type>
                             <content>
                                 <copy>

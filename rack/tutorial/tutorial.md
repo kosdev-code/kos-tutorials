@@ -148,16 +148,7 @@ The `<properties>` section centralizes project-wide settings and versions, ensur
 This includes specifying the version of KOS to target, the version of Java required by KOS, and the versions of
 essential plugins.
 
-```pom.xml
-<!-- properties -->
-<properties>
-    <lombok.version>1.18.38</lombok.version>
-    <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-    <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
-    <java.version>17</java.version>
-    <maven.compiler.release>${java.version}</maven.compiler.release>
-</properties>
-```
+<snippet-viewer source="tutorials-public" snippet="rack-properties-pom@pom.xml"></snippet-viewer>
 
 The parent `pom.xml` also define two modules: `app` and `assets`.
 

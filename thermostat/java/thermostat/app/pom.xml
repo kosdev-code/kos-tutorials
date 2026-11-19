@@ -83,6 +83,7 @@
                         </goals>
                         <configuration>
                            <type>kos.system</type>
+                            <name>kos-tutorials-thermostat-system-app</name>
                            <content>
                               <copy>
                                  <includes>

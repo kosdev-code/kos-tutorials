@@ -78,6 +78,7 @@
                 </goals>
                 <configuration>
                   <type>kos.system</type>
+                  <name>utorial-dispenser.part1.dispenser</name>
                 </configuration>
               </execution>
             </executions>

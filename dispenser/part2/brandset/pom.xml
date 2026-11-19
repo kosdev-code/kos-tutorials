@@ -44,6 +44,7 @@
                 <artifactId>kos-kab-maven-plugin</artifactId>
                 <configuration>
                     <type>dispenser.brandset</type>
+                    <name>tutorial-dispenser.part2.brandset</name>
                 </configuration>
                 <executions>
                     <execution>

@@ -34,6 +34,7 @@
                         </goals>
                         <configuration>
                             <type>tutorial.assets</type>
+                            <name>kos-tutorials-rack-assets</name>
                             <content>
                                 <copy>
                                     <include>pics</include>
