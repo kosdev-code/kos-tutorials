@@ -20,7 +20,7 @@
 
     <!-- ====== Dependencies ==================================================== -->
 
-    <!-- extract-code start rack-dependencies-pom -->
+    <!-- extract-code rack-dependencies-pom -->
     <!-- project dependencies -->
     <dependencies>
         <dependency>
@@ -38,7 +38,6 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-    <!-- extract-code end rack-dependencies-pom -->
 
     <!-- ====== Build ==================================================== -->
 
@@ -79,7 +78,7 @@
                 </executions>
             </plugin>
 
-            <!-- extract-code start rack-kab-plugin-pom -->
+            <!-- extract-code rack-kab-plugin-pom -->
             <plugin>
                 <groupId>com.kosdev.kos2.maven</groupId>
                 <artifactId>kos-kab-maven-plugin</artifactId>
@@ -106,7 +105,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- extract-code end rack-kab-plugin-pom -->
         </plugins>
     </build>
 </project>

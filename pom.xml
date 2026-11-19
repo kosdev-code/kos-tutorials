@@ -2,14 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- extract-code start rack-bom-pom -->
+    <!-- extract-code rack-bom-pom -->
     <parent>
         <groupId>com.kosdev.kos2.sdk.bom</groupId>
         <artifactId>kos-bom</artifactId>
         <version>0.0.0-SNAPSHOT</version>
         <relativePath/>
     </parent>
-    <!-- extract-code end rack-bom-pom -->
 
     <!-- ====== Basics  ==================================================== -->
 
@@ -20,7 +19,7 @@
 
     <!-- ====== Properties  ==================================================== -->
 
-    <!-- extract-code start rack-properties-pom -->
+    <!-- extract-code rack-properties-pom -->
     <properties>
         <lombok.version>1.18.38</lombok.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
@@ -28,7 +27,6 @@
         <java.version>17</java.version>
         <maven.compiler.release>${java.version}</maven.compiler.release>
     </properties>
-    <!-- extract-code end rack-properties-pom -->
 
     <!-- ====== Modules  ==================================================== -->
 

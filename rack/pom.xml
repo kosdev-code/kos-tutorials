@@ -18,10 +18,9 @@
 
     <!-- ====== Modules ==================================================== -->
 
-    <!-- extract-code start rack-modules-pom -->
+    <!-- extract-code rack-modules-pom -->
     <modules>
         <module>assets</module>
         <module>app</module>
     </modules>
-    <!-- extract-code end rack-modules-pom -->
 </project>
