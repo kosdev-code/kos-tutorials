@@ -9,7 +9,7 @@ author: sneh
 _yoast_wpseo_focuskw: Service
 ---
 
-## Introduction
+## Introduction 
 
 This is the first section of the thermostat tutorial, which demonstrates end-to-end development of a KOS application. This section focuses on stubbing out the backend for the thermostat system application. The goal is to define the system structure and understand why all the pieces exist, without yet connecting to real or simulated hardware.
 

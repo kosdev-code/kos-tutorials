@@ -9,7 +9,7 @@ author: sneh
 _yoast_wpseo_focuskw: Simulator
 ---
 
-## Introduction
+## Introduction 
 
 In this section, the backend will be hooked up to a thermostat simulator. Once this step is complete, the backend becomes fully functional: temperature readings can be observed, operating modes can be changed, and the entire system behaves as if it were connected to real hardware. The simulator allows the app to be validated without requiring a physical thermostat.
 

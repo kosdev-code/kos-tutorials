@@ -9,7 +9,7 @@ author: sneh
 _yoast_wpseo_focuskw: Hardware
 ---
 
-## Introduction 
+## Introduction  
 
 At this stage, the backend system is fully functional and already connected to a browser-based UI. The UI can receive real-time updates and react immediately to changes in device state.
 

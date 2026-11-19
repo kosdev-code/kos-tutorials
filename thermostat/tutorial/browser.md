@@ -9,7 +9,7 @@ author: sneh
 _yoast_wpseo_focuskw: UI
 ---
 
-## Introduction
+## Introduction 
 
 With a fully functional backend and a working simulator in place, the final step is to connect the system to a real, browser-based user interface. A browser-based UI is more flexible and is typically how development teams build user interfaces, as opposed to the Java Swing UI used so far.
 
