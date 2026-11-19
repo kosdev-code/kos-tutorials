@@ -78,9 +78,15 @@ Topics are hierarchical, domain-oriented paths. For example, `thermostat/state` 
 Topic: /app/system/thermostat/state
 ```
 
+To make topics easily discoverable, register them in a `TopicGroup`. Much like controllers group endpoints, a `TopicGroup` groups topics for documentation. Generally, topics can be linked to an associated controller, here to the `ThermostatServiceController` group, or to the service itself if there is no associated controller. Additionally, the payload type can be declared along with a description of the topic:
+
+<snippet-viewer source="tutorials-public" snippet="thermostat-register-topics@ThermostatService.java"></snippet-viewer>
+
+Once registered, the topic appears in the "API browser" in KOS Studio, along with its message schema and description, helping UI and Java developers stay aligned on the event contract.
+
 ### Viewing Messages
 
-The simulator runs locally on the same machine as the development tools and uses `localhost`. However, external tools such as "Postman" or the "WebSocket Viewer" need a known port to connect to the simulator's HTTP/WebSocket endpoint. You can specify such a port by changing port mappings in the "Hardware Settings" of an image. These port mappings determine how external tools connect to the simulator. For tools to receive websocket traffic you will need to go to "Port Mappings" -> "HTTP" → "Team Port" (for example, 8081). This mapping will apply to everyone working with the image.
+The simulator runs locally on the same machine as the development tools and uses `localhost`. However, external tools such as "Postman" or the "WebSocket Viewer" need a known port to connect to the simulator's HTTP/WebSocket endpoint. You can specify such a port by changing port mappings in the "Hardware Settings" of an image. These port mappings determine how external tools connect to the simulator. For tools to receive websocket traffic you will need to go to change the HTTP team port (for example, 8081). This mapping will apply to everyone working with the image.
 
 <image title="" name="image-ports.png" caption="" />
 

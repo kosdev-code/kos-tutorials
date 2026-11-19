@@ -12,6 +12,7 @@ import lombok.Setter;
  * @author Sneh Gupta (sneh@kondra.com)
  * @version 2025-12
  */
+// extract-code thermostat-sim-thermostat
 @Getter @Setter
 public class Thermostat {
     private double temp;

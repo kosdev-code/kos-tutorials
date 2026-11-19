@@ -32,6 +32,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <!-- extract-code thermostat-simulator-sdk-dependency-pom -->
         <dependency>
             <groupId>com.kos.tutorials.thermostat</groupId>
             <artifactId>kos-tutorials-thermostat.java.thermostat.sdk</artifactId>

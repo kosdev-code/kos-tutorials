@@ -4,6 +4,7 @@
 package com.kos.tutorial;
 
 import com.kosdev.kos.commons.core.broker.MessageBroker;
+import com.kosdev.kos.commons.core.broker.TopicGroup;
 import com.kosdev.kos.commons.core.context.annotations.Autowired;
 import com.kosdev.kos.commons.core.service.AbstractConfigurableService;
 import com.kosdev.kos.commons.core.service.config.BeanChanges;
@@ -55,6 +56,16 @@ public class ThermostatService extends AbstractConfigurableService<ThermostatSer
         }
     }
     // extract-code end thermostat-setup-timer
+
+    // extract-code thermostat-register-topics
+    @Override
+    public boolean onBeanReady() {
+        TopicGroup group = broker.declareTopicGroup(ThermostatServiceController.class);
+        group.topic(TOPIC_THERMOSTAT_STATE).setDescription("""
+                Notification that the of the current state of the thermostat.""")
+                .setMessageType(ThermostatState.class);
+        return super.onBeanReady();
+    }
 
     /**
      * Called after an Assembly is installed.

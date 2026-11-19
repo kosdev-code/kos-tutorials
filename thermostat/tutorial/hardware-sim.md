@@ -85,13 +85,7 @@ To ensure that any dependents use the actual implementation at runtime, rather t
 
 Finally, the thermostat SDK is added as a dependency in the simulator's `pom.xml`.
 
-```
-<dependency>
-    <groupId>com.kos.tutorial</groupId>
-    <artifactId>tutorial-thermostat.sdk</artifactId>
-    <version>0.0.0-SNAPSHOT</version>
-</dependency>
-```
+<snippet-viewer source="tutorials-public" snippet="thermostat-simulator-sdk-dependency-pom@pom.xml"></snippet-viewer>
 
 ### Image Setup
 
