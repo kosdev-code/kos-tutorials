@@ -40,6 +40,9 @@ jobs:
 
       - name: Import changed Documentation files
         shell: bash
+        env:
+          KOSBUILD_SECRET_URL: ${{ secrets.STUDIO2_KOSBUILD_SECRET_URL }}
+          KOSBUILD_SECRET_PASSWORD: ${{ secrets.STUDIO2_KOSBUILD_SECRET_PASSWORD }}
         run: kos_build_handler.sh automation .github/wordpress-importer/wp-importer.json
 
       - name: Upload changed documents to workflow artifact
