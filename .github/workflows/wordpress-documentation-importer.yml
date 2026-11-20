@@ -40,7 +40,7 @@ jobs:
 
       - name: Import changed Documentation files
         shell: bash
-        run: import-documentation-wordpress.sh
+        run: kos_build_handler.sh automation .github/wordpress-importer/wp-importer.json
 
       - name: Upload changed documents to workflow artifact
         uses: actions/upload-artifact@v4
