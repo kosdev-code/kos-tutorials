@@ -2,7 +2,7 @@
 title: Hardware Simulator
 excerpt: Learn how the backend is connected to a thermostat simulator, using KOS applications, SDK dependencies, and the BLINK protocol to emulate real hardware behavior.
 categories: [Thermostat Backend]
-tags: [Tutorial]
+tags: [Tutorial, KOS2]
 date: 2026-11-13 00:00:00
 status: publish
 author: sneh

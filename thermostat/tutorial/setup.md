@@ -2,7 +2,7 @@
 title: Backend Setup
 excerpt: The system application, user interface, assembly, logical board, coordinating service, and persistent configuration all exist and are wired together using standard KOS patterns.
 categories: [Thermostat Backend]
-tags: [Tutorial]
+tags: [Tutorial, KOS2]
 date: 2026-11-11 00:00:00
 status: publish
 author: sneh

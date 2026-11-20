@@ -2,7 +2,7 @@
 title: Hardware Integration
 excerpt: Firmware required to connect a physical Arduino to the backend using BLINK
 categories: [Thermostat Backend]
-tags: [Tutorial]
+tags: [Tutorial, KOS2]
 date: 2026-11-15 00:00:00
 status: publish
 author: sneh
