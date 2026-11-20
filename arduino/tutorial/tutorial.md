@@ -2,7 +2,7 @@
 title: Using Serial BLINK in KOS 
 excerpt: Build an app in KOS that interacts with an external Arduino board, via the serial BLINK library. 
 categories: [Arduino]
-tags: [Tutorial]
+tags: [Tutorial, KOS2]
 status: publish
 author: james
 _yoast_wpseo_focuskw: Arduino
