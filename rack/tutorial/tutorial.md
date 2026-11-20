@@ -2,7 +2,7 @@
 title: Your First KOS App
 excerpt: Build your first KOS app! Learn how to create, configure, build, run, and debug a KOS application from start to finish.
 categories: [Rack]
-tags: [Tutorial]
+tags: [Tutorial, KOS2]
 status: publish
 author: sneh
 _yoast_wpseo_focuskw: Application
@@ -319,11 +319,11 @@ First, launch the KOS Studio application. This will lead you to a pillars page.
 
 Go into "Images" and create an image. 
 
-<image title="Images" name="my_images.png" caption="" />
+<image title="" name="my_images.png" caption="Images" />
 
 This will launch a wizard with steps that you can follow. 
 
-<image title="Create Image" name="create_image.png" caption="" />
+<image title="" name="create_image.png" caption="Create Image" />
 
 ### Source Trees
 
@@ -331,17 +331,17 @@ A source tree points at a source-control repository, and Studio surfaces the art
 
 Within the image creation wizard, you can create a source tree, which launches a source tree creation wizard. Since you have already written the Java application, you should have a folder that contains your code. You can use this as the directory for the source tree. 
 
-<image title="Create Source Trees" name="source_tree.png" caption="" />
+<image title="" name="source_tree.png" caption="Create Source Trees" />
 
 Since this is a Java tutorial and you have built the Java KAB, you will notice only the Java artifacts in the Discovered artifacts list, not the UI artifacts. 
 
-<image title="Source Trees: Discovered Artifacts" name="source_tree_artifacts.png" caption="" />
+<image title="" name="source_tree_artifacts.png" caption="Source Trees: Discovered Artifacts" />
 
 #### Perspectives
 
 Perspectives let you swap published artifacts for your local ones at run time. You can tag your discovered artifacts as Java. Then, run an image with that perspective and Studio uses this source tree's copy instead of the published one — local development without editing the image.
 
-<image title="Source Trees: Perspectives" name="perspectives.png" caption="" />
+<image title="" name="perspectives.png" caption="Source Trees: Perspectives" />
 
 Now that you have setup source trees, you can make a code change, build, and run your image. It will reflect the changes you just made immediately without any extra setup. 
 
@@ -349,14 +349,14 @@ Now that you have setup source trees, you can make a code change, build, and run
 
 Next, you can select a KOS release, that is, the version of KOS to be used for this image. Here, the production release is selected. Additionally, the Graphics option is toggled on so that the UI can be displayed when the image is run. 
 
-<image title="Select a KOS Release" name="kos_release.png" caption="" />
+<image title="" name="kos_release.png" caption="Select a KOS Release" />
 
 ### System Application
 
 A section in KOS is an artifact container where you group your KABs and give them meaning by their
 names. More about [Sections](https://kosdev.com/articles/docs_topics_kabs_md/). All images require a system application. Select the `kos-tutorials-rack-system-app` for the System Application. 
 
-<image title="System Application" name="system_application.png" caption="" />
+<image title="" name="system_application.png" caption="System Application" />
 
 Finally, exit out of the wizard by selecting "Create Image".
 
@@ -364,7 +364,7 @@ Finally, exit out of the wizard by selecting "Create Image".
 
 In the artifacts page, we still need to add our assets KAB. Create a new section called `kos.assets` to match the name defined in the `RackApp`. From the "Source Tree" list, add the `kos-tutorials-rack-assets` artifacts to this section.
 
-<image title="Image: Artifacts" name="image_artifacts.png" caption="" />
+<image title="" name="image_artifacts.png" caption="Image: Artifacts" />
 
 Notice that each of the artifacts you have selected have a green folder icon. This indicates that the artifacts are currently being served local KAB instances.
 
@@ -372,13 +372,13 @@ Notice that each of the artifacts you have selected have a green folder icon. Th
 
 Now, run your KOS application in Studio's built-in simulator by selecting the "Play Image" button.
 
-<image title="Run Image" name="run_image.png" caption="" />
+<image title="" name="run_image.png" caption="Run Image" />
 
 The application first downloads all necessary artifacts, showing the status. The first time
 you run an application it may take a while to download the required packages. Subsequent executions open much faster. When downloading is finished, the application will begin to load. You'll see the simulator starting up, with a KOS
 splash screen. When the simulator has finished, you should see your bestsellers rack application:
 
-<image title="Application UI" name="simulator.png" caption="" />
+<image title="" name="simulator.png" caption="Application UI" />
 
 ### Connection Tools
 
@@ -386,7 +386,7 @@ While running the image, notice that an additional Connected Device window pops 
 
 The home screen displays dashboard cards, which summarize the status of the running image. 
 
-<image title="Connected Device" name="connected_device.png" caption="" />
+<image title="" name="connected_device.png" caption="Connected Device" />
 
 The other tabs on the left of this window are [connection tools](https://kosdev.com/articles/connection-tools-overview/).
 
