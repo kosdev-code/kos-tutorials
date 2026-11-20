@@ -16,7 +16,7 @@ jobs:
       actions: read
       contents: read
     container:
-      image: ghcr.io/kondra-code/wordpress-documentation-importer:1.0.5
+      image: ghcr.io/kosdev-code/kos-buildpublish/kos_builder:dockerimage
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
@@ -40,14 +40,7 @@ jobs:
 
       - name: Import changed Documentation files
         shell: bash
-        env:
-          WP_USERNAME: ${{ secrets.WP_USERNAME }}
-          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
-          WP_MD_KEY: ${{ secrets.WP_MD_KEY }}
-          WP_BASE_URL: ${{ secrets.WP_BASE_URL }}
-          WP_PROXY: ${{ secrets.WP_PROXY }}
-          WP_PROXY_PASS: ${{ secrets.WP_PROXY_PASS }}
-        run: bash .github/wordpress-importer/import-documentation-wordpress.sh
+        run: bash ./import-documentation-wordpress.sh
 
       - name: Upload changed documents to workflow artifact
         uses: actions/upload-artifact@v4
@@ -58,7 +51,7 @@ jobs:
       - name: Slack notification
         if: success()
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ SLACK_WEBHOOK_URL }}
         run: |
           # Read the list of imported files
           FILE_LIST=$(cat "$CHANGED_FILES_FILE")
