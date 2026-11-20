@@ -51,7 +51,7 @@ jobs:
       - name: Slack notification
         if: success()
         env:
-          SLACK_WEBHOOK_URL: ${{ SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           # Read the list of imported files
           FILE_LIST=$(cat "$CHANGED_FILES_FILE")
